@@ -5,20 +5,23 @@ from .control_client import PacketHandler, SSLClient, StrategyInfo
 from .player import PlayerManager
 from .stratcore.common import Goal
 
-GRSIM_PORT = 10006
+SIM_PORT = 10301
 TICK_INTERVAL_SEC = 0.1
 OWN_TEAM = "blue"
 NUM_PLAYERS = 11
 
 if __name__ == "__main__":
     print("Starting test server")
-    with SSLClient(ip="127.0.0.1", port=GRSIM_PORT, own_team=OWN_TEAM) as client:
+    with SSLClient(
+        ip="127.0.0.1", own_port=10000, command_port=SIM_PORT, own_team=OWN_TEAM
+    ) as client:
         strategy_info = StrategyInfo(NUM_PLAYERS)
         packet_handler = PacketHandler(strategy_info)
         player_manager = PlayerManager(NUM_PLAYERS, client)
 
         # Test: push a random goal
         player_manager.dispatch_goal(0, Goal(0, targetPos=np.zeros(2)))
+        player_manager.tick()
 
         last_tick = time()
         while True:

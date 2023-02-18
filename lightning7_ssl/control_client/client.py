@@ -5,10 +5,9 @@ from typing import Literal, Union
 from protobuf_to_dict import protobuf_to_dict
 
 from .grSimPacket import GRSimPacket, RobotCommand
-from .protobuf.grSim_Packet_pb2 import grSim_Packet
-from .protobuf.messages_robocup_ssl_wrapper_pb2 import SSL_WrapperPacket
+from .protobuf.grsim_packet_pb2 import grSim_Packet
+from .protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
 
-DEFAULT_COMMAND_PORT = 20011
 TOTAL_ROBOTS_COUNT = 11
 
 
@@ -18,7 +17,8 @@ class SSLClient:
     def __init__(
         self,
         ip="224.5.23.2",
-        port=10006,
+        own_port=10006,
+        command_port=20011,
         own_team: Union[Literal["blue"], Literal["yellow"]] = "blue",
     ):
         """
@@ -33,10 +33,11 @@ class SSLClient:
         """
         if not isinstance(ip, str):
             raise ValueError("IP type should be string type")
-        if not isinstance(port, int):
+        if not isinstance(own_port, int):
             raise ValueError("Port type should be int type")
         self.ip = ip
-        self.port = port
+        self.own_port = own_port
+        self.command_port = command_port
         self.own_team = own_team
         self.yellowRobotCommands = [
             RobotCommand(i, 0.0, 0.0, 0.0) for i in range(TOTAL_ROBOTS_COUNT)
@@ -54,7 +55,7 @@ class SSLClient:
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 128)
         self.sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_LOOP, 1)
-        self.sock.bind((self.ip, self.port))
+        self.sock.bind((self.ip, self.own_port))
 
         host = socket.gethostbyname(socket.gethostname())
         self.sock.setsockopt(
@@ -110,7 +111,7 @@ class SSLClient:
             command.wheel3 = robotCommand.wheel3
             command.wheel4 = robotCommand.wheel4
         return self.sock.sendto(
-            grsimPacket.SerializeToString(), (self.ip, DEFAULT_COMMAND_PORT)
+            grsimPacket.SerializeToString(), (self.ip, self.command_port)
         )
 
     def moveBlueRobot(self, id: int, velX: float, velY: float, yaw: float):
