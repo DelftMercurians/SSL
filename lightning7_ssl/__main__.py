@@ -1,22 +1,19 @@
+import socket
 import numpy as np
-from time import time
+from time import sleep, time
 
-from .control_client import PacketHandler, SSLClient, StrategyInfo
+from .control_client import SSLClient, VisionData
 from .player import PlayerManager
 from .stratcore.common import Goal
 
-SIM_PORT = 10301
+
 TICK_INTERVAL_SEC = 0.1
 OWN_TEAM = "blue"
 NUM_PLAYERS = 11
 
 if __name__ == "__main__":
     print("Starting test server")
-    with SSLClient(
-        ip="127.0.0.1", own_port=10000, command_port=SIM_PORT, own_team=OWN_TEAM
-    ) as client:
-        strategy_info = StrategyInfo(NUM_PLAYERS)
-        packet_handler = PacketHandler(strategy_info)
+    with SSLClient() as client:
         player_manager = PlayerManager(NUM_PLAYERS, client)
 
         # Test: push a random goal
@@ -26,14 +23,13 @@ if __name__ == "__main__":
         last_tick = time()
         while True:
             # Get update
-            packet = client.receive()
-            packet_handler.handle(packet)
-            robot_states = (
-                strategy_info.blueRobotStates
-                if OWN_TEAM == "blue"
-                else strategy_info.yellowRobotStates
-            )
-            player_manager.recv_update(robot_states)
+            vision_data = client.receive()
+            if vision_data is not None:
+                player_manager.recv_update(
+                    vision_data.blue_robots
+                    if OWN_TEAM == "blue"
+                    else vision_data.yellow_robots
+                )
 
             # Tick
             current_time = time()
