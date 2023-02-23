@@ -4,7 +4,7 @@ import numpy as np
 
 from .pathfinder import find_path
 from ..stratcore import Goal
-from ..control_client import SSLClient, RobotState
+from ..control_client import SSLClient, RobotData
 
 # Margin of error when arriving at a target location
 TARGET_TRESHOLD = 10
@@ -45,7 +45,7 @@ class Player:
         self.status = Status.Idle()
         self.goal_stack = []
 
-    def recv_update(self, state: RobotState):
+    def recv_update(self, state: RobotData):
         """Update the player's internal state."""
         if not self.pos_loaded and state.x == state.y == 0:
             return
@@ -90,4 +90,4 @@ class Player:
             self.status = Status.Idle()
 
     def _move(self, velX: float = 0, velY: float = 0, yaw: float = 0):
-        self.client.moveOwnRobot(self.id, velX, velY, yaw)
+        self.client.send(self.id, velX, velY, yaw)

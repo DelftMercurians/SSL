@@ -1,6 +1,6 @@
 from typing import List, Dict
 
-from ..control_client import SSLClient, RobotState
+from ..control_client import SSLClient, RobotData
 from ..stratcore.common import Goal
 from .player import Player
 
@@ -30,11 +30,12 @@ class PlayerManager:
         for player in self.players:
             player.tick()
 
-    def recv_update(self, robot_states: Dict[int, RobotState]):
+    def recv_update(self, all_robots: List[RobotData]):
         """Update the players' internal states."""
-        for id, upd in robot_states.items():
-            player = next((p for p in self.players if p.id == id))
-            player.recv_update(upd)
+        for data in all_robots:
+            player = next((p for p in self.players if p.id == data.id), None)
+            if player is not None:
+                player.recv_update(data)
 
     def dispatch_goal(self, id: int, goal: Goal, high_priority=False):
         """Deliver the goal to the correct player.

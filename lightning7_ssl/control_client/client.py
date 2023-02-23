@@ -1,134 +1,151 @@
 import socket
-from struct import pack
-from typing import Literal, Union
-
+from dataclasses import dataclass, field
+from typing import List, Optional, Set
 from protobuf_to_dict import protobuf_to_dict
+from google.protobuf.message import DecodeError
 
-from .grSimPacket import GRSimPacket, RobotCommand
-from .protobuf.grSim_Packet_pb2 import grSim_Packet
-from .protobuf.messages_robocup_ssl_wrapper_pb2 import SSL_WrapperPacket
+from .protobuf.ssl_simulation_robot_control_pb2 import RobotControl
+from .protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
 
-DEFAULT_COMMAND_PORT = 20011
-TOTAL_ROBOTS_COUNT = 11
+
+@dataclass
+class BallData:
+    x: float
+    y: float
+    z: float
+
+
+@dataclass
+class RobotData:
+    id: int
+    x: float
+    y: float
+    yaw: float  # [-pi,pi]
+
+
+@dataclass
+class VisionData:
+    ball: Optional[BallData] = None
+    blue_robots: List[RobotData] = field(default_factory=list)
+    yellow_robots: List[RobotData] = field(default_factory=list)
+
+    @staticmethod
+    def from_protobuf(data: bytes):
+        """Converts protobuf data to VisionData."""
+        packet = SSL_WrapperPacket()
+        packet.ParseFromString(data)
+        frame = packet.detection
+        vision_data = VisionData()
+
+        if len(frame.balls) > 0:
+            ball = frame.balls[0]
+            vision_data.ball = BallData(
+                x=ball.x,
+                y=ball.y,
+                z=ball.z,
+            )
+        vision_data.blue_robots = [
+            RobotData(
+                id=robot.robot_id,
+                x=robot.x,
+                y=robot.y,
+                yaw=robot.orientation,
+            )
+            for robot in frame.robots_blue
+        ]
+        vision_data.yellow_robots = [
+            RobotData(
+                id=robot.robot_id,
+                x=robot.x,
+                y=robot.y,
+                yaw=robot.orientation,
+            )
+            for robot in frame.robots_yellow
+        ]
+
+        return vision_data
 
 
 class SSLClient:
-    own_team: str
+    """Client for sending commands and receiving vision data from a simulator."""
+
+    known_robot_ids: Set[int]
 
     def __init__(
         self,
-        ip="224.5.23.2",
-        port=10006,
-        own_team: Union[Literal["blue"], Literal["yellow"]] = "blue",
+        command_ip: str = "127.0.0.1",
+        command_port: int = 10301,
+        vision_ip: str = "224.5.23.2",
+        vision_port: int = 10020,
     ):
-        """
-        Init SSLClient object.
-        Extended description of function.
-        Parameters
-        ----------
-        ip : str
-            Multicast IP in format '255.255.255.255'.
-        port : int
-            Port up to 1024.
-        """
-        if not isinstance(ip, str):
-            raise ValueError("IP type should be string type")
-        if not isinstance(port, int):
-            raise ValueError("Port type should be int type")
-        self.ip = ip
-        self.port = port
-        self.own_team = own_team
-        self.yellowRobotCommands = [
-            RobotCommand(i, 0.0, 0.0, 0.0) for i in range(TOTAL_ROBOTS_COUNT)
-        ]
-        self.yellowCommandPacket = GRSimPacket(0.0, True, self.yellowRobotCommands)
-        self.blueRobotCommands = [
-            RobotCommand(i, 0.0, 0.0, 0.0) for i in range(TOTAL_ROBOTS_COUNT)
-        ]
-        self.blueCommandPacket = GRSimPacket(0.0, False, self.blueRobotCommands)
+        self.cmd_ip = command_ip
+        self.command_port = command_port
+        self.vision_ip = vision_ip
+        self.vision_port = vision_port
+        self.known_robot_ids = set()
 
     def __enter__(self):
         """Binds the client with ip and port and configure to UDP multicast."""
+        self.cmd_sock = socket.socket(
+            socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP
+        )
+        self.cmd_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.cmd_sock.bind((self.cmd_ip, 0))
 
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-        self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 128)
-        self.sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_LOOP, 1)
-        self.sock.bind((self.ip, self.port))
+        self.vision_sock = socket.socket(
+            socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP
+        )
+        self.vision_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.vision_sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 128)
+        self.vision_sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_LOOP, 1)
+        self.vision_sock.bind((self.vision_ip, self.vision_port))
 
         host = socket.gethostbyname(socket.gethostname())
-        self.sock.setsockopt(
+        self.vision_sock.setsockopt(
             socket.SOL_IP, socket.IP_MULTICAST_IF, socket.inet_aton(host)
         )
-        # TODO: Currently multicast is disabled as main.py uses 127.0.0.1 address instead of 224.0.0.0 and above
-        # Not sure about the difference, but multicast sounds more fancy
-        # self.sock.setsockopt(socket.SOL_IP, socket.IP_ADD_MEMBERSHIP,
-        #        socket.inet_aton(self.ip) + socket.inet_aton(host))
+        self.vision_sock.setsockopt(
+            socket.SOL_IP,
+            socket.IP_ADD_MEMBERSHIP,
+            socket.inet_aton(self.vision_ip) + socket.inet_aton(host),
+        )
+
         return self
 
     def __exit__(self, exc_type, exc_value, exc_tb):
-        stopCommands = [
-            RobotCommand(i, 0.0, 0.0, 0.0) for i in range(TOTAL_ROBOTS_COUNT)
-        ]
-        desiredCommand = GRSimPacket(0.0, False, stopCommands)
-        self.send(desiredCommand)
-        desiredCommand = GRSimPacket(0.0, True, stopCommands)
-        self.send(desiredCommand)
+        """Stop all robots and close socket."""
+        for id in self.known_robot_ids:
+            self.send(id, 0, 0)
+        self.cmd_sock.close()
 
     def receive(self):
         """Receive package and decode."""
-        wrapper_packet = SSL_WrapperPacket()
-        data, len = self.sock.recvfrom(1024)
+        data, _ = self.vision_sock.recvfrom(1024)
         try:
-            wrapper_packet.ParseFromString(data)
-        except Exception as e:
-            # TODO: Debug error message : Error parsing message with type 'SSL_WrapperPacket'
-            # Only minor concern as we can still get geometry packet, but its annoying
-            ...
-            # print(e)
-        wrapper_packet = protobuf_to_dict(wrapper_packet)
-        return wrapper_packet
+            vision_data = VisionData.from_protobuf(data)
+            return vision_data
+        except DecodeError:
+            pass
+        return None
 
-    def send(self, desiredCommand: GRSimPacket):
-        grsimPacket = grSim_Packet()
-
-        grsimPacket.commands.timestamp = desiredCommand.timeStamp
-        grsimPacket.commands.isteamyellow = desiredCommand.isYellowTeam
-
-        for robotCommand in desiredCommand.robotCommands:
-            command = grsimPacket.commands.robot_commands.add()
-            command.id = robotCommand.id
-            command.veltangent = robotCommand.velX
-            command.velnormal = robotCommand.velY
-            command.velangular = robotCommand.yaw
-            command.kickspeedx = robotCommand.kickSpeedX
-            command.kickspeedz = robotCommand.kickSpeedZ
-            command.spinner = robotCommand.spinner
-            command.wheelsspeed = robotCommand.wheelsSpeed
-            command.wheel1 = robotCommand.wheel1
-            command.wheel2 = robotCommand.wheel2
-            command.wheel3 = robotCommand.wheel3
-            command.wheel4 = robotCommand.wheel4
-        return self.sock.sendto(
-            grsimPacket.SerializeToString(), (self.ip, DEFAULT_COMMAND_PORT)
+    def send(
+        self,
+        id: int,
+        vel_x: float,
+        vel_y: float,
+        angular_speed: float = 0,
+        dribbler_speed: float = 0,
+        kick_speed: float = 0,
+        kick_angle: float = 0,
+    ):
+        """Send a command to a robot."""
+        self.known_robot_ids.add(id)
+        control_msg = RobotControl()
+        command = control_msg.robot_commands.add()
+        command.id = id
+        command.move_command.local_velocity.forward = 1
+        command.move_command.local_velocity.left = 0
+        command.move_command.local_velocity.angular = 0
+        return self.cmd_sock.sendto(
+            control_msg.SerializeToString(), (self.cmd_ip, self.command_port)
         )
-
-    def moveBlueRobot(self, id: int, velX: float, velY: float, yaw: float):
-        cmd = self.blueRobotCommands[id]
-        cmd.velX = velX
-        cmd.velY = velY
-        cmd.yaw = yaw
-        self.send(self.blueCommandPacket)
-
-    def moveYellowRobot(self, id: int, velX: float, velY: float, yaw: float):
-        cmd = self.yellowRobotCommands[id]
-        cmd.velX = velX
-        cmd.velY = velY
-        cmd.yaw = yaw
-        self.send(self.yellowCommandPacket)
-
-    def moveOwnRobot(self, id: int, velX: float, velY: float, yaw: float):
-        if self.own_team == "blue":
-            self.moveBlueRobot(id, velX, velY, yaw)
-        else:
-            self.moveYellowRobot(id, velX, velY, yaw)
