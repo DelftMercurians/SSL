@@ -1,5 +1,6 @@
 import numpy as np
 import pickle
+from ..control_client import VisionData
 
 class LogGenerator():
     """
@@ -12,7 +13,7 @@ class LogGenerator():
         self.outFile = dest_path
         self.data = []
     
-    def step(self, data:dict) -> None:
+    def step(self, data:VisionData) -> None:
         """
             Stores data of current timestamp.
         """
