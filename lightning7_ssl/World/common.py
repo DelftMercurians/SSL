@@ -37,8 +37,8 @@ class BallDataRaw:
 
 @dataclass
 class BallDataEstimated:
-    position: Vector2
-    velocity: Vector2
+    position: Vector3
+    velocity: Vector3
 
     def __str__(self):
         return "BallDataEstimated: [pos: " + str(self.position) + " velocity: " + str(self.velocity) + "]\n"
@@ -76,7 +76,7 @@ class BallTracker:
 
 
 class RobotTracker:
-    def __init__(self, filter: StatusEstimater, limit = 1000):
+    def __init__(self, filter: StatusEstimater, limit = 100):
         self.record = OrderedDict(maxlen = limit)
         self.capacity = limit
         self.filter = filter
