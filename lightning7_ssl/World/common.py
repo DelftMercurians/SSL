@@ -41,7 +41,7 @@ class BallDataEstimated:
     velocity: Vector3
 
     def __str__(self):
-        return "BallDataEstimated: [pos: " + str(self.position) + " velocity: " + str(self.velocity) + "]\n"
+        return "BallDataEstimated: [pos: " + str(self.position) + " velocity: " + str(self.velocity) + "]"
 
 
 
@@ -58,37 +58,38 @@ class StatusEstimater(metaclass=abc.ABCMeta):
 
 class BallTracker:
     def __init__(self, filter: StatusEstimater, limit = 500):
-        self.record = OrderedDict(maxlen = limit)
+        self.record = OrderedDict()
         self.capacity = limit
         self.filter = filter
 
     def add(self,ball_data: BallDataRaw):
+        if len(self.record) == self.capacity:
+            self.record.popitem(last=False)
         time = ball_data.time_stamp
         if time in self.record:
             self.record[time].append(ball_data)
         else:
             self.record[time] = [ball_data]
-        #if it is full, remove the oldest one
-        if len(self.record) == self.capacity:
-            self.record.popitem(last=False)
+
     def get(self):
-        return filter.ball_filter(self.record)
+        return self.filter.ball_filter(self.record)
 
 
 class RobotTracker:
     def __init__(self, filter: StatusEstimater, limit = 100):
-        self.record = OrderedDict(maxlen = limit)
+        self.record = OrderedDict()
         self.capacity = limit
         self.filter = filter
 
     def add(self,robot_data: RobotDataEstimated):
+        #if it is full, remove the oldest one
+        if len(self.record) == self.capacity:
+            self.record.popitem(last=False)
         time = robot_data.time_stamp
         if time in self.record:
             self.record[time].append(robot_data)
         else:
             self.record[time] = [robot_data]
-        #if it is full, remove the oldest one
-        if len(self.record) == self.capacity:
-            self.record.popitem(last=False)
+
     def get(self):
-        return filter.robot_filter(self.record)
+        return self.filter.robot_filter(self.record)

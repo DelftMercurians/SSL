@@ -1,9 +1,9 @@
 from typing import List
 import numpy as np
 from dataclasses import dataclass
-from common import *
-from simple_filter import SimpleFilter
-from lightning7_ssl.control_client.protobuf.ssl_simulation_robot_control_pb2 import RobotControl
+from lightning7_ssl.World.common import *
+from lightning7_ssl.World.simple_filter import SimpleFilter
+from lightning7_ssl.control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
 from lightning7_ssl.control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
 
 @dataclass
@@ -13,7 +13,8 @@ class filteredDataWrapper:
     opp_robots_status: List[RobotDataEstimated]
 
     def __str__(self):
-        pass
+        return "filteredDataWrapper: \n   ball_status: " + str(self.ball_status) + "\n   own_robots_status: " + \
+               str(self.own_robots_status) + "\n   opp_robots_status: " + str(self.opp_robots_status)+ "\n"
 
 
 class World:
@@ -29,38 +30,39 @@ class World:
             self.own_robots_status.append(RobotTracker(filter))
             self.opp_robots_status.append(RobotTracker(filter))
 
-    @staticmethod
     def get_status(self) -> filteredDataWrapper:
         """Returns the current world state."""
         return filteredDataWrapper(self.ball_status.get(), [tracker.get() for tracker in self.own_robots_status],
                                    [tracker.get() for tracker in self.opp_robots_status])
 
-    @staticmethod
-    def update_vision_data(self, data: bytes):
-        """Updates the world state from vision data."""
+    def update_from_protobuf(self, raw_data: bytes) -> filteredDataWrapper:
         packet = SSL_WrapperPacket()
-        packet.ParseFromString(data)
+        packet.ParseFromString(raw_data)
         frame = packet.detection
+        if frame is None:
+            return None
+        return self.update_vision_data(frame)
+
+    def update_vision_data(self, frame: SSL_DetectionFrame) -> filteredDataWrapper:
+        """Updates the world state from vision data."""
         camera_id = frame.camera_id
         time = frame.t_capture
-        if frame is None:
-            return None, None, None
         for ball in frame.balls:
-            self.ball_status.add(BallDataRaw(time,camera_id,Vector3(ball.x, ball.y, ball.z), ball.confidence))
+            self.ball_status.add(BallDataRaw(time,camera_id, (ball.x, ball.y, ball.z), ball.confidence))
         for robot in frame.robots_yellow:
             if robot.robot_id < 0 or robot.robot_id >= self.num_robots:
                 continue
             if self.is_blue:
-                self.opp_robots_status[robot.robot_id].add(RobotDataRaw(time,camera_id,Vector2(robot.x, robot.y), robot.orientation))
+                self.opp_robots_status[robot.robot_id].add(RobotDataRaw(time,camera_id, (robot.x, robot.y), robot.orientation))
             else:
-                self.own_robots_status[robot.robot_id].add(RobotDataRaw(time,camera_id,Vector2(robot.x, robot.y), robot.orientation))
+                self.own_robots_status[robot.robot_id].add(RobotDataRaw(time,camera_id, (robot.x, robot.y), robot.orientation))
         for robot in frame.robots_blue:
             if robot.robot_id < 0 or robot.robot_id >= self.num_robots:
                 continue
             if self.is_blue:
-                self.own_robots_status[robot.robot_id].add(RobotDataRaw(time,camera_id,Vector2(robot.x, robot.y), robot.orientation))
+                self.own_robots_status[robot.robot_id].add(RobotDataRaw(time,camera_id, (robot.x, robot.y), robot.orientation))
             else:
-                self.opp_robots_status[robot.robot_id].add(RobotDataRaw(time,camera_id,Vector2(robot.x, robot.y), robot.orientation))
-        return self.getStatus()
+                self.opp_robots_status[robot.robot_id].add(RobotDataRaw(time,camera_id, (robot.x, robot.y), robot.orientation))
+        return self.get_status()
 
 

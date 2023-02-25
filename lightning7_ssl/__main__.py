@@ -37,7 +37,7 @@ def main():
                 and vision_data is not None
             ):
                 logger.step(vision_data)
-                dataFiltered = World.from_vision_data(vision_data, OWN_TEAM)
+                dataFiltered = World.update_vision_data(vision_data)
                 player_manager.tick(dataFiltered)
                 last_tick = current_time
 
