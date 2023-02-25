@@ -1,7 +1,7 @@
 from typing import List
 import numpy as np
 from dataclasses import dataclass
-from .control_client import VisionData, RobotData
+from lightning7_ssl.control_client import VisionData, RobotData
 
 
 @dataclass

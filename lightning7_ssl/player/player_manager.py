@@ -1,7 +1,7 @@
 from typing import List, Dict, Type
 
-from ..control_client import SSLClient, RobotData
-from ..world import World
+from ..control_client import SSLClient
+from lightning7_ssl.World.world import World
 from ..roles import Role
 from .player import Player, Target
 

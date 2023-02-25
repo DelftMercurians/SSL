@@ -1,9 +1,8 @@
-import numpy as np
 from time import time
 
-from .control_client import SSLClient, VisionData
-from .player import PlayerManager, Target
-from .world import World
+from .control_client import SSLClient
+from .player import PlayerManager
+from lightning7_ssl.World.world import World
 from .SimpleVis.generate_log import LogGenerator
 from .SimpleVis.world_plotter import WorldPlotter
 
