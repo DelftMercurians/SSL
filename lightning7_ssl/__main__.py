@@ -1,10 +1,11 @@
 from time import time
+from multiprocessing import Process
 
 from .control_client import SSLClient
 from .player import PlayerManager
 from lightning7_ssl.world.maintainer import *
-from .SimpleVis.generate_log import LogGenerator
-from .SimpleVis.world_plotter import WorldPlotter
+from .vis.generate_log import LogGenerator
+from .vis.world_plotter import WorldPlotter
 
 TICK_INTERVAL_SEC = 0.1
 OWN_TEAM = "blue"
