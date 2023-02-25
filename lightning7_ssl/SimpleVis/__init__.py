@@ -1,2 +1,2 @@
 from .worldData import World, BallInfo, RobotState
-from .WorldPlotter import WorldPlotter
+from .world_plotter import WorldPlotter
