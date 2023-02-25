@@ -1,6 +1,10 @@
+from typing import TYPE_CHECKING
 from abc import ABC, abstractmethod
-from ..player import Target
 from ..world import World
+
+# Avoid circular import
+if TYPE_CHECKING:
+    from ..player import Target
 
 
 class Role(ABC):
@@ -12,6 +16,6 @@ class Role(ABC):
         pass
 
     @abstractmethod
-    def get_next_target(self, data: World) -> Target:
+    def get_next_target(self, data: World) -> "Target":
         """Called on fixed intervals, issues a target to the player."""
         pass

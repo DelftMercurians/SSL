@@ -65,7 +65,7 @@ class Player:
     def tick(self, data: World):
         """Called on fixed intervals, should move to execute current target."""
         state = next((r for r in data.own_robots if r.id == self.id), None)
-        if not self.pos_loaded and state.x == state.y == 0:
+        if state is None or (not self.pos_loaded and state.x == state.y == 0):
             return
 
         self.pos_loaded = True

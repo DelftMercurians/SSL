@@ -20,6 +20,7 @@ class PlayerManager:
 
     def __init__(self, player_ids: int | List[int], client: SSLClient) -> None:
         self.client = client
+        self.assigned_roles = {}
         self.players = [
             Player(id, client)
             for id in (
@@ -66,10 +67,10 @@ class PlayerManager:
             )
             self.assigned_roles[most_fit_player.id] = new_role
 
-    def dispatch_target(self, id: int, target: Target, high_priority=False):
+    def dispatch_target(self, id: int, target: Target):
         """Deliver the target to the correct player.
 
         TODO: Add support for roles
         """
         player = next((p for p in self.players if p.id == id))
-        player.append_target(target, high_priority)
+        player.set_target(target)
