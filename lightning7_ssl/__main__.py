@@ -5,8 +5,8 @@ from time import sleep, time
 from .control_client import SSLClient, VisionData
 from .player import PlayerManager
 from .stratcore.common import Goal
-from .SimpleVis.generateLog import LogGenerator
-from .SimpleVis.WorldPlotter import WorldPlotter
+from .SimpleVis.generate_log import LogGenerator
+from .SimpleVis.world_plotter import WorldPlotter
 
 TICK_INTERVAL_SEC = 0.1
 OWN_TEAM = "blue"
@@ -18,8 +18,9 @@ LENGTH = 12
 WIDTH = 9
 RADIUS_ROBOT = 0.0793
 
-logger = LogGenerator('test.pickle')
-plotter = WorldPlotter('test.pickle')
+logger = LogGenerator("test.pickle")
+plotter = WorldPlotter("test.pickle")
+
 
 def main():
     print("Starting test server")
@@ -47,6 +48,7 @@ def main():
             if current_time - last_tick >= TICK_INTERVAL_SEC:
                 player_manager.tick()
                 last_tick = current_time
+
 
 if __name__ == "__main__":
     try:
