@@ -133,12 +133,7 @@ class SSLClient:
     def receive(self):
         """Receive package and decode."""
         data, _ = self.vision_sock.recvfrom(1024)
-        try:
-            vision_data = VisionData.from_protobuf(data)
-            return vision_data
-        except DecodeError:
-            pass
-        return None
+        return data
 
     def send(
         self,
