@@ -8,6 +8,8 @@ class frameGenerator:
         self.frame.camera_id = 0
         self.frame.t_capture = 0
 
+    def set_time(self, time):
+        self.frame.t_capture = time
     def add_ball(self, x, y, z, confidence):
         ball = self.frame.balls.add()
         ball.x = x
@@ -65,9 +67,24 @@ class MyTestCase(unittest.TestCase):
             frame.add_robot(i,1.0,i,0,False)#own team
             expected.update_robot(i,(1.0,float(i)),0.0,(f,f),0.0,False)
             expected.update_robot(i,(-1.0,float(i)),0.0,(f,f),0.0,True)
-        res = str(world.update_vision_data(frame.get_frame()))
-        #print type of expected estimation
-        print(type(expected.get_estimation()))
+        res = world.update_vision_data(frame.get_frame())
+        self.assertTrue(res == expected.get_estimation())
+        #move ball
+        frame = frameGenerator()
+        frame.add_ball(2.0,2.0,2.0,1.0)
+        frame.set_time(2.0)
+        expected.update_ball((2.0,2.0,2.0),(1,1,1))
+        res = world.update_vision_data(frame.get_frame())
+        self.assertTrue(res == expected.get_estimation())
+        #move one robot
+        frame = frameGenerator()
+        frame.add_robot(0,2.0,2.0,1,False)
+        frame.set_time(4.0)
+        expected.update_robot(0,(2.0,2.0),1.0,(0.25,0.5),0.25,False)
+        res = world.update_vision_data(frame.get_frame())
+        print(res)
+        self.assertTrue(res == expected.get_estimation())
+
 
 
 
