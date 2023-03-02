@@ -1,27 +1,30 @@
 import numpy as np
 import pickle
-from ..control_client import VisionData
 
-class LogGenerator():
+from ..World.maintainer import filteredDataWrapper
+
+
+class LogGenerator:
     """
-        Class that stores robot and ball informations and saves them to a csv file.
+    Class that stores robot and ball informations and saves them to a csv file.
     """
+
     def __init__(self, dest_path: str) -> None:
         """
-            Create csv file with heading.
+        Create csv file with heading.
         """
         self.outFile = dest_path
         self.data = []
-    
-    def step(self, data:VisionData) -> None:
+
+    def step(self, data: filteredDataWrapper) -> None:
         """
-            Stores data of current timestamp.
+        Stores data of current timestamp.
         """
         self.data.append(data)
 
     def generate(self) -> None:
         """
-            Generate log file.
+        Generate log file.
         """
-        with open(self.outFile, 'wb') as f:
+        with open(self.outFile, "wb") as f:
             pickle.dump(self.data, f)

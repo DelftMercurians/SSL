@@ -36,8 +36,8 @@ def main():
                 current_time - last_tick >= TICK_INTERVAL_SEC
                 and vision_data is not None
             ):
-                logger.step(vision_data)
                 data_filtered = World.update_vision_data(vision_data)
+                logger.step(data_filtered)
                 player_manager.tick(data_filtered)
                 last_tick = current_time
 
