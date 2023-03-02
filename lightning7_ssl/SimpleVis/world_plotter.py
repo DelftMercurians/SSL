@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import pickle
 import numpy as np
-from ..World.maintainer import filteredDataWrapper
+from ..world.maintainer import FilteredDataWrapper
 
 
 class WorldPlotter:
-    data: List[filteredDataWrapper]
+    data: List[FilteredDataWrapper]
 
     def __init__(self, log_path: str) -> None:
         """

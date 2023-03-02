@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from .pathfinder import find_path
-from lightning7_ssl.World.maintainer import World
+from lightning7_ssl.world.maintainer import World
 from ..control_client import SSLClient
 
 # Margin of error when arriving at a target location
