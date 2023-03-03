@@ -1,9 +1,8 @@
-import numpy as np
 from time import time
 
-from .control_client import SSLClient, VisionData
-from .player import PlayerManager, Target
-from .world import World
+from .control_client import SSLClient
+from .player import PlayerManager
+from lightning7_ssl.world.maintainer import *
 from .SimpleVis.generate_log import LogGenerator
 from .SimpleVis.world_plotter import WorldPlotter
 
@@ -16,7 +15,7 @@ DIV = "A"
 LENGTH = 12
 WIDTH = 9
 RADIUS_ROBOT = 0.0793
-
+world = World(NUM_PLAYERS, OWN_TEAM == "blue")
 logger = LogGenerator("test.pickle")
 plotter = WorldPlotter("test.pickle")
 
@@ -37,9 +36,9 @@ def main():
                 current_time - last_tick >= TICK_INTERVAL_SEC
                 and vision_data is not None
             ):
-                logger.step(vision_data)
-                world = World.from_vision_data(vision_data, OWN_TEAM)
-                player_manager.tick(world)
+                data_filtered = World.update_vision_data(vision_data)
+                logger.step(data_filtered)
+                player_manager.tick(data_filtered)
                 last_tick = current_time
 
 

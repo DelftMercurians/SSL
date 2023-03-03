@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 from abc import ABC, abstractmethod
-from ..world import World
+from lightning7_ssl.world.maintainer import World
 
 # Avoid circular import
 if TYPE_CHECKING:
