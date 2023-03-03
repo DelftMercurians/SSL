@@ -4,7 +4,7 @@ from lightning7_ssl.control_client.protobuf.ssl_detection_pb2 import SSL_Detecti
 from lightning7_ssl.world.common import *
 
 
-class frameGenerator:
+class FrameGenerator:
     def __init__(self):
         self.frame = SSL_DetectionFrame()
         self.frame.camera_id = 0
@@ -65,7 +65,7 @@ class EstimationGenerator:
         return self.estimation
 
 
-class MyTestCase(unittest.TestCase):
+class TestMaintainer(unittest.TestCase):
     def test_empty(self):
         world = World()
         t = str(world.get_status())
@@ -76,7 +76,7 @@ class MyTestCase(unittest.TestCase):
         expected = EstimationGenerator()
         # data preperation
         # init status
-        frame = frameGenerator()
+        frame = FrameGenerator()
         f = float(0.0)
         frame.add_ball(f, f, f, f)
         expected.update_ball((f, f, f), (f, f, f))
@@ -88,14 +88,14 @@ class MyTestCase(unittest.TestCase):
         res = world.update_vision_data(frame.get_frame())
         self.assertTrue(res == expected.get_estimation())
         # move ball
-        frame = frameGenerator()
+        frame = FrameGenerator()
         frame.add_ball(2.0, 2.0, 2.0, 1.0)
         frame.set_time(2.0)
         expected.update_ball((2.0, 2.0, 2.0), (1, 1, 1))
         res = world.update_vision_data(frame.get_frame())
         self.assertTrue(res == expected.get_estimation())
         # move one robot
-        frame = frameGenerator()
+        frame = FrameGenerator()
         frame.add_robot(0, 2.0, 2.0, 1, False)
         frame.set_time(4.0)
         expected.update_robot(0, (2.0, 2.0), 1.0, (0.25, 0.5), 0.25, False)

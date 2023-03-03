@@ -2,63 +2,67 @@ from lightning7_ssl.world.common import *
 
 
 class SimpleFilter(StatusEstimater):
-    def ball_filter(self, raw_data: OrderedDict) -> BallDataEstimated:
-        ball_list = list(raw_data.values())
-        if len(ball_list) == 0:
+    """State estimation filter that uses the last two positions and estimates velocity."""
+
+    def ball_filter(
+        self, raw_data: OrderedDict[float, List[BallDataRaw]]
+    ) -> BallDataEstimated:
+        records = list(raw_data.values())
+        if len(records) == 0:
             return None
 
-        last_candidates = ball_list[-1]
-        # use the position in the candidate balls which has the highest confidence
-        last_candidates.sort(key=lambda x: x.confidence, reverse=True)
-        pos_this = last_candidates[0].position
+        current_frame = records[-1]
+        # Select reading with highest confidence
+        cur_pos = sorted(current_frame, key=lambda x: x.confidence, reverse=True)[
+            0
+        ].position
 
-        if len(ball_list) == 1:
-            return BallDataEstimated(pos_this, (0, 0, 0))
+        # If there is only one position reading, we cannot estimate velocity
+        if len(records) == 1:
+            return BallDataEstimated(cur_pos, (0, 0, 0))
 
-        previous_candidates = ball_list[-2]
-        # use the position in the candidate balls which has the highest confidence
-        previous_candidates.sort(key=lambda x: x.confidence, reverse=True)
-        pos_prev = previous_candidates[0].position
+        previous_frame = records[-2]
+        # Select reading with highest confidence
+        prev_pos = sorted(previous_frame, key=lambda x: x.confidence, reverse=True)[
+            0
+        ].position
 
-        timediff = last_candidates[0].time_stamp - previous_candidates[0].time_stamp
+        timediff = current_frame[0].time_stamp - previous_frame[0].time_stamp
         velocity = (
-            (pos_this[0] - pos_prev[0]) / timediff,
-            (pos_this[1] - pos_prev[1]) / timediff,
-            (pos_this[2] - pos_prev[2]) / timediff,
+            (cur_pos[0] - prev_pos[0]) / timediff,
+            (cur_pos[1] - prev_pos[1]) / timediff,
+            (cur_pos[2] - prev_pos[2]) / timediff,
         )
-        return BallDataEstimated(pos_this, velocity)
+        return BallDataEstimated(cur_pos, velocity)
 
-    def robot_filter(self, raw_data: OrderedDict) -> RobotDataEstimated:
-        robot_list = list(raw_data.values())
-        if len(robot_list) == 0:
+    def robot_filter(
+        self, raw_data: OrderedDict[float, List[RobotDataRaw]]
+    ) -> RobotDataEstimated:
+        records = list(raw_data.values())
+        if len(records) == 0:
             return None
 
-        last_candidates = robot_list[-1]
-        # calculate the average position in the candidate balls
-        x = 0
-        y = 0
-        ori = 0
-
-        for candidate in last_candidates:
-            x += candidate.position[0] / len(last_candidates)
-            y += candidate.position[1] / len(last_candidates)
-            ori += candidate.orientation / len(last_candidates)
+        current_frame = records[-1]
+        # Average positions and orientations in readings from the current frame
+        x = y = ori = 0
+        for candidate in current_frame:
+            x += candidate.position[0] / len(current_frame)
+            y += candidate.position[1] / len(current_frame)
+            ori += candidate.orientation / len(current_frame)
         v = (0, 0)
         spinv = 0
         pos_this = (x, y)
-        if len(robot_list) > 1:
-            previous_candidates = robot_list[-2]
-            # calculate the average position in the candidate balls
-            x_prev = 0
-            y_prev = 0
-            ori_prev = 0
-            for candidate in previous_candidates:
-                x_prev += candidate.position[0] / len(previous_candidates)
-                y_prev += candidate.position[1] / len(previous_candidates)
-                ori_prev += candidate.orientation / len(previous_candidates)
+        if len(records) > 1:
+            previous_frame = records[-2]
+            # Average positions and orientations in readings from the previous frame
+            x_prev = y_prev = ori_prev = 0
+            for candidate in previous_frame:
+                x_prev += candidate.position[0] / len(previous_frame)
+                y_prev += candidate.position[1] / len(previous_frame)
+                ori_prev += candidate.orientation / len(previous_frame)
 
             pos_prev = (x_prev, y_prev)
-            timediff = last_candidates[0].time_stamp - previous_candidates[0].time_stamp
+            timediff = current_frame[0].time_stamp - previous_frame[0].time_stamp
             v = (
                 (pos_this[0] - pos_prev[0]) / timediff,
                 (pos_this[1] - pos_prev[1]) / timediff,

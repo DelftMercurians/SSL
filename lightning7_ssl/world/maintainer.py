@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 import numpy as np
 from dataclasses import dataclass
 from lightning7_ssl.world.common import *
@@ -9,6 +9,8 @@ from lightning7_ssl.control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPa
 
 @dataclass
 class FilteredDataWrapper:
+    """Represents the current state of the world."""
+
     ball_status: BallDataEstimated
     own_robots_status: List[RobotDataEstimated]
     opp_robots_status: List[RobotDataEstimated]
@@ -26,7 +28,21 @@ class FilteredDataWrapper:
 
 
 class World:
-    """Represents the current state of the world."""
+    """Represents the current state of the world.
+
+    Attributes:
+        own_robots_status: A list of RobotTrackers for the own robots.
+        opp_robots_status: A list of RobotTrackers for the opponent robots.
+        ball_status: A BallTracker for the ball.
+        is_blue: Whether the team is blue or not.
+        num_robots: The number of robots on the team.
+    """
+
+    own_robots_status: List[RobotTracker]
+    opp_robots_status: List[RobotTracker]
+    ball_status: BallTracker
+    is_blue: bool
+    num_robots: int
 
     def __init__(self, num_robots=7, is_blue=True):
         filter = SimpleFilter()
@@ -47,7 +63,12 @@ class World:
             [tracker.get() for tracker in self.opp_robots_status],
         )
 
-    def update_from_protobuf(self, raw_data: bytes) -> FilteredDataWrapper:
+    def update_from_protobuf(self, raw_data: bytes) -> Optional[FilteredDataWrapper]:
+        """Updates the world state from raw protobuf data.
+
+        Raises:
+            DecodeError: If the data is not a valid SSL_WrapperPacket.
+        """
         packet = SSL_WrapperPacket()
         packet.ParseFromString(raw_data)
         frame = packet.detection
@@ -63,26 +84,23 @@ class World:
             self.ball_status.add(
                 BallDataRaw(time, camera_id, (ball.x, ball.y, ball.z), ball.confidence)
             )
-        for robot in frame.robots_yellow:
-            if robot.robot_id < 0 or robot.robot_id >= self.num_robots:
+
+        own_robots_status_frame = (
+            frame.robots_blue if self.is_blue else frame.robots_yellow
+        )
+        for robot in own_robots_status_frame:
+            if robot.robot_id not in range(self.num_robots):
                 continue
-            if self.is_blue:
-                self.opp_robots_status[robot.robot_id].add(
-                    RobotDataRaw(time, camera_id, (robot.x, robot.y), robot.orientation)
-                )
-            else:
-                self.own_robots_status[robot.robot_id].add(
-                    RobotDataRaw(time, camera_id, (robot.x, robot.y), robot.orientation)
-                )
-        for robot in frame.robots_blue:
-            if robot.robot_id < 0 or robot.robot_id >= self.num_robots:
+            self.own_robots_status[robot.robot_id].add(
+                RobotDataRaw(time, camera_id, (robot.x, robot.y), robot.orientation)
+            )
+        opp_robots_status_frame = (
+            frame.robots_yellow if self.is_blue else frame.robots_blue
+        )
+        for robot in opp_robots_status_frame:
+            if robot.robot_id not in range(self.num_robots):
                 continue
-            if self.is_blue:
-                self.own_robots_status[robot.robot_id].add(
-                    RobotDataRaw(time, camera_id, (robot.x, robot.y), robot.orientation)
-                )
-            else:
-                self.opp_robots_status[robot.robot_id].add(
-                    RobotDataRaw(time, camera_id, (robot.x, robot.y), robot.orientation)
-                )
+            self.opp_robots_status[robot.robot_id].add(
+                RobotDataRaw(time, camera_id, (robot.x, robot.y), robot.orientation)
+            )
         return self.get_status()
