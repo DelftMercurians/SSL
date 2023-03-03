@@ -1,7 +1,7 @@
 from typing import List, Dict, Type
 
 from ..control_client import SSLClient
-from lightning7_ssl.world.maintainer import World
+from lightning7_ssl.world.maintainer import FilteredDataWrapper, World
 from ..roles import Role
 from .player import Player, Target
 
@@ -28,7 +28,7 @@ class PlayerManager:
             )
         ]
 
-    def tick(self, data: World):
+    def tick(self, data: FilteredDataWrapper):
         """Called on fixed intervals, should move all players."""
         for player in self.players:
             role = self.assigned_roles.get(player.id)
@@ -41,7 +41,7 @@ class PlayerManager:
             player.tick(data)
             # TODO: Reevaluate role fitness
 
-    def spawn_role(self, role: Type[Role], data: World):
+    def spawn_role(self, role: Type[Role], data: FilteredDataWrapper):
         """Spawn a new role and assign it to a player.
 
         Args:

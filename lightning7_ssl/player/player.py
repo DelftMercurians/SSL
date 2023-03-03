@@ -1,9 +1,10 @@
 from typing import Optional
 from dataclasses import dataclass
+import unittest
 import numpy as np
 
 from .pathfinder import find_path
-from lightning7_ssl.world.maintainer import World
+from lightning7_ssl.world.maintainer import FilteredDataWrapper
 from ..control_client import SSLClient
 
 # Margin of error when arriving at a target location
@@ -46,13 +47,11 @@ class Player:
 
     id: int
     pos_loaded: bool = False
-    pos: np.ndarray
     status: PlayerStatus
 
     def __init__(self, id: int, client: SSLClient):
         self.id = id
         self.client = client
-        self.pos = np.zeros(2)
         self.status = Status.Idle()
 
     def set_target(self, target: Target):
@@ -62,27 +61,27 @@ class Player:
         else:
             self.status = Status.Moving(target.move_to)
 
-    def tick(self, data: World):
+    def tick(self, data: FilteredDataWrapper):
         """Called on fixed intervals, should move to execute current target."""
-        state = next((r for r in data.own_robots if r.id == self.id), None)
+        state = next((r for r in data.own_robots_status if r.id == self.id), None)
+        # We may receive null state before the first tick
         if state is None or (not self.pos_loaded and state.x == state.y == 0):
             return
-
         self.pos_loaded = True
-        self.pos[0] = state.x
-        self.pos[1] = state.y
 
-        # Update status based on new state
+        # Update status and move based on new state
         if isinstance(self.status, Status.Moving):
-            dist = np.linalg.norm(self.status.target - self.pos)
+            pos = np.asarray([state.x, state.y])
+            dist = np.linalg.norm(self.status.target - pos)
             if dist <= TARGET_TRESHOLD:
                 # Reached target
                 self.status = Status.Idle()
-
-        if isinstance(self.status, Status.Moving):
-            dir_x, dir_y = find_path(self.pos, self.status.target)
-            self._move(dir_x, dir_y)
+            else:
+                # Move towards target
+                dir_x, dir_y = find_path(pos, self.status.target)
+                self._move(dir_x, dir_y)
         elif isinstance(self.status, Status.Idle):
+            # Stop moving
             self._move(0, 0)
 
     # Internal methods
