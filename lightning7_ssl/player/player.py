@@ -3,8 +3,8 @@ from dataclasses import dataclass
 import unittest
 import numpy as np
 
+from lightning7_ssl.world.common import RobotDataEstimated
 from .pathfinder import find_path
-from lightning7_ssl.world.maintainer import FilteredDataWrapper
 from ..control_client import SSLClient
 
 # Margin of error when arriving at a target location
@@ -46,7 +46,6 @@ class Player:
     client: SSLClient
 
     id: int
-    pos_loaded: bool = False
     status: PlayerStatus
 
     def __init__(self, id: int, client: SSLClient):
@@ -61,17 +60,11 @@ class Player:
         else:
             self.status = Status.Moving(target.move_to)
 
-    def tick(self, data: FilteredDataWrapper):
+    def tick(self, state: RobotDataEstimated):
         """Called on fixed intervals, should move to execute current target."""
-        state = next((r for r in data.own_robots_status if r.id == self.id), None)
-        # We may receive null state before the first tick
-        if state is None or (not self.pos_loaded and state.x == state.y == 0):
-            return
-        self.pos_loaded = True
-
-        # Update status and move based on new state
+        (x, y) = state.position
         if isinstance(self.status, Status.Moving):
-            pos = np.asarray([state.x, state.y])
+            pos = np.asarray([x, y])
             dist = np.linalg.norm(self.status.target - pos)
             if dist <= TARGET_TRESHOLD:
                 # Reached target
@@ -80,7 +73,7 @@ class Player:
                 # Move towards target
                 dir_x, dir_y = find_path(pos, self.status.target)
                 self._move(dir_x, dir_y)
-        elif isinstance(self.status, Status.Idle):
+        if isinstance(self.status, Status.Idle):
             # Stop moving
             self._move(0, 0)
 
