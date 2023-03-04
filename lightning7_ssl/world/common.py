@@ -98,7 +98,6 @@ class StatusEstimater(metaclass=abc.ABCMeta):
     ) -> RobotDataEstimated:
         pass
 
-
 class BallTracker:
     record: OrderedDict[float, List[BallDataRaw]]
     capacity: int

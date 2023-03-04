@@ -37,8 +37,8 @@ class FrameGenerator:
 
 class EstimationGenerator:
     def __init__(self):
-        own_team = [None, None, None, None, None, None, None]
-        opp_team = [None, None, None, None, None, None, None]
+        own_team = [None, None, None, None, None, None]
+        opp_team = [None, None, None, None, None, None]
         ball_status = None
         self.estimation = FilteredDataWrapper(ball_status, own_team, opp_team)
 
@@ -70,6 +70,20 @@ class TestMaintainer(unittest.TestCase):
         world = World()
         t = str(world.get_status())
         self.assertEqual(t, str(EstimationGenerator().get_estimation()))
+    def test_getter(self):
+        world = World()
+        frame = FrameGenerator()
+        expected_own = []
+        expected_opp = []
+        frame.add_ball(1.0, 1.0, 0, 1.0)
+        for i in range(6):
+            frame.add_robot(i, -1.0, i, 0, True)  # opp team
+            frame.add_robot(i, 1.0, i, 0, False)  # own team
+            expected_own.append((1.0, float(i)))
+            expected_opp.append((-1.0, float(i)))
+        world.update_vision_data(frame.get_frame())
+        self.assertEqual(world.get_team_position(), expected_own)
+        self.assertEqual(world.get_opp_position(), expected_opp)
 
     def test_complex(self):
         world = World()
@@ -80,7 +94,7 @@ class TestMaintainer(unittest.TestCase):
         f = float(0.0)
         frame.add_ball(f, f, f, f)
         expected.update_ball((f, f, f), (f, f, f))
-        for i in range(7):
+        for i in range(6):
             frame.add_robot(i, -1.0, i, 0, True)  # opp team
             frame.add_robot(i, 1.0, i, 0, False)  # own team
             expected.update_robot(i, (1.0, float(i)), 0.0, (f, f), 0.0, False)
@@ -100,7 +114,6 @@ class TestMaintainer(unittest.TestCase):
         frame.set_time(4.0)
         expected.update_robot(0, (2.0, 2.0), 1.0, (0.25, 0.5), 0.25, False)
         res = world.update_vision_data(frame.get_frame())
-        print(res)
         self.assertTrue(res == expected.get_estimation())
 
 

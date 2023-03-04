@@ -44,7 +44,7 @@ class World:
     is_blue: bool
     num_robots: int
 
-    def __init__(self, num_robots=7, is_blue=True):
+    def __init__(self, num_robots=6, is_blue=True):
         filter = SimpleFilter()
         self.own_robots_status = []
         self.opp_robots_status = []
@@ -104,3 +104,8 @@ class World:
                 RobotDataRaw(time, camera_id, (robot.x, robot.y), robot.orientation)
             )
         return self.get_status()
+
+    def get_team_position(self):
+        return [tracker.get().position for tracker in self.own_robots_status]
+    def get_opp_position(self):
+        return [tracker.get().position for tracker in self.opp_robots_status]
