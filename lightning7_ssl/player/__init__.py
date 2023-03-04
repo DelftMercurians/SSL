@@ -1,2 +1,2 @@
-from .playermanager import PlayerManager
-from .player import Player
+from .player_manager import PlayerManager
+from .player import Player, Target

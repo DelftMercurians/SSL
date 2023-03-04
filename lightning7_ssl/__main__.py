@@ -1,10 +1,8 @@
-import socket
-import numpy as np
-from time import sleep, time
+from time import time
 
-from .control_client import SSLClient, VisionData
+from .control_client import SSLClient
 from .player import PlayerManager
-from .stratcore.common import Goal
+from lightning7_ssl.world.maintainer import *
 from .SimpleVis.generate_log import LogGenerator
 from .SimpleVis.world_plotter import WorldPlotter
 
@@ -17,7 +15,7 @@ DIV = "A"
 LENGTH = 12
 WIDTH = 9
 RADIUS_ROBOT = 0.0793
-
+world = World(NUM_PLAYERS, OWN_TEAM == "blue")
 logger = LogGenerator("test.pickle")
 plotter = WorldPlotter("test.pickle")
 
@@ -27,26 +25,20 @@ def main():
     with SSLClient() as client:
         player_manager = PlayerManager(NUM_PLAYERS, client)
 
-        # Test: push a random goal
-        player_manager.dispatch_goal(0, Goal(0, targetPos=np.zeros(2)))
-        player_manager.tick()
+        # Ping the server to start the game
+        client.send(0, 0, 0)
 
         last_tick = time()
         while True:
-            # Get update
             vision_data = client.receive()
-            if vision_data is not None:
-                player_manager.recv_update(
-                    vision_data.blue_robots
-                    if OWN_TEAM == "blue"
-                    else vision_data.yellow_robots
-                )
-                logger.step(vision_data)
-
-            # Tick
             current_time = time()
-            if current_time - last_tick >= TICK_INTERVAL_SEC:
-                player_manager.tick()
+            if (
+                current_time - last_tick >= TICK_INTERVAL_SEC
+                and vision_data is not None
+            ):
+                data_filtered = World.update_vision_data(vision_data)
+                logger.step(data_filtered)
+                player_manager.tick(data_filtered)
                 last_tick = current_time
 
 
@@ -56,5 +48,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         # Generate log file then plot it
         logger.generate()
-        plotter.plot()
-        plotter.play()
+        # plotter.plot()
+        # plotter.play()

@@ -13,6 +13,10 @@ class BallData:
     x: float
     y: float
     z: float
+    confidence: float
+
+    def __str__(self):
+        return "BallData: [x: " + str(self.x) + " y: " + str(self.y) + " z: " + str(self.z) + " confidence: " + str(self.confidence)+ "]"
 
 
 @dataclass
@@ -21,6 +25,9 @@ class RobotData:
     x: float
     y: float
     yaw: float  # [-pi,pi]
+
+    def __str__(self):
+        return "RobotData: [id: " + str(self.id) + " x: " + str(self.x) + " y: " + str(self.y) + " yaw: " + str(self.yaw)+ "]"
 
 
 @dataclass
@@ -36,13 +43,13 @@ class VisionData:
         packet.ParseFromString(data)
         frame = packet.detection
         vision_data = VisionData()
-
         if len(frame.balls) > 0:
             ball = frame.balls[0]
             vision_data.ball = BallData(
                 x=ball.x,
                 y=ball.y,
                 z=ball.z,
+                confidence=ball.confidence,
             )
         vision_data.blue_robots = [
             RobotData(
@@ -65,6 +72,11 @@ class VisionData:
 
         return vision_data
 
+    def __str__(self):
+        return "VisionData:" +"\n" + \
+               str(self.ball) + "\n"\
+               + " blue_robots: \n" + str(self.blue_robots) + "\n"\
+               + " yellow_robots: \n" + str(self.yellow_robots)
 
 class SSLClient:
     """Client for sending commands and receiving vision data from a simulator."""
@@ -121,12 +133,7 @@ class SSLClient:
     def receive(self):
         """Receive package and decode."""
         data, _ = self.vision_sock.recvfrom(1024)
-        try:
-            vision_data = VisionData.from_protobuf(data)
-            return vision_data
-        except DecodeError:
-            pass
-        return None
+        return data
 
     def send(
         self,
