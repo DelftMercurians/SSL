@@ -12,6 +12,7 @@ export interface World {
   ball: PosVel;
   own_players: PosVel[];
   opp_players: PosVel[];
+  field_dimensions: XY;
 }
 
 export interface PlayerState {

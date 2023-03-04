@@ -2,7 +2,7 @@ import { rest } from "msw";
 import type { ServerState } from "../types";
 
 export const handlers = [
-  rest.get("/api/poll", (req, res, ctx) => {
+  rest.get("/api/state", (req, res, ctx) => {
     const serverState: ServerState = {
       world: {
         ball: {
@@ -11,16 +11,17 @@ export const handlers = [
         },
         own_players: [
           {
-            pos: { x: 0, y: 0 },
+            pos: { x: -400, y: 0 },
             vel: { x: 0, y: 0 },
           },
         ],
         opp_players: [
           {
-            pos: { x: 0, y: 0 },
+            pos: { x: 400, y: 0 },
             vel: { x: 0, y: 0 },
           },
         ],
+        field_dimensions: { x: 10400, y: 7400 },
       },
       player_states: [
         {
