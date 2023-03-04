@@ -3,7 +3,7 @@ from typing import Tuple
 from lightning7_ssl.config import GlobalConfig
 Vector2 = Tuple[float, float]
 
-def find_path(start: int, goal: Vector2, alpha = 1, influence_factor = 8) -> Vector2:
+def find_path(start: int, goal: Vector2, alpha = 0.0001, influence_factor = 8) -> Vector2:
     """Computes the immediate direction the robot should head towards.
     Returns a unit vector, the global direction.
     """
@@ -19,9 +19,9 @@ def find_path(start: int, goal: Vector2, alpha = 1, influence_factor = 8) -> Vec
   #  print(start_pos)
     obstacles.extend(GlobalConfig.world.get_opp_position())
     dist = np.sqrt((start_pos[0] - goal[0])**2 + (start_pos[1] - goal[1])**2)
-    fx = alpha * (goal[0] - start_pos[0])/dist
-    fy = alpha * (goal[1] - start_pos[1])/dist
-    attractive_force = alpha * dist**2
+    fx = (goal[0] - start_pos[0])/dist
+    fy = (goal[1] - start_pos[1])/dist
+    attractive_force = alpha * dist
     fx*=attractive_force
     fy*=attractive_force
 
@@ -35,7 +35,10 @@ def find_path(start: int, goal: Vector2, alpha = 1, influence_factor = 8) -> Vec
         dy /= d
 
         if d < influence_radius:
-            repulsive_force = (1.0/d - 1.0/influence_radius)**2
+            repulsive_force = (1.0/d - 1.0/influence_radius)
+    #        print(repulsive_force)
+     #       print(fx,repulsive_force * dx)
+     #       print(fy,repulsive_force * dy)
             fx += repulsive_force * dx
             fy += repulsive_force * dy
 
