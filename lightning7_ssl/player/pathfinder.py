@@ -8,11 +8,14 @@ def find_path(start: int, goal: Vector2, alpha = 1, influence_factor = 4) -> Vec
     Returns a unit vector, the global direction.
     """
     obstacles = []
-    for idx, robot_pos in enumerate(GlobalConfig.world.get_team_position()):
+    idx = 0
+    for robot_pos in GlobalConfig.world.get_team_position():
         if idx != start:
             obstacles.append(robot_pos)
         else:
             start_pos = robot_pos
+        idx += 1
+  #  print(start_pos)
     obstacles.extend(GlobalConfig.world.get_opp_position())
     fx = alpha * (goal[0] - start_pos[0])
     fy = alpha * (goal[1] - start_pos[1])
@@ -27,4 +30,5 @@ def find_path(start: int, goal: Vector2, alpha = 1, influence_factor = 4) -> Vec
             fy += dy / d * (1.0/d - 1.0/influence_radius)
     # normalize
     len = np.sqrt(fx**2 + fy**2)
-    return (fx/len, fy.len)
+    return (fx/len, fy/len)
+
