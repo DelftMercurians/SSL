@@ -194,6 +194,9 @@ class SSLClient:
         command.dribbler_speed = dribbler_speed
         command.kick_speed = kick_speed
         command.kick_angle = kick_angle
+        command.move_command.local_velocity.forward = vel_y
+        command.move_command.local_velocity.left = vel_x
+        command.move_command.local_velocity.angular = angular_speed
         return self.cmd_sock.sendto(
             control_msg.SerializeToString(), (self.cmd_ip, self.command_port)
         )

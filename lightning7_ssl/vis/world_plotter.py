@@ -25,9 +25,9 @@ class WorldPlotter:
         """
         # Render data from the last 5 frames
         for dat in self.data[-5:-1]:
-            ball = dat.ball_status
-            blues = dat.own_robots_status
-            yellows = dat.opp_robots_status
+            ball = dat["ball"]
+            blues = dat["friends"]
+            yellows = dat["opps"]
 
             # Only plot when data is not None
             # TODO:
@@ -49,12 +49,13 @@ class WorldPlotter:
 
             if yellows is not None:
                 for pointY in yellows:
-                    self.ax.scatter(
-                        pointY.position[0] / 1000,
-                        pointY.position[1] / 1000,
-                        s=10,
-                        c="yellow",
-                    )
+                    if pointY is not None:
+                        self.ax.scatter(
+                            pointY.position[0] / 1000,
+                            pointY.position[1] / 1000,
+                            s=10,
+                            c="yellow",
+                        )
         self.ax.set_xlim([-6, 6])
         self.ax.set_ylim([-10, 10])
         self.ax.set_facecolor("black")
