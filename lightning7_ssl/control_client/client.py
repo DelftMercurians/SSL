@@ -16,7 +16,17 @@ class BallData:
     confidence: float
 
     def __str__(self):
-        return "BallData: [x: " + str(self.x) + " y: " + str(self.y) + " z: " + str(self.z) + " confidence: " + str(self.confidence)+ "]"
+        return (
+            "BallData: [x: "
+            + str(self.x)
+            + " y: "
+            + str(self.y)
+            + " z: "
+            + str(self.z)
+            + " confidence: "
+            + str(self.confidence)
+            + "]"
+        )
 
 
 @dataclass
@@ -27,7 +37,17 @@ class RobotData:
     yaw: float  # [-pi,pi]
 
     def __str__(self):
-        return "RobotData: [id: " + str(self.id) + " x: " + str(self.x) + " y: " + str(self.y) + " yaw: " + str(self.yaw)+ "]"
+        return (
+            "RobotData: [id: "
+            + str(self.id)
+            + " x: "
+            + str(self.x)
+            + " y: "
+            + str(self.y)
+            + " yaw: "
+            + str(self.yaw)
+            + "]"
+        )
 
 
 @dataclass
@@ -73,10 +93,18 @@ class VisionData:
         return vision_data
 
     def __str__(self):
-        return "VisionData:" +"\n" + \
-               str(self.ball) + "\n"\
-               + " blue_robots: \n" + str(self.blue_robots) + "\n"\
-               + " yellow_robots: \n" + str(self.yellow_robots)
+        return (
+            "VisionData:"
+            + "\n"
+            + str(self.ball)
+            + "\n"
+            + " blue_robots: \n"
+            + str(self.blue_robots)
+            + "\n"
+            + " yellow_robots: \n"
+            + str(self.yellow_robots)
+        )
+
 
 class SSLClient:
     """Client for sending commands and receiving vision data from a simulator."""
@@ -145,14 +173,27 @@ class SSLClient:
         kick_speed: float = 0,
         kick_angle: float = 0,
     ):
-        """Send a command to a robot."""
+        """Send a command to a robot.
+
+        Args:
+            id: The id of the robot.
+            vel_x: Velocity forward [m/s] (towards the dribbler).
+            vel_y: Velocity to the left [m/s].
+            angular_speed: Angular velocity counter-clockwise [rad/s]
+            dribbler_speed: Dribbler speed in rounds per minute [rpm].
+            kick_speed: Absolute kick speed [m/s].
+            kick_angle: Kick angle [degree] (0 degrees for a straight kick).
+        """
         self.known_robot_ids.add(id)
         control_msg = RobotControl()
         command = control_msg.robot_commands.add()
         command.id = id
-        command.move_command.local_velocity.forward = 1
-        command.move_command.local_velocity.left = 0
-        command.move_command.local_velocity.angular = 0
+        command.move_command.local_velocity.forward = vel_y
+        command.move_command.local_velocity.left = vel_x
+        command.move_command.local_velocity.angular = angular_speed
+        command.dribbler_speed = dribbler_speed
+        command.kick_speed = kick_speed
+        command.kick_angle = kick_angle
         return self.cmd_sock.sendto(
             control_msg.SerializeToString(), (self.cmd_ip, self.command_port)
         )
