@@ -1,4 +1,6 @@
 <script lang="ts">
+  (async () =>
+    console.log(await fetch("/api/poll").then((res) => res.json())))();
 </script>
 
 <main>
