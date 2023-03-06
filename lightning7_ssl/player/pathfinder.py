@@ -3,21 +3,33 @@ from typing import Tuple
 from lightning7_ssl.config import GlobalConfig
 Vector2 = Tuple[float, float]
 
-def find_path(start: int, goal: Vector2, alpha = 0.0001, influence_factor = (2,0)) -> Vector2:
+def get_relative_speed(pos1: Vector2, pos2: Vector2, speed1: Vector2, speed2: Vector2) -> Vector2:
+    """Returns the magnitude of relative speed of pos1 to pos2."""
+    d = (pos1[0] - pos2[0], pos1[1] - pos2[1])
+    lend = np.sqrt(d[0]**2 + d[1]**2)
+    d = (d[0]/lend, d[1]/lend)
+    s = (speed1[0] - speed2[0], speed1[1] - speed2[1])
+    return np.abs(d[0]*s[0] + d[1]*s[1])
+
+def find_path(start_id: int, goal: Vector2, alpha = 0.000001, influence_factor = (5,1)) -> Vector2:
     """Computes the immediate direction the robot should head towards.
     Returns a unit vector, the global direction.
     """
 
     obstacles = []
-    idx = 0
-    for robot_pos in GlobalConfig.world.get_team_position():
-        if idx != start:
-            obstacles.append(robot_pos)
-        else:
-            start_pos = robot_pos
-        idx += 1
+    team_position = GlobalConfig.world.get_team_position()
+    opp_position = GlobalConfig.world.get_opp_position()
+    team_speed = GlobalConfig.world.get_team_speed()
+    opp_speed = GlobalConfig.world.get_opp_speed()
 
-    obstacles.extend(GlobalConfig.world.get_opp_position())
+    start_pos = team_position[start_id]
+    for i, pos in enumerate(team_position):
+        if i == start_id:
+            continue
+        obstacles.append((pos,get_relative_speed(pos,start_pos,team_speed[i],team_speed[start_id])))
+    for i, pos in enumerate(opp_position):
+        obstacles.append((pos,get_relative_speed(pos,start_pos,opp_speed[i],team_speed[start_id])))
+
 
 
     dist = np.sqrt((start_pos[0] - goal[0])**2 + (start_pos[1] - goal[1])**2)
@@ -31,19 +43,18 @@ def find_path(start: int, goal: Vector2, alpha = 0.0001, influence_factor = (2,0
 
     influence_radius = base_factor * GlobalConfig.RADIUS_ROBOT * 1000 #1000 -> convert the unit to mm
 
-
-    for ox,oy in obstacles:
+    for (ox,oy),vel in obstacles:
         dx = start_pos[0] - ox
         dy = start_pos[1] - oy
         d = np.sqrt(dx**2 + dy**2)
         dx /= d
         dy /= d
-
-        if d < influence_radius:
-            repulsive_force = (1.0/d - 1.0/influence_radius)
-    #        print(repulsive_force)
+        final_influence_radius = influence_radius + vel * speed_factor
+        if d < final_influence_radius:
+            repulsive_force = (1.0/d - 1.0/final_influence_radius)
+            print(repulsive_force)
      #       print(fx,repulsive_force * dx)
-     #       print(fy,repulsive_force * dy)
+      #      print(fy,repulsive_force * dy)
             fx += repulsive_force * dx
             fy += repulsive_force * dy
 
