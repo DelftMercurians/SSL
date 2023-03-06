@@ -30,6 +30,14 @@ class FrameGenerator:
         robot.x = x
         robot.y = y
         robot.orientation = orientation
+    def update_robot(self, robot_id, x, y, orientation, is_yellow):
+        l = self.frame.robots_yellow if is_yellow else self.frame.robots_blue
+        for robot in l:
+            if robot.robot_id == robot_id:
+                robot.x = x
+                robot.y = y
+                robot.orientation = orientation
+                return
 
     def get_frame(self):
         return self.frame
@@ -84,6 +92,16 @@ class TestMaintainer(unittest.TestCase):
         world.update_vision_data(frame.get_frame())
         self.assertEqual(world.get_team_position(), expected_own)
         self.assertEqual(world.get_opp_position(), expected_opp)
+        frame.set_time(1)
+        for i in range(6):
+            frame.update_robot(i, 0, i, 0, True)
+            frame.update_robot(i, 2, i, 0, False)
+            expected_own[i] = (1,0)
+            expected_opp[i] = (1,0)
+        world.update_vision_data(frame.get_frame())
+        self.assertEqual(world.get_team_speed(), expected_own)
+        self.assertEqual(world.get_opp_speed(), expected_opp)
+
 
     def test_complex(self):
         world = World()

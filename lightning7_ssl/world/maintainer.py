@@ -105,5 +105,9 @@ class World:
 
     def get_team_position(self):
         return [tracker.get().position for tracker in self.own_robots_status]
+    def get_team_speed(self):
+        return [tracker.get().velocity for tracker in self.own_robots_status]
     def get_opp_position(self):
         return [tracker.get().position for tracker in self.opp_robots_status]
+    def get_opp_speed(self):
+        return [tracker.get().velocity for tracker in self.opp_robots_status]
