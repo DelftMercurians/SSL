@@ -43,6 +43,7 @@ def find_path(start_id: int, goal: Vector2, alpha = 0.000001, influence_factor =
 
     influence_radius = base_factor * GlobalConfig.RADIUS_ROBOT * 1000 #1000 -> convert the unit to mm
 
+
     for (ox,oy),vel in obstacles:
         dx = start_pos[0] - ox
         dy = start_pos[1] - oy
