@@ -39,7 +39,7 @@ def main():
         while True:
             vision_data = client.receive()
             current_time = time()
-            pathfinder.find_path(world, 0, Vec2(0, 0))
+            
             if (
                 current_time - last_tick >= TICK_INTERVAL_SEC
                 and vision_data is not None
@@ -48,6 +48,7 @@ def main():
                 try:
                     data_filtered = world.update_from_protobuf(vision_data)
                     DS.update_player_and_ball_states(data_filtered)
+                    pathfinder.find_path(world, 0, Vec2(0, 0)) # Needs to be called after DS is updated
                     player_manager.tick(data_filtered)
                     last_tick = current_time
                     

@@ -1,5 +1,6 @@
 import numpy as np
 from ..vecMath.vec_math import Vec2
+from ..world.maintainer import World
 
 def get_relative_speed(pos1: Vec2, pos2: Vec2, speed1: Vec2, speed2: Vec2) -> Vec2:
     """Returns the magnitude of relative speed of pos1 to pos2."""
@@ -9,7 +10,7 @@ def get_relative_speed(pos1: Vec2, pos2: Vec2, speed1: Vec2, speed2: Vec2) -> Ve
     s = (speed1[0] - speed2[0], speed1[1] - speed2[1])
     return np.abs(d[0]*s[0] + d[1]*s[1])
 
-def find_path(world, start_id: int, goal: Vec2, alpha = 0.00001, beta = 0.01, influence_factor = (5,1)) -> Vec2:
+def find_path(world: World, start_id: int, goal: Vec2, alpha = 0.00001, beta = 0.01, influence_factor = (5,1)) -> Vec2:
     """
         Computes the immediate direction the robot should head towards.
         Returns a unit vector, the global direction.
