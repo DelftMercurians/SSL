@@ -13,6 +13,8 @@ numpy = "^1.23.5"
 protobuf = "^4.21.11"
 protobuf-to-dict = {git = "ssh://git@github.com/wearefair/protobuf-to-dict"}
 matplotlib = "^3.7.0"
+starlette = "^0.25.0"
+uvicorn = "^0.20.0"
 
 
 [tool.poetry.group.dev.dependencies]
