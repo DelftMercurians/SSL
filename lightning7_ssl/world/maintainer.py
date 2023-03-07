@@ -1,10 +1,11 @@
 from typing import List, Optional
 import numpy as np
 from dataclasses import dataclass
-from lightning7_ssl.world.common import *
-from lightning7_ssl.world.simple_filter import SimpleFilter
-from lightning7_ssl.control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
-from lightning7_ssl.control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
+from .common import *
+from .simple_filter import SimpleFilter
+from ..control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
+from ..control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
+
 @dataclass
 class FilteredDataWrapper:
     """Represents the current state of the world."""

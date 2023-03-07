@@ -1,17 +1,14 @@
 from dataclasses import dataclass, field
 from typing import List, Tuple
 from collections import OrderedDict
+from ..vecMath.vec_math import Vec2, Vec3
 import abc
-
-Vector2 = Tuple[float, float]
-Vector3 = Tuple[float, float, float]
-
 
 @dataclass
 class RobotDataRaw:
     time_stamp: float
     camara_id: int
-    position: Vector2
+    position: Vec2
     orientation: float  # [-pi,pi]
 
     def __str__(self):
@@ -30,9 +27,9 @@ class RobotDataRaw:
 
 @dataclass
 class RobotDataEstimated:
-    position: Vector2
+    position: Vec2
     orientation: float
-    velocity: Vector2
+    velocity: Vec2
     angular_speed: float
 
     def __str__(self):
@@ -53,7 +50,7 @@ class RobotDataEstimated:
 class BallDataRaw:
     time_stamp: float
     camara_id: int
-    position: Vector3
+    position: Vec3
     confidence: float
 
     def __str__(self):
@@ -72,8 +69,8 @@ class BallDataRaw:
 
 @dataclass
 class BallDataEstimated:
-    position: Vector3
-    velocity: Vector3
+    position: Vec3
+    velocity: Vec3
 
     def __str__(self):
         return (

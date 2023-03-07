@@ -1,4 +1,4 @@
-from lightning7_ssl.world.common import *
+from .common import *
 
 
 class SimpleFilter(StatusEstimater):

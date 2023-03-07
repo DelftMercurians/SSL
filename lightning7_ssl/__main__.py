@@ -1,11 +1,12 @@
 from time import time
 from multiprocessing import Process
 from .control_client import SSLClient
-from .player import PlayerManager
+from .player import PlayerManager, pathfinder
 from .world.maintainer import *
 from .vis.generate_log import LogGenerator
 from .vis.world_plotter import WorldPlotter
 from .vis.data_store import DataStore
+from .vecMath.vec_math import Vec2, Vec3
 import matplotlib
 
 matplotlib.use('TkAgg')
@@ -38,6 +39,7 @@ def main():
         while True:
             vision_data = client.receive()
             current_time = time()
+            pathfinder.find_path(world, 0, Vec2(0, 0))
             if (
                 current_time - last_tick >= TICK_INTERVAL_SEC
                 and vision_data is not None
@@ -48,6 +50,7 @@ def main():
                     DS.update_player_and_ball_states(data_filtered)
                     player_manager.tick(data_filtered)
                     last_tick = current_time
+                    
                 except:
                     pass
 if __name__ == "__main__":
