@@ -1,6 +1,5 @@
 import numpy as np
 from typing import Tuple
-from lightning7_ssl.config import GlobalConfig
 Vector2 = Tuple[float, float]
 
 def get_relative_speed(pos1: Vector2, pos2: Vector2, speed1: Vector2, speed2: Vector2) -> Vector2:
@@ -11,16 +10,16 @@ def get_relative_speed(pos1: Vector2, pos2: Vector2, speed1: Vector2, speed2: Ve
     s = (speed1[0] - speed2[0], speed1[1] - speed2[1])
     return np.abs(d[0]*s[0] + d[1]*s[1])
 
-def find_path(start_id: int, goal: Vector2, alpha = 0.00001, beta = 0.01, influence_factor = (5,1)) -> Vector2:
+def find_path(world, start_id: int, goal: Vector2, alpha = 0.00001, beta = 0.01, influence_factor = (5,1)) -> Vector2:
     """Computes the immediate direction the robot should head towards.
     Returns a unit vector, the global direction.
     """
 
     obstacles = []
-    team_position = GlobalConfig.world.get_team_position()
-    opp_position = GlobalConfig.world.get_opp_position()
-    team_speed = GlobalConfig.world.get_team_speed()
-    opp_speed = GlobalConfig.world.get_opp_speed()
+    team_position = world.get_team_position()
+    opp_position = world.get_opp_position()
+    team_speed = world.get_team_speed()
+    opp_speed = world.get_opp_speed()
 
     start_pos = team_position[start_id]
     for i, pos in enumerate(team_position):

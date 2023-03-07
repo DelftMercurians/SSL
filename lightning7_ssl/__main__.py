@@ -2,10 +2,13 @@ from time import time
 from multiprocessing import Process
 from .control_client import SSLClient
 from .player import PlayerManager
-from lightning7_ssl.world.maintainer import *
+from .world.maintainer import *
 from .vis.generate_log import LogGenerator
 from .vis.world_plotter import WorldPlotter
 from .vis.data_store import DataStore
+import matplotlib
+
+matplotlib.use('TkAgg')
 
 TICK_INTERVAL_SEC = 0.1
 OWN_TEAM = "blue"
@@ -26,7 +29,7 @@ def main():
     DS = DataStore()
     DS.subscribe(logger.step)
     with SSLClient() as client:
-        player_manager = PlayerManager(GlobalConfig.NUM_PLAYERS, client)
+        player_manager = PlayerManager(NUM_PLAYERS, client)
 
         # Ping the server to start the game
         client.send(0, 0, 0)
@@ -36,7 +39,7 @@ def main():
             vision_data = client.receive()
             current_time = time()
             if (
-                current_time - last_tick >= GlobalConfig.TICK_INTERVAL_SEC
+                current_time - last_tick >= TICK_INTERVAL_SEC
                 and vision_data is not None
             ):
                 # print(vision_data)
