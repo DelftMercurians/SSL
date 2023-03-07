@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import unittest
 import numpy as np
 
-from lightning7_ssl.world.common import RobotDataEstimated
+from ..world.common import RobotDataEstimated
 from .pathfinder import find_path
 from ..control_client import SSLClient
 
