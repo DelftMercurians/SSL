@@ -14,23 +14,23 @@ class PlayerManager:
         player_ids: Either the number of players or a list of their IDs.
     """
 
-    players: List[Player]
+    players: Dict[int, Player]
     assigned_roles: Dict[int, Role]
     client: SSLClient
 
     def __init__(self, player_ids: int | List[int], client: SSLClient) -> None:
         self.client = client
         self.assigned_roles = {}
-        self.players = [
-            Player(id, client)
+        self.players = {
+            id: Player(id, client)
             for id in (
                 player_ids if isinstance(player_ids, list) else range(player_ids)
             )
-        ]
+        }
 
     def tick(self, data: FilteredDataWrapper):
         """Called on fixed intervals, should move all players."""
-        for player in self.players:
+        for id, player in self.players.items():
             role = self.assigned_roles.get(player.id)
             if role:
                 target = role.get_next_target(data)
@@ -38,7 +38,9 @@ class PlayerManager:
             else:
                 # No role assigned, idle
                 player.set_target(Target(player.id, move_to=None))
-            player.tick(data)
+            state = next((d for d in data.own_robots_status if d.id == id), None)
+            if state is not None:
+                player.tick(state)
             # TODO: Reevaluate role fitness
 
     def spawn_role(self, role: Type[Role], data: FilteredDataWrapper):
