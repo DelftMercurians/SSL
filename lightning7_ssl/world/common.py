@@ -112,8 +112,9 @@ class BallDataRaw:
 @dataclass
 class BallDataEstimated:
     """
-    a dataclass to store estimated data from ssl vision, this contact can be modified based on real needs.
-    confidence is not included because it is not needed for now.
+        a dataclass to store estimated data from ssl vision, this contact can be modified based on real needs.
+        confidence is not included because it is not needed for now.
+
     """
 
     #: position of the ball
@@ -146,8 +147,10 @@ class StatusEstimater(metaclass=abc.ABCMeta):
     ) -> BallDataEstimated:
         """
         filter the ball data
+
         Args:
             raw_data: the raw data from ssl vision
+
         Returns: the estimated data
         """
         pass
@@ -159,6 +162,7 @@ class StatusEstimater(metaclass=abc.ABCMeta):
     ) -> RobotDataEstimated:
         """
         filter the robot data
+
         Args:
             raw_data: the raw data from ssl vision
         Returns: the estimated data
@@ -181,6 +185,7 @@ class BallTracker:
     def __init__(self, filter: StatusEstimater, limit=500):
         """
         init the tracker
+
         Args:
             filter:  the filter strategy
             limit:  the capacity of the storage
@@ -193,6 +198,7 @@ class BallTracker:
         """
         add a new data to the storage
         while maintaining the max capacity
+
         Args:
             ball_data: the new data
         """
@@ -228,6 +234,7 @@ class RobotTracker:
     def __init__(self, filter: StatusEstimater, limit=100):
         """
         init the tracker
+
         Args:
             filter:  the filter strategy
             limit:  the capacity of the storage
@@ -238,7 +245,8 @@ class RobotTracker:
 
     def add(self, robot_data: RobotDataEstimated):
         """
-        add a new data to the storage while maintaining the max capacity
+        add a new data to the storage while maintaining the max capacity.
+
         Args:
             robot_data:  the new data
         """

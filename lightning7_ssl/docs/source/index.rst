@@ -9,9 +9,9 @@ Welcome to Delft Mercurians SSL Software's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
-   modules
    
+   lightning7_ssl
+
 Indices and tables
 ==================
 

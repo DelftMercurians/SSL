@@ -38,6 +38,7 @@ class FilteredDataWrapper:
 class World:
     """Represents the current state of the world.response for assign the data to the right robot and ball, only this class
     keeps track of different robots and ball, anything below it is anonymous.
+
     Attributes:
         own_robots_status: A list of RobotTrackers for the own robots.
         opp_robots_status: A list of RobotTrackers for the opponent robots.
@@ -72,11 +73,14 @@ class World:
         )
 
     def update_from_protobuf(self, raw_data: bytes) -> Optional[FilteredDataWrapper]:
-        """Updates the world state from raw protobuf data.
-        Args:
-            raw_data: The raw protobuf data in bytes.
-        Raises:
-            DecodeError: If the data is not a valid SSL_WrapperPacket.
+        """
+            Updates the world state from raw protobuf data.
+
+            Args:
+                raw_data: The raw protobuf data in bytes.
+
+            Raises:
+                DecodeError: If the data is not a valid SSL_WrapperPacket.
         """
         packet = SSL_WrapperPacket()
         packet.ParseFromString(raw_data)
@@ -86,10 +90,12 @@ class World:
         return self.update_vision_data(frame)
 
     def update_vision_data(self, frame: SSL_DetectionFrame) -> FilteredDataWrapper:
-        """Updates the world state from vision data. it depack the data and assign it
-        to the right robot and ball.
-        Args:
-            frame: The SSL_DetectionFrame to update from.
+        """
+            Updates the world state from vision data. it depack the data and assign it 
+            to the right robot and ball.
+
+            Args:
+                frame: The SSL_DetectionFrame to update from.
         """
         camera_id = frame.camera_id
         time = frame.t_capture
