@@ -8,13 +8,22 @@ from ..control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
 
 @dataclass
 class FilteredDataWrapper:
-    """Represents the current state of the world."""
+    """Represents the current state of the world.
+    it's the fianl diliverable it can provide for other modules.
+    """
 
+    #: The ball status.
     ball_status: BallDataEstimated
+    #: The own robots status.
     own_robots_status: List[RobotDataEstimated]
+    #: The opponent robots status.
     opp_robots_status: List[RobotDataEstimated]
 
     def __str__(self):
+        """
+        a string representation of the data
+        Returns: the string representation of the data
+        """
         return (
             "filteredDataWrapper: \n   ball_status: "
             + str(self.ball_status)
@@ -27,8 +36,8 @@ class FilteredDataWrapper:
 
 
 class World:
-    """Represents the current state of the world.
-
+    """Represents the current state of the world.response for assign the data to the right robot and ball, only this class
+    keeps track of different robots and ball, anything below it is anonymous.
     Attributes:
         own_robots_status: A list of RobotTrackers for the own robots.
         opp_robots_status: A list of RobotTrackers for the opponent robots.
@@ -64,7 +73,8 @@ class World:
 
     def update_from_protobuf(self, raw_data: bytes) -> Optional[FilteredDataWrapper]:
         """Updates the world state from raw protobuf data.
-
+        Args:
+            raw_data: The raw protobuf data in bytes.
         Raises:
             DecodeError: If the data is not a valid SSL_WrapperPacket.
         """
@@ -76,7 +86,11 @@ class World:
         return self.update_vision_data(frame)
 
     def update_vision_data(self, frame: SSL_DetectionFrame) -> FilteredDataWrapper:
-        """Updates the world state from vision data."""
+        """Updates the world state from vision data. it depack the data and assign it
+        to the right robot and ball.
+        Args:
+            frame: The SSL_DetectionFrame to update from.
+        """
         camera_id = frame.camera_id
         time = frame.t_capture
         for ball in frame.balls:
@@ -107,13 +121,17 @@ class World:
         return self.get_status()
 
     def get_team_position(self):
+        """Returns the current position of the own robots."""
         return [tracker.get().position for tracker in self.own_robots_status]
 
     def get_team_vel(self):
+        """Returns the current speed of the own robots."""
         return [tracker.get().velocity for tracker in self.own_robots_status]
 
     def get_opp_position(self):
+        """Returns the current position of the opponent robots."""
         return [tracker.get().position for tracker in self.opp_robots_status]
 
     def get_opp_vel(self):
+        """Returns the current speed of the opponent robots."""
         return [tracker.get().velocity for tracker in self.opp_robots_status]
