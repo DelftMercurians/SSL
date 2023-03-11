@@ -3,3 +3,5 @@ __pycache__
 .idea
 .vscode
 *.pickle
+node_modules
+lightning7_ssl/docs/build/
