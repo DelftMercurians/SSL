@@ -55,11 +55,7 @@ class World:
             self.opp_robots_status.append(RobotTracker(filter))
 
     def get_status(self) -> FilteredDataWrapper:
-        """Returns the current world state.
-
-            Usage:
-                call self.ball_status/own_robots_status/opp_robots_status
-        """
+        """Returns the current world state."""
         return FilteredDataWrapper(
             self.ball_status.get(),
             [tracker.get() for tracker in self.own_robots_status],

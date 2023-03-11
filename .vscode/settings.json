@@ -1,4 +1,3 @@
 {
-    "editor.formatOnSave": true,
-    "python.analysis.typeCheckingMode": "off"
+  "editor.formatOnSave": true
 }
