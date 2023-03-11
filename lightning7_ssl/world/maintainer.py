@@ -1,4 +1,5 @@
 from typing import List, Optional
+from google.protobuf.message import DecodeError
 from dataclasses import dataclass
 from .common import *
 from .simple_filter import SimpleFilter
@@ -66,8 +67,8 @@ class World:
     def get_status(self) -> FilteredDataWrapper:
         """Returns the current world state.
 
-            Usage:
-                call self.ball_status/own_robots_status/opp_robots_status
+        Usage:
+            call self.ball_status/own_robots_status/opp_robots_status
         """
         return FilteredDataWrapper(
             self.ball_status.get(),
@@ -83,7 +84,10 @@ class World:
             DecodeError: If the data is not a valid SSL_WrapperPacket.
         """
         packet = SSL_WrapperPacket()
-        packet.ParseFromString(raw_data)
+        try:
+            packet.ParseFromString(raw_data)
+        except DecodeError:
+            return None
         frame = packet.detection
         if frame is None:
             return None

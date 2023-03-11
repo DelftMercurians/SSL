@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:msw": "cross-env VITE_MSW=1 vite",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
@@ -12,6 +13,7 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.3",
     "@tsconfig/svelte": "^3.0.0",
+    "cross-env": "^7.0.3",
     "msw": "^1.1.0",
     "svelte": "^3.55.1",
     "svelte-check": "^2.10.3",
@@ -21,5 +23,8 @@
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "dependencies": {
+    "svelte-canvas": "^0.9.3"
   }
 }

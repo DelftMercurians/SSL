@@ -38,7 +38,7 @@ class PlayerManager:
             else:
                 # No role assigned, idle
                 player.set_target(Target(player.id, move_to=None))
-            state = next((d for d in data.own_robots_status if d.id == id), None)
+            state = data.own_robots_status[id]
             if state is not None:
                 player.tick(state, world)
             # TODO: Reevaluate role fitness

@@ -14,6 +14,7 @@ from .vis.generate_log import LogGenerator
 from .vis.world_plotter import WorldPlotter
 from .vis.data_store import DataStore
 from .vecMath.vec_math import Vec2, Vec3
+from .web.server import ServerWrapper
 import matplotlib
 
 matplotlib.use("TkAgg")
@@ -34,8 +35,10 @@ logger = LogGenerator("test.pickle")
 def main():
     data_filtered = None
     print("Starting test server")
+    web_server = ServerWrapper()
     DS = DataStore()
     DS.subscribe(logger.step)
+    DS.subscribe(web_server.step)
     with SSLClient() as client:
         player_manager = PlayerManager(NUM_PLAYERS, client)
 
@@ -45,31 +48,25 @@ def main():
         last_tick = time()
         while True:
             vision_data = client.receive()
+            data_filtered = (
+                world.update_from_protobuf(vision_data)
+                if vision_data is not None
+                else None
+            )
             current_time = time()
 
             if (
                 current_time - last_tick >= TICK_INTERVAL_SEC
-                and vision_data is not None
+                and data_filtered is not None
             ):
-                try:
-                    data_filtered = world.update_from_protobuf(vision_data)
-                    DS.update_player_and_ball_states(data_filtered)
-                    pathfinder.find_path(
-                        world, 0, Vec2(0, 0)
-                    )  # Needs to be called after DS is updated
-                    player_manager.tick(data_filtered)
-                    last_tick = current_time
 
-                except:
-                    pass
+                DS.update_player_and_ball_states(data_filtered)
+                pathfinder.find_path(
+                    world, 0, Vec2(0, 0)
+                )  # Needs to be called after DS is updated
+                player_manager.tick(world)
+                last_tick = current_time
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        # Generate log file then plot it
-        # GlobalConfig.logger.generate()
-        # plotter.plot()
-        # plotter.play()
-        pass
+    main()
