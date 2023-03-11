@@ -1,9 +1,11 @@
 from typing import Optional
 from dataclasses import dataclass
 import unittest
-import numpy as np
+
+from lightning7_ssl.vecMath.vec_math import Vec2
 
 from ..world.common import RobotDataEstimated
+from ..world.maintainer import World
 from .pathfinder import find_path
 from ..control_client import SSLClient
 
@@ -21,7 +23,7 @@ class Target:
     """
 
     player: int
-    move_to: Optional[np.ndarray] = None
+    move_to: Optional[Vec2] = None
 
 
 class Status:
@@ -32,7 +34,7 @@ class Status:
 
     @dataclass
     class Moving:
-        target: np.ndarray
+        target: Vec2
 
 
 # Player status type for typechecker
@@ -60,18 +62,17 @@ class Player:
         else:
             self.status = Status.Moving(target.move_to)
 
-    def tick(self, state: RobotDataEstimated):
+    def tick(self, state: RobotDataEstimated, world: World):
         """Called on fixed intervals, should move to execute current target."""
-        (x, y) = state.position
+        pos = state.position
         if isinstance(self.status, Status.Moving):
-            pos = np.asarray([x, y])
-            dist = np.linalg.norm(self.status.target - pos)
+            dist = (self.status.target - pos).norm
             if dist <= TARGET_TRESHOLD:
                 # Reached target
                 self.status = Status.Idle()
             else:
                 # Move towards target
-                dir_x, dir_y = find_path(pos, self.status.target)
+                dir_x, dir_y = find_path(world, self.id, self.status.target)
                 self._move(dir_x, dir_y)
         if isinstance(self.status, Status.Idle):
             # Stop moving
@@ -81,4 +82,5 @@ class Player:
     # -----------------------------------
 
     def _move(self, velX: float = 0, velY: float = 0, yaw: float = 0):
+        print(f"Moving robot {self.id} with vel ({velX}, {velY})")
         self.client.send(self.id, velX, velY, yaw)

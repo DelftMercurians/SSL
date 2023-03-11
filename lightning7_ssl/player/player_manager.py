@@ -27,8 +27,9 @@ class PlayerManager:
             )
         }
 
-    def tick(self, data: FilteredDataWrapper):
+    def tick(self, world: World):
         """Called on fixed intervals, should move all players."""
+        data = world.get_status()
         for id, player in self.players.items():
             role = self.assigned_roles.get(player.id)
             if role:
@@ -39,7 +40,7 @@ class PlayerManager:
                 player.set_target(Target(player.id, move_to=None))
             state = next((d for d in data.own_robots_status if d.id == id), None)
             if state is not None:
-                player.tick(state)
+                player.tick(state, world)
             # TODO: Reevaluate role fitness
 
     def spawn_role(self, role: Type[Role], data: FilteredDataWrapper):

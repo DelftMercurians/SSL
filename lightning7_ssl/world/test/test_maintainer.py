@@ -30,6 +30,7 @@ class FrameGenerator:
         robot.x = x
         robot.y = y
         robot.orientation = orientation
+
     def update_robot(self, robot_id, x, y, orientation, is_yellow):
         l = self.frame.robots_yellow if is_yellow else self.frame.robots_blue
         for robot in l:
@@ -50,15 +51,15 @@ class EstimationGenerator:
         ball_status = None
         self.estimation = FilteredDataWrapper(ball_status, own_team, opp_team)
 
-    def update_ball(self, pos: Vector3, speed: Vector3):
+    def update_ball(self, pos: Vec3, speed: Vec3):
         self.estimation.ball_status = BallDataEstimated(pos, speed)
 
     def update_robot(
         self,
         robot_id,
-        pos: Vector2,
+        pos: Vec2,
         orientation,
-        speed: Vector2,
+        speed: Vec2,
         angular_speed,
         is_yellow,
     ):
@@ -78,6 +79,7 @@ class TestMaintainer(unittest.TestCase):
         world = World()
         t = str(world.get_status())
         self.assertEqual(t, str(EstimationGenerator().get_estimation()))
+
     def test_getter(self):
         world = World()
         frame = FrameGenerator()
@@ -87,8 +89,8 @@ class TestMaintainer(unittest.TestCase):
         for i in range(6):
             frame.add_robot(i, -1.0, i, 0, True)  # opp team
             frame.add_robot(i, 1.0, i, 0, False)  # own team
-            expected_own.append((1.0, float(i)))
-            expected_opp.append((-1.0, float(i)))
+            expected_own.append(Vec2(1.0, float(i)))
+            expected_opp.append(Vec2(-1.0, float(i)))
         world.update_vision_data(frame.get_frame())
         self.assertEqual(world.get_team_position(), expected_own)
         self.assertEqual(world.get_opp_position(), expected_opp)
@@ -96,12 +98,11 @@ class TestMaintainer(unittest.TestCase):
         for i in range(6):
             frame.update_robot(i, 0, i, 0, True)
             frame.update_robot(i, 2, i, 0, False)
-            expected_own[i] = (1,0)
-            expected_opp[i] = (1,0)
+            expected_own[i] = Vec2(1, 0)
+            expected_opp[i] = Vec2(1, 0)
         world.update_vision_data(frame.get_frame())
-        self.assertEqual(world.get_team_speed(), expected_own)
-        self.assertEqual(world.get_opp_speed(), expected_opp)
-
+        self.assertEqual(world.get_team_vel(), expected_own)
+        self.assertEqual(world.get_opp_vel(), expected_opp)
 
     def test_complex(self):
         world = World()
@@ -111,26 +112,26 @@ class TestMaintainer(unittest.TestCase):
         frame = FrameGenerator()
         f = float(0.0)
         frame.add_ball(f, f, f, f)
-        expected.update_ball((f, f, f), (f, f, f))
+        expected.update_ball(Vec3(f, f, f), Vec3(f, f, f))
         for i in range(6):
             frame.add_robot(i, -1.0, i, 0, True)  # opp team
             frame.add_robot(i, 1.0, i, 0, False)  # own team
-            expected.update_robot(i, (1.0, float(i)), 0.0, (f, f), 0.0, False)
-            expected.update_robot(i, (-1.0, float(i)), 0.0, (f, f), 0.0, True)
+            expected.update_robot(i, Vec2(1.0, float(i)), 0.0, Vec2(f, f), 0.0, False)
+            expected.update_robot(i, Vec2(-1.0, float(i)), 0.0, Vec2(f, f), 0.0, True)
         res = world.update_vision_data(frame.get_frame())
         self.assertTrue(res == expected.get_estimation())
         # move ball
         frame = FrameGenerator()
         frame.add_ball(2.0, 2.0, 2.0, 1.0)
         frame.set_time(2.0)
-        expected.update_ball((2.0, 2.0, 2.0), (1, 1, 1))
+        expected.update_ball(Vec3(2.0, 2.0, 2.0), Vec3(1, 1, 1))
         res = world.update_vision_data(frame.get_frame())
         self.assertTrue(res == expected.get_estimation())
         # move one robot
         frame = FrameGenerator()
         frame.add_robot(0, 2.0, 2.0, 1, False)
         frame.set_time(4.0)
-        expected.update_robot(0, (2.0, 2.0), 1.0, (0.25, 0.5), 0.25, False)
+        expected.update_robot(0, Vec2(2.0, 2.0), 1.0, Vec2(0.25, 0.5), 0.25, False)
         res = world.update_vision_data(frame.get_frame())
         self.assertTrue(res == expected.get_estimation())
 

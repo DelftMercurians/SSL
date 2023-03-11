@@ -1,10 +1,10 @@
 from typing import List, Optional
-import numpy as np
 from dataclasses import dataclass
 from .common import *
 from .simple_filter import SimpleFilter
 from ..control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
 from ..control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
+
 
 @dataclass
 class FilteredDataWrapper:
@@ -81,7 +81,9 @@ class World:
         time = frame.t_capture
         for ball in frame.balls:
             self.ball_status.add(
-                BallDataRaw(time, camera_id, (ball.x, ball.y, ball.z), ball.confidence)
+                BallDataRaw(
+                    time, camera_id, Vec3(ball.x, ball.y, ball.z), ball.confidence
+                )
             )
 
         own_robots_status_frame = (
@@ -91,7 +93,7 @@ class World:
             if robot.robot_id not in range(self.num_robots):
                 continue
             self.own_robots_status[robot.robot_id].add(
-                RobotDataRaw(time, camera_id, (robot.x, robot.y), robot.orientation)
+                RobotDataRaw(time, camera_id, Vec2(robot.x, robot.y), robot.orientation)
             )
         opp_robots_status_frame = (
             frame.robots_yellow if self.is_blue else frame.robots_blue
@@ -100,15 +102,18 @@ class World:
             if robot.robot_id not in range(self.num_robots):
                 continue
             self.opp_robots_status[robot.robot_id].add(
-                RobotDataRaw(time, camera_id, (robot.x, robot.y), robot.orientation)
+                RobotDataRaw(time, camera_id, Vec2(robot.x, robot.y), robot.orientation)
             )
         return self.get_status()
 
     def get_team_position(self):
         return [tracker.get().position for tracker in self.own_robots_status]
-    def get_team_speed(self):
+
+    def get_team_vel(self):
         return [tracker.get().velocity for tracker in self.own_robots_status]
+
     def get_opp_position(self):
         return [tracker.get().position for tracker in self.opp_robots_status]
-    def get_opp_speed(self):
+
+    def get_opp_vel(self):
         return [tracker.get().velocity for tracker in self.opp_robots_status]
