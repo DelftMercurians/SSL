@@ -1,20 +1,29 @@
 from typing import List, Optional
-import numpy as np
 from dataclasses import dataclass
 from .common import *
 from .simple_filter import SimpleFilter
 from ..control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
 from ..control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
 
+
 @dataclass
 class FilteredDataWrapper:
-    """Represents the current state of the world."""
+    """Represents the current state of the world.
+    it's the fianl diliverable it can provide for other modules.
+    """
 
+    #: The ball status.
     ball_status: BallDataEstimated
+    #: The own robots status.
     own_robots_status: List[RobotDataEstimated]
+    #: The opponent robots status.
     opp_robots_status: List[RobotDataEstimated]
 
     def __str__(self):
+        """
+        a string representation of the data
+        Returns: the string representation of the data
+        """
         return (
             "filteredDataWrapper: \n   ball_status: "
             + str(self.ball_status)
@@ -27,8 +36,8 @@ class FilteredDataWrapper:
 
 
 class World:
-    """Represents the current state of the world.
-
+    """Represents the current state of the world.response for assign the data to the right robot and ball, only this class
+    keeps track of different robots and ball, anything below it is anonymous.
     Attributes:
         own_robots_status: A list of RobotTrackers for the own robots.
         opp_robots_status: A list of RobotTrackers for the opponent robots.
@@ -55,11 +64,7 @@ class World:
             self.opp_robots_status.append(RobotTracker(filter))
 
     def get_status(self) -> FilteredDataWrapper:
-        """Returns the current world state.
-
-            Usage:
-                call self.ball_status/own_robots_status/opp_robots_status
-        """
+        """Returns the current world state."""
         return FilteredDataWrapper(
             self.ball_status.get(),
             [tracker.get() for tracker in self.own_robots_status],
@@ -68,7 +73,8 @@ class World:
 
     def update_from_protobuf(self, raw_data: bytes) -> Optional[FilteredDataWrapper]:
         """Updates the world state from raw protobuf data.
-
+        Args:
+            raw_data: The raw protobuf data in bytes.
         Raises:
             DecodeError: If the data is not a valid SSL_WrapperPacket.
         """
@@ -80,12 +86,18 @@ class World:
         return self.update_vision_data(frame)
 
     def update_vision_data(self, frame: SSL_DetectionFrame) -> FilteredDataWrapper:
-        """Updates the world state from vision data."""
+        """Updates the world state from vision data. it depack the data and assign it
+        to the right robot and ball.
+        Args:
+            frame: The SSL_DetectionFrame to update from.
+        """
         camera_id = frame.camera_id
         time = frame.t_capture
         for ball in frame.balls:
             self.ball_status.add(
-                BallDataRaw(time, camera_id, (ball.x, ball.y, ball.z), ball.confidence)
+                BallDataRaw(
+                    time, camera_id, Vec3(ball.x, ball.y, ball.z), ball.confidence
+                )
             )
 
         own_robots_status_frame = (
@@ -95,7 +107,7 @@ class World:
             if robot.robot_id not in range(self.num_robots):
                 continue
             self.own_robots_status[robot.robot_id].add(
-                RobotDataRaw(time, camera_id, (robot.x, robot.y), robot.orientation)
+                RobotDataRaw(time, camera_id, Vec2(robot.x, robot.y), robot.orientation)
             )
         opp_robots_status_frame = (
             frame.robots_yellow if self.is_blue else frame.robots_blue
@@ -104,15 +116,22 @@ class World:
             if robot.robot_id not in range(self.num_robots):
                 continue
             self.opp_robots_status[robot.robot_id].add(
-                RobotDataRaw(time, camera_id, (robot.x, robot.y), robot.orientation)
+                RobotDataRaw(time, camera_id, Vec2(robot.x, robot.y), robot.orientation)
             )
         return self.get_status()
 
     def get_team_position(self):
+        """Returns the current position of the own robots."""
         return [tracker.get().position for tracker in self.own_robots_status]
-    def get_team_speed(self):
+
+    def get_team_vel(self):
+        """Returns the current speed of the own robots."""
         return [tracker.get().velocity for tracker in self.own_robots_status]
+
     def get_opp_position(self):
+        """Returns the current position of the opponent robots."""
         return [tracker.get().position for tracker in self.opp_robots_status]
-    def get_opp_speed(self):
+
+    def get_opp_vel(self):
+        """Returns the current speed of the opponent robots."""
         return [tracker.get().velocity for tracker in self.opp_robots_status]
