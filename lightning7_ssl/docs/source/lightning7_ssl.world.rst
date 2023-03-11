@@ -1,9 +1,6 @@
 lightning7\_ssl.world package
 =============================
 
-.. toctree::
-   :maxdepth: 4
-
 Submodules
 ----------
 
@@ -27,6 +24,14 @@ lightning7\_ssl.world.simple\_filter module
 -------------------------------------------
 
 .. automodule:: lightning7_ssl.world.simple_filter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: lightning7_ssl.world
    :members:
    :undoc-members:
    :show-inheritance:

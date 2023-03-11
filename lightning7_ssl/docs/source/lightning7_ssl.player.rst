@@ -1,9 +1,6 @@
 lightning7\_ssl.player package
 ==============================
 
-.. toctree::
-   :maxdepth: 4
-
 Submodules
 ----------
 

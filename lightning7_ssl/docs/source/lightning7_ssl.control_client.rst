@@ -1,9 +1,6 @@
 lightning7\_ssl.control\_client package
 =======================================
 
-.. toctree::
-   :maxdepth: 4
-
 Submodules
 ----------
 
