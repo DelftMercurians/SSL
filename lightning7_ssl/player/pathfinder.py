@@ -72,8 +72,6 @@ def find_path(
             )
         )
 
-    # print(obstacles)
-
     f = (goal - start_pos).as_unit()
     dist = f.norm
     attractive_force = alpha * dist
@@ -85,7 +83,6 @@ def find_path(
         base_factor * RADIUS_ROBOT * 1000
     )  # 1000 -> convert the unit to mm
 
-    # print(attractive_force)
     for o, speed in obstacles:
         d = (start_pos - o).norm
         final_influence_radius = influence_radius + speed * speed_factor

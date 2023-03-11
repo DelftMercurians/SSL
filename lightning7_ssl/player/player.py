@@ -82,5 +82,4 @@ class Player:
     # -----------------------------------
 
     def _move(self, velX: float = 0, velY: float = 0, yaw: float = 0):
-        print(f"Moving robot {self.id} with vel ({velX}, {velY})")
         self.client.send(self.id, velX, velY, yaw)

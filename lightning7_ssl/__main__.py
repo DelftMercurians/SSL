@@ -40,7 +40,6 @@ def main():
                 current_time - last_tick >= TICK_INTERVAL_SEC
                 and vision_data is not None
             ):
-                # print(vision_data)
                 try:
                     data_filtered = world.update_from_protobuf(vision_data)
                     DS.update_player_and_ball_states(data_filtered)

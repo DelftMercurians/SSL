@@ -77,5 +77,4 @@ class SimpleFilter(StatusEstimater):
             v = (pos - prev_pos) / timediff
             spinv = (ori - prev_ori) / timediff
 
-        print("pos: ", pos, "ori: ", ori, "v: ", v, "spinv: ", spinv)
         return RobotDataEstimated(pos, ori, v, spinv)
