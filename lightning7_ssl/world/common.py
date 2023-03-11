@@ -112,9 +112,9 @@ class BallDataRaw:
 @dataclass
 class BallDataEstimated:
     """
-        a dataclass to store estimated data from ssl vision, this contact can be modified based on real needs.
-        confidence is not included because it is not needed for now.
-
+    A dataclass to store estimated data from ssl vision, this contact can be modified based on real needs. 
+    
+    Confidence is not included because it is not needed for now.
     """
 
     #: position of the ball
@@ -122,11 +122,13 @@ class BallDataEstimated:
     #: velocity of the ball
     velocity: Vec3
 
-    """
-    a string representation of the data
-    Returns: the string representation of the data
-    """
+    
     def __str__(self):
+        """
+            a string representation of the data
+
+            Returns: the string representation of the data
+        """
         return (
             "BallDataEstimated: [pos: "
             + str(self.position)

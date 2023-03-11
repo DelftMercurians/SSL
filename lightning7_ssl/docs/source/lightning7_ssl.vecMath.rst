@@ -1,10 +1,7 @@
-lightning7\_ssl.vecMath package
+vecMath package
 ===============================
 
-Submodules
-----------
-
-lightning7\_ssl.vecMath.vec\_math module
+vecMath.vec\_math module
 ----------------------------------------
 
 .. automodule:: lightning7_ssl.vecMath.vec_math

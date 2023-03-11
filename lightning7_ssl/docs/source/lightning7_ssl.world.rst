@@ -1,10 +1,7 @@
-lightning7\_ssl.world package
+world package
 =============================
 
-Submodules
-----------
-
-lightning7\_ssl.world.common module
+world.common module
 -----------------------------------
 
 .. automodule:: lightning7_ssl.world.common
@@ -12,7 +9,7 @@ lightning7\_ssl.world.common module
    :undoc-members:
    :show-inheritance:
 
-lightning7\_ssl.world.maintainer module
+world.maintainer module
 ---------------------------------------
 
 .. automodule:: lightning7_ssl.world.maintainer
@@ -20,7 +17,7 @@ lightning7\_ssl.world.maintainer module
    :undoc-members:
    :show-inheritance:
 
-lightning7\_ssl.world.simple\_filter module
+world.simple\_filter module
 -------------------------------------------
 
 .. automodule:: lightning7_ssl.world.simple_filter

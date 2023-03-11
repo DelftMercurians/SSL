@@ -1,21 +1,10 @@
-lightning7\_ssl.control\_client package
+control\_client package
 =======================================
 
-Submodules
-----------
-
-lightning7\_ssl.control\_client.client module
+control\_client.client module
 ---------------------------------------------
 
 .. automodule:: lightning7_ssl.control_client.client
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: lightning7_ssl.control_client
    :members:
    :undoc-members:
    :show-inheritance:

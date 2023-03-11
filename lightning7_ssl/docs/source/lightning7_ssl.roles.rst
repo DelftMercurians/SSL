@@ -1,10 +1,7 @@
-lightning7\_ssl.roles package
+roles package
 =============================
 
-Submodules
-----------
-
-lightning7\_ssl.roles.role module
+roles.role module
 ---------------------------------
 
 .. automodule:: lightning7_ssl.roles.role

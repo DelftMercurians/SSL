@@ -1,10 +1,7 @@
-lightning7\_ssl.player package
+player package
 ==============================
 
-Submodules
-----------
-
-lightning7\_ssl.player.pathfinder module
+player.pathfinder module
 ----------------------------------------
 
 .. automodule:: lightning7_ssl.player.pathfinder
@@ -12,7 +9,7 @@ lightning7\_ssl.player.pathfinder module
    :undoc-members:
    :show-inheritance:
 
-lightning7\_ssl.player.player module
+player.player module
 ------------------------------------
 
 .. automodule:: lightning7_ssl.player.player
@@ -20,7 +17,7 @@ lightning7\_ssl.player.player module
    :undoc-members:
    :show-inheritance:
 
-lightning7\_ssl.player.player\_manager module
+player.player\_manager module
 ---------------------------------------------
 
 .. automodule:: lightning7_ssl.player.player_manager
