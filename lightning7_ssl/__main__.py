@@ -58,6 +58,7 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         # Generate log file then plot it
-        GlobalConfig.logger.generate()
-        # plotter.plot()
+        logger.generate()
+        plotter = WorldPlotter('test.pickle')
+        plotter.plot()
         # plotter.play()
