@@ -25,6 +25,8 @@ logger = LogGenerator("test.pickle")
 
 def main():
     print("Starting test server")
+    DS = DataStore()
+    DS.subscribe(logger.step)
     with SSLClient() as client:
         player_manager = PlayerManager(NUM_PLAYERS, client)
 
