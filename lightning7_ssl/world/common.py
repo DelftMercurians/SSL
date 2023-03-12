@@ -112,9 +112,9 @@ class BallDataRaw:
 @dataclass
 class BallDataEstimated:
     """
-    A dataclass to store estimated data from ssl vision, this contact can be modified based on real needs. 
-    
-    Confidence is not included because it is not needed for now.
+        A dataclass to store estimated data from ssl vision, this contact can be modified based on real needs. 
+
+        Confidence is not included because it is not needed for now.
     """
 
     #: position of the ball
