@@ -4,7 +4,7 @@ from .common import *
 from .simple_filter import SimpleFilter
 from ..control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
 from ..control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
-
+from ..control_client.protobuf.ssl_geometry_pb2 import SSL_GeometryData
 
 @dataclass
 class FilteredDataWrapper:
@@ -18,6 +18,8 @@ class FilteredDataWrapper:
     own_robots_status: List[RobotDataEstimated]
     #: The opponent robots status.
     opp_robots_status: List[RobotDataEstimated]
+    
+    field_geometry: FieldGeometry
 
     def __str__(self):
         """
@@ -31,6 +33,8 @@ class FilteredDataWrapper:
             + str(self.own_robots_status)
             + "\n   opp_robots_status: "
             + str(self.opp_robots_status)
+            + "\n   field_geometry: "
+            + str(self.field_geometry)
             + "\n"
         )
 
@@ -49,6 +53,7 @@ class World:
 
     own_robots_status: List[RobotTracker]
     opp_robots_status: List[RobotTracker]
+    field_geometry: FieldGeometry
     ball_status: BallTracker
     is_blue: bool
     num_robots: int
@@ -57,12 +62,27 @@ class World:
         filter = SimpleFilter()
         self.own_robots_status = []
         self.opp_robots_status = []
+        self.field_geometry = None
         self.ball_status = BallTracker(filter)
         self.is_blue = is_blue
         self.num_robots = num_robots
         for i in range(num_robots):
             self.own_robots_status.append(RobotTracker(filter))
             self.opp_robots_status.append(RobotTracker(filter))
+
+    # def set_geom(self, raw_data: bytes) -> None:
+    #     """
+    #         Sets the geometry of the field from raw protobuf data.
+
+    #         @param:
+    #             raw_data: THe raw protobuf data in bytes.
+    #     """
+    #     packet = SSL_WrapperPacket()
+    #     packet.ParseFromString(raw_data)
+    #     fg = packet.geometry
+    #     print('hi')
+    #     self.field_geometry = FieldGeometry(fg.field_length, fg.field_width, fg.goal_width, fg.goal_depth,
+    #                                         fg.boundary_width)
 
     def get_status(self) -> FilteredDataWrapper:
         """Returns the current world state."""

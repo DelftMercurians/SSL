@@ -6,6 +6,39 @@ import abc
 
 
 @dataclass
+class FieldGeometry:
+    """
+        A dataclass to store field geometry data from ssl vision.
+    """
+    # Excluded field line segments, arcs, and penalty area for now, can be added later
+    field_length: int
+    field_width: int
+    goal_width: int
+    goal_depth: int
+    boundary_width: int
+
+    def __str__(self):
+        """
+        a string representation of the data
+
+        Returns: 
+            the string representation of the data
+        """
+        return (
+            "FieldGeometry: [field_length: "
+            + str(self.field_length)
+            + " field_width: "
+            + str(self.field_width)
+            + " goal_width: "
+            + str(self.goal_width)
+            + " goal_depth: "
+            + str(self.goal_depth)
+            + " boundary_width: "
+            + str(self.boundary_width)
+            + "]\n"
+        )
+
+@dataclass
 class RobotDataRaw:
     """
     a dataclass to store raw data from ssl vision, this contact can be modified based on real needs.
