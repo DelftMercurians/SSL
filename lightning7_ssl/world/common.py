@@ -16,13 +16,15 @@ class FieldGeometry:
     goal_width: int
     goal_depth: int
     boundary_width: int
+    penalty_area_depth: int
+    penalty_area_width: int
 
     def __str__(self):
         """
-        a string representation of the data
+            A string representation of the data
 
-        Returns: 
-            the string representation of the data
+            Returns: 
+                the string representation of the data
         """
         return (
             "FieldGeometry: [field_length: "
@@ -35,6 +37,10 @@ class FieldGeometry:
             + str(self.goal_depth)
             + " boundary_width: "
             + str(self.boundary_width)
+            + "penalty_area_width: "
+            + str(self.penalty_area_width)
+            + "penalty_area_depth: "
+            + str(self.penalty_area_depth)
             + "]\n"
         )
 

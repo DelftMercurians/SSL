@@ -45,10 +45,13 @@ def main():
                 and vision_data is not None
             ):
                 try:
-                    # if not is_geom_set:
-                    #     world.set_geom(vision_data)
-                    #     # print(world.field_geometry)
-                    #     is_geom_set = True
+                    if not is_geom_set:
+                        # Set the geometry only once
+                        world.set_geom(vision_data)
+                        if world.field_geometry.field_length != 0:
+                            is_geom_set = True
+                            print(world.field_geometry)
+
                     data_filtered = world.update_from_protobuf(vision_data)
                     DS.update_player_and_ball_states(data_filtered)
                     # pathfinder.find_path(
