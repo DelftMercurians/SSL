@@ -51,6 +51,11 @@ def main():
                         if world.field_geometry.field_length != 0:
                             is_geom_set = True
                             print(world.field_geometry)
+                            for seg in world.field_line_segments:
+                                print(seg)
+                            
+                            for arc in world.field_circular_arcs:
+                                print(arc)
 
                     data_filtered = world.update_from_protobuf(vision_data)
                     DS.update_player_and_ball_states(data_filtered)
@@ -71,5 +76,5 @@ if __name__ == "__main__":
         # Generate log file then plot it
         logger.generate()
         plotter = WorldPlotter('test.pickle')
-        plotter.plot()
+        # plotter.plot()
         # plotter.play()

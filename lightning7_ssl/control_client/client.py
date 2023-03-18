@@ -160,7 +160,7 @@ class SSLClient:
 
     def receive(self):
         """Receive package and decode."""
-        data, _ = self.vision_sock.recvfrom(2048) # Influences how much data we get
+        data, _ = self.vision_sock.recvfrom(1024*2) # Influences how much data we get
         return data
 
     def send(
