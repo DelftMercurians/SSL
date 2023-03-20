@@ -22,8 +22,8 @@ RADIUS_ROBOT = 0.0793
 world = World(NUM_PLAYERS, OWN_TEAM == "blue")
 logger = LogGenerator("test.pickle")
 
-
 def main():
+    is_geom_set = False
     print("Starting test server")
     DS = DataStore()
     DS.subscribe(logger.step)
@@ -34,6 +34,8 @@ def main():
         client.send(0, 0, 0)
 
         last_tick = time()
+
+        
         while True:
             vision_data = client.receive()
             current_time = time()
@@ -43,11 +45,23 @@ def main():
                 and vision_data is not None
             ):
                 try:
+                    if not is_geom_set:
+                        # Set the geometry only once
+                        world.set_geom(vision_data)
+                        if world.field_geometry.field_length != 0:
+                            is_geom_set = True
+                            print(world.field_geometry)
+                            for seg in world.field_line_segments:
+                                print(seg)
+                            
+                            for arc in world.field_circular_arcs:
+                                print(arc)
+
                     data_filtered = world.update_from_protobuf(vision_data)
                     DS.update_player_and_ball_states(data_filtered)
-                    pathfinder.find_path(
-                        world, 0, Vec2(0, 0)
-                    )  # Needs to be called after DS is updated
+                    # pathfinder.find_path(
+                    #     world, 0, Vec2(0, 0)
+                    # )  # Needs to be called after DS is updated
                     player_manager.tick(data_filtered)
                     last_tick = current_time
 
@@ -62,5 +76,5 @@ if __name__ == "__main__":
         # Generate log file then plot it
         logger.generate()
         plotter = WorldPlotter('test.pickle')
-        plotter.plot()
+        # plotter.plot()
         # plotter.play()

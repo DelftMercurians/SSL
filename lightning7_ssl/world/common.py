@@ -6,6 +6,116 @@ import abc
 
 
 @dataclass
+class FieldGeometry:
+    """
+        A dataclass to store field geometry data from ssl vision.
+    """
+    # Excluded field line segments, arcs, and penalty area for now, can be added later
+    field_length: int
+    field_width: int
+    goal_width: int
+    goal_depth: int
+    boundary_width: int
+    penalty_area_depth: int
+    penalty_area_width: int
+
+    def __str__(self):
+        """
+            A string representation of the data
+
+            Returns: 
+                the string representation of the data
+        """
+        return (
+            "FieldGeometry: [field_length: "
+            + str(self.field_length)
+            + " field_width: "
+            + str(self.field_width)
+            + " goal_width: "
+            + str(self.goal_width)
+            + " goal_depth: "
+            + str(self.goal_depth)
+            + " boundary_width: "
+            + str(self.boundary_width)
+            + " penalty_area_width: "
+            + str(self.penalty_area_width)
+            + " penalty_area_depth: "
+            + str(self.penalty_area_depth)
+            + "]\n"
+        )
+
+@dataclass
+class FieldLinesSegment:
+    """
+        A dataclass to store a single line segments.
+
+        @params:
+            p1: Start point of segment
+            p2: End point of segment
+    """
+
+    index: int
+    name: str
+    p1: Vec2
+    p2: Vec2
+    thickness: float
+
+    def __str__(self) -> str:
+        """
+            A string representation of the data.
+        """
+        return(
+            "LineSegment ["
+            + str(self.index)
+            + "]: "
+            + str(self.name)
+            + " p1: "
+            + str(self.p1.vec)
+            + " p2: "
+            + str(self.p2.vec)
+            + " thickness: "
+            + str(self.thickness)
+            + "\n"
+        )
+
+@dataclass
+class FieldCircularArc:
+    """
+        A class to store a single field arc.
+
+        @params:
+            a1: Start angle in counter-clockwise order.
+            a2: End angle in counter-clockwise order.
+    """
+
+    index: int
+    name: str
+    center: Vec2
+    radius: float
+    a1: float
+    a2: float
+    thickness: float
+
+    def __str__(self) -> str:
+        return(
+            "CircularArc ["
+            + str(self.index)
+            + "]: "
+            + str(self.name)
+            + " center: "
+            + str(self.center.vec)
+            + " radius: "
+            + str(self.radius)
+            + " a1: "
+            + str(self.a1)
+            + " a2: "
+            + str(self.a2)
+            + " thickness: "
+            + str(self.thickness)
+            + "\n"
+        )
+
+@dataclass
 class RobotDataRaw:
     """
     a dataclass to store raw data from ssl vision, this contact can be modified based on real needs.

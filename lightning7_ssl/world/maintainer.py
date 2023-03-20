@@ -5,7 +5,6 @@ from .simple_filter import SimpleFilter
 from ..control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
 from ..control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
 
-
 @dataclass
 class FilteredDataWrapper:
     """Represents the current state of the world.
@@ -18,6 +17,7 @@ class FilteredDataWrapper:
     own_robots_status: List[RobotDataEstimated]
     #: The opponent robots status.
     opp_robots_status: List[RobotDataEstimated]
+
 
     def __str__(self):
         """
@@ -41,20 +41,29 @@ class World:
 
     Attributes:
         own_robots_status: A list of RobotTrackers for the own robots.
+
         opp_robots_status: A list of RobotTrackers for the opponent robots.
+
         ball_status: A BallTracker for the ball.
+
         is_blue: Whether the team is blue or not.
+
         num_robots: The number of robots on the team.
     """
 
     own_robots_status: List[RobotTracker]
     opp_robots_status: List[RobotTracker]
+    field_geometry: FieldGeometry
+    field_line_segments: List[FieldLinesSegment]
+    field_circular_arcs: List[FieldCircularArc]
     ball_status: BallTracker
     is_blue: bool
     num_robots: int
 
     def __init__(self, num_robots=6, is_blue=True):
         filter = SimpleFilter()
+
+        # Robots
         self.own_robots_status = []
         self.opp_robots_status = []
         self.ball_status = BallTracker(filter)
@@ -63,6 +72,38 @@ class World:
         for i in range(num_robots):
             self.own_robots_status.append(RobotTracker(filter))
             self.opp_robots_status.append(RobotTracker(filter))
+
+        # Field geometry and lines        
+        self.field_geometry = None
+        self.field_line_segments = []
+        self.field_circular_arcs = []
+    def set_geom(self, raw_data: bytes) -> None:
+        """
+            Sets the geometry of the field from raw protobuf data. The data is updated in attributes
+                :field_geometry:
+
+                :field_line_segments:
+
+                :field_circular_arcs:
+
+            :param:
+                raw_data: The raw protobuf data in bytes. 
+        """
+        packet = SSL_WrapperPacket()
+        packet.ParseFromString(raw_data)
+        fg = packet.geometry.field
+
+        self.field_geometry = FieldGeometry(fg.field_length/1000, fg.field_width/1000, fg.goal_width/1000, fg.goal_depth/1000, 
+                                            fg.boundary_width/1000, fg.penalty_area_depth/1000, fg.penalty_area_width/1000)
+        
+        # Append each line segment into the field_ling_segments list
+        for i, segment in enumerate(fg.field_lines):
+            line = FieldLinesSegment(i, segment.name, Vec2(segment.p1.x/1000, segment.p1.y/1000), Vec2(segment.p2.x/1000, segment.p2.y/1000), segment.thickness)
+            self.field_line_segments.append(line)
+
+        for i, arc in enumerate(fg.field_arcs):
+            t = FieldCircularArc(i, arc.name, Vec2(arc.center.x, arc.center.y), arc.radius, arc.a1, arc.a2, arc.thickness)
+            self.field_circular_arcs.append(t)
 
     def get_status(self) -> FilteredDataWrapper:
         """Returns the current world state."""
