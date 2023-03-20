@@ -8,14 +8,15 @@ RADIUS_ROBOT = 0.0793
 
 def get_relative_speed(pos1: Vec2, pos2: Vec2, vel1: Vec2, vel2: Vec2) -> float:
     """
-    get the relative speed of two objects based on the position and speed of them.
-    Args:
-        pos1:  position of the first object
-        pos2:  position of the second object
-        speed1:  speed of the first object
-        speed2:  speed of the second object
-    Returns: a scalar, the relative speed which can represents how fast they are approaching each other.
+        get the relative speed of two objects based on the position and speed of them.
 
+        Args:
+            pos1:  position of the first object
+            pos2:  position of the second object
+            speed1:  speed of the first object
+            speed2:  speed of the second object
+
+        Returns: a scalar, the relative speed which can represents how fast they are approaching each other.
     """
     d = (pos1 - pos2).as_unit()
     s = vel1 - vel2
@@ -31,19 +32,21 @@ def find_path(
     influence_factor: Tuple[int, int] = (5, 1),
 ) -> Vec2:
     """
-    Computes the immediate direction the robot should head towards.
-    Returns a unit vector, the global direction.
-    Args:
-        world: the world object which contains the current state
-        start_id: the id of the robot which is going to move
-        goal:  the position of the ball
-        alpha: larger alpha will lead to a stronger attractive rate(related to the repulsive rate)
-        beta: the relative speed contribution to the repulsive force(compared to no speed)
-        influence_factor: = base_factor,speed_factor,
-            base_factor: in what range the obstacle can have an influence.
-            speed_factor: the relative speed contribution to the enlarged radius(compared to no speed)
+        Computes the immediate direction the robot should head towards.
+        Returns a unit vector, the global direction.
+        
+        Args:
+            world: the world object which contains the current state
+            start_id: the id of the robot which is going to move
+            goal:  the position of the ball
+            alpha: larger alpha will lead to a stronger attractive rate(related to the repulsive rate)
+            beta: the relative speed contribution to the repulsive force(compared to no speed)
+            influence_factor: = base_factor,speed_factor,
+        
+                base_factor: in what range the obstacle can have an influence.
+                speed_factor: the relative speed contribution to the enlarged radius(compared to no speed)
 
-    Returns: a unit vector, the global direction.
+        Returns: a unit vector, the global direction.
     """
 
     obstacles: List[Tuple[Vec2, float]] = []

@@ -33,6 +33,7 @@ logger = LogGenerator("test.pickle")
 
 
 def main():
+    is_geom_set = False
     data_filtered = None
     print("Starting test server")
     web_server = ServerWrapper()
@@ -46,6 +47,7 @@ def main():
         client.send(0, 0, 0)
 
         last_tick = time()
+
         while True:
             vision_data = client.receive()
             data_filtered = (
@@ -59,13 +61,28 @@ def main():
                 current_time - last_tick >= TICK_INTERVAL_SEC
                 and data_filtered is not None
             ):
+                try:
+                    if not is_geom_set:
+                        # Set the geometry only once
+                        world.set_geom(vision_data)
+                        if world.field_geometry.field_length != 0:
+                            is_geom_set = True
+                            print(world.field_geometry)
+                            for seg in world.field_line_segments:
+                                print(seg)
 
-                DS.update_player_and_ball_states(data_filtered)
-                pathfinder.find_path(
-                    world, 0, Vec2(0, 0)
-                )  # Needs to be called after DS is updated
-                player_manager.tick(world)
-                last_tick = current_time
+                            for arc in world.field_circular_arcs:
+                                print(arc)
+
+                    data_filtered = world.update_from_protobuf(vision_data)
+                    DS.update_player_and_ball_states(data_filtered)
+                    # pathfinder.find_path(
+                    #     world, 0, Vec2(0, 0)
+                    # )  # Needs to be called after DS is updated
+                    player_manager.tick(data_filtered)
+                    last_tick = current_time
+                except:
+                    pass
 
 
 if __name__ == "__main__":
