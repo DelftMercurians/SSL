@@ -6,7 +6,9 @@ from multiprocessing.connection import Connection
 from multiprocessing import Pipe, Process
 import os
 from pathlib import Path
+import time
 from typing import TYPE_CHECKING, Optional
+import webbrowser
 
 if TYPE_CHECKING:
     from ..world.maintainer import FilteredDataWrapper
@@ -87,6 +89,8 @@ class ServerWrapper:
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
+            time.sleep(1)
+            webbrowser.open("http://localhost:5174/")
         self._pipe, child_pipe = Pipe()
         self._process = Process(
             target=run_server, args=(child_pipe, dev_mode), daemon=True
