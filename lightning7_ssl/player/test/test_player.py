@@ -10,8 +10,8 @@ from lightning7_ssl.world.common import BallDataEstimated, RobotDataEstimated
 class PlayerTestSuite(unittest.TestCase):
     def test_player_moves_towards_target(self, mock_client: MagicMock):
         # Target to (0, 100)
-        target = Target(0, Vec2(0, 100))
-        player = Player(0, mock_client)
+        target = Target(Vec2(0, 100))
+        player = Player(mock_client)
         player.set_target(target)
         self.assertEqual(player.status.target[0], 0)
         self.assertEqual(player.status.target[1], 100)

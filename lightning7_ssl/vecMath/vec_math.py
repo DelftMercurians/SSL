@@ -110,6 +110,12 @@ class Vec2:
         else:
             return Vec2(self.x / self.norm, self.y / self.norm)
 
+    def to_json(self):
+        """
+        Returns a json representation of this Vec2 object.
+        """
+        return {"x": self.x, "y": self.y}
+
 
 class Vec3:
     """
@@ -233,3 +239,9 @@ class Vec3:
             return Vec3(0, 0, 0)
         else:
             return Vec3(self.x / self.norm, self.y / self.norm, self.z / self.norm)
+
+    def to_json(self):
+        """
+        Returns a json representation of this Vec3 object.
+        """
+        return {"x": self.x, "y": self.y, "z": self.z}

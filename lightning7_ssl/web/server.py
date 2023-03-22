@@ -59,7 +59,7 @@ def run_server(pipe: Connection, dev_mode=False):
             debug=True,
             routes=routes,
         )
-        config = uvicorn.Config(app, port=SERVER_PORT, log_level="info")
+        config = uvicorn.Config(app, port=SERVER_PORT, log_level="critical")
         server = uvicorn.Server(config)
         print("Serving from " + str(dist_folder))
         try:
@@ -90,7 +90,6 @@ class ServerWrapper:
                 stderr=subprocess.DEVNULL,
             )
             time.sleep(1)
-            webbrowser.open("http://localhost:5174/")
         self._pipe, child_pipe = Pipe()
         self._process = Process(
             target=run_server, args=(child_pipe, dev_mode), daemon=True

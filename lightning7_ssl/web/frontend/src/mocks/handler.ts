@@ -6,19 +6,19 @@ export const handlers = [
     const serverState: ServerState = {
       world: {
         ball: {
-          pos: { x: 0, y: 0 },
-          vel: { x: 0, y: 0 },
+          position: { x: 0, y: 0 },
+          velocity: { x: 0, y: 0 },
         },
         own_players: [
           {
-            pos: { x: -400, y: 0 },
-            vel: { x: 0, y: 0 },
+            position: { x: -400, y: 0 },
+            velocity: { x: 0, y: 0 },
           },
         ],
         opp_players: [
           {
-            pos: { x: 400, y: 0 },
-            vel: { x: 0, y: 0 },
+            position: { x: 400, y: 0 },
+            velocity: { x: 0, y: 0 },
           },
         ],
         field_dimensions: { x: 10400, y: 7400 },

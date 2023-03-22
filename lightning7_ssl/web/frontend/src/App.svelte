@@ -3,7 +3,13 @@
   import { Canvas, Layer, t, type Render } from "svelte-canvas";
   import type { ServerState, XY } from "./types";
 
-  const ROBOT_RADIUS = 0.18 * 1000;
+  /**
+   * The radius of the robots and ball, in mm
+   */
+  const ROBOT_RADIUS = 0.14 * 1000;
+  /**
+   * The radius of the ball, in mm
+   */
   const BALL_RADIUS = 0.043 * 1000;
 
   let state: ServerState | null = null;
@@ -11,7 +17,7 @@
     const interval = setInterval(async () => {
       const res = await fetch("/api/state");
       state = await res.json();
-    }, 1000);
+    }, 300);
 
     return () => clearInterval(interval);
   });
@@ -20,7 +26,8 @@
   $: render = ({ context: ctx, width, height }) => {
     if (!state) return;
     const { own_players, opp_players, ball } = state.world;
-    const { x: fieldW, y: fieldH } = state.world.field_dimensions;
+    const fieldH = state.geom.field_geometry.field_width * 1000;
+    const fieldW = state.geom.field_geometry.field_length * 1000;
 
     /**
      * Convert from server length to canvas length.
@@ -50,12 +57,19 @@
     ctx.fillRect(0, 0, width, height);
 
     // Draw field lines
-    // TODO: Draw field lines
+    // state.geom.lines.forEach(({ p1, p2 }) => {
+    //   const { x: x1, y: y1 } = convertCoords(p1);
+    //   const { x: x2, y: y2 } = convertCoords(p2);
+    //   ctx.strokeStyle = "white";
+    //   ctx.beginPath();
+    //   ctx.moveTo(x1, y1);
+    //   ctx.lineTo(x2, y2);
+    //   ctx.stroke();
+    // });
 
     // Draw ball
-    const ballPos = convertCoords(ball.pos);
+    const ballPos = convertCoords(ball.position);
     const ballCanvasRadius = convertLength(BALL_RADIUS);
-    console.log(ballPos);
     ctx.fillStyle = "red";
     ctx.beginPath();
     ctx.arc(ballPos.x, ballPos.y, ballCanvasRadius, 0, 2 * Math.PI);
@@ -70,8 +84,8 @@
       ctx.arc(x, y, robotCanvasRadius, 0, 2 * Math.PI);
       ctx.fill();
     };
-    own_players.forEach(({ pos }) => drawPlayer(pos, "blue"));
-    opp_players.forEach(({ pos }) => drawPlayer(pos, "yellow"));
+    own_players.forEach(({ position: pos }) => drawPlayer(pos, "blue"));
+    opp_players.forEach(({ position: pos }) => drawPlayer(pos, "yellow"));
   };
 </script>
 

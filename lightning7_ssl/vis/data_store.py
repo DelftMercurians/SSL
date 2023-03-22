@@ -1,6 +1,12 @@
 import json
 from dataclasses import dataclass, field, asdict
 from typing import Any, Dict, Callable, List, Optional
+
+from ..world.common import (
+    FieldCircularArc,
+    FieldGeometry,
+    FieldLinesSegment,
+)
 from ..vecMath.vec_math import Vec2, Vec3
 from ..world.maintainer import World
 from ..world.maintainer import FilteredDataWrapper
@@ -9,7 +15,11 @@ from ..world.maintainer import FilteredDataWrapper
 @dataclass
 class DataStore:
     state: Dict = field(
-        default_factory=lambda: {"world": {}, "friends": {}, "opps": {}, "ball": {}}
+        default_factory=lambda: {
+            "world": {},
+            "player_states": [],
+            "geom": {},
+        }
     )
     _subs: List[Callable[[Dict, "DataStore"], Any]] = field(default_factory=list)
 
@@ -17,6 +27,19 @@ class DataStore:
     #     update = asdict(world.get_status())
     #     self.state["world"] = update
     #     self._publish(self.state)
+
+    def update_geom(
+        self,
+        field_geometry: FieldGeometry,
+        lines: List[FieldLinesSegment],
+        arcs: List[FieldCircularArc],
+    ):
+        self.state["geom"] = {
+            "field_geometry": asdict(field_geometry),
+            "lines": [asdict(line) for line in lines],
+            "arcs": [asdict(arc) for arc in arcs],
+        }
+        self._publish(self.state)
 
     def update_player_and_ball_states(self, data: FilteredDataWrapper):
         """
@@ -26,9 +49,11 @@ class DataStore:
         opps: opponent robots
         """
         update = asdict(data)
-        self.state["friends"] = update["own_robots_status"]
-        self.state["opps"] = update["opp_robots_status"]
-        self.state["ball"] = update["ball_status"]
+        self.state["world"] = {
+            "ball": update["ball_status"],
+            "own_players": update["own_robots_status"],
+            "opp_players": update["opp_robots_status"],
+        }
         self._publish(self.state)
 
     def subscribe(self, callback: Callable[[Dict], Any]):
@@ -38,7 +63,7 @@ class DataStore:
         """Converts the state to a JSON string."""
         json_str = json.dumps(
             self.state,
-            default=lambda o: o.vec if isinstance(o, (Vec2, Vec3)) else o,
+            default=lambda o: o.to_json() if isinstance(o, (Vec2, Vec3)) else o,
         )
         return json_str
 
