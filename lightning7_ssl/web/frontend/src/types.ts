@@ -55,7 +55,7 @@ export interface Geometry {
 }
 
 export interface ServerState {
-  world: World;
-  player_states: PlayerState[];
-  geom: Geometry;
+  world?: World;
+  player_states?: PlayerState[];
+  geom?: Geometry;
 }

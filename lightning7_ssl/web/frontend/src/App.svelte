@@ -17,14 +17,14 @@
     const interval = setInterval(async () => {
       const res = await fetch("/api/state");
       state = await res.json();
-    }, 300);
+    }, 100);
 
     return () => clearInterval(interval);
   });
 
   let render: Render;
   $: render = ({ context: ctx, width, height }) => {
-    if (!state) return;
+    if (!state || !state.world || !state.geom || !state.player_states) return;
     const { own_players, opp_players, ball } = state.world;
     const fieldH = state.geom.field_geometry.field_width * 1000;
     const fieldW = state.geom.field_geometry.field_length * 1000;
