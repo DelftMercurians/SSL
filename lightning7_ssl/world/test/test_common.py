@@ -1,6 +1,6 @@
 import unittest
 from lightning7_ssl.world.common import *
-from lightning7_ssl.world.simple_filter import SimpleFilter
+from lightning7_ssl.world.estimators.simple_filter import SimpleFilter
 
 
 class MyTestCase(unittest.TestCase):

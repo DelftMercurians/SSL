@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 from abc import ABC, abstractmethod
-from ..world.maintainer import FilteredDataWrapper
+from ..world.world import FilteredDataWrapper
 
 # Avoid circular import
 if TYPE_CHECKING:

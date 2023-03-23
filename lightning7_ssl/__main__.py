@@ -5,13 +5,13 @@ from lightning7_ssl.roles.fixed_role import FixedRole
 
 from .control_client import SSLClient
 from .player import PlayerManager
-from lightning7_ssl.world.maintainer import World
+from lightning7_ssl.world.world import World
 from .vis.generate_log import LogGenerator
 from .vis.world_plotter import WorldPlotter
 from .vis.data_store import DataStore
 from .control_client import SSLClient
 from .player import PlayerManager, pathfinder
-from .world.maintainer import *
+from .world.world import World
 from .vis.generate_log import LogGenerator
 from .vis.world_plotter import WorldPlotter
 from .vis.data_store import DataStore

@@ -1,7 +1,7 @@
 import pickle
 
 from ..vis.data_store import DataStore
-from ..world.maintainer import FilteredDataWrapper
+from ..world.world import FilteredDataWrapper
 
 
 class LogGenerator:

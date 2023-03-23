@@ -1,10 +1,19 @@
+from collections import OrderedDict
 from typing import List, Optional
 from google.protobuf.message import DecodeError
 from dataclasses import dataclass
-from .common import *
-from .simple_filter import SimpleFilter
+
+from lightning7_ssl.vecMath.vec_math import Vec2, Vec3
+from .estimators.simple_filter import SimpleFilter
 from ..control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
 from ..control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
+from .estimators import (
+    StatusEstimator,
+    BallDataEstimated,
+    RobotDataEstimated,
+    BallDataRaw,
+    RobotDataRaw,
+)
 
 
 @dataclass
@@ -34,6 +43,219 @@ class FilteredDataWrapper:
             + str(self.opp_robots_status)
             + "\n"
         )
+
+
+@dataclass
+class FieldGeometry:
+    """
+    A dataclass to store field geometry data from ssl vision.
+    """
+
+    # Excluded field line segments, arcs, and penalty area for now, can be added later
+    field_length: int
+    field_width: int
+    goal_width: int
+    goal_depth: int
+    boundary_width: int
+    penalty_area_depth: int
+    penalty_area_width: int
+
+    def __str__(self):
+        """
+        A string representation of the data
+
+        Returns:
+            the string representation of the data
+        """
+        return (
+            "FieldGeometry: [field_length: "
+            + str(self.field_length)
+            + " field_width: "
+            + str(self.field_width)
+            + " goal_width: "
+            + str(self.goal_width)
+            + " goal_depth: "
+            + str(self.goal_depth)
+            + " boundary_width: "
+            + str(self.boundary_width)
+            + " penalty_area_width: "
+            + str(self.penalty_area_width)
+            + " penalty_area_depth: "
+            + str(self.penalty_area_depth)
+            + "]\n"
+        )
+
+
+@dataclass
+class FieldLinesSegment:
+    """
+    A dataclass to store a single line segments.
+
+    @params:
+        p1: Start point of segment
+        p2: End point of segment
+    """
+
+    index: int
+    name: str
+    p1: Vec2
+    p2: Vec2
+    thickness: float
+
+    def __str__(self) -> str:
+        """
+        A string representation of the data.
+        """
+        return (
+            "LineSegment ["
+            + str(self.index)
+            + "]: "
+            + str(self.name)
+            + " p1: "
+            + str(self.p1.vec)
+            + " p2: "
+            + str(self.p2.vec)
+            + " thickness: "
+            + str(self.thickness)
+            + "\n"
+        )
+
+
+@dataclass
+class FieldCircularArc:
+    """
+    A class to store a single field arc.
+
+    @params:
+        a1: Start angle in counter-clockwise order.
+        a2: End angle in counter-clockwise order.
+    """
+
+    index: int
+    name: str
+    center: Vec2
+    radius: float
+    a1: float
+    a2: float
+    thickness: float
+
+    def __str__(self) -> str:
+        return (
+            "CircularArc ["
+            + str(self.index)
+            + "]: "
+            + str(self.name)
+            + " center: "
+            + str(self.center.vec)
+            + " radius: "
+            + str(self.radius)
+            + " a1: "
+            + str(self.a1)
+            + " a2: "
+            + str(self.a2)
+            + " thickness: "
+            + str(self.thickness)
+            + "\n"
+        )
+
+
+class BallTracker:
+    """
+    the tracker for ball, it keeps a specific filter strategy and also responsible for the data storage
+    """
+
+    #: the data storage, it is a ordered dict, the key is the time stamp, the value is a list of data because it
+    #  may came from different cameras
+    record: OrderedDict[float, List[BallDataRaw]]
+    #: the capacity of the storage, related to the filter process speed.
+    capacity: int
+    #: the filter strategy
+    filter: StatusEstimator
+
+    def __init__(self, filter: StatusEstimator, limit=500):
+        """
+        init the tracker
+
+        Args:
+            filter:  the filter strategy
+            limit:  the capacity of the storage
+        """
+        self.record = OrderedDict()
+        self.capacity = limit
+        self.filter = filter
+
+    def add(self, ball_data: BallDataRaw):
+        """
+        add a new data to the storage
+        while maintaining the max capacity
+
+        Args:
+            ball_data: the new data
+        """
+        if len(self.record) == self.capacity:
+            self.record.popitem(last=False)
+        time = ball_data.time_stamp
+        if time in self.record:
+            self.record[time].append(ball_data)
+        else:
+            self.record[time] = [ball_data]
+
+    def get(self):
+        """
+        get the most related data
+        Returns: the estimated data
+        TODO: probably need to the request time into consideration
+        """
+        return self.filter.ball_filter(self.record)
+
+
+class RobotTracker:
+    """
+    the tracker for robot, it keeps a specific filter strategy and also responsible for the data storage
+    """
+
+    #: the data storage, it is a ordered dict, the key is the time stamp, the value is a list of data
+    record: OrderedDict[float, List[RobotDataRaw]]
+    #: the capacity of the storage, related to the filter process speed.
+    capacity: int
+    #: the filter strategy
+    filter: StatusEstimator
+
+    def __init__(self, filter: StatusEstimator, limit=100):
+        """
+        init the tracker
+
+        Args:
+            filter:  the filter strategy
+            limit:  the capacity of the storage
+        """
+        self.record = OrderedDict()
+        self.capacity = limit
+        self.filter = filter
+
+    def add(self, robot_data: RobotDataEstimated):
+        """
+        add a new data to the storage while maintaining the max capacity.
+
+        Args:
+            robot_data:  the new data
+        """
+        # if it is full, remove the oldest one
+        if len(self.record) == self.capacity:
+            self.record.popitem(last=False)
+        time = robot_data.time_stamp
+        if time in self.record:
+            self.record[time].append(robot_data)
+        else:
+            self.record[time] = [robot_data]
+
+    def get(self):
+        """
+        get the most related data
+        Returns: the estimated data
+        TODO: probably need to the request time into consideration
+        """
+        return self.filter.robot_filter(self.record)
 
 
 class World:

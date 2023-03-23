@@ -5,7 +5,7 @@ import unittest
 from lightning7_ssl.vecMath.vec_math import Vec2
 
 from ..world.common import RobotDataEstimated
-from ..world.maintainer import World
+from ..world.world import World
 from .pathfinder import find_path
 from ..control_client import SSLClient
 

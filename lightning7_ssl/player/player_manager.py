@@ -1,6 +1,6 @@
 from typing import List, Dict, Type
 from ..control_client import SSLClient
-from ..world.maintainer import FilteredDataWrapper, World
+from ..world.world import FilteredDataWrapper, World
 from ..roles import Role
 from .player import Player, Target
 

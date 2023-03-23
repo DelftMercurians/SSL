@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING, Optional
 import webbrowser
 
 if TYPE_CHECKING:
-    from ..world.maintainer import FilteredDataWrapper
+    from ..world.world import FilteredDataWrapper
     from ..vis.data_store import DataStore
 
 SERVER_PORT = 5000

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import pickle
 import numpy as np
-from ..world.maintainer import FilteredDataWrapper
+from ..world.world import FilteredDataWrapper
 
 
 class WorldPlotter:

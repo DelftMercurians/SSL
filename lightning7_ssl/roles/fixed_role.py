@@ -1,6 +1,6 @@
 from ..vecMath.vec_math import Vec2
 from ..player.player import Target
-from ..world.maintainer import FilteredDataWrapper
+from ..world.world import FilteredDataWrapper
 from . import Role
 
 

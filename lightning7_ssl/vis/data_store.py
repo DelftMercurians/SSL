@@ -8,8 +8,8 @@ from ..world.common import (
     FieldLinesSegment,
 )
 from ..vecMath.vec_math import Vec2, Vec3
-from ..world.maintainer import World
-from ..world.maintainer import FilteredDataWrapper
+from ..world.world import World
+from ..world.world import FilteredDataWrapper
 
 
 @dataclass

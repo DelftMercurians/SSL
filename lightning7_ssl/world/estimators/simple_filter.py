@@ -1,21 +1,31 @@
-from .common import *
+from collections import OrderedDict
+from typing import List
+
+from ...vecMath.vec_math import Vec2, Vec3
+from .estimators import (
+    BallDataEstimated,
+    BallDataRaw,
+    RobotDataEstimated,
+    RobotDataRaw,
+    StatusEstimator,
+)
 
 
-class SimpleFilter(StatusEstimater):
+class SimpleFilter(StatusEstimator):
     """
-        State estimation filter that uses the last two positions and estimates velocity.
+    State estimation filter that uses the last two positions and estimates velocity.
     """
 
     def ball_filter(
         self, raw_data: OrderedDict[float, List[BallDataRaw]]
     ) -> BallDataEstimated:
         """
-            it chooses the ball with the highest confidence and estimate the velocity based on the last two positions.
-            
-            Args:
-                raw_data: a dictionary of time stamp and ball data
-            
-            Returns: the estimated ball data
+        it chooses the ball with the highest confidence and estimate the velocity based on the last two positions.
+
+        Args:
+            raw_data: a dictionary of time stamp and ball data
+
+        Returns: the estimated ball data
         """
         records = list(raw_data.values())
         if len(records) == 0:
@@ -45,13 +55,13 @@ class SimpleFilter(StatusEstimater):
         self, raw_data: OrderedDict[float, List[RobotDataRaw]]
     ) -> RobotDataEstimated:
         """
-            it uses the last two positions and estimate the velocity. and
-            uses the last position/orientation as the final position/orientation.
-            
-            Args:
-                raw_data:  a dictionary of time stamp and robot data
+        it uses the last two positions and estimate the velocity. and
+        uses the last position/orientation as the final position/orientation.
 
-            Returns: the estimated robot data
+        Args:
+            raw_data:  a dictionary of time stamp and robot data
+
+        Returns: the estimated robot data
         """
         records = list(raw_data.values())
         if len(records) == 0:

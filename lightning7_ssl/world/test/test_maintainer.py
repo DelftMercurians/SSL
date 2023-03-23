@@ -1,5 +1,5 @@
 import unittest
-from lightning7_ssl.world.maintainer import World, FilteredDataWrapper
+from lightning7_ssl.world.world import World, FilteredDataWrapper
 from lightning7_ssl.control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
 from lightning7_ssl.world.common import *
 

@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import MagicMock, patch
 from lightning7_ssl.player.player import Player, Status, Target
 from lightning7_ssl.vecMath.vec_math import Vec2
-from lightning7_ssl.world.maintainer import FilteredDataWrapper
+from lightning7_ssl.world.world import FilteredDataWrapper
 from lightning7_ssl.world.common import BallDataEstimated, RobotDataEstimated
 
 
