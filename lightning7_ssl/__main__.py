@@ -5,7 +5,7 @@ from lightning7_ssl.roles.fixed_role import FixedRole
 
 from .control_client import SSLClient
 from .player import PlayerManager
-from lightning7_ssl.world.maintainer import *
+from lightning7_ssl.world.maintainer import World
 from .vis.generate_log import LogGenerator
 from .vis.world_plotter import WorldPlotter
 from .vis.data_store import DataStore
@@ -65,7 +65,7 @@ def main(force_dev=False):
             ):
                 try:
                     data_filtered = world.update_from_protobuf(vision_data)
-                    if not is_geom_set:
+                    if data_filtered is not None and not is_geom_set:
                         # Set the geometry only once
                         world.set_geom(vision_data)
                         if world.field_geometry.field_length != 0:
@@ -76,8 +76,12 @@ def main(force_dev=False):
                                 world.field_line_segments,
                                 world.field_circular_arcs,
                             )
+
+                            ball_pos = data_filtered.ball_status.position
+                            print(f"Ball location: {ball_pos}")
                             player_manager.spawn_role(
-                                FixedRole(Vec2(0, 0)), data_filtered
+                                FixedRole(Vec2(ball_pos.x, ball_pos.y)),
+                                data_filtered,
                             )
 
                     DS.update_player_and_ball_states(data_filtered)
