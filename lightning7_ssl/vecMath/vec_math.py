@@ -17,7 +17,6 @@ class Vec2:
         self.x = x
         self.y = y
         self.vec = (x, y)
-        self.__radd__ = self.__add__
 
     @property
     def norm(self):
@@ -25,7 +24,10 @@ class Vec2:
         return math.sqrt(self.x**2 + self.y**2)
 
     def __str__(self) -> str:
-        return "{}".format(self.vec)
+        return f"({self.x}, {self.y})"
+
+    def __repr__(self) -> str:
+        return f"Vec2({self.x}, {self.y})"
 
     def __add__(self, other):
         """
@@ -43,15 +45,11 @@ class Vec2:
         y = self.y - other.y
         return Vec2(x, y)
 
-    __rsub__ = __sub__
-
     def __mul__(self, scalar: float) -> "Vec2":
         """
         Scalar multiplication of a Vec2 object.
         """
         return Vec2(self.x * scalar, self.y * scalar)
-
-    __rmul__ = __mul__
 
     def __truediv__(self, scalar: float) -> "Vec2":
         """
@@ -59,23 +57,17 @@ class Vec2:
         """
         return Vec2(self.x / scalar, self.y / scalar)
 
-    __rtruediv__ = __truediv__
-
     def __floordiv__(self, scalar: float) -> "Vec2":
         """
         Scalar floor division of a Vec2 object.
         """
         return Vec2(self.x // scalar, self.y // scalar)
 
-    __rfloordiv__ = __floordiv__
-
     def __divmod__(self, scalar: float) -> "Vec2":
         """
         Scalar division of a Vec2 object.
         """
         return Vec2(self.x % scalar, self.y % scalar)
-
-    __rdivmod__ = __divmod__
 
     def __len__(self):
         """
@@ -136,7 +128,6 @@ class Vec3:
         self.y = y
         self.z = z
         self.vec = (x, y, z)
-        self.__radd__ = self.__add__
 
     @property
     def norm(self):
@@ -144,7 +135,10 @@ class Vec3:
         return math.sqrt(self.x**2 + self.y**2 + self.z**2)
 
     def __str__(self) -> str:
-        return "{}".format(self.vec)
+        return f"({self.x}, {self.y}, {self.z})"
+
+    def __repr__(self) -> str:
+        return f"Vec3({self.x}, {self.y}, {self.z})"
 
     def __add__(self, other):
         """
@@ -164,15 +158,11 @@ class Vec3:
         z = self.z - other.z
         return Vec3(x, y, z)
 
-    __rsub__ = __sub__
-
     def __mul__(self, scalar: float) -> "Vec2":
         """
         Scalar multiplication of a Vec3 object.
         """
         return Vec3(self.x * scalar, self.y * scalar, self.z * scalar)
-
-    __rmul__ = __mul__
 
     def __truediv__(self, scalar: float) -> "Vec3":
         """
@@ -180,23 +170,17 @@ class Vec3:
         """
         return Vec3(self.x / scalar, self.y / scalar, self.z / scalar)
 
-    __rtruediv__ = __truediv__
-
     def __floordiv__(self, scalar: float) -> "Vec3":
         """
         Scalar floor division of a Vec3 object.
         """
         return Vec3(self.x // scalar, self.y // scalar, self.z // scalar)
 
-    __rfloordiv__ = __floordiv__
-
     def __divmod__(self, scalar: float) -> "Vec3":
         """
         Scalar division of a Vec3 object.
         """
         return Vec3(self.x % scalar, self.y % scalar, self.z % scalar)
-
-    __rdivmod__ = __divmod__
 
     def __len__(self):
         """

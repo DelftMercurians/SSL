@@ -15,19 +15,6 @@ class BallData:
     z: float
     confidence: float
 
-    def __str__(self):
-        return (
-            "BallData: [x: "
-            + str(self.x)
-            + " y: "
-            + str(self.y)
-            + " z: "
-            + str(self.z)
-            + " confidence: "
-            + str(self.confidence)
-            + "]"
-        )
-
 
 @dataclass
 class RobotData:
@@ -35,19 +22,6 @@ class RobotData:
     x: float
     y: float
     yaw: float  # [-pi,pi]
-
-    def __str__(self):
-        return (
-            "RobotData: [id: "
-            + str(self.id)
-            + " x: "
-            + str(self.x)
-            + " y: "
-            + str(self.y)
-            + " yaw: "
-            + str(self.yaw)
-            + "]"
-        )
 
 
 @dataclass
@@ -91,19 +65,6 @@ class VisionData:
         ]
 
         return vision_data
-
-    def __str__(self):
-        return (
-            "VisionData:"
-            + "\n"
-            + str(self.ball)
-            + "\n"
-            + " blue_robots: \n"
-            + str(self.blue_robots)
-            + "\n"
-            + " yellow_robots: \n"
-            + str(self.yellow_robots)
-        )
 
 
 class SSLClient:
@@ -160,7 +121,7 @@ class SSLClient:
 
     def receive(self):
         """Receive package and decode."""
-        data, _ = self.vision_sock.recvfrom(1024*2) # Influences how much data we get
+        data, _ = self.vision_sock.recvfrom(1024 * 2)  # Influences how much data we get
         return data
 
     def send(

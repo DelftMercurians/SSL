@@ -22,23 +22,6 @@ class RobotDataRaw:
     #: orientation of the robot [-pi,pi]
     orientation: float
 
-    def __str__(self):
-        """
-        a string representation of the data
-        Returns: the string representation of the data
-        """
-        return (
-            "RobotDataRaw: [time: "
-            + str(self.time_stamp)
-            + " camera: "
-            + str(self.camara_id)
-            + " pos: "
-            + str(self.position)
-            + " ori: "
-            + str(self.orientation)
-            + "]\n"
-        )
-
 
 @dataclass
 class RobotDataEstimated:
@@ -54,23 +37,6 @@ class RobotDataEstimated:
     velocity: Vec2
     #: angular speed of the robot
     angular_speed: float
-
-    def __str__(self):
-        """
-        a string representation of the data
-        Returns: the string representation of the data
-        """
-        return (
-            "RobotDataEstimated: [pos: "
-            + str(self.position)
-            + " ori: "
-            + str(self.orientation)
-            + " velocity: "
-            + str(self.velocity)
-            + " spin: "
-            + str(self.angular_speed)
-            + "]\n"
-        )
 
 
 @dataclass
@@ -88,23 +54,6 @@ class BallDataRaw:
     #: confidence of the ball [0,1]
     confidence: float
 
-    def __str__(self):
-        """
-        a string representation of the data
-        Returns: the string representation of the data
-        """
-        return (
-            "BallDataRaw: [time: "
-            + str(self.time_stamp)
-            + " camera: "
-            + str(self.camara_id)
-            + " pos: "
-            + str(self.position)
-            + " confidence: "
-            + str(self.confidence)
-            + "]\n"
-        )
-
 
 @dataclass
 class BallDataEstimated:
@@ -118,20 +67,6 @@ class BallDataEstimated:
     position: Vec3
     #: velocity of the ball
     velocity: Vec3
-
-    def __str__(self):
-        """
-        a string representation of the data
-
-        Returns: the string representation of the data
-        """
-        return (
-            "BallDataEstimated: [pos: "
-            + str(self.position)
-            + " velocity: "
-            + str(self.velocity)
-            + "]"
-        )
 
 
 class StatusEstimator(metaclass=abc.ABCMeta):
