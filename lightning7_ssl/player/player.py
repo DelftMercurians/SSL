@@ -18,11 +18,9 @@ class Target:
     """A single target, dispatched from a role to a player.
 
     Attributes:
-        player: ID of the recipient robot
-        target_pos: Target position
+        move_to: Target position
     """
 
-    player: int
     move_to: Optional[Vec2] = None
 
 

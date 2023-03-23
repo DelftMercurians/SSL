@@ -1,6 +1,6 @@
-import numpy as np
 import pickle
 
+from ..vis.data_store import DataStore
 from ..world.maintainer import FilteredDataWrapper
 
 
@@ -16,7 +16,7 @@ class LogGenerator:
         self.outFile = dest_path
         self.data = []
 
-    def step(self, data: FilteredDataWrapper) -> None:
+    def step(self, data: FilteredDataWrapper, _: DataStore) -> None:
         """
         Stores data of current timestamp.
         """

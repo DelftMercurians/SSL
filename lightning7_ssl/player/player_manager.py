@@ -9,8 +9,10 @@ class PlayerManager:
     """Creates a player instance for each of our robots on the field,
     assigns roles and dispatches targets.
 
-    Args:
-        player_ids: Either the number of players or a list of their IDs.
+    Attributes:
+        players: A dictionary of player ids to player instances.
+        assigned_roles: A dictionary of player ids to roles.
+        client: The client to send commands to.
     """
 
     players: Dict[int, Player]
@@ -37,42 +39,33 @@ class PlayerManager:
                 player.set_target(target)
             else:
                 # No role assigned, idle
-                player.set_target(Target(player.id, move_to=None))
-            state = next((d for d in data.own_robots_status if d.id == id), None)
+                player.set_target(Target(move_to=None))
+            state = data.own_robots_status[id]
             if state is not None:
                 player.tick(state, world)
             # TODO: Reevaluate role fitness
 
-    def spawn_role(self, role: Type[Role], data: FilteredDataWrapper):
+    def spawn_role(self, new_role: Role, data: FilteredDataWrapper):
         """Spawn a new role and assign it to a player.
 
         Args:
-            role: The type of role to spawn.
+            new_role: The role to spawn.
+            data: The current world state.
         """
-        new_role = role()
         unassigned_players = [
-            p for p in self.players if p.id not in self.assigned_roles
+            id for id in self.players.keys() if id not in self.assigned_roles
         ]
         if len(unassigned_players) == 0:
             # No unassigned players, find the least fit player
             least_fit_player = min(
                 self.players,
-                key=lambda p: self.assigned_roles[p.id].get_fitness_for_player(
-                    p.id, data
-                ),
+                key=lambda id: self.assigned_roles[id].get_fitness_for_player(id, data),
             )
-            self.assigned_roles[least_fit_player.id] = new_role
+            self.assigned_roles[least_fit_player] = new_role
         else:
-            # Assign to the most fit player
+            # Assign to the most fit available player
             most_fit_player = max(
-                self.players, key=lambda p: new_role.get_fitness_for_player(p.id, data)
+                unassigned_players,
+                key=lambda id: new_role.get_fitness_for_player(id, data),
             )
-            self.assigned_roles[most_fit_player.id] = new_role
-
-    def dispatch_target(self, id: int, target: Target):
-        """Deliver the target to the correct player.
-
-        TODO: Add support for roles
-        """
-        player = next((p for p in self.players if p.id == id))
-        player.set_target(target)
+            self.assigned_roles[most_fit_player] = new_role

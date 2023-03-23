@@ -1,9 +1,11 @@
 from typing import List, Optional
+from google.protobuf.message import DecodeError
 from dataclasses import dataclass
 from .common import *
 from .simple_filter import SimpleFilter
 from ..control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
 from ..control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
+
 
 @dataclass
 class FilteredDataWrapper:
@@ -17,7 +19,6 @@ class FilteredDataWrapper:
     own_robots_status: List[RobotDataEstimated]
     #: The opponent robots status.
     opp_robots_status: List[RobotDataEstimated]
-
 
     def __str__(self):
         """
@@ -73,40 +74,66 @@ class World:
             self.own_robots_status.append(RobotTracker(filter))
             self.opp_robots_status.append(RobotTracker(filter))
 
-        # Field geometry and lines        
+        # Field geometry and lines
         self.field_geometry = None
         self.field_line_segments = []
         self.field_circular_arcs = []
+
     def set_geom(self, raw_data: bytes) -> None:
         """
-            Sets the geometry of the field from raw protobuf data. The data is updated in attributes
-                :field_geometry:
+        Sets the geometry of the field from raw protobuf data. The data is updated in attributes
+            :field_geometry:
 
-                :field_line_segments:
+            :field_line_segments:
 
-                :field_circular_arcs:
+            :field_circular_arcs:
 
-            :param:
-                raw_data: The raw protobuf data in bytes. 
+        :param:
+            raw_data: The raw protobuf data in bytes.
         """
         packet = SSL_WrapperPacket()
         packet.ParseFromString(raw_data)
         fg = packet.geometry.field
 
-        self.field_geometry = FieldGeometry(fg.field_length/1000, fg.field_width/1000, fg.goal_width/1000, fg.goal_depth/1000, 
-                                            fg.boundary_width/1000, fg.penalty_area_depth/1000, fg.penalty_area_width/1000)
-        
+        self.field_geometry = FieldGeometry(
+            fg.field_length / 1000,
+            fg.field_width / 1000,
+            fg.goal_width / 1000,
+            fg.goal_depth / 1000,
+            fg.boundary_width / 1000,
+            fg.penalty_area_depth / 1000,
+            fg.penalty_area_width / 1000,
+        )
+
         # Append each line segment into the field_ling_segments list
         for i, segment in enumerate(fg.field_lines):
-            line = FieldLinesSegment(i, segment.name, Vec2(segment.p1.x/1000, segment.p1.y/1000), Vec2(segment.p2.x/1000, segment.p2.y/1000), segment.thickness)
+            line = FieldLinesSegment(
+                i,
+                segment.name,
+                Vec2(segment.p1.x / 1000, segment.p1.y / 1000),
+                Vec2(segment.p2.x / 1000, segment.p2.y / 1000),
+                segment.thickness,
+            )
             self.field_line_segments.append(line)
 
         for i, arc in enumerate(fg.field_arcs):
-            t = FieldCircularArc(i, arc.name, Vec2(arc.center.x, arc.center.y), arc.radius, arc.a1, arc.a2, arc.thickness)
+            t = FieldCircularArc(
+                i,
+                arc.name,
+                Vec2(arc.center.x, arc.center.y),
+                arc.radius,
+                arc.a1,
+                arc.a2,
+                arc.thickness,
+            )
             self.field_circular_arcs.append(t)
 
     def get_status(self) -> FilteredDataWrapper:
-        """Returns the current world state."""
+        """Returns the current world state.
+
+        Usage:
+            call self.ball_status/own_robots_status/opp_robots_status
+        """
         return FilteredDataWrapper(
             self.ball_status.get(),
             [tracker.get() for tracker in self.own_robots_status],
@@ -115,16 +142,19 @@ class World:
 
     def update_from_protobuf(self, raw_data: bytes) -> Optional[FilteredDataWrapper]:
         """
-            Updates the world state from raw protobuf data.
+        Updates the world state from raw protobuf data.
 
-            Args:
-                raw_data: The raw protobuf data in bytes.
+        Args:
+            raw_data: The raw protobuf data in bytes.
 
-            Raises:
-                DecodeError: If the data is not a valid SSL_WrapperPacket.
+        Raises:
+            DecodeError: If the data is not a valid SSL_WrapperPacket.
         """
         packet = SSL_WrapperPacket()
-        packet.ParseFromString(raw_data)
+        try:
+            packet.ParseFromString(raw_data)
+        except DecodeError:
+            return None
         frame = packet.detection
         if frame is None:
             return None
@@ -132,11 +162,11 @@ class World:
 
     def update_vision_data(self, frame: SSL_DetectionFrame) -> FilteredDataWrapper:
         """
-            Updates the world state from vision data. it depack the data and assign it 
-            to the right robot and ball.
+        Updates the world state from vision data. it depack the data and assign it
+        to the right robot and ball.
 
-            Args:
-                frame: The SSL_DetectionFrame to update from.
+        Args:
+            frame: The SSL_DetectionFrame to update from.
         """
         camera_id = frame.camera_id
         time = frame.t_capture
