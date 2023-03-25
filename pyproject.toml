@@ -20,7 +20,16 @@ uvicorn = "^0.20.0"
 [tool.poetry.group.dev.dependencies]
 black = "^22.10.0"
 sphinx = "^6.1.3"
+flake8 = "^6.0.0"
+mypy = "^1.1.1"
+types-protobuf = "^4.22.0.0"
+mypy-protobuf = "^3.4.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+exclude = [
+    '_pb2.py$',  # TOML literal string (single-quotes, no escaping necessary)
+]
