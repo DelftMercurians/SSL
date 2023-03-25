@@ -12,6 +12,8 @@
    */
   const BALL_RADIUS = 0.043 * 1000;
 
+  const PADDING = 20;
+
   let state: ServerState | null = null;
   onMount(() => {
     const interval = setInterval(async () => {
@@ -23,8 +25,13 @@
   });
 
   let render: Render;
-  $: render = ({ context: ctx, width, height }) => {
+  $: render = ({ context: ctx, width: canvasWidth, height: canvasHeight }) => {
     if (!state || !state.world || !state.geom || !state.player_states) return;
+
+    // Add some padding to the canvas
+    const width = canvasWidth - PADDING * 2;
+    const height = canvasHeight - PADDING * 2;
+
     const { own_players, opp_players, ball } = state.world;
     const fieldH = state.geom.field_geometry.field_width * 1000;
     const fieldW = state.geom.field_geometry.field_length * 1000;
@@ -40,21 +47,20 @@
      * Convert from server coordinates to canvas coordinates.
      *
      * The server's coordinate system has its origin at the center of the field,
-     * and its dimensions are given by `ServerState.world.field_dimension`.
      */
     const convertCoords = (coords: XY): XY => {
       const { x, y } = coords;
 
       return {
-        x: (x + fieldW / 2) * (width / fieldW),
-        y: (y + fieldH / 2) * (height / fieldH),
+        x: (x + fieldW / 2) * (width / fieldW) + PADDING,
+        y: (-y + fieldH / 2) * (height / fieldH) + PADDING,
       };
     };
 
     // Draw field
     ctx.fillStyle = "#00aa00";
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillRect(0, 0, width, height);
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // Draw field lines
     // state.geom.lines.forEach(({ p1, p2 }) => {
