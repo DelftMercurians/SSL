@@ -7,7 +7,8 @@ This repository contains Lightning7's (TU Delft RSA) software for the RoboCup Sm
 1. Make sure you have at least Python 3.9 (you can use [pyenv](https://github.com/pyenv/pyenv))
 2. Install [poetry](https://python-poetry.org/docs/#installation)
 3. Run `poetry install` to download all the dependencies into a virtual environment
-4. (*Optional*) Enter the newly created virtual env with `poetry shell`
+4. Install the pre-commit hooks with `poetry run pre-commit install`
+5. (*Optional*) Enter the newly created virtual env with `poetry shell`
 
 To add a dependency:
 ```bash
