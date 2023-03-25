@@ -13,6 +13,12 @@ repos:
     hooks:
       - id: flake8
         exclude: (lightning7_ssl/docs/source/conf\.py|_pb2\.py)$
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.1.1
+    hooks:
+      - id: mypy
+        exclude: lightning7_ssl/docs/.*|.*_pb2\.py
+        additional_dependencies: [types-protobuf]
   - repo: https://github.com/ambv/black
     rev: 23.1.0
     hooks:
