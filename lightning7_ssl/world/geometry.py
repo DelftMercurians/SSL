@@ -46,10 +46,10 @@ class FieldGeometry:
     """
 
     # Excluded field line segments, arcs, and penalty area for now, can be added later
-    field_length: int
-    field_width: int
-    goal_width: int
-    goal_depth: int
-    boundary_width: int
-    penalty_area_depth: int
-    penalty_area_width: int
+    field_length: float
+    field_width: float
+    goal_width: float
+    goal_depth: float
+    boundary_width: float
+    penalty_area_depth: float
+    penalty_area_width: float

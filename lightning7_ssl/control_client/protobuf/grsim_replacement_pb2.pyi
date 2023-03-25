@@ -42,8 +42,18 @@ class grSim_RobotReplacement(google.protobuf.message.Message):
         yellowteam: builtins.bool | None = ...,
         turnon: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["dir", b"dir", "id", b"id", "turnon", b"turnon", "x", b"x", "y", b"y", "yellowteam", b"yellowteam"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["dir", b"dir", "id", b"id", "turnon", b"turnon", "x", b"x", "y", b"y", "yellowteam", b"yellowteam"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "dir", b"dir", "id", b"id", "turnon", b"turnon", "x", b"x", "y", b"y", "yellowteam", b"yellowteam"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "dir", b"dir", "id", b"id", "turnon", b"turnon", "x", b"x", "y", b"y", "yellowteam", b"yellowteam"
+        ],
+    ) -> None: ...
 
 global___grSim_RobotReplacement = grSim_RobotReplacement
 
@@ -67,8 +77,12 @@ class grSim_BallReplacement(google.protobuf.message.Message):
         vx: builtins.float | None = ...,
         vy: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["vx", b"vx", "vy", b"vy", "x", b"x", "y", b"y"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["vx", b"vx", "vy", b"vy", "x", b"x", "y", b"y"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["vx", b"vx", "vy", b"vy", "x", b"x", "y", b"y"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["vx", b"vx", "vy", b"vy", "x", b"x", "y", b"y"]
+    ) -> None: ...
 
 global___grSim_BallReplacement = grSim_BallReplacement
 
@@ -81,7 +95,11 @@ class grSim_Replacement(google.protobuf.message.Message):
     @property
     def ball(self) -> global___grSim_BallReplacement: ...
     @property
-    def robots(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___grSim_RobotReplacement]: ...
+    def robots(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___grSim_RobotReplacement
+    ]: ...
     def __init__(
         self,
         *,
@@ -89,6 +107,8 @@ class grSim_Replacement(google.protobuf.message.Message):
         robots: collections.abc.Iterable[global___grSim_RobotReplacement] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["ball", b"ball"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ball", b"ball", "robots", b"robots"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["ball", b"ball", "robots", b"robots"]
+    ) -> None: ...
 
 global___grSim_Replacement = grSim_Replacement

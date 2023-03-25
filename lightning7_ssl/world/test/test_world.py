@@ -1,8 +1,9 @@
 import unittest
-from lightning7_ssl.world.world import UninitializedError, World
+
 from lightning7_ssl.control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
-from lightning7_ssl.vecMath.vec_math import Vec3, Vec2
+from lightning7_ssl.vecMath.vec_math import Vec2, Vec3
 from lightning7_ssl.world import BallData, RobotData
+from lightning7_ssl.world.world import UninitializedError, World
 
 
 class FrameGenerator:
@@ -24,19 +25,15 @@ class FrameGenerator:
         ball.confidence = confidence
 
     def add_robot(self, robot_id, x, y, orientation, is_yellow):
-        robot = (
-            self.frame.robots_yellow.add()
-            if is_yellow
-            else self.frame.robots_blue.add()
-        )
+        robot = self.frame.robots_yellow.add() if is_yellow else self.frame.robots_blue.add()
         robot.robot_id = robot_id
         robot.x = x
         robot.y = y
         robot.orientation = orientation
 
     def update_robot(self, robot_id, x, y, orientation, is_yellow):
-        l = self.frame.robots_yellow if is_yellow else self.frame.robots_blue
-        for robot in l:
+        robots = self.frame.robots_yellow if is_yellow else self.frame.robots_blue
+        for robot in robots:
             if robot.robot_id == robot_id:
                 robot.x = x
                 robot.y = y

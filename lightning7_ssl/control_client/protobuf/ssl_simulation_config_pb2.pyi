@@ -53,8 +53,40 @@ class RobotLimits(google.protobuf.message.Message):
         vel_absolute_max: builtins.float | None = ...,
         vel_angular_max: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["acc_brake_absolute_max", b"acc_brake_absolute_max", "acc_brake_angular_max", b"acc_brake_angular_max", "acc_speedup_absolute_max", b"acc_speedup_absolute_max", "acc_speedup_angular_max", b"acc_speedup_angular_max", "vel_absolute_max", b"vel_absolute_max", "vel_angular_max", b"vel_angular_max"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["acc_brake_absolute_max", b"acc_brake_absolute_max", "acc_brake_angular_max", b"acc_brake_angular_max", "acc_speedup_absolute_max", b"acc_speedup_absolute_max", "acc_speedup_angular_max", b"acc_speedup_angular_max", "vel_absolute_max", b"vel_absolute_max", "vel_angular_max", b"vel_angular_max"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "acc_brake_absolute_max",
+            b"acc_brake_absolute_max",
+            "acc_brake_angular_max",
+            b"acc_brake_angular_max",
+            "acc_speedup_absolute_max",
+            b"acc_speedup_absolute_max",
+            "acc_speedup_angular_max",
+            b"acc_speedup_angular_max",
+            "vel_absolute_max",
+            b"vel_absolute_max",
+            "vel_angular_max",
+            b"vel_angular_max",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "acc_brake_absolute_max",
+            b"acc_brake_absolute_max",
+            "acc_brake_angular_max",
+            b"acc_brake_angular_max",
+            "acc_speedup_absolute_max",
+            b"acc_speedup_absolute_max",
+            "acc_speedup_angular_max",
+            b"acc_speedup_angular_max",
+            "vel_absolute_max",
+            b"vel_absolute_max",
+            "vel_angular_max",
+            b"vel_angular_max",
+        ],
+    ) -> None: ...
 
 global___RobotLimits = RobotLimits
 
@@ -87,8 +119,32 @@ class RobotWheelAngles(google.protobuf.message.Message):
         back_left: builtins.float | None = ...,
         front_left: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["back_left", b"back_left", "back_right", b"back_right", "front_left", b"front_left", "front_right", b"front_right"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["back_left", b"back_left", "back_right", b"back_right", "front_left", b"front_left", "front_right", b"front_right"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "back_left",
+            b"back_left",
+            "back_right",
+            b"back_right",
+            "front_left",
+            b"front_left",
+            "front_right",
+            b"front_right",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "back_left",
+            b"back_left",
+            "back_right",
+            b"back_right",
+            "front_left",
+            b"front_left",
+            "front_right",
+            b"front_right",
+        ],
+    ) -> None: ...
 
 global___RobotWheelAngles = RobotWheelAngles
 
@@ -130,7 +186,9 @@ class RobotSpecs(google.protobuf.message.Message):
     def wheel_angles(self) -> global___RobotWheelAngles:
         """Wheel angle configuration"""
     @property
-    def custom(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.any_pb2.Any]:
+    def custom(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.any_pb2.Any]:
         """Custom robot spec for specific simulators (the protobuf files are managed by the simulators)"""
     def __init__(
         self,
@@ -146,8 +204,54 @@ class RobotSpecs(google.protobuf.message.Message):
         wheel_angles: global___RobotWheelAngles | None = ...,
         custom: collections.abc.Iterable[google.protobuf.any_pb2.Any] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["center_to_dribbler", b"center_to_dribbler", "height", b"height", "id", b"id", "limits", b"limits", "mass", b"mass", "max_chip_kick_speed", b"max_chip_kick_speed", "max_linear_kick_speed", b"max_linear_kick_speed", "radius", b"radius", "wheel_angles", b"wheel_angles"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["center_to_dribbler", b"center_to_dribbler", "custom", b"custom", "height", b"height", "id", b"id", "limits", b"limits", "mass", b"mass", "max_chip_kick_speed", b"max_chip_kick_speed", "max_linear_kick_speed", b"max_linear_kick_speed", "radius", b"radius", "wheel_angles", b"wheel_angles"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "center_to_dribbler",
+            b"center_to_dribbler",
+            "height",
+            b"height",
+            "id",
+            b"id",
+            "limits",
+            b"limits",
+            "mass",
+            b"mass",
+            "max_chip_kick_speed",
+            b"max_chip_kick_speed",
+            "max_linear_kick_speed",
+            b"max_linear_kick_speed",
+            "radius",
+            b"radius",
+            "wheel_angles",
+            b"wheel_angles",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "center_to_dribbler",
+            b"center_to_dribbler",
+            "custom",
+            b"custom",
+            "height",
+            b"height",
+            "id",
+            b"id",
+            "limits",
+            b"limits",
+            "mass",
+            b"mass",
+            "max_chip_kick_speed",
+            b"max_chip_kick_speed",
+            "max_linear_kick_speed",
+            b"max_linear_kick_speed",
+            "radius",
+            b"radius",
+            "wheel_angles",
+            b"wheel_angles",
+        ],
+    ) -> None: ...
 
 global___RobotSpecs = RobotSpecs
 
@@ -157,7 +261,9 @@ class RealismConfig(google.protobuf.message.Message):
 
     CUSTOM_FIELD_NUMBER: builtins.int
     @property
-    def custom(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.any_pb2.Any]:
+    def custom(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.any_pb2.Any]:
         """Custom config for specific simulators (the protobuf files are managed by the simulators)"""
     def __init__(
         self,
@@ -182,7 +288,9 @@ class SimulatorConfig(google.protobuf.message.Message):
     def geometry(self) -> ssl_geometry_pb2.SSL_GeometryData:
         """Update the geometry"""
     @property
-    def robot_specs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotSpecs]:
+    def robot_specs(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotSpecs]:
         """Update the robot specs"""
     @property
     def realism_config(self) -> global___RealismConfig:
@@ -197,7 +305,24 @@ class SimulatorConfig(google.protobuf.message.Message):
         realism_config: global___RealismConfig | None = ...,
         vision_port: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["geometry", b"geometry", "realism_config", b"realism_config", "vision_port", b"vision_port"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["geometry", b"geometry", "realism_config", b"realism_config", "robot_specs", b"robot_specs", "vision_port", b"vision_port"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "geometry", b"geometry", "realism_config", b"realism_config", "vision_port", b"vision_port"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "geometry",
+            b"geometry",
+            "realism_config",
+            b"realism_config",
+            "robot_specs",
+            b"robot_specs",
+            "vision_port",
+            b"vision_port",
+        ],
+    ) -> None: ...
 
 global___SimulatorConfig = SimulatorConfig

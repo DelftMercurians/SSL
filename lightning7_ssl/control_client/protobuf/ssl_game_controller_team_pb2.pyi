@@ -21,7 +21,9 @@ class _AdvantageChoice:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _AdvantageChoiceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_AdvantageChoice.ValueType], builtins.type):
+class _AdvantageChoiceEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_AdvantageChoice.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     STOP: _AdvantageChoice.ValueType  # 0
     """stop the game"""
@@ -60,8 +62,12 @@ class TeamRegistration(google.protobuf.message.Message):
         team_name: builtins.str | None = ...,
         signature: ssl_game_controller_common_pb2.Signature | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["signature", b"signature", "team_name", b"team_name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["signature", b"signature", "team_name", b"team_name"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["signature", b"signature", "team_name", b"team_name"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["signature", b"signature", "team_name", b"team_name"]
+    ) -> None: ...
 
 global___TeamRegistration = TeamRegistration
 
@@ -100,9 +106,43 @@ class TeamToController(google.protobuf.message.Message):
         substitute_bot: builtins.bool | None = ...,
         ping: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["advantage_choice", b"advantage_choice", "desired_keeper", b"desired_keeper", "msg", b"msg", "ping", b"ping", "signature", b"signature", "substitute_bot", b"substitute_bot"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["advantage_choice", b"advantage_choice", "desired_keeper", b"desired_keeper", "msg", b"msg", "ping", b"ping", "signature", b"signature", "substitute_bot", b"substitute_bot"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["msg", b"msg"]) -> typing_extensions.Literal["desired_keeper", "advantage_choice", "substitute_bot", "ping"] | None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "advantage_choice",
+            b"advantage_choice",
+            "desired_keeper",
+            b"desired_keeper",
+            "msg",
+            b"msg",
+            "ping",
+            b"ping",
+            "signature",
+            b"signature",
+            "substitute_bot",
+            b"substitute_bot",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "advantage_choice",
+            b"advantage_choice",
+            "desired_keeper",
+            b"desired_keeper",
+            "msg",
+            b"msg",
+            "ping",
+            b"ping",
+            "signature",
+            b"signature",
+            "substitute_bot",
+            b"substitute_bot",
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing_extensions.Literal["msg", b"msg"]
+    ) -> typing_extensions.Literal["desired_keeper", "advantage_choice", "substitute_bot", "ping"] | None: ...
 
 global___TeamToController = TeamToController
 
@@ -121,8 +161,14 @@ class ControllerToTeam(google.protobuf.message.Message):
         *,
         controller_reply: ssl_game_controller_common_pb2.ControllerReply | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["controller_reply", b"controller_reply", "msg", b"msg"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["controller_reply", b"controller_reply", "msg", b"msg"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["msg", b"msg"]) -> typing_extensions.Literal["controller_reply"] | None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["controller_reply", b"controller_reply", "msg", b"msg"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["controller_reply", b"controller_reply", "msg", b"msg"]
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing_extensions.Literal["msg", b"msg"]
+    ) -> typing_extensions.Literal["controller_reply"] | None: ...
 
 global___ControllerToTeam = ControllerToTeam

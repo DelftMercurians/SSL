@@ -25,7 +25,9 @@ class _WorldSource:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _WorldSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WorldSource.ValueType], builtins.type):
+class _WorldSourceEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_WorldSource.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     INTERNAL_SIMULATION: _WorldSource.ValueType  # 1
     EXTERNAL_SIMULATION: _WorldSource.ValueType  # 2
@@ -46,7 +48,10 @@ class Geometry(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _GeometryTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Geometry._GeometryType.ValueType], builtins.type):  # noqa: F821
+    class _GeometryTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Geometry._GeometryType.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         TYPE_2014: Geometry._GeometryType.ValueType  # 1
         TYPE_2018: Geometry._GeometryType.ValueType  # 2
@@ -59,7 +64,10 @@ class Geometry(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _DivisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Geometry._Division.ValueType], builtins.type):  # noqa: F821
+    class _DivisionEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Geometry._Division.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         A: Geometry._Division.ValueType  # 1
         B: Geometry._Division.ValueType  # 2
@@ -131,8 +139,92 @@ class Geometry(google.protobuf.message.Message):
         division: global___Geometry.Division.ValueType | None = ...,
         ball_model: global___BallModel | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ball_model", b"ball_model", "boundary_width", b"boundary_width", "center_circle_radius", b"center_circle_radius", "defense_height", b"defense_height", "defense_radius", b"defense_radius", "defense_stretch", b"defense_stretch", "defense_width", b"defense_width", "division", b"division", "field_height", b"field_height", "field_width", b"field_width", "free_kick_from_defense_dist", b"free_kick_from_defense_dist", "goal_depth", b"goal_depth", "goal_height", b"goal_height", "goal_wall_width", b"goal_wall_width", "goal_width", b"goal_width", "line_width", b"line_width", "penalty_line_from_spot_dist", b"penalty_line_from_spot_dist", "penalty_spot_from_field_line_dist", b"penalty_spot_from_field_line_dist", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ball_model", b"ball_model", "boundary_width", b"boundary_width", "center_circle_radius", b"center_circle_radius", "defense_height", b"defense_height", "defense_radius", b"defense_radius", "defense_stretch", b"defense_stretch", "defense_width", b"defense_width", "division", b"division", "field_height", b"field_height", "field_width", b"field_width", "free_kick_from_defense_dist", b"free_kick_from_defense_dist", "goal_depth", b"goal_depth", "goal_height", b"goal_height", "goal_wall_width", b"goal_wall_width", "goal_width", b"goal_width", "line_width", b"line_width", "penalty_line_from_spot_dist", b"penalty_line_from_spot_dist", "penalty_spot_from_field_line_dist", b"penalty_spot_from_field_line_dist", "type", b"type"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball_model",
+            b"ball_model",
+            "boundary_width",
+            b"boundary_width",
+            "center_circle_radius",
+            b"center_circle_radius",
+            "defense_height",
+            b"defense_height",
+            "defense_radius",
+            b"defense_radius",
+            "defense_stretch",
+            b"defense_stretch",
+            "defense_width",
+            b"defense_width",
+            "division",
+            b"division",
+            "field_height",
+            b"field_height",
+            "field_width",
+            b"field_width",
+            "free_kick_from_defense_dist",
+            b"free_kick_from_defense_dist",
+            "goal_depth",
+            b"goal_depth",
+            "goal_height",
+            b"goal_height",
+            "goal_wall_width",
+            b"goal_wall_width",
+            "goal_width",
+            b"goal_width",
+            "line_width",
+            b"line_width",
+            "penalty_line_from_spot_dist",
+            b"penalty_line_from_spot_dist",
+            "penalty_spot_from_field_line_dist",
+            b"penalty_spot_from_field_line_dist",
+            "type",
+            b"type",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball_model",
+            b"ball_model",
+            "boundary_width",
+            b"boundary_width",
+            "center_circle_radius",
+            b"center_circle_radius",
+            "defense_height",
+            b"defense_height",
+            "defense_radius",
+            b"defense_radius",
+            "defense_stretch",
+            b"defense_stretch",
+            "defense_width",
+            b"defense_width",
+            "division",
+            b"division",
+            "field_height",
+            b"field_height",
+            "field_width",
+            b"field_width",
+            "free_kick_from_defense_dist",
+            b"free_kick_from_defense_dist",
+            "goal_depth",
+            b"goal_depth",
+            "goal_height",
+            b"goal_height",
+            "goal_wall_width",
+            b"goal_wall_width",
+            "goal_width",
+            b"goal_width",
+            "line_width",
+            b"line_width",
+            "penalty_line_from_spot_dist",
+            b"penalty_line_from_spot_dist",
+            "penalty_spot_from_field_line_dist",
+            b"penalty_spot_from_field_line_dist",
+            "type",
+            b"type",
+        ],
+    ) -> None: ...
 
 global___Geometry = Geometry
 
@@ -161,8 +253,36 @@ class BallModel(google.protobuf.message.Message):
         z_damping: builtins.float | None = ...,
         xy_damping: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["fast_deceleration", b"fast_deceleration", "slow_deceleration", b"slow_deceleration", "switch_ratio", b"switch_ratio", "xy_damping", b"xy_damping", "z_damping", b"z_damping"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["fast_deceleration", b"fast_deceleration", "slow_deceleration", b"slow_deceleration", "switch_ratio", b"switch_ratio", "xy_damping", b"xy_damping", "z_damping", b"z_damping"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "fast_deceleration",
+            b"fast_deceleration",
+            "slow_deceleration",
+            b"slow_deceleration",
+            "switch_ratio",
+            b"switch_ratio",
+            "xy_damping",
+            b"xy_damping",
+            "z_damping",
+            b"z_damping",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "fast_deceleration",
+            b"fast_deceleration",
+            "slow_deceleration",
+            b"slow_deceleration",
+            "switch_ratio",
+            b"switch_ratio",
+            "xy_damping",
+            b"xy_damping",
+            "z_damping",
+            b"z_damping",
+        ],
+    ) -> None: ...
 
 global___BallModel = BallModel
 
@@ -186,8 +306,32 @@ class DivisionDimensions(google.protobuf.message.Message):
         field_width_b: builtins.float | None = ...,
         field_height_b: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["field_height_a", b"field_height_a", "field_height_b", b"field_height_b", "field_width_a", b"field_width_a", "field_width_b", b"field_width_b"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["field_height_a", b"field_height_a", "field_height_b", b"field_height_b", "field_width_a", b"field_width_a", "field_width_b", b"field_width_b"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "field_height_a",
+            b"field_height_a",
+            "field_height_b",
+            b"field_height_b",
+            "field_width_a",
+            b"field_width_a",
+            "field_width_b",
+            b"field_width_b",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "field_height_a",
+            b"field_height_a",
+            "field_height_b",
+            b"field_height_b",
+            "field_width_a",
+            b"field_width_a",
+            "field_width_b",
+            b"field_width_b",
+        ],
+    ) -> None: ...
 
 global___DivisionDimensions = DivisionDimensions
 
@@ -233,8 +377,60 @@ class BallPosition(google.protobuf.message.Message):
         area: builtins.float | None = ...,
         vision_processing_time: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["area", b"area", "camera_id", b"camera_id", "derived_z", b"derived_z", "p_x", b"p_x", "p_y", b"p_y", "system_delay", b"system_delay", "time", b"time", "time_diff_scaled", b"time_diff_scaled", "v_x", b"v_x", "v_y", b"v_y", "vision_processing_time", b"vision_processing_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["area", b"area", "camera_id", b"camera_id", "derived_z", b"derived_z", "p_x", b"p_x", "p_y", b"p_y", "system_delay", b"system_delay", "time", b"time", "time_diff_scaled", b"time_diff_scaled", "v_x", b"v_x", "v_y", b"v_y", "vision_processing_time", b"vision_processing_time"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "area",
+            b"area",
+            "camera_id",
+            b"camera_id",
+            "derived_z",
+            b"derived_z",
+            "p_x",
+            b"p_x",
+            "p_y",
+            b"p_y",
+            "system_delay",
+            b"system_delay",
+            "time",
+            b"time",
+            "time_diff_scaled",
+            b"time_diff_scaled",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+            "vision_processing_time",
+            b"vision_processing_time",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "area",
+            b"area",
+            "camera_id",
+            b"camera_id",
+            "derived_z",
+            b"derived_z",
+            "p_x",
+            b"p_x",
+            "p_y",
+            b"p_y",
+            "system_delay",
+            b"system_delay",
+            "time",
+            b"time",
+            "time_diff_scaled",
+            b"time_diff_scaled",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+            "vision_processing_time",
+            b"vision_processing_time",
+        ],
+    ) -> None: ...
 
 global___BallPosition = BallPosition
 
@@ -264,7 +460,9 @@ class Ball(google.protobuf.message.Message):
     is_bouncing: builtins.bool
     max_speed: builtins.float
     @property
-    def raw(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BallPosition]: ...
+    def raw(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___BallPosition]: ...
     def __init__(
         self,
         *,
@@ -280,8 +478,58 @@ class Ball(google.protobuf.message.Message):
         max_speed: builtins.float | None = ...,
         raw: collections.abc.Iterable[global___BallPosition] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["is_bouncing", b"is_bouncing", "max_speed", b"max_speed", "p_x", b"p_x", "p_y", b"p_y", "p_z", b"p_z", "touchdown_x", b"touchdown_x", "touchdown_y", b"touchdown_y", "v_x", b"v_x", "v_y", b"v_y", "v_z", b"v_z"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["is_bouncing", b"is_bouncing", "max_speed", b"max_speed", "p_x", b"p_x", "p_y", b"p_y", "p_z", b"p_z", "raw", b"raw", "touchdown_x", b"touchdown_x", "touchdown_y", b"touchdown_y", "v_x", b"v_x", "v_y", b"v_y", "v_z", b"v_z"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "is_bouncing",
+            b"is_bouncing",
+            "max_speed",
+            b"max_speed",
+            "p_x",
+            b"p_x",
+            "p_y",
+            b"p_y",
+            "p_z",
+            b"p_z",
+            "touchdown_x",
+            b"touchdown_x",
+            "touchdown_y",
+            b"touchdown_y",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+            "v_z",
+            b"v_z",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "is_bouncing",
+            b"is_bouncing",
+            "max_speed",
+            b"max_speed",
+            "p_x",
+            b"p_x",
+            "p_y",
+            b"p_y",
+            "p_z",
+            b"p_z",
+            "raw",
+            b"raw",
+            "touchdown_x",
+            b"touchdown_x",
+            "touchdown_y",
+            b"touchdown_y",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+            "v_z",
+            b"v_z",
+        ],
+    ) -> None: ...
 
 global___Ball = Ball
 
@@ -327,8 +575,60 @@ class RobotPosition(google.protobuf.message.Message):
         camera_id: builtins.int | None = ...,
         vision_processing_time: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["camera_id", b"camera_id", "omega", b"omega", "p_x", b"p_x", "p_y", b"p_y", "phi", b"phi", "system_delay", b"system_delay", "time", b"time", "time_diff_scaled", b"time_diff_scaled", "v_x", b"v_x", "v_y", b"v_y", "vision_processing_time", b"vision_processing_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["camera_id", b"camera_id", "omega", b"omega", "p_x", b"p_x", "p_y", b"p_y", "phi", b"phi", "system_delay", b"system_delay", "time", b"time", "time_diff_scaled", b"time_diff_scaled", "v_x", b"v_x", "v_y", b"v_y", "vision_processing_time", b"vision_processing_time"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "camera_id",
+            b"camera_id",
+            "omega",
+            b"omega",
+            "p_x",
+            b"p_x",
+            "p_y",
+            b"p_y",
+            "phi",
+            b"phi",
+            "system_delay",
+            b"system_delay",
+            "time",
+            b"time",
+            "time_diff_scaled",
+            b"time_diff_scaled",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+            "vision_processing_time",
+            b"vision_processing_time",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "camera_id",
+            b"camera_id",
+            "omega",
+            b"omega",
+            "p_x",
+            b"p_x",
+            "p_y",
+            b"p_y",
+            "phi",
+            b"phi",
+            "system_delay",
+            b"system_delay",
+            "time",
+            b"time",
+            "time_diff_scaled",
+            b"time_diff_scaled",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+            "vision_processing_time",
+            b"vision_processing_time",
+        ],
+    ) -> None: ...
 
 global___RobotPosition = RobotPosition
 
@@ -352,7 +652,9 @@ class Robot(google.protobuf.message.Message):
     v_y: builtins.float
     omega: builtins.float
     @property
-    def raw(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotPosition]: ...
+    def raw(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotPosition]: ...
     def __init__(
         self,
         *,
@@ -365,8 +667,46 @@ class Robot(google.protobuf.message.Message):
         omega: builtins.float | None = ...,
         raw: collections.abc.Iterable[global___RobotPosition] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["id", b"id", "omega", b"omega", "p_x", b"p_x", "p_y", b"p_y", "phi", b"phi", "v_x", b"v_x", "v_y", b"v_y"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "omega", b"omega", "p_x", b"p_x", "p_y", b"p_y", "phi", b"phi", "raw", b"raw", "v_x", b"v_x", "v_y", b"v_y"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "id",
+            b"id",
+            "omega",
+            b"omega",
+            "p_x",
+            b"p_x",
+            "p_y",
+            b"p_y",
+            "phi",
+            b"phi",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "id",
+            b"id",
+            "omega",
+            b"omega",
+            "p_x",
+            b"p_x",
+            "p_y",
+            b"p_y",
+            "phi",
+            b"phi",
+            "raw",
+            b"raw",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+        ],
+    ) -> None: ...
 
 global___Robot = Robot
 
@@ -390,8 +730,12 @@ class TrackingAOI(google.protobuf.message.Message):
         x2: builtins.float | None = ...,
         y2: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["x1", b"x1", "x2", b"x2", "y1", b"y1", "y2", b"y2"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["x1", b"x1", "x2", b"x2", "y1", b"y1", "y2", b"y2"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["x1", b"x1", "x2", b"x2", "y1", b"y1", "y2", b"y2"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["x1", b"x1", "x2", b"x2", "y1", b"y1", "y2", b"y2"]
+    ) -> None: ...
 
 global___TrackingAOI = TrackingAOI
 
@@ -420,12 +764,16 @@ class State(google.protobuf.message.Message):
     @property
     def ball(self) -> global___Ball: ...
     @property
-    def yellow(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Robot]: ...
+    def yellow(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Robot]: ...
     @property
     def blue(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Robot]:
         """robot states predicted with help of the desired trajectory (if available)"""
     @property
-    def radio_response(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[robot_pb2.RadioResponse]: ...
+    def radio_response(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[robot_pb2.RadioResponse]: ...
     is_simulated: builtins.bool
     """deprecated, use world_source instead"""
     has_vision_data: builtins.bool
@@ -434,20 +782,32 @@ class State(google.protobuf.message.Message):
     @property
     def tracking_aoi(self) -> global___TrackingAOI: ...
     @property
-    def simple_tracking_yellow(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Robot]:
+    def simple_tracking_yellow(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Robot]:
         """robot states predicted without trajectories, only from vision data"""
     @property
-    def simple_tracking_blue(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Robot]: ...
+    def simple_tracking_blue(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Robot]: ...
     @property
     def simple_tracking_ball(self) -> global___Ball: ...
     @property
-    def reality(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SimulatorState]:
+    def reality(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SimulatorState]:
         """debug information from the simulator"""
     @property
-    def vision_frames(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ssl_wrapper_pb2.SSL_WrapperPacket]:
+    def vision_frames(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        ssl_wrapper_pb2.SSL_WrapperPacket
+    ]:
         """data for tracking replay and vision extraction"""
     @property
-    def vision_frame_times(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def vision_frame_times(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     system_delay: builtins.int
     world_source: global___WorldSource.ValueType
     def __init__(
@@ -471,8 +831,68 @@ class State(google.protobuf.message.Message):
         system_delay: builtins.int | None = ...,
         world_source: global___WorldSource.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ball", b"ball", "has_vision_data", b"has_vision_data", "is_simulated", b"is_simulated", "mixed_team_info", b"mixed_team_info", "simple_tracking_ball", b"simple_tracking_ball", "system_delay", b"system_delay", "time", b"time", "tracking_aoi", b"tracking_aoi", "world_source", b"world_source"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ball", b"ball", "blue", b"blue", "has_vision_data", b"has_vision_data", "is_simulated", b"is_simulated", "mixed_team_info", b"mixed_team_info", "radio_response", b"radio_response", "reality", b"reality", "simple_tracking_ball", b"simple_tracking_ball", "simple_tracking_blue", b"simple_tracking_blue", "simple_tracking_yellow", b"simple_tracking_yellow", "system_delay", b"system_delay", "time", b"time", "tracking_aoi", b"tracking_aoi", "vision_frame_times", b"vision_frame_times", "vision_frames", b"vision_frames", "world_source", b"world_source", "yellow", b"yellow"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball",
+            b"ball",
+            "has_vision_data",
+            b"has_vision_data",
+            "is_simulated",
+            b"is_simulated",
+            "mixed_team_info",
+            b"mixed_team_info",
+            "simple_tracking_ball",
+            b"simple_tracking_ball",
+            "system_delay",
+            b"system_delay",
+            "time",
+            b"time",
+            "tracking_aoi",
+            b"tracking_aoi",
+            "world_source",
+            b"world_source",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball",
+            b"ball",
+            "blue",
+            b"blue",
+            "has_vision_data",
+            b"has_vision_data",
+            "is_simulated",
+            b"is_simulated",
+            "mixed_team_info",
+            b"mixed_team_info",
+            "radio_response",
+            b"radio_response",
+            "reality",
+            b"reality",
+            "simple_tracking_ball",
+            b"simple_tracking_ball",
+            "simple_tracking_blue",
+            b"simple_tracking_blue",
+            "simple_tracking_yellow",
+            b"simple_tracking_yellow",
+            "system_delay",
+            b"system_delay",
+            "time",
+            b"time",
+            "tracking_aoi",
+            b"tracking_aoi",
+            "vision_frame_times",
+            b"vision_frame_times",
+            "vision_frames",
+            b"vision_frames",
+            "world_source",
+            b"world_source",
+            "yellow",
+            b"yellow",
+        ],
+    ) -> None: ...
 
 global___State = State
 
@@ -485,9 +905,13 @@ class SimulatorState(google.protobuf.message.Message):
     BALL_FIELD_NUMBER: builtins.int
     TIME_FIELD_NUMBER: builtins.int
     @property
-    def blue_robots(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SimRobot]: ...
+    def blue_robots(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SimRobot]: ...
     @property
-    def yellow_robots(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SimRobot]: ...
+    def yellow_robots(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SimRobot]: ...
     @property
     def ball(self) -> global___SimBall: ...
     time: builtins.int
@@ -499,8 +923,15 @@ class SimulatorState(google.protobuf.message.Message):
         ball: global___SimBall | None = ...,
         time: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ball", b"ball", "time", b"time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ball", b"ball", "blue_robots", b"blue_robots", "time", b"time", "yellow_robots", b"yellow_robots"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["ball", b"ball", "time", b"time"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball", b"ball", "blue_robots", b"blue_robots", "time", b"time", "yellow_robots", b"yellow_robots"
+        ],
+    ) -> None: ...
 
 global___SimulatorState = SimulatorState
 
@@ -539,8 +970,52 @@ class SimBall(google.protobuf.message.Message):
         angular_y: builtins.float | None = ...,
         angular_z: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["angular_x", b"angular_x", "angular_y", b"angular_y", "angular_z", b"angular_z", "p_x", b"p_x", "p_y", b"p_y", "p_z", b"p_z", "v_x", b"v_x", "v_y", b"v_y", "v_z", b"v_z"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["angular_x", b"angular_x", "angular_y", b"angular_y", "angular_z", b"angular_z", "p_x", b"p_x", "p_y", b"p_y", "p_z", b"p_z", "v_x", b"v_x", "v_y", b"v_y", "v_z", b"v_z"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "angular_x",
+            b"angular_x",
+            "angular_y",
+            b"angular_y",
+            "angular_z",
+            b"angular_z",
+            "p_x",
+            b"p_x",
+            "p_y",
+            b"p_y",
+            "p_z",
+            b"p_z",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+            "v_z",
+            b"v_z",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "angular_x",
+            b"angular_x",
+            "angular_y",
+            b"angular_y",
+            "angular_z",
+            b"angular_z",
+            "p_x",
+            b"p_x",
+            "p_y",
+            b"p_y",
+            "p_z",
+            b"p_z",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+            "v_z",
+            b"v_z",
+        ],
+    ) -> None: ...
 
 global___SimBall = SimBall
 
@@ -564,8 +1039,12 @@ class Quaternion(google.protobuf.message.Message):
         k: builtins.float | None = ...,
         real: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["i", b"i", "j", b"j", "k", b"k", "real", b"real"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["i", b"i", "j", b"j", "k", b"k", "real", b"real"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["i", b"i", "j", b"j", "k", b"k", "real", b"real"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["i", b"i", "j", b"j", "k", b"k", "real", b"real"]
+    ) -> None: ...
 
 global___Quaternion = Quaternion
 
@@ -615,7 +1094,63 @@ class SimRobot(google.protobuf.message.Message):
         r_z: builtins.float | None = ...,
         touches_ball: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["id", b"id", "p_x", b"p_x", "p_y", b"p_y", "p_z", b"p_z", "r_x", b"r_x", "r_y", b"r_y", "r_z", b"r_z", "rotation", b"rotation", "touches_ball", b"touches_ball", "v_x", b"v_x", "v_y", b"v_y", "v_z", b"v_z"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "p_x", b"p_x", "p_y", b"p_y", "p_z", b"p_z", "r_x", b"r_x", "r_y", b"r_y", "r_z", b"r_z", "rotation", b"rotation", "touches_ball", b"touches_ball", "v_x", b"v_x", "v_y", b"v_y", "v_z", b"v_z"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "id",
+            b"id",
+            "p_x",
+            b"p_x",
+            "p_y",
+            b"p_y",
+            "p_z",
+            b"p_z",
+            "r_x",
+            b"r_x",
+            "r_y",
+            b"r_y",
+            "r_z",
+            b"r_z",
+            "rotation",
+            b"rotation",
+            "touches_ball",
+            b"touches_ball",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+            "v_z",
+            b"v_z",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "id",
+            b"id",
+            "p_x",
+            b"p_x",
+            "p_y",
+            b"p_y",
+            "p_z",
+            b"p_z",
+            "r_x",
+            b"r_x",
+            "r_y",
+            b"r_y",
+            "r_z",
+            b"r_z",
+            "rotation",
+            b"rotation",
+            "touches_ball",
+            b"touches_ball",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+            "v_z",
+            b"v_z",
+        ],
+    ) -> None: ...
 
 global___SimRobot = SimRobot

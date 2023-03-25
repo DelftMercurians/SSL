@@ -51,8 +51,32 @@ class Output(google.protobuf.message.Message):
         protocol: global___Protocol | None = ...,
         config: ssl_gc_engine_config_pb2.Config | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "gc_state", b"gc_state", "match_state", b"match_state", "protocol", b"protocol"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "gc_state", b"gc_state", "match_state", b"match_state", "protocol", b"protocol"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "config",
+            b"config",
+            "gc_state",
+            b"gc_state",
+            "match_state",
+            b"match_state",
+            "protocol",
+            b"protocol",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "config",
+            b"config",
+            "gc_state",
+            b"gc_state",
+            "match_state",
+            b"match_state",
+            "protocol",
+            b"protocol",
+        ],
+    ) -> None: ...
 
 global___Output = Output
 
@@ -70,7 +94,9 @@ class Protocol(google.protobuf.message.Message):
     But if the game is reset, the whole protocol must be replaced. That's what this flag is for.
     """
     @property
-    def entry(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProtocolEntry]:
+    def entry(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProtocolEntry]:
         """The (delta) list of entries"""
     def __init__(
         self,
@@ -79,7 +105,9 @@ class Protocol(google.protobuf.message.Message):
         entry: collections.abc.Iterable[global___ProtocolEntry] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["delta", b"delta"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["delta", b"delta", "entry", b"entry"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["delta", b"delta", "entry", b"entry"]
+    ) -> None: ...
 
 global___Protocol = Protocol
 
@@ -112,8 +140,32 @@ class ProtocolEntry(google.protobuf.message.Message):
         match_time_elapsed: google.protobuf.duration_pb2.Duration | None = ...,
         stage_time_elapsed: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["change", b"change", "id", b"id", "match_time_elapsed", b"match_time_elapsed", "stage_time_elapsed", b"stage_time_elapsed"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["change", b"change", "id", b"id", "match_time_elapsed", b"match_time_elapsed", "stage_time_elapsed", b"stage_time_elapsed"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "change",
+            b"change",
+            "id",
+            b"id",
+            "match_time_elapsed",
+            b"match_time_elapsed",
+            "stage_time_elapsed",
+            b"stage_time_elapsed",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "change",
+            b"change",
+            "id",
+            b"id",
+            "match_time_elapsed",
+            b"match_time_elapsed",
+            "stage_time_elapsed",
+            b"stage_time_elapsed",
+        ],
+    ) -> None: ...
 
 global___ProtocolEntry = ProtocolEntry
 
@@ -141,7 +193,17 @@ class Input(google.protobuf.message.Message):
         reset_match: builtins.bool | None = ...,
         config_delta: ssl_gc_engine_config_pb2.Config | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["change", b"change", "config_delta", b"config_delta", "reset_match", b"reset_match"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["change", b"change", "config_delta", b"config_delta", "reset_match", b"reset_match"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "change", b"change", "config_delta", b"config_delta", "reset_match", b"reset_match"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "change", b"change", "config_delta", b"config_delta", "reset_match", b"reset_match"
+        ],
+    ) -> None: ...
 
 global___Input = Input

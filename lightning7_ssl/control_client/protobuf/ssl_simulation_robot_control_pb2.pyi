@@ -47,8 +47,36 @@ class RobotCommand(google.protobuf.message.Message):
         kick_angle: builtins.float | None = ...,
         dribbler_speed: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["dribbler_speed", b"dribbler_speed", "id", b"id", "kick_angle", b"kick_angle", "kick_speed", b"kick_speed", "move_command", b"move_command"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["dribbler_speed", b"dribbler_speed", "id", b"id", "kick_angle", b"kick_angle", "kick_speed", b"kick_speed", "move_command", b"move_command"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "dribbler_speed",
+            b"dribbler_speed",
+            "id",
+            b"id",
+            "kick_angle",
+            b"kick_angle",
+            "kick_speed",
+            b"kick_speed",
+            "move_command",
+            b"move_command",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "dribbler_speed",
+            b"dribbler_speed",
+            "id",
+            b"id",
+            "kick_angle",
+            b"kick_angle",
+            "kick_speed",
+            b"kick_speed",
+            "move_command",
+            b"move_command",
+        ],
+    ) -> None: ...
 
 global___RobotCommand = RobotCommand
 
@@ -77,9 +105,35 @@ class RobotMoveCommand(google.protobuf.message.Message):
         local_velocity: global___MoveLocalVelocity | None = ...,
         global_velocity: global___MoveGlobalVelocity | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["command", b"command", "global_velocity", b"global_velocity", "local_velocity", b"local_velocity", "wheel_velocity", b"wheel_velocity"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["command", b"command", "global_velocity", b"global_velocity", "local_velocity", b"local_velocity", "wheel_velocity", b"wheel_velocity"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["command", b"command"]) -> typing_extensions.Literal["wheel_velocity", "local_velocity", "global_velocity"] | None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "command",
+            b"command",
+            "global_velocity",
+            b"global_velocity",
+            "local_velocity",
+            b"local_velocity",
+            "wheel_velocity",
+            b"wheel_velocity",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "command",
+            b"command",
+            "global_velocity",
+            b"global_velocity",
+            "local_velocity",
+            b"local_velocity",
+            "wheel_velocity",
+            b"wheel_velocity",
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing_extensions.Literal["command", b"command"]
+    ) -> typing_extensions.Literal["wheel_velocity", "local_velocity", "global_velocity"] | None: ...
 
 global___RobotMoveCommand = RobotMoveCommand
 
@@ -109,8 +163,32 @@ class MoveWheelVelocity(google.protobuf.message.Message):
         back_left: builtins.float | None = ...,
         front_left: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["back_left", b"back_left", "back_right", b"back_right", "front_left", b"front_left", "front_right", b"front_right"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["back_left", b"back_left", "back_right", b"back_right", "front_left", b"front_left", "front_right", b"front_right"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "back_left",
+            b"back_left",
+            "back_right",
+            b"back_right",
+            "front_left",
+            b"front_left",
+            "front_right",
+            b"front_right",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "back_left",
+            b"back_left",
+            "back_right",
+            b"back_right",
+            "front_left",
+            b"front_left",
+            "front_right",
+            b"front_right",
+        ],
+    ) -> None: ...
 
 global___MoveWheelVelocity = MoveWheelVelocity
 
@@ -136,8 +214,14 @@ class MoveLocalVelocity(google.protobuf.message.Message):
         left: builtins.float | None = ...,
         angular: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["angular", b"angular", "forward", b"forward", "left", b"left"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["angular", b"angular", "forward", b"forward", "left", b"left"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal["angular", b"angular", "forward", b"forward", "left", b"left"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal["angular", b"angular", "forward", b"forward", "left", b"left"],
+    ) -> None: ...
 
 global___MoveLocalVelocity = MoveLocalVelocity
 
@@ -163,8 +247,12 @@ class MoveGlobalVelocity(google.protobuf.message.Message):
         y: builtins.float | None = ...,
         angular: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["angular", b"angular", "x", b"x", "y", b"y"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["angular", b"angular", "x", b"x", "y", b"y"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["angular", b"angular", "x", b"x", "y", b"y"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["angular", b"angular", "x", b"x", "y", b"y"]
+    ) -> None: ...
 
 global___MoveGlobalVelocity = MoveGlobalVelocity
 
@@ -176,13 +264,17 @@ class RobotControl(google.protobuf.message.Message):
 
     ROBOT_COMMANDS_FIELD_NUMBER: builtins.int
     @property
-    def robot_commands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotCommand]:
+    def robot_commands(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotCommand]:
         """Control the robots"""
     def __init__(
         self,
         *,
         robot_commands: collections.abc.Iterable[global___RobotCommand] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["robot_commands", b"robot_commands"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["robot_commands", b"robot_commands"]
+    ) -> None: ...
 
 global___RobotControl = RobotControl

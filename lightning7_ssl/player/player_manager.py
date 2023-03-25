@@ -1,4 +1,5 @@
-from typing import List, Dict, Type
+from typing import Dict, List
+
 from .. import cfg
 from ..control_client import SSLClient
 from ..roles import Role
@@ -32,9 +33,7 @@ class PlayerManager:
         self.assigned_roles = {}
         self.players = {
             id: Player(id, client)
-            for id in (
-                player_ids if isinstance(player_ids, list) else range(player_ids)
-            )
+            for id in (player_ids if isinstance(player_ids, list) else range(player_ids))
         }
 
     def tick(self):
@@ -57,9 +56,7 @@ class PlayerManager:
             new_role: The role to spawn.
             data: The current world state.
         """
-        unassigned_players = [
-            id for id in self.players.keys() if id not in self.assigned_roles
-        ]
+        unassigned_players = [id for id in self.players.keys() if id not in self.assigned_roles]
         if len(unassigned_players) == 0:
             # No unassigned players, find the least fit player
             least_fit_player = min(

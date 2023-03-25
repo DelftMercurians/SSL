@@ -39,8 +39,12 @@ class GcState(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: global___GcStateTeam | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> None: ...
 
     @typing_extensions.final
     class AutoRefStateEntry(google.protobuf.message.Message):
@@ -57,8 +61,12 @@ class GcState(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: global___GcStateAutoRef | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> None: ...
 
     @typing_extensions.final
     class TrackerStateEntry(google.protobuf.message.Message):
@@ -75,8 +83,12 @@ class GcState(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: global___GcStateTracker | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> None: ...
 
     TEAM_STATE_FIELD_NUMBER: builtins.int
     AUTO_REF_STATE_FIELD_NUMBER: builtins.int
@@ -84,13 +96,19 @@ class GcState(google.protobuf.message.Message):
     TRACKER_STATE_GC_FIELD_NUMBER: builtins.int
     READY_TO_CONTINUE_FIELD_NUMBER: builtins.int
     @property
-    def team_state(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___GcStateTeam]:
+    def team_state(
+        self,
+    ) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___GcStateTeam]:
         """The state of each team"""
     @property
-    def auto_ref_state(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___GcStateAutoRef]:
+    def auto_ref_state(
+        self,
+    ) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___GcStateAutoRef]:
         """the states of the auto referees"""
     @property
-    def tracker_state(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___GcStateTracker]:
+    def tracker_state(
+        self,
+    ) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___GcStateTracker]:
         """the states of the attached trackers"""
     @property
     def tracker_state_gc(self) -> global___GcStateTracker:
@@ -106,8 +124,27 @@ class GcState(google.protobuf.message.Message):
         tracker_state_gc: global___GcStateTracker | None = ...,
         ready_to_continue: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ready_to_continue", b"ready_to_continue", "tracker_state_gc", b"tracker_state_gc"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["auto_ref_state", b"auto_ref_state", "ready_to_continue", b"ready_to_continue", "team_state", b"team_state", "tracker_state", b"tracker_state", "tracker_state_gc", b"tracker_state_gc"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ready_to_continue", b"ready_to_continue", "tracker_state_gc", b"tracker_state_gc"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "auto_ref_state",
+            b"auto_ref_state",
+            "ready_to_continue",
+            b"ready_to_continue",
+            "team_state",
+            b"team_state",
+            "tracker_state",
+            b"tracker_state",
+            "tracker_state_gc",
+            b"tracker_state_gc",
+        ],
+    ) -> None: ...
 
 global___GcState = GcState
 
@@ -137,8 +174,32 @@ class GcStateTeam(google.protobuf.message.Message):
         remote_control_connected: builtins.bool | None = ...,
         remote_control_connection_verified: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["connected", b"connected", "connection_verified", b"connection_verified", "remote_control_connected", b"remote_control_connected", "remote_control_connection_verified", b"remote_control_connection_verified"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["connected", b"connected", "connection_verified", b"connection_verified", "remote_control_connected", b"remote_control_connected", "remote_control_connection_verified", b"remote_control_connection_verified"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "connected",
+            b"connected",
+            "connection_verified",
+            b"connection_verified",
+            "remote_control_connected",
+            b"remote_control_connected",
+            "remote_control_connection_verified",
+            b"remote_control_connection_verified",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "connected",
+            b"connected",
+            "connection_verified",
+            b"connection_verified",
+            "remote_control_connected",
+            b"remote_control_connected",
+            "remote_control_connection_verified",
+            b"remote_control_connection_verified",
+        ],
+    ) -> None: ...
 
 global___GcStateTeam = GcStateTeam
 
@@ -156,8 +217,12 @@ class GcStateAutoRef(google.protobuf.message.Message):
         *,
         connection_verified: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["connection_verified", b"connection_verified"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["connection_verified", b"connection_verified"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["connection_verified", b"connection_verified"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["connection_verified", b"connection_verified"]
+    ) -> None: ...
 
 global___GcStateAutoRef = GcStateAutoRef
 
@@ -189,8 +254,18 @@ class GcStateTracker(google.protobuf.message.Message):
         ball: global___Ball | None = ...,
         robots: collections.abc.Iterable[global___Robot] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ball", b"ball", "source_name", b"source_name", "uuid", b"uuid"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ball", b"ball", "robots", b"robots", "source_name", b"source_name", "uuid", b"uuid"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball", b"ball", "source_name", b"source_name", "uuid", b"uuid"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball", b"ball", "robots", b"robots", "source_name", b"source_name", "uuid", b"uuid"
+        ],
+    ) -> None: ...
 
 global___GcStateTracker = GcStateTracker
 
@@ -214,7 +289,9 @@ class Ball(google.protobuf.message.Message):
         pos: ssl_game_controller_geometry_pb2.Vector3 | None = ...,
         vel: ssl_game_controller_geometry_pb2.Vector3 | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["pos", b"pos", "vel", b"vel"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["pos", b"pos", "vel", b"vel"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["pos", b"pos", "vel", b"vel"]) -> None: ...
 
 global___Ball = Ball
@@ -239,7 +316,9 @@ class Robot(google.protobuf.message.Message):
         id: ssl_game_controller_common_pb2.BotId | None = ...,
         pos: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["id", b"id", "pos", b"pos"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["id", b"id", "pos", b"pos"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "pos", b"pos"]) -> None: ...
 
 global___Robot = Robot

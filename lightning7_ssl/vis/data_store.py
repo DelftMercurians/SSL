@@ -1,6 +1,6 @@
 import json
-from dataclasses import dataclass, field, asdict
-from typing import Any, Dict, Callable, List
+from dataclasses import asdict, dataclass, field
+from typing import Any, Callable, Dict, List
 
 from lightning7_ssl import cfg
 
@@ -44,7 +44,7 @@ class DataStore:
         }
         self._publish(self.state)
 
-    def subscribe(self, callback: Callable[[Dict], Any]):
+    def subscribe(self, callback: Callable[[Dict, "DataStore"], Any]):
         """Subscribes to the state updates."""
         self._subs.append(callback)
 

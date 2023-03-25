@@ -20,7 +20,9 @@ class _Team:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _TeamEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Team.ValueType], builtins.type):
+class _TeamEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Team.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     UNKNOWN: _Team.ValueType  # 0
     """team not set"""
@@ -44,7 +46,9 @@ class _Division:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _DivisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Division.ValueType], builtins.type):
+class _DivisionEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Division.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     DIV_UNKNOWN: _Division.ValueType  # 0
     DIV_A: _Division.ValueType  # 1
@@ -76,7 +80,9 @@ class BotId(google.protobuf.message.Message):
         id: builtins.int | None = ...,
         team: global___Team.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["id", b"id", "team", b"team"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["id", b"id", "team", b"team"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "team", b"team"]) -> None: ...
 
 global___BotId = BotId
@@ -114,7 +120,10 @@ class ControllerReply(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StatusCodeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ControllerReply._StatusCode.ValueType], builtins.type):  # noqa: F821
+    class _StatusCodeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ControllerReply._StatusCode.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN_STATUS_CODE: ControllerReply._StatusCode.ValueType  # 0
         OK: ControllerReply._StatusCode.ValueType  # 1
@@ -129,7 +138,10 @@ class ControllerReply(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _VerificationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ControllerReply._Verification.ValueType], builtins.type):  # noqa: F821
+    class _VerificationEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ControllerReply._Verification.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN_VERIFICATION: ControllerReply._Verification.ValueType  # 0
         VERIFIED: ControllerReply._Verification.ValueType  # 1
@@ -164,8 +176,32 @@ class ControllerReply(google.protobuf.message.Message):
         next_token: builtins.str | None = ...,
         verification: global___ControllerReply.Verification.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["next_token", b"next_token", "reason", b"reason", "status_code", b"status_code", "verification", b"verification"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["next_token", b"next_token", "reason", b"reason", "status_code", b"status_code", "verification", b"verification"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "next_token",
+            b"next_token",
+            "reason",
+            b"reason",
+            "status_code",
+            b"status_code",
+            "verification",
+            b"verification",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "next_token",
+            b"next_token",
+            "reason",
+            b"reason",
+            "status_code",
+            b"status_code",
+            "verification",
+            b"verification",
+        ],
+    ) -> None: ...
 
 global___ControllerReply = ControllerReply
 
@@ -187,8 +223,12 @@ class Signature(google.protobuf.message.Message):
         token: builtins.str | None = ...,
         pkcs1v15: builtins.bytes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["pkcs1v15", b"pkcs1v15", "token", b"token"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["pkcs1v15", b"pkcs1v15", "token", b"token"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["pkcs1v15", b"pkcs1v15", "token", b"token"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["pkcs1v15", b"pkcs1v15", "token", b"token"]
+    ) -> None: ...
 
 global___Signature = Signature
 
@@ -214,7 +254,27 @@ class BallSpeedMeasurement(google.protobuf.message.Message):
         ball_speed: builtins.float | None = ...,
         initial_ball_speed: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ball_speed", b"ball_speed", "initial_ball_speed", b"initial_ball_speed", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ball_speed", b"ball_speed", "initial_ball_speed", b"initial_ball_speed", "timestamp", b"timestamp"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball_speed",
+            b"ball_speed",
+            "initial_ball_speed",
+            b"initial_ball_speed",
+            "timestamp",
+            b"timestamp",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball_speed",
+            b"ball_speed",
+            "initial_ball_speed",
+            b"initial_ball_speed",
+            "timestamp",
+            b"timestamp",
+        ],
+    ) -> None: ...
 
 global___BallSpeedMeasurement = BallSpeedMeasurement

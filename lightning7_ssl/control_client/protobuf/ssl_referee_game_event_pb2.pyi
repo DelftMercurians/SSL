@@ -26,7 +26,12 @@ class SSL_Referee_Game_Event(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _GameEventTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SSL_Referee_Game_Event._GameEventType.ValueType], builtins.type):  # noqa: F821
+    class _GameEventTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            SSL_Referee_Game_Event._GameEventType.ValueType
+        ],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: SSL_Referee_Game_Event._GameEventType.ValueType  # 0
         """not set"""
@@ -135,7 +140,10 @@ class SSL_Referee_Game_Event(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TeamEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SSL_Referee_Game_Event._Team.ValueType], builtins.type):  # noqa: F821
+    class _TeamEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SSL_Referee_Game_Event._Team.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         TEAM_UNKNOWN: SSL_Referee_Game_Event._Team.ValueType  # 0
         TEAM_YELLOW: SSL_Referee_Game_Event._Team.ValueType  # 1
@@ -164,8 +172,12 @@ class SSL_Referee_Game_Event(google.protobuf.message.Message):
             team: global___SSL_Referee_Game_Event.Team.ValueType | None = ...,
             botId: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["botId", b"botId", "team", b"team"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["botId", b"botId", "team", b"team"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["botId", b"botId", "team", b"team"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["botId", b"botId", "team", b"team"]
+        ) -> None: ...
 
     GAMEEVENTTYPE_FIELD_NUMBER: builtins.int
     ORIGINATOR_FIELD_NUMBER: builtins.int
@@ -184,7 +196,17 @@ class SSL_Referee_Game_Event(google.protobuf.message.Message):
         originator: global___SSL_Referee_Game_Event.Originator | None = ...,
         message: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["gameEventType", b"gameEventType", "message", b"message", "originator", b"originator"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["gameEventType", b"gameEventType", "message", b"message", "originator", b"originator"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "gameEventType", b"gameEventType", "message", b"message", "originator", b"originator"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "gameEventType", b"gameEventType", "message", b"message", "originator", b"originator"
+        ],
+    ) -> None: ...
 
 global___SSL_Referee_Game_Event = SSL_Referee_Game_Event

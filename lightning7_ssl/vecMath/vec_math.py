@@ -81,10 +81,12 @@ class Vec2:
         """
         return self.vec[index]
 
-    def __eq__(self, other: "Vec2"):
+    def __eq__(self, other: object):
         """
         Returns True if the two vectors are equal.
         """
+        if not isinstance(other, Vec2):
+            return False
         return self.x == other.x and self.y == other.y
 
     def dot(self, other: "Vec2"):
@@ -158,7 +160,7 @@ class Vec3:
         z = self.z - other.z
         return Vec3(x, y, z)
 
-    def __mul__(self, scalar: float) -> "Vec2":
+    def __mul__(self, scalar: float) -> "Vec3":
         """
         Scalar multiplication of a Vec3 object.
         """
@@ -194,10 +196,12 @@ class Vec3:
         """
         return self.vec[index]
 
-    def __eq__(self, other: "Vec3"):
+    def __eq__(self, other: object):
         """
         Returns True if the two vectors are equal.
         """
+        if not isinstance(other, Vec3):
+            return False
         return self.x == other.x and self.y == other.y and self.z == other.z
 
     def cross(self, other: "Vec3"):

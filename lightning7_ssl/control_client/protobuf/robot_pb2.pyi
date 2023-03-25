@@ -44,8 +44,40 @@ class LimitParameters(google.protobuf.message.Message):
         a_brake_s_max: builtins.float | None = ...,
         a_brake_phi_max: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["a_brake_f_max", b"a_brake_f_max", "a_brake_phi_max", b"a_brake_phi_max", "a_brake_s_max", b"a_brake_s_max", "a_speedup_f_max", b"a_speedup_f_max", "a_speedup_phi_max", b"a_speedup_phi_max", "a_speedup_s_max", b"a_speedup_s_max"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["a_brake_f_max", b"a_brake_f_max", "a_brake_phi_max", b"a_brake_phi_max", "a_brake_s_max", b"a_brake_s_max", "a_speedup_f_max", b"a_speedup_f_max", "a_speedup_phi_max", b"a_speedup_phi_max", "a_speedup_s_max", b"a_speedup_s_max"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "a_brake_f_max",
+            b"a_brake_f_max",
+            "a_brake_phi_max",
+            b"a_brake_phi_max",
+            "a_brake_s_max",
+            b"a_brake_s_max",
+            "a_speedup_f_max",
+            b"a_speedup_f_max",
+            "a_speedup_phi_max",
+            b"a_speedup_phi_max",
+            "a_speedup_s_max",
+            b"a_speedup_s_max",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "a_brake_f_max",
+            b"a_brake_f_max",
+            "a_brake_phi_max",
+            b"a_brake_phi_max",
+            "a_brake_s_max",
+            b"a_brake_s_max",
+            "a_speedup_f_max",
+            b"a_speedup_f_max",
+            "a_speedup_phi_max",
+            b"a_speedup_phi_max",
+            "a_speedup_s_max",
+            b"a_speedup_s_max",
+        ],
+    ) -> None: ...
 
 global___LimitParameters = LimitParameters
 
@@ -64,8 +96,18 @@ class SimulationLimits(google.protobuf.message.Message):
         a_speedup_wheel_max: builtins.float | None = ...,
         a_brake_wheel_max: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["a_brake_wheel_max", b"a_brake_wheel_max", "a_speedup_wheel_max", b"a_speedup_wheel_max"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["a_brake_wheel_max", b"a_brake_wheel_max", "a_speedup_wheel_max", b"a_speedup_wheel_max"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "a_brake_wheel_max", b"a_brake_wheel_max", "a_speedup_wheel_max", b"a_speedup_wheel_max"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "a_brake_wheel_max", b"a_brake_wheel_max", "a_speedup_wheel_max", b"a_speedup_wheel_max"
+        ],
+    ) -> None: ...
 
 global___SimulationLimits = SimulationLimits
 
@@ -77,7 +119,10 @@ class Specs(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _GenerationTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Specs._GenerationType.ValueType], builtins.type):  # noqa: F821
+    class _GenerationTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Specs._GenerationType.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         Regular: Specs._GenerationType.ValueType  # 1
         Ally: Specs._GenerationType.ValueType  # 2
@@ -152,8 +197,92 @@ class Specs(google.protobuf.message.Message):
         dribbler_height: builtins.float | None = ...,
         simulation_limits: global___SimulationLimits | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["acceleration", b"acceleration", "angle", b"angle", "dribbler_height", b"dribbler_height", "dribbler_width", b"dribbler_width", "generation", b"generation", "height", b"height", "id", b"id", "ir_param", b"ir_param", "mass", b"mass", "omega_max", b"omega_max", "radius", b"radius", "shoot_radius", b"shoot_radius", "shot_chip_max", b"shot_chip_max", "shot_linear_max", b"shot_linear_max", "simulation_limits", b"simulation_limits", "strategy", b"strategy", "type", b"type", "v_max", b"v_max", "year", b"year"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["acceleration", b"acceleration", "angle", b"angle", "dribbler_height", b"dribbler_height", "dribbler_width", b"dribbler_width", "generation", b"generation", "height", b"height", "id", b"id", "ir_param", b"ir_param", "mass", b"mass", "omega_max", b"omega_max", "radius", b"radius", "shoot_radius", b"shoot_radius", "shot_chip_max", b"shot_chip_max", "shot_linear_max", b"shot_linear_max", "simulation_limits", b"simulation_limits", "strategy", b"strategy", "type", b"type", "v_max", b"v_max", "year", b"year"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "acceleration",
+            b"acceleration",
+            "angle",
+            b"angle",
+            "dribbler_height",
+            b"dribbler_height",
+            "dribbler_width",
+            b"dribbler_width",
+            "generation",
+            b"generation",
+            "height",
+            b"height",
+            "id",
+            b"id",
+            "ir_param",
+            b"ir_param",
+            "mass",
+            b"mass",
+            "omega_max",
+            b"omega_max",
+            "radius",
+            b"radius",
+            "shoot_radius",
+            b"shoot_radius",
+            "shot_chip_max",
+            b"shot_chip_max",
+            "shot_linear_max",
+            b"shot_linear_max",
+            "simulation_limits",
+            b"simulation_limits",
+            "strategy",
+            b"strategy",
+            "type",
+            b"type",
+            "v_max",
+            b"v_max",
+            "year",
+            b"year",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "acceleration",
+            b"acceleration",
+            "angle",
+            b"angle",
+            "dribbler_height",
+            b"dribbler_height",
+            "dribbler_width",
+            b"dribbler_width",
+            "generation",
+            b"generation",
+            "height",
+            b"height",
+            "id",
+            b"id",
+            "ir_param",
+            b"ir_param",
+            "mass",
+            b"mass",
+            "omega_max",
+            b"omega_max",
+            "radius",
+            b"radius",
+            "shoot_radius",
+            b"shoot_radius",
+            "shot_chip_max",
+            b"shot_chip_max",
+            "shot_linear_max",
+            b"shot_linear_max",
+            "simulation_limits",
+            b"simulation_limits",
+            "strategy",
+            b"strategy",
+            "type",
+            b"type",
+            "v_max",
+            b"v_max",
+            "year",
+            b"year",
+        ],
+    ) -> None: ...
 
 global___Specs = Specs
 
@@ -166,7 +295,9 @@ class Generation(google.protobuf.message.Message):
     @property
     def default(self) -> global___Specs: ...
     @property
-    def robot(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Specs]: ...
+    def robot(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Specs]: ...
     def __init__(
         self,
         *,
@@ -174,7 +305,9 @@ class Generation(google.protobuf.message.Message):
         robot: collections.abc.Iterable[global___Specs] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["default", b"default"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["default", b"default", "robot", b"robot"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["default", b"default", "robot", b"robot"]
+    ) -> None: ...
 
 global___Generation = Generation
 
@@ -184,7 +317,9 @@ class Team(google.protobuf.message.Message):
 
     ROBOT_FIELD_NUMBER: builtins.int
     @property
-    def robot(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Specs]: ...
+    def robot(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Specs]: ...
     def __init__(
         self,
         *,
@@ -214,8 +349,12 @@ class Polynomial(google.protobuf.message.Message):
         a2: builtins.float | None = ...,
         a3: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["a0", b"a0", "a1", b"a1", "a2", b"a2", "a3", b"a3"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["a0", b"a0", "a1", b"a1", "a2", b"a2", "a3", b"a3"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["a0", b"a0", "a1", b"a1", "a2", b"a2", "a3", b"a3"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["a0", b"a0", "a1", b"a1", "a2", b"a2", "a3", b"a3"]
+    ) -> None: ...
 
 global___Polynomial = Polynomial
 
@@ -245,8 +384,18 @@ class Spline(google.protobuf.message.Message):
         y: global___Polynomial | None = ...,
         phi: global___Polynomial | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["phi", b"phi", "t_end", b"t_end", "t_start", b"t_start", "x", b"x", "y", b"y"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["phi", b"phi", "t_end", b"t_end", "t_start", b"t_start", "x", b"x", "y", b"y"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "phi", b"phi", "t_end", b"t_end", "t_start", b"t_start", "x", b"x", "y", b"y"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "phi", b"phi", "t_end", b"t_end", "t_start", b"t_start", "x", b"x", "y", b"y"
+        ],
+    ) -> None: ...
 
 global___Spline = Spline
 
@@ -256,7 +405,9 @@ class ControllerInput(google.protobuf.message.Message):
 
     SPLINE_FIELD_NUMBER: builtins.int
     @property
-    def spline(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Spline]: ...
+    def spline(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Spline]: ...
     def __init__(
         self,
         *,
@@ -283,8 +434,12 @@ class SpeedVector(google.protobuf.message.Message):
         v_f: builtins.float | None = ...,
         omega: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["omega", b"omega", "v_f", b"v_f", "v_s", b"v_s"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["omega", b"omega", "v_f", b"v_f", "v_s", b"v_s"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["omega", b"omega", "v_f", b"v_f", "v_s", b"v_s"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["omega", b"omega", "v_f", b"v_f", "v_s", b"v_s"]
+    ) -> None: ...
 
 global___SpeedVector = SpeedVector
 
@@ -296,7 +451,10 @@ class Command(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _KickStyleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Command._KickStyle.ValueType], builtins.type):  # noqa: F821
+    class _KickStyleEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Command._KickStyle.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         Linear: Command._KickStyle.ValueType  # 1
         Chip: Command._KickStyle.ValueType  # 2
@@ -372,8 +530,92 @@ class Command(google.protobuf.message.Message):
         output1: global___SpeedVector | None = ...,
         output2: global___SpeedVector | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["controller", b"controller", "cur_omega", b"cur_omega", "cur_v_f", b"cur_v_f", "cur_v_s", b"cur_v_s", "dribbler", b"dribbler", "eject_sdcard", b"eject_sdcard", "force_kick", b"force_kick", "kick_power", b"kick_power", "kick_style", b"kick_style", "local", b"local", "network_controlled", b"network_controlled", "omega", b"omega", "output0", b"output0", "output1", b"output1", "output2", b"output2", "standby", b"standby", "strategy_controlled", b"strategy_controlled", "v_f", b"v_f", "v_s", b"v_s"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["controller", b"controller", "cur_omega", b"cur_omega", "cur_v_f", b"cur_v_f", "cur_v_s", b"cur_v_s", "dribbler", b"dribbler", "eject_sdcard", b"eject_sdcard", "force_kick", b"force_kick", "kick_power", b"kick_power", "kick_style", b"kick_style", "local", b"local", "network_controlled", b"network_controlled", "omega", b"omega", "output0", b"output0", "output1", b"output1", "output2", b"output2", "standby", b"standby", "strategy_controlled", b"strategy_controlled", "v_f", b"v_f", "v_s", b"v_s"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "controller",
+            b"controller",
+            "cur_omega",
+            b"cur_omega",
+            "cur_v_f",
+            b"cur_v_f",
+            "cur_v_s",
+            b"cur_v_s",
+            "dribbler",
+            b"dribbler",
+            "eject_sdcard",
+            b"eject_sdcard",
+            "force_kick",
+            b"force_kick",
+            "kick_power",
+            b"kick_power",
+            "kick_style",
+            b"kick_style",
+            "local",
+            b"local",
+            "network_controlled",
+            b"network_controlled",
+            "omega",
+            b"omega",
+            "output0",
+            b"output0",
+            "output1",
+            b"output1",
+            "output2",
+            b"output2",
+            "standby",
+            b"standby",
+            "strategy_controlled",
+            b"strategy_controlled",
+            "v_f",
+            b"v_f",
+            "v_s",
+            b"v_s",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "controller",
+            b"controller",
+            "cur_omega",
+            b"cur_omega",
+            "cur_v_f",
+            b"cur_v_f",
+            "cur_v_s",
+            b"cur_v_s",
+            "dribbler",
+            b"dribbler",
+            "eject_sdcard",
+            b"eject_sdcard",
+            "force_kick",
+            b"force_kick",
+            "kick_power",
+            b"kick_power",
+            "kick_style",
+            b"kick_style",
+            "local",
+            b"local",
+            "network_controlled",
+            b"network_controlled",
+            "omega",
+            b"omega",
+            "output0",
+            b"output0",
+            "output1",
+            b"output1",
+            "output2",
+            b"output2",
+            "standby",
+            b"standby",
+            "strategy_controlled",
+            b"strategy_controlled",
+            "v_f",
+            b"v_f",
+            "v_s",
+            b"v_s",
+        ],
+    ) -> None: ...
 
 global___Command = Command
 
@@ -401,8 +643,36 @@ class RadioCommand(google.protobuf.message.Message):
         command: global___Command | None = ...,
         command_time: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["command", b"command", "command_time", b"command_time", "generation", b"generation", "id", b"id", "is_blue", b"is_blue"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["command", b"command", "command_time", b"command_time", "generation", b"generation", "id", b"id", "is_blue", b"is_blue"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "command",
+            b"command",
+            "command_time",
+            b"command_time",
+            "generation",
+            b"generation",
+            "id",
+            b"id",
+            "is_blue",
+            b"is_blue",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "command",
+            b"command",
+            "command_time",
+            b"command_time",
+            "generation",
+            b"generation",
+            "id",
+            b"id",
+            "is_blue",
+            b"is_blue",
+        ],
+    ) -> None: ...
 
 global___RadioCommand = RadioCommand
 
@@ -423,8 +693,12 @@ class SpeedStatus(google.protobuf.message.Message):
         v_s: builtins.float | None = ...,
         omega: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["omega", b"omega", "v_f", b"v_f", "v_s", b"v_s"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["omega", b"omega", "v_f", b"v_f", "v_s", b"v_s"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["omega", b"omega", "v_f", b"v_f", "v_s", b"v_s"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["omega", b"omega", "v_f", b"v_f", "v_s", b"v_s"]
+    ) -> None: ...
 
 global___SpeedStatus = SpeedStatus
 
@@ -467,8 +741,56 @@ class ExtendedError(google.protobuf.message.Message):
         main_sensor_error: builtins.bool | None = ...,
         temperature: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["dribbler_error", b"dribbler_error", "kicker_break_beam_error", b"kicker_break_beam_error", "kicker_error", b"kicker_error", "main_sensor_error", b"main_sensor_error", "motor_1_error", b"motor_1_error", "motor_2_error", b"motor_2_error", "motor_3_error", b"motor_3_error", "motor_4_error", b"motor_4_error", "motor_encoder_error", b"motor_encoder_error", "temperature", b"temperature"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["dribbler_error", b"dribbler_error", "kicker_break_beam_error", b"kicker_break_beam_error", "kicker_error", b"kicker_error", "main_sensor_error", b"main_sensor_error", "motor_1_error", b"motor_1_error", "motor_2_error", b"motor_2_error", "motor_3_error", b"motor_3_error", "motor_4_error", b"motor_4_error", "motor_encoder_error", b"motor_encoder_error", "temperature", b"temperature"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "dribbler_error",
+            b"dribbler_error",
+            "kicker_break_beam_error",
+            b"kicker_break_beam_error",
+            "kicker_error",
+            b"kicker_error",
+            "main_sensor_error",
+            b"main_sensor_error",
+            "motor_1_error",
+            b"motor_1_error",
+            "motor_2_error",
+            b"motor_2_error",
+            "motor_3_error",
+            b"motor_3_error",
+            "motor_4_error",
+            b"motor_4_error",
+            "motor_encoder_error",
+            b"motor_encoder_error",
+            "temperature",
+            b"temperature",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "dribbler_error",
+            b"dribbler_error",
+            "kicker_break_beam_error",
+            b"kicker_break_beam_error",
+            "kicker_error",
+            b"kicker_error",
+            "main_sensor_error",
+            b"main_sensor_error",
+            "motor_1_error",
+            b"motor_1_error",
+            "motor_2_error",
+            b"motor_2_error",
+            "motor_3_error",
+            b"motor_3_error",
+            "motor_4_error",
+            b"motor_4_error",
+            "motor_encoder_error",
+            b"motor_encoder_error",
+            "temperature",
+            b"temperature",
+        ],
+    ) -> None: ...
 
 global___ExtendedError = ExtendedError
 
@@ -521,7 +843,67 @@ class RadioResponse(google.protobuf.message.Message):
         extended_error: global___ExtendedError | None = ...,
         is_blue: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ball_detected", b"ball_detected", "battery", b"battery", "cap_charged", b"cap_charged", "error_present", b"error_present", "estimated_speed", b"estimated_speed", "extended_error", b"extended_error", "generation", b"generation", "id", b"id", "is_blue", b"is_blue", "packet_loss_rx", b"packet_loss_rx", "packet_loss_tx", b"packet_loss_tx", "radio_rtt", b"radio_rtt", "time", b"time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ball_detected", b"ball_detected", "battery", b"battery", "cap_charged", b"cap_charged", "error_present", b"error_present", "estimated_speed", b"estimated_speed", "extended_error", b"extended_error", "generation", b"generation", "id", b"id", "is_blue", b"is_blue", "packet_loss_rx", b"packet_loss_rx", "packet_loss_tx", b"packet_loss_tx", "radio_rtt", b"radio_rtt", "time", b"time"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball_detected",
+            b"ball_detected",
+            "battery",
+            b"battery",
+            "cap_charged",
+            b"cap_charged",
+            "error_present",
+            b"error_present",
+            "estimated_speed",
+            b"estimated_speed",
+            "extended_error",
+            b"extended_error",
+            "generation",
+            b"generation",
+            "id",
+            b"id",
+            "is_blue",
+            b"is_blue",
+            "packet_loss_rx",
+            b"packet_loss_rx",
+            "packet_loss_tx",
+            b"packet_loss_tx",
+            "radio_rtt",
+            b"radio_rtt",
+            "time",
+            b"time",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball_detected",
+            b"ball_detected",
+            "battery",
+            b"battery",
+            "cap_charged",
+            b"cap_charged",
+            "error_present",
+            b"error_present",
+            "estimated_speed",
+            b"estimated_speed",
+            "extended_error",
+            b"extended_error",
+            "generation",
+            b"generation",
+            "id",
+            b"id",
+            "is_blue",
+            b"is_blue",
+            "packet_loss_rx",
+            b"packet_loss_rx",
+            "packet_loss_tx",
+            b"packet_loss_tx",
+            "radio_rtt",
+            b"radio_rtt",
+            "time",
+            b"time",
+        ],
+    ) -> None: ...
 
 global___RadioResponse = RadioResponse

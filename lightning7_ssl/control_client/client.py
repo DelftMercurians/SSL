@@ -1,8 +1,6 @@
 import socket
 from dataclasses import dataclass, field
 from typing import List, Optional, Set
-from protobuf_to_dict import protobuf_to_dict
-from google.protobuf.message import DecodeError
 
 from .protobuf.ssl_simulation_robot_control_pb2 import RobotControl
 from .protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
@@ -87,24 +85,18 @@ class SSLClient:
 
     def __enter__(self):
         """Binds the client with ip and port and configure to UDP multicast."""
-        self.cmd_sock = socket.socket(
-            socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP
-        )
+        self.cmd_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         self.cmd_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.cmd_sock.bind((self.cmd_ip, 0))
 
-        self.vision_sock = socket.socket(
-            socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP
-        )
+        self.vision_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         self.vision_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.vision_sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 128)
         self.vision_sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_LOOP, 1)
         self.vision_sock.bind((self.vision_ip, self.vision_port))
 
         host = socket.gethostbyname(socket.gethostname())
-        self.vision_sock.setsockopt(
-            socket.SOL_IP, socket.IP_MULTICAST_IF, socket.inet_aton(host)
-        )
+        self.vision_sock.setsockopt(socket.SOL_IP, socket.IP_MULTICAST_IF, socket.inet_aton(host))
         self.vision_sock.setsockopt(
             socket.SOL_IP,
             socket.IP_ADD_MEMBERSHIP,
@@ -158,6 +150,4 @@ class SSLClient:
         command.move_command.local_velocity.forward = vel_y
         command.move_command.local_velocity.left = vel_x
         command.move_command.local_velocity.angular = angular_speed
-        return self.cmd_sock.sendto(
-            control_msg.SerializeToString(), (self.cmd_ip, self.command_port)
-        )
+        return self.cmd_sock.sendto(control_msg.SerializeToString(), (self.cmd_ip, self.command_port))

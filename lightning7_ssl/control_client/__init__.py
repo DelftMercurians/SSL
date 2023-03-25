@@ -1,1 +1,3 @@
-from .client import SSLClient, VisionData, RobotData, BallData
+from .client import BallData, RobotData, SSLClient, VisionData
+
+__all__ = ["SSLClient", "VisionData", "RobotData", "BallData"]

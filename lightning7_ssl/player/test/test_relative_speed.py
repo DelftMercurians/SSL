@@ -1,4 +1,5 @@
 import unittest
+
 from lightning7_ssl.player.pathfinder import get_relative_speed
 from lightning7_ssl.vecMath.vec_math import Vec2
 

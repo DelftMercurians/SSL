@@ -1,18 +1,17 @@
 import argparse
 from time import time
+from typing import Literal
 
-from .control_client import SSLClient
 from . import cfg
+from .control_client import SSLClient
 from .player import PlayerManager
 from .roles.fixed_role import FixedRole
 from .vecMath.vec_math import Vec2
-from .vis.data_store import DataStore
 from .vis.generate_log import LogGenerator
 from .web.server import ServerWrapper
-from .world.world import World
 
 TICK_INTERVAL_SEC = 0.1
-OWN_TEAM = "blue"
+OWN_TEAM: Literal["blue", "yellow"] = "blue"
 NUM_PLAYERS = 11
 
 # Field info

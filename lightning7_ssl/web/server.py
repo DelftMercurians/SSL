@@ -1,14 +1,13 @@
 import asyncio
 import atexit
 import json
-import subprocess
-from multiprocessing.connection import Connection
-from multiprocessing import Pipe, Process
 import os
-from pathlib import Path
+import subprocess
 import time
-from typing import TYPE_CHECKING, Optional
-import webbrowser
+from multiprocessing import Pipe, Process
+from multiprocessing.connection import Connection
+from pathlib import Path
+from typing import TYPE_CHECKING, Dict, Optional
 
 if TYPE_CHECKING:
     from ..vis.data_store import DataStore
@@ -25,7 +24,7 @@ def run_server(pipe: Connection, dev_mode=False):
     from starlette.routing import Mount, Route
     from starlette.staticfiles import StaticFiles
 
-    state = {}
+    state: Dict = {}
 
     async def get_state(request):
         return JSONResponse(state)
@@ -90,9 +89,7 @@ class ServerWrapper:
             )
             time.sleep(1)
         self._pipe, child_pipe = Pipe()
-        self._process = Process(
-            target=run_server, args=(child_pipe, dev_mode), daemon=True
-        )
+        self._process = Process(target=run_server, args=(child_pipe, dev_mode), daemon=True)
         self._process.start()
         atexit.register(self.stop)
 

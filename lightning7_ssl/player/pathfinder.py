@@ -1,8 +1,7 @@
 from typing import List, Tuple
+
 from .. import cfg
 from ..vecMath.vec_math import Vec2
-from ..world.world import World
-
 
 RADIUS_ROBOT = 0.0793
 
@@ -82,17 +81,14 @@ def find_path(
 
     base_factor, speed_factor = influence_factor
 
-    influence_radius = (
-        base_factor * RADIUS_ROBOT * 1000
-    )  # 1000 -> convert the unit to mm
+    influence_radius = base_factor * RADIUS_ROBOT * 1000  # 1000 -> convert the unit to mm
 
     for o, speed in obstacles:
         d = (start_pos - o).norm
         final_influence_radius = influence_radius + speed * speed_factor
         if d < final_influence_radius:
             repulsive_force = (
-                1.0 / (d - 2 * RADIUS_ROBOT * 1000)
-                - 1.0 / (final_influence_radius - 2 * RADIUS_ROBOT * 1000)
+                1.0 / (d - 2 * RADIUS_ROBOT * 1000) - 1.0 / (final_influence_radius - 2 * RADIUS_ROBOT * 1000)
             ) * (speed * beta + 1)
             f += (start_pos - o).as_unit() * repulsive_force
 

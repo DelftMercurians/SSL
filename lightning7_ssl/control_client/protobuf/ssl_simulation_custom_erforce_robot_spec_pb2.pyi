@@ -38,7 +38,27 @@ class RobotSpecErForce(google.protobuf.message.Message):
         dribbler_height: builtins.float | None = ...,
         dribbler_width: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["dribbler_height", b"dribbler_height", "dribbler_width", b"dribbler_width", "shoot_radius", b"shoot_radius"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["dribbler_height", b"dribbler_height", "dribbler_width", b"dribbler_width", "shoot_radius", b"shoot_radius"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "dribbler_height",
+            b"dribbler_height",
+            "dribbler_width",
+            b"dribbler_width",
+            "shoot_radius",
+            b"shoot_radius",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "dribbler_height",
+            b"dribbler_height",
+            "dribbler_width",
+            b"dribbler_width",
+            "shoot_radius",
+            b"shoot_radius",
+        ],
+    ) -> None: ...
 
 global___RobotSpecErForce = RobotSpecErForce

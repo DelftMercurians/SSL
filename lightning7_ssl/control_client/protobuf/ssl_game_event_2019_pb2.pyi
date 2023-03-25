@@ -36,7 +36,9 @@ class GameEvent(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GameEvent._Type.ValueType], builtins.type):  # noqa: F821
+    class _TypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GameEvent._Type.ValueType], builtins.type
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN_GAME_EVENT_TYPE: GameEvent._Type.ValueType  # 0
         BALL_LEFT_FIELD_TOUCH_LINE: GameEvent._Type.ValueType  # 6
@@ -284,8 +286,18 @@ class GameEvent(google.protobuf.message.Message):
             by_bot: builtins.int | None = ...,
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class AimlessKick(google.protobuf.message.Message):
@@ -315,8 +327,32 @@ class GameEvent(google.protobuf.message.Message):
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             kick_location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "kick_location", b"kick_location", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "kick_location", b"kick_location", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "kick_location",
+                b"kick_location",
+                "location",
+                b"location",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "kick_location",
+                b"kick_location",
+                "location",
+                b"location",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class Goal(google.protobuf.message.Message):
@@ -366,8 +402,52 @@ class GameEvent(google.protobuf.message.Message):
             last_touch_by_team: builtins.int | None = ...,
             message: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "kick_location", b"kick_location", "kicking_bot", b"kicking_bot", "kicking_team", b"kicking_team", "last_touch_by_team", b"last_touch_by_team", "location", b"location", "max_ball_height", b"max_ball_height", "message", b"message", "num_robots_by_team", b"num_robots_by_team"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "kick_location", b"kick_location", "kicking_bot", b"kicking_bot", "kicking_team", b"kicking_team", "last_touch_by_team", b"last_touch_by_team", "location", b"location", "max_ball_height", b"max_ball_height", "message", b"message", "num_robots_by_team", b"num_robots_by_team"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team",
+                b"by_team",
+                "kick_location",
+                b"kick_location",
+                "kicking_bot",
+                b"kicking_bot",
+                "kicking_team",
+                b"kicking_team",
+                "last_touch_by_team",
+                b"last_touch_by_team",
+                "location",
+                b"location",
+                "max_ball_height",
+                b"max_ball_height",
+                "message",
+                b"message",
+                "num_robots_by_team",
+                b"num_robots_by_team",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team",
+                b"by_team",
+                "kick_location",
+                b"kick_location",
+                "kicking_bot",
+                b"kicking_bot",
+                "kicking_team",
+                b"kicking_team",
+                "last_touch_by_team",
+                b"last_touch_by_team",
+                "location",
+                b"location",
+                "max_ball_height",
+                b"max_ball_height",
+                "message",
+                b"message",
+                "num_robots_by_team",
+                b"num_robots_by_team",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class IndirectGoal(google.protobuf.message.Message):
@@ -397,8 +477,32 @@ class GameEvent(google.protobuf.message.Message):
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             kick_location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "kick_location", b"kick_location", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "kick_location", b"kick_location", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "kick_location",
+                b"kick_location",
+                "location",
+                b"location",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "kick_location",
+                b"kick_location",
+                "location",
+                b"location",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class ChippedGoal(google.protobuf.message.Message):
@@ -432,8 +536,36 @@ class GameEvent(google.protobuf.message.Message):
             kick_location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             max_ball_height: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "kick_location", b"kick_location", "location", b"location", "max_ball_height", b"max_ball_height"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "kick_location", b"kick_location", "location", b"location", "max_ball_height", b"max_ball_height"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "kick_location",
+                b"kick_location",
+                "location",
+                b"location",
+                "max_ball_height",
+                b"max_ball_height",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "kick_location",
+                b"kick_location",
+                "location",
+                b"location",
+                "max_ball_height",
+                b"max_ball_height",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class BotTooFastInStop(google.protobuf.message.Message):
@@ -462,8 +594,18 @@ class GameEvent(google.protobuf.message.Message):
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             speed: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "location", b"location", "speed", b"speed"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "location", b"location", "speed", b"speed"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "location", b"location", "speed", b"speed"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "location", b"location", "speed", b"speed"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class DefenderTooCloseToKickPoint(google.protobuf.message.Message):
@@ -492,8 +634,18 @@ class GameEvent(google.protobuf.message.Message):
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             distance: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class BotCrashDrawn(google.protobuf.message.Message):
@@ -533,8 +685,40 @@ class GameEvent(google.protobuf.message.Message):
             speed_diff: builtins.float | None = ...,
             crash_angle: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["bot_blue", b"bot_blue", "bot_yellow", b"bot_yellow", "crash_angle", b"crash_angle", "crash_speed", b"crash_speed", "location", b"location", "speed_diff", b"speed_diff"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["bot_blue", b"bot_blue", "bot_yellow", b"bot_yellow", "crash_angle", b"crash_angle", "crash_speed", b"crash_speed", "location", b"location", "speed_diff", b"speed_diff"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "bot_blue",
+                b"bot_blue",
+                "bot_yellow",
+                b"bot_yellow",
+                "crash_angle",
+                b"crash_angle",
+                "crash_speed",
+                b"crash_speed",
+                "location",
+                b"location",
+                "speed_diff",
+                b"speed_diff",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "bot_blue",
+                b"bot_blue",
+                "bot_yellow",
+                b"bot_yellow",
+                "crash_angle",
+                b"crash_angle",
+                "crash_speed",
+                b"crash_speed",
+                "location",
+                b"location",
+                "speed_diff",
+                b"speed_diff",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class BotCrashUnique(google.protobuf.message.Message):
@@ -578,8 +762,44 @@ class GameEvent(google.protobuf.message.Message):
             speed_diff: builtins.float | None = ...,
             crash_angle: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "crash_angle", b"crash_angle", "crash_speed", b"crash_speed", "location", b"location", "speed_diff", b"speed_diff", "victim", b"victim", "violator", b"violator"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "crash_angle", b"crash_angle", "crash_speed", b"crash_speed", "location", b"location", "speed_diff", b"speed_diff", "victim", b"victim", "violator", b"violator"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team",
+                b"by_team",
+                "crash_angle",
+                b"crash_angle",
+                "crash_speed",
+                b"crash_speed",
+                "location",
+                b"location",
+                "speed_diff",
+                b"speed_diff",
+                "victim",
+                b"victim",
+                "violator",
+                b"violator",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team",
+                b"by_team",
+                "crash_angle",
+                b"crash_angle",
+                "crash_speed",
+                b"crash_speed",
+                "location",
+                b"location",
+                "speed_diff",
+                b"speed_diff",
+                "victim",
+                b"victim",
+                "violator",
+                b"violator",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class BotPushedBot(google.protobuf.message.Message):
@@ -612,8 +832,36 @@ class GameEvent(google.protobuf.message.Message):
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             pushed_distance: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "location", b"location", "pushed_distance", b"pushed_distance", "victim", b"victim", "violator", b"violator"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "location", b"location", "pushed_distance", b"pushed_distance", "victim", b"victim", "violator", b"violator"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team",
+                b"by_team",
+                "location",
+                b"location",
+                "pushed_distance",
+                b"pushed_distance",
+                "victim",
+                b"victim",
+                "violator",
+                b"violator",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team",
+                b"by_team",
+                "location",
+                b"location",
+                "pushed_distance",
+                b"pushed_distance",
+                "victim",
+                b"victim",
+                "violator",
+                b"violator",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class BotTippedOver(google.protobuf.message.Message):
@@ -643,8 +891,32 @@ class GameEvent(google.protobuf.message.Message):
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             ball_location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["ball_location", b"ball_location", "by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["ball_location", b"ball_location", "by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "ball_location",
+                b"ball_location",
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "location",
+                b"location",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "ball_location",
+                b"ball_location",
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "location",
+                b"location",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class DefenderInDefenseArea(google.protobuf.message.Message):
@@ -673,8 +945,18 @@ class GameEvent(google.protobuf.message.Message):
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             distance: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class DefenderInDefenseAreaPartially(google.protobuf.message.Message):
@@ -708,8 +990,36 @@ class GameEvent(google.protobuf.message.Message):
             distance: builtins.float | None = ...,
             ball_location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["ball_location", b"ball_location", "by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["ball_location", b"ball_location", "by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "ball_location",
+                b"ball_location",
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "distance",
+                b"distance",
+                "location",
+                b"location",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "ball_location",
+                b"ball_location",
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "distance",
+                b"distance",
+                "location",
+                b"location",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class AttackerTouchedBallInDefenseArea(google.protobuf.message.Message):
@@ -738,8 +1048,18 @@ class GameEvent(google.protobuf.message.Message):
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             distance: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class BotKickedBallTooFast(google.protobuf.message.Message):
@@ -772,8 +1092,36 @@ class GameEvent(google.protobuf.message.Message):
             initial_ball_speed: builtins.float | None = ...,
             chipped: builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "chipped", b"chipped", "initial_ball_speed", b"initial_ball_speed", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "chipped", b"chipped", "initial_ball_speed", b"initial_ball_speed", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "chipped",
+                b"chipped",
+                "initial_ball_speed",
+                b"initial_ball_speed",
+                "location",
+                b"location",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "chipped",
+                b"chipped",
+                "initial_ball_speed",
+                b"initial_ball_speed",
+                "location",
+                b"location",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class BotDribbledBallTooFar(google.protobuf.message.Message):
@@ -803,8 +1151,18 @@ class GameEvent(google.protobuf.message.Message):
             start: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             end: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "end", b"end", "start", b"start"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "end", b"end", "start", b"start"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "end", b"end", "start", b"start"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "end", b"end", "start", b"start"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class AttackerTouchedOpponentInDefenseArea(google.protobuf.message.Message):
@@ -833,8 +1191,18 @@ class GameEvent(google.protobuf.message.Message):
             victim: builtins.int | None = ...,
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "location", b"location", "victim", b"victim"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "location", b"location", "victim", b"victim"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "location", b"location", "victim", b"victim"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "location", b"location", "victim", b"victim"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class AttackerDoubleTouchedBall(google.protobuf.message.Message):
@@ -859,8 +1227,18 @@ class GameEvent(google.protobuf.message.Message):
             by_bot: builtins.int | None = ...,
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class AttackerTooCloseToDefenseArea(google.protobuf.message.Message):
@@ -894,8 +1272,36 @@ class GameEvent(google.protobuf.message.Message):
             distance: builtins.float | None = ...,
             ball_location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["ball_location", b"ball_location", "by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["ball_location", b"ball_location", "by_bot", b"by_bot", "by_team", b"by_team", "distance", b"distance", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "ball_location",
+                b"ball_location",
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "distance",
+                b"distance",
+                "location",
+                b"location",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "ball_location",
+                b"ball_location",
+                "by_bot",
+                b"by_bot",
+                "by_team",
+                b"by_team",
+                "distance",
+                b"distance",
+                "location",
+                b"location",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class BotHeldBallDeliberately(google.protobuf.message.Message):
@@ -924,8 +1330,18 @@ class GameEvent(google.protobuf.message.Message):
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             duration: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "duration", b"duration", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "duration", b"duration", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "duration", b"duration", "location", b"location"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "duration", b"duration", "location", b"location"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class BotInterferedPlacement(google.protobuf.message.Message):
@@ -950,8 +1366,18 @@ class GameEvent(google.protobuf.message.Message):
             by_bot: builtins.int | None = ...,
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_bot", b"by_bot", "by_team", b"by_team", "location", b"location"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class MultipleCards(google.protobuf.message.Message):
@@ -1027,8 +1453,18 @@ class GameEvent(google.protobuf.message.Message):
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             time: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "location", b"location", "time", b"time"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "location", b"location", "time", b"time"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team", b"by_team", "location", b"location", "time", b"time"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team", b"by_team", "location", b"location", "time", b"time"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class NoProgressInGame(google.protobuf.message.Message):
@@ -1049,8 +1485,12 @@ class GameEvent(google.protobuf.message.Message):
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             time: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["location", b"location", "time", b"time"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["location", b"location", "time", b"time"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["location", b"location", "time", b"time"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["location", b"location", "time", b"time"]
+        ) -> None: ...
 
     @typing_extensions.final
     class PlacementFailed(google.protobuf.message.Message):
@@ -1070,8 +1510,18 @@ class GameEvent(google.protobuf.message.Message):
             by_team: ssl_game_controller_common_pb2.Team.ValueType | None = ...,
             remaining_distance: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "remaining_distance", b"remaining_distance"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "remaining_distance", b"remaining_distance"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team", b"by_team", "remaining_distance", b"remaining_distance"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team", b"by_team", "remaining_distance", b"remaining_distance"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class UnsportingBehaviorMinor(google.protobuf.message.Message):
@@ -1091,8 +1541,12 @@ class GameEvent(google.protobuf.message.Message):
             by_team: ssl_game_controller_common_pb2.Team.ValueType | None = ...,
             reason: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "reason", b"reason"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "reason", b"reason"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["by_team", b"by_team", "reason", b"reason"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["by_team", b"by_team", "reason", b"reason"]
+        ) -> None: ...
 
     @typing_extensions.final
     class UnsportingBehaviorMajor(google.protobuf.message.Message):
@@ -1112,8 +1566,12 @@ class GameEvent(google.protobuf.message.Message):
             by_team: ssl_game_controller_common_pb2.Team.ValueType | None = ...,
             reason: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "reason", b"reason"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "reason", b"reason"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["by_team", b"by_team", "reason", b"reason"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["by_team", b"by_team", "reason", b"reason"]
+        ) -> None: ...
 
     @typing_extensions.final
     class KeeperHeldBall(google.protobuf.message.Message):
@@ -1138,8 +1596,18 @@ class GameEvent(google.protobuf.message.Message):
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
             duration: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "duration", b"duration", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "duration", b"duration", "location", b"location"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team", b"by_team", "duration", b"duration", "location", b"location"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team", b"by_team", "duration", b"duration", "location", b"location"
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class PlacementSucceeded(google.protobuf.message.Message):
@@ -1167,8 +1635,32 @@ class GameEvent(google.protobuf.message.Message):
             precision: builtins.float | None = ...,
             distance: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "distance", b"distance", "precision", b"precision", "time_taken", b"time_taken"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "distance", b"distance", "precision", b"precision", "time_taken", b"time_taken"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team",
+                b"by_team",
+                "distance",
+                b"distance",
+                "precision",
+                b"precision",
+                "time_taken",
+                b"time_taken",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "by_team",
+                b"by_team",
+                "distance",
+                b"distance",
+                "precision",
+                b"precision",
+                "time_taken",
+                b"time_taken",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class Prepared(google.protobuf.message.Message):
@@ -1184,7 +1676,9 @@ class GameEvent(google.protobuf.message.Message):
             *,
             time_taken: builtins.float | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["time_taken", b"time_taken"]) -> builtins.bool: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["time_taken", b"time_taken"]
+        ) -> builtins.bool: ...
         def ClearField(self, field_name: typing_extensions.Literal["time_taken", b"time_taken"]) -> None: ...
 
     @typing_extensions.final
@@ -1265,8 +1759,32 @@ class GameEvent(google.protobuf.message.Message):
             num_robots_on_field: builtins.int | None = ...,
             ball_location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["ball_location", b"ball_location", "by_team", b"by_team", "num_robots_allowed", b"num_robots_allowed", "num_robots_on_field", b"num_robots_on_field"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["ball_location", b"ball_location", "by_team", b"by_team", "num_robots_allowed", b"num_robots_allowed", "num_robots_on_field", b"num_robots_on_field"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing_extensions.Literal[
+                "ball_location",
+                b"ball_location",
+                "by_team",
+                b"by_team",
+                "num_robots_allowed",
+                b"num_robots_allowed",
+                "num_robots_on_field",
+                b"num_robots_on_field",
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing_extensions.Literal[
+                "ball_location",
+                b"ball_location",
+                "by_team",
+                b"by_team",
+                "num_robots_allowed",
+                b"num_robots_allowed",
+                "num_robots_on_field",
+                b"num_robots_on_field",
+            ],
+        ) -> None: ...
 
     @typing_extensions.final
     class BoundaryCrossing(google.protobuf.message.Message):
@@ -1287,8 +1805,12 @@ class GameEvent(google.protobuf.message.Message):
             by_team: ssl_game_controller_common_pb2.Team.ValueType | None = ...,
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "location", b"location"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["by_team", b"by_team", "location", b"location"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["by_team", b"by_team", "location", b"location"]
+        ) -> None: ...
 
     @typing_extensions.final
     class PenaltyKickFailed(google.protobuf.message.Message):
@@ -1309,8 +1831,12 @@ class GameEvent(google.protobuf.message.Message):
             by_team: ssl_game_controller_common_pb2.Team.ValueType | None = ...,
             location: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "location", b"location"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["by_team", b"by_team", "location", b"location"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["by_team", b"by_team", "location", b"location"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["by_team", b"by_team", "location", b"location"]
+        ) -> None: ...
 
     TYPE_FIELD_NUMBER: builtins.int
     ORIGIN_FIELD_NUMBER: builtins.int
@@ -1463,12 +1989,16 @@ class GameEvent(google.protobuf.message.Message):
         deprecated
         """
     @property
-    def attacker_touched_opponent_in_defense_area(self) -> global___GameEvent.AttackerTouchedOpponentInDefenseArea:
+    def attacker_touched_opponent_in_defense_area(
+        self,
+    ) -> global___GameEvent.AttackerTouchedOpponentInDefenseArea:
         """rule removed
         deprecated
         """
     @property
-    def attacker_touched_opponent_in_defense_area_skipped(self) -> global___GameEvent.AttackerTouchedOpponentInDefenseArea:
+    def attacker_touched_opponent_in_defense_area_skipped(
+        self,
+    ) -> global___GameEvent.AttackerTouchedOpponentInDefenseArea:
         """obsolete
         deprecated
         """
@@ -1508,7 +2038,8 @@ class GameEvent(google.protobuf.message.Message):
         bot_pushed_bot: global___GameEvent.BotPushedBot | None = ...,
         bot_held_ball_deliberately: global___GameEvent.BotHeldBallDeliberately | None = ...,
         bot_tipped_over: global___GameEvent.BotTippedOver | None = ...,
-        attacker_touched_ball_in_defense_area: global___GameEvent.AttackerTouchedBallInDefenseArea | None = ...,
+        attacker_touched_ball_in_defense_area: global___GameEvent.AttackerTouchedBallInDefenseArea
+        | None = ...,
         bot_kicked_ball_too_fast: global___GameEvent.BotKickedBallTooFast | None = ...,
         bot_crash_unique: global___GameEvent.BotCrashUnique | None = ...,
         bot_crash_drawn: global___GameEvent.BotCrashDrawn | None = ...,
@@ -1535,15 +2066,258 @@ class GameEvent(google.protobuf.message.Message):
         indirect_goal: global___GameEvent.IndirectGoal | None = ...,
         chipped_goal: global___GameEvent.ChippedGoal | None = ...,
         kick_timeout: global___GameEvent.KickTimeout | None = ...,
-        attacker_touched_opponent_in_defense_area: global___GameEvent.AttackerTouchedOpponentInDefenseArea | None = ...,
-        attacker_touched_opponent_in_defense_area_skipped: global___GameEvent.AttackerTouchedOpponentInDefenseArea | None = ...,
+        attacker_touched_opponent_in_defense_area: global___GameEvent.AttackerTouchedOpponentInDefenseArea
+        | None = ...,
+        attacker_touched_opponent_in_defense_area_skipped: global___GameEvent.AttackerTouchedOpponentInDefenseArea
+        | None = ...,
         bot_crash_unique_skipped: global___GameEvent.BotCrashUnique | None = ...,
         bot_pushed_bot_skipped: global___GameEvent.BotPushedBot | None = ...,
         defender_in_defense_area_partially: global___GameEvent.DefenderInDefenseAreaPartially | None = ...,
         multiple_placement_failures: global___GameEvent.MultiplePlacementFailures | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["aimless_kick", b"aimless_kick", "attacker_double_touched_ball", b"attacker_double_touched_ball", "attacker_too_close_to_defense_area", b"attacker_too_close_to_defense_area", "attacker_touched_ball_in_defense_area", b"attacker_touched_ball_in_defense_area", "attacker_touched_opponent_in_defense_area", b"attacker_touched_opponent_in_defense_area", "attacker_touched_opponent_in_defense_area_skipped", b"attacker_touched_opponent_in_defense_area_skipped", "ball_left_field_goal_line", b"ball_left_field_goal_line", "ball_left_field_touch_line", b"ball_left_field_touch_line", "bot_crash_drawn", b"bot_crash_drawn", "bot_crash_unique", b"bot_crash_unique", "bot_crash_unique_skipped", b"bot_crash_unique_skipped", "bot_dribbled_ball_too_far", b"bot_dribbled_ball_too_far", "bot_held_ball_deliberately", b"bot_held_ball_deliberately", "bot_interfered_placement", b"bot_interfered_placement", "bot_kicked_ball_too_fast", b"bot_kicked_ball_too_fast", "bot_pushed_bot", b"bot_pushed_bot", "bot_pushed_bot_skipped", b"bot_pushed_bot_skipped", "bot_substitution", b"bot_substitution", "bot_tipped_over", b"bot_tipped_over", "bot_too_fast_in_stop", b"bot_too_fast_in_stop", "boundary_crossing", b"boundary_crossing", "challenge_flag", b"challenge_flag", "chipped_goal", b"chipped_goal", "defender_in_defense_area", b"defender_in_defense_area", "defender_in_defense_area_partially", b"defender_in_defense_area_partially", "defender_too_close_to_kick_point", b"defender_too_close_to_kick_point", "emergency_stop", b"emergency_stop", "event", b"event", "goal", b"goal", "indirect_goal", b"indirect_goal", "invalid_goal", b"invalid_goal", "keeper_held_ball", b"keeper_held_ball", "kick_timeout", b"kick_timeout", "multiple_cards", b"multiple_cards", "multiple_fouls", b"multiple_fouls", "multiple_placement_failures", b"multiple_placement_failures", "no_progress_in_game", b"no_progress_in_game", "penalty_kick_failed", b"penalty_kick_failed", "placement_failed", b"placement_failed", "placement_succeeded", b"placement_succeeded", "possible_goal", b"possible_goal", "prepared", b"prepared", "too_many_robots", b"too_many_robots", "type", b"type", "unsporting_behavior_major", b"unsporting_behavior_major", "unsporting_behavior_minor", b"unsporting_behavior_minor"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["aimless_kick", b"aimless_kick", "attacker_double_touched_ball", b"attacker_double_touched_ball", "attacker_too_close_to_defense_area", b"attacker_too_close_to_defense_area", "attacker_touched_ball_in_defense_area", b"attacker_touched_ball_in_defense_area", "attacker_touched_opponent_in_defense_area", b"attacker_touched_opponent_in_defense_area", "attacker_touched_opponent_in_defense_area_skipped", b"attacker_touched_opponent_in_defense_area_skipped", "ball_left_field_goal_line", b"ball_left_field_goal_line", "ball_left_field_touch_line", b"ball_left_field_touch_line", "bot_crash_drawn", b"bot_crash_drawn", "bot_crash_unique", b"bot_crash_unique", "bot_crash_unique_skipped", b"bot_crash_unique_skipped", "bot_dribbled_ball_too_far", b"bot_dribbled_ball_too_far", "bot_held_ball_deliberately", b"bot_held_ball_deliberately", "bot_interfered_placement", b"bot_interfered_placement", "bot_kicked_ball_too_fast", b"bot_kicked_ball_too_fast", "bot_pushed_bot", b"bot_pushed_bot", "bot_pushed_bot_skipped", b"bot_pushed_bot_skipped", "bot_substitution", b"bot_substitution", "bot_tipped_over", b"bot_tipped_over", "bot_too_fast_in_stop", b"bot_too_fast_in_stop", "boundary_crossing", b"boundary_crossing", "challenge_flag", b"challenge_flag", "chipped_goal", b"chipped_goal", "defender_in_defense_area", b"defender_in_defense_area", "defender_in_defense_area_partially", b"defender_in_defense_area_partially", "defender_too_close_to_kick_point", b"defender_too_close_to_kick_point", "emergency_stop", b"emergency_stop", "event", b"event", "goal", b"goal", "indirect_goal", b"indirect_goal", "invalid_goal", b"invalid_goal", "keeper_held_ball", b"keeper_held_ball", "kick_timeout", b"kick_timeout", "multiple_cards", b"multiple_cards", "multiple_fouls", b"multiple_fouls", "multiple_placement_failures", b"multiple_placement_failures", "no_progress_in_game", b"no_progress_in_game", "origin", b"origin", "penalty_kick_failed", b"penalty_kick_failed", "placement_failed", b"placement_failed", "placement_succeeded", b"placement_succeeded", "possible_goal", b"possible_goal", "prepared", b"prepared", "too_many_robots", b"too_many_robots", "type", b"type", "unsporting_behavior_major", b"unsporting_behavior_major", "unsporting_behavior_minor", b"unsporting_behavior_minor"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["event", b"event"]) -> typing_extensions.Literal["ball_left_field_touch_line", "ball_left_field_goal_line", "aimless_kick", "attacker_too_close_to_defense_area", "defender_in_defense_area", "boundary_crossing", "keeper_held_ball", "bot_dribbled_ball_too_far", "bot_pushed_bot", "bot_held_ball_deliberately", "bot_tipped_over", "attacker_touched_ball_in_defense_area", "bot_kicked_ball_too_fast", "bot_crash_unique", "bot_crash_drawn", "defender_too_close_to_kick_point", "bot_too_fast_in_stop", "bot_interfered_placement", "possible_goal", "goal", "invalid_goal", "attacker_double_touched_ball", "placement_succeeded", "penalty_kick_failed", "no_progress_in_game", "placement_failed", "multiple_cards", "multiple_fouls", "bot_substitution", "too_many_robots", "challenge_flag", "emergency_stop", "unsporting_behavior_minor", "unsporting_behavior_major", "prepared", "indirect_goal", "chipped_goal", "kick_timeout", "attacker_touched_opponent_in_defense_area", "attacker_touched_opponent_in_defense_area_skipped", "bot_crash_unique_skipped", "bot_pushed_bot_skipped", "defender_in_defense_area_partially", "multiple_placement_failures"] | None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "aimless_kick",
+            b"aimless_kick",
+            "attacker_double_touched_ball",
+            b"attacker_double_touched_ball",
+            "attacker_too_close_to_defense_area",
+            b"attacker_too_close_to_defense_area",
+            "attacker_touched_ball_in_defense_area",
+            b"attacker_touched_ball_in_defense_area",
+            "attacker_touched_opponent_in_defense_area",
+            b"attacker_touched_opponent_in_defense_area",
+            "attacker_touched_opponent_in_defense_area_skipped",
+            b"attacker_touched_opponent_in_defense_area_skipped",
+            "ball_left_field_goal_line",
+            b"ball_left_field_goal_line",
+            "ball_left_field_touch_line",
+            b"ball_left_field_touch_line",
+            "bot_crash_drawn",
+            b"bot_crash_drawn",
+            "bot_crash_unique",
+            b"bot_crash_unique",
+            "bot_crash_unique_skipped",
+            b"bot_crash_unique_skipped",
+            "bot_dribbled_ball_too_far",
+            b"bot_dribbled_ball_too_far",
+            "bot_held_ball_deliberately",
+            b"bot_held_ball_deliberately",
+            "bot_interfered_placement",
+            b"bot_interfered_placement",
+            "bot_kicked_ball_too_fast",
+            b"bot_kicked_ball_too_fast",
+            "bot_pushed_bot",
+            b"bot_pushed_bot",
+            "bot_pushed_bot_skipped",
+            b"bot_pushed_bot_skipped",
+            "bot_substitution",
+            b"bot_substitution",
+            "bot_tipped_over",
+            b"bot_tipped_over",
+            "bot_too_fast_in_stop",
+            b"bot_too_fast_in_stop",
+            "boundary_crossing",
+            b"boundary_crossing",
+            "challenge_flag",
+            b"challenge_flag",
+            "chipped_goal",
+            b"chipped_goal",
+            "defender_in_defense_area",
+            b"defender_in_defense_area",
+            "defender_in_defense_area_partially",
+            b"defender_in_defense_area_partially",
+            "defender_too_close_to_kick_point",
+            b"defender_too_close_to_kick_point",
+            "emergency_stop",
+            b"emergency_stop",
+            "event",
+            b"event",
+            "goal",
+            b"goal",
+            "indirect_goal",
+            b"indirect_goal",
+            "invalid_goal",
+            b"invalid_goal",
+            "keeper_held_ball",
+            b"keeper_held_ball",
+            "kick_timeout",
+            b"kick_timeout",
+            "multiple_cards",
+            b"multiple_cards",
+            "multiple_fouls",
+            b"multiple_fouls",
+            "multiple_placement_failures",
+            b"multiple_placement_failures",
+            "no_progress_in_game",
+            b"no_progress_in_game",
+            "penalty_kick_failed",
+            b"penalty_kick_failed",
+            "placement_failed",
+            b"placement_failed",
+            "placement_succeeded",
+            b"placement_succeeded",
+            "possible_goal",
+            b"possible_goal",
+            "prepared",
+            b"prepared",
+            "too_many_robots",
+            b"too_many_robots",
+            "type",
+            b"type",
+            "unsporting_behavior_major",
+            b"unsporting_behavior_major",
+            "unsporting_behavior_minor",
+            b"unsporting_behavior_minor",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "aimless_kick",
+            b"aimless_kick",
+            "attacker_double_touched_ball",
+            b"attacker_double_touched_ball",
+            "attacker_too_close_to_defense_area",
+            b"attacker_too_close_to_defense_area",
+            "attacker_touched_ball_in_defense_area",
+            b"attacker_touched_ball_in_defense_area",
+            "attacker_touched_opponent_in_defense_area",
+            b"attacker_touched_opponent_in_defense_area",
+            "attacker_touched_opponent_in_defense_area_skipped",
+            b"attacker_touched_opponent_in_defense_area_skipped",
+            "ball_left_field_goal_line",
+            b"ball_left_field_goal_line",
+            "ball_left_field_touch_line",
+            b"ball_left_field_touch_line",
+            "bot_crash_drawn",
+            b"bot_crash_drawn",
+            "bot_crash_unique",
+            b"bot_crash_unique",
+            "bot_crash_unique_skipped",
+            b"bot_crash_unique_skipped",
+            "bot_dribbled_ball_too_far",
+            b"bot_dribbled_ball_too_far",
+            "bot_held_ball_deliberately",
+            b"bot_held_ball_deliberately",
+            "bot_interfered_placement",
+            b"bot_interfered_placement",
+            "bot_kicked_ball_too_fast",
+            b"bot_kicked_ball_too_fast",
+            "bot_pushed_bot",
+            b"bot_pushed_bot",
+            "bot_pushed_bot_skipped",
+            b"bot_pushed_bot_skipped",
+            "bot_substitution",
+            b"bot_substitution",
+            "bot_tipped_over",
+            b"bot_tipped_over",
+            "bot_too_fast_in_stop",
+            b"bot_too_fast_in_stop",
+            "boundary_crossing",
+            b"boundary_crossing",
+            "challenge_flag",
+            b"challenge_flag",
+            "chipped_goal",
+            b"chipped_goal",
+            "defender_in_defense_area",
+            b"defender_in_defense_area",
+            "defender_in_defense_area_partially",
+            b"defender_in_defense_area_partially",
+            "defender_too_close_to_kick_point",
+            b"defender_too_close_to_kick_point",
+            "emergency_stop",
+            b"emergency_stop",
+            "event",
+            b"event",
+            "goal",
+            b"goal",
+            "indirect_goal",
+            b"indirect_goal",
+            "invalid_goal",
+            b"invalid_goal",
+            "keeper_held_ball",
+            b"keeper_held_ball",
+            "kick_timeout",
+            b"kick_timeout",
+            "multiple_cards",
+            b"multiple_cards",
+            "multiple_fouls",
+            b"multiple_fouls",
+            "multiple_placement_failures",
+            b"multiple_placement_failures",
+            "no_progress_in_game",
+            b"no_progress_in_game",
+            "origin",
+            b"origin",
+            "penalty_kick_failed",
+            b"penalty_kick_failed",
+            "placement_failed",
+            b"placement_failed",
+            "placement_succeeded",
+            b"placement_succeeded",
+            "possible_goal",
+            b"possible_goal",
+            "prepared",
+            b"prepared",
+            "too_many_robots",
+            b"too_many_robots",
+            "type",
+            b"type",
+            "unsporting_behavior_major",
+            b"unsporting_behavior_major",
+            "unsporting_behavior_minor",
+            b"unsporting_behavior_minor",
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing_extensions.Literal["event", b"event"]
+    ) -> typing_extensions.Literal[
+        "ball_left_field_touch_line",
+        "ball_left_field_goal_line",
+        "aimless_kick",
+        "attacker_too_close_to_defense_area",
+        "defender_in_defense_area",
+        "boundary_crossing",
+        "keeper_held_ball",
+        "bot_dribbled_ball_too_far",
+        "bot_pushed_bot",
+        "bot_held_ball_deliberately",
+        "bot_tipped_over",
+        "attacker_touched_ball_in_defense_area",
+        "bot_kicked_ball_too_fast",
+        "bot_crash_unique",
+        "bot_crash_drawn",
+        "defender_too_close_to_kick_point",
+        "bot_too_fast_in_stop",
+        "bot_interfered_placement",
+        "possible_goal",
+        "goal",
+        "invalid_goal",
+        "attacker_double_touched_ball",
+        "placement_succeeded",
+        "penalty_kick_failed",
+        "no_progress_in_game",
+        "placement_failed",
+        "multiple_cards",
+        "multiple_fouls",
+        "bot_substitution",
+        "too_many_robots",
+        "challenge_flag",
+        "emergency_stop",
+        "unsporting_behavior_minor",
+        "unsporting_behavior_major",
+        "prepared",
+        "indirect_goal",
+        "chipped_goal",
+        "kick_timeout",
+        "attacker_touched_opponent_in_defense_area",
+        "attacker_touched_opponent_in_defense_area_skipped",
+        "bot_crash_unique_skipped",
+        "bot_pushed_bot_skipped",
+        "defender_in_defense_area_partially",
+        "multiple_placement_failures",
+    ] | None: ...
 
 global___GameEvent = GameEvent

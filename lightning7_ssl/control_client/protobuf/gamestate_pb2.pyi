@@ -29,7 +29,9 @@ class GameState(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GameState._State.ValueType], builtins.type):  # noqa: F821
+    class _StateEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GameState._State.ValueType], builtins.type
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         Halt: GameState._State.ValueType  # 1
         Stop: GameState._State.ValueType  # 2
@@ -127,7 +129,11 @@ class GameState(google.protobuf.message.Message):
     or fouls might be commited
     """
     @property
-    def game_event_2019(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ssl_game_event_2019_pb2.GameEvent]:
+    def game_event_2019(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        ssl_game_event_2019_pb2.GameEvent
+    ]:
         """the last game events that was sent by the game controller
         it replaces the field game_event
         """
@@ -147,7 +153,61 @@ class GameState(google.protobuf.message.Message):
         next_state: global___GameState.State.ValueType | None = ...,
         game_event_2019: collections.abc.Iterable[ssl_game_event_2019_pb2.GameEvent] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["blue", b"blue", "current_action_time_remaining", b"current_action_time_remaining", "designated_position", b"designated_position", "game_event", b"game_event", "goals_flipped", b"goals_flipped", "is_real_game_running", b"is_real_game_running", "next_state", b"next_state", "stage", b"stage", "stage_time_left", b"stage_time_left", "state", b"state", "yellow", b"yellow"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["blue", b"blue", "current_action_time_remaining", b"current_action_time_remaining", "designated_position", b"designated_position", "game_event", b"game_event", "game_event_2019", b"game_event_2019", "goals_flipped", b"goals_flipped", "is_real_game_running", b"is_real_game_running", "next_state", b"next_state", "stage", b"stage", "stage_time_left", b"stage_time_left", "state", b"state", "yellow", b"yellow"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "blue",
+            b"blue",
+            "current_action_time_remaining",
+            b"current_action_time_remaining",
+            "designated_position",
+            b"designated_position",
+            "game_event",
+            b"game_event",
+            "goals_flipped",
+            b"goals_flipped",
+            "is_real_game_running",
+            b"is_real_game_running",
+            "next_state",
+            b"next_state",
+            "stage",
+            b"stage",
+            "stage_time_left",
+            b"stage_time_left",
+            "state",
+            b"state",
+            "yellow",
+            b"yellow",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "blue",
+            b"blue",
+            "current_action_time_remaining",
+            b"current_action_time_remaining",
+            "designated_position",
+            b"designated_position",
+            "game_event",
+            b"game_event",
+            "game_event_2019",
+            b"game_event_2019",
+            "goals_flipped",
+            b"goals_flipped",
+            "is_real_game_running",
+            b"is_real_game_running",
+            "next_state",
+            b"next_state",
+            "stage",
+            b"stage",
+            "stage_time_left",
+            b"stage_time_left",
+            "state",
+            b"state",
+            "yellow",
+            b"yellow",
+        ],
+    ) -> None: ...
 
 global___GameState = GameState

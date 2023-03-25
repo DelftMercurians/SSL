@@ -1,5 +1,5 @@
-from ..vecMath.vec_math import Vec2
 from ..player.player import Target
+from ..vecMath.vec_math import Vec2
 from . import Role
 
 

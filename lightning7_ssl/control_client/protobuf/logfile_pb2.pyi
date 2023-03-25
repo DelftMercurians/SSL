@@ -32,8 +32,12 @@ class UidEntry(google.protobuf.message.Message):
         hash: builtins.str | None = ...,
         flags: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["flags", b"flags", "hash", b"hash"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["flags", b"flags", "hash", b"hash"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["flags", b"flags", "hash", b"hash"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["flags", b"flags", "hash", b"hash"]
+    ) -> None: ...
 
 global___UidEntry = UidEntry
 
@@ -43,7 +47,9 @@ class Uid(google.protobuf.message.Message):
 
     PARTS_FIELD_NUMBER: builtins.int
     @property
-    def parts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UidEntry]: ...
+    def parts(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UidEntry]: ...
     def __init__(
         self,
         *,
@@ -82,7 +88,10 @@ class LogOfferEntry(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _QUALITYEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LogOfferEntry._QUALITY.ValueType], builtins.type):  # noqa: F821
+    class _QUALITYEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LogOfferEntry._QUALITY.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         PERFECT: LogOfferEntry._QUALITY.ValueType  # 1
         UNKNOWN: LogOfferEntry._QUALITY.ValueType  # 2
@@ -107,8 +116,12 @@ class LogOfferEntry(google.protobuf.message.Message):
         quality: global___LogOfferEntry.QUALITY.ValueType | None = ...,
         uri: global___LogRequest | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["name", b"name", "quality", b"quality", "uri", b"uri"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "quality", b"quality", "uri", b"uri"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["name", b"name", "quality", b"quality", "uri", b"uri"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["name", b"name", "quality", b"quality", "uri", b"uri"]
+    ) -> None: ...
 
 global___LogOfferEntry = LogOfferEntry
 
@@ -118,7 +131,9 @@ class LogOffer(google.protobuf.message.Message):
 
     ENTRIES_FIELD_NUMBER: builtins.int
     @property
-    def entries(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___LogOfferEntry]: ...
+    def entries(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___LogOfferEntry]: ...
     def __init__(
         self,
         *,

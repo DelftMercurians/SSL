@@ -34,8 +34,12 @@ class FrameLookup(google.protobuf.message.Message):
         uid: logfile_pb2.UidEntry | None = ...,
         frame_number: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["frame_number", b"frame_number", "uid", b"uid"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["frame_number", b"frame_number", "uid", b"uid"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["frame_number", b"frame_number", "uid", b"uid"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["frame_number", b"frame_number", "uid", b"uid"]
+    ) -> None: ...
 
 global___FrameLookup = FrameLookup
 
@@ -49,7 +53,9 @@ class FrameDescriptor(google.protobuf.message.Message):
     base_hash: builtins.str
     base_frame_number: builtins.int
     @property
-    def frame_infos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FrameLookup]: ...
+    def frame_infos(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FrameLookup]: ...
     def __init__(
         self,
         *,
@@ -57,8 +63,23 @@ class FrameDescriptor(google.protobuf.message.Message):
         base_frame_number: builtins.int | None = ...,
         frame_infos: collections.abc.Iterable[global___FrameLookup] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["base_frame_number", b"base_frame_number", "base_hash", b"base_hash"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["base_frame_number", b"base_frame_number", "base_hash", b"base_hash", "frame_infos", b"frame_infos"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "base_frame_number", b"base_frame_number", "base_hash", b"base_hash"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "base_frame_number",
+            b"base_frame_number",
+            "base_hash",
+            b"base_hash",
+            "frame_infos",
+            b"frame_infos",
+        ],
+    ) -> None: ...
 
 global___FrameDescriptor = FrameDescriptor
 
@@ -70,7 +91,10 @@ class GameEvent(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ProgressEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GameEvent._Progress.ValueType], builtins.type):  # noqa: F821
+    class _ProgressEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GameEvent._Progress.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         Open: GameEvent._Progress.ValueType  # 1
         Closed: GameEvent._Progress.ValueType  # 2
@@ -114,8 +138,38 @@ class GameEvent(google.protobuf.message.Message):
         tag: collections.abc.Iterable[builtins.str] | None = ...,
         assignee: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["assignee", b"assignee", "description", b"description", "location", b"location", "progress", b"progress", "random_id", b"random_id"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["assignee", b"assignee", "description", b"description", "location", b"location", "progress", b"progress", "random_id", b"random_id", "tag", b"tag"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "assignee",
+            b"assignee",
+            "description",
+            b"description",
+            "location",
+            b"location",
+            "progress",
+            b"progress",
+            "random_id",
+            b"random_id",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "assignee",
+            b"assignee",
+            "description",
+            b"description",
+            "location",
+            b"location",
+            "progress",
+            b"progress",
+            "random_id",
+            b"random_id",
+            "tag",
+            b"tag",
+        ],
+    ) -> None: ...
 
 global___GameEvent = GameEvent
 
@@ -127,7 +181,10 @@ class TimelineInit(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ResolvedEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TimelineInit._Resolved.ValueType], builtins.type):  # noqa: F821
+    class _ResolvedEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TimelineInit._Resolved.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         Solved: TimelineInit._Resolved.ValueType  # 1
         Conflicting: TimelineInit._Resolved.ValueType  # 2
@@ -144,12 +201,16 @@ class TimelineInit(google.protobuf.message.Message):
     def primary(self) -> logfile_pb2.UidEntry:
         """This logfile is used for LogFileQuality checks. If someone addes a new even while owning a logfile that has less flags, this is updated."""
     @property
-    def secondary(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[logfile_pb2.UidEntry]:
+    def secondary(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[logfile_pb2.UidEntry]:
         """Also, if someone has a logfile, that contains all GameEvents, while having more flags, this is updated aswell.
         All logfiles referenced in this list are already indexed (every GameEvent contains a FrameLookup for this log, if there is any)
         """
     @property
-    def partially(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[logfile_pb2.UidEntry]:
+    def partially(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[logfile_pb2.UidEntry]:
         """If a logfile is referenced here, it has been a secondary log, but due to recent additions without this log, it migrated to partially."""
     state: global___TimelineInit.Resolved.ValueType
     def __init__(
@@ -160,8 +221,15 @@ class TimelineInit(google.protobuf.message.Message):
         partially: collections.abc.Iterable[logfile_pb2.UidEntry] | None = ...,
         state: global___TimelineInit.Resolved.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["primary", b"primary", "state", b"state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["partially", b"partially", "primary", b"primary", "secondary", b"secondary", "state", b"state"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["primary", b"primary", "state", b"state"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "partially", b"partially", "primary", b"primary", "secondary", b"secondary", "state", b"state"
+        ],
+    ) -> None: ...
 
 global___TimelineInit = TimelineInit
 
@@ -173,7 +241,9 @@ class EventWrapper(google.protobuf.message.Message):
     CONFLICTING_FIELD_NUMBER: builtins.int
     tag: builtins.str
     @property
-    def conflicting(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GameEvent]: ...
+    def conflicting(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GameEvent]: ...
     def __init__(
         self,
         *,
@@ -181,7 +251,9 @@ class EventWrapper(google.protobuf.message.Message):
         conflicting: collections.abc.Iterable[global___GameEvent] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["tag", b"tag"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["conflicting", b"conflicting", "tag", b"tag"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["conflicting", b"conflicting", "tag", b"tag"]
+    ) -> None: ...
 
 global___EventWrapper = EventWrapper
 
@@ -201,8 +273,20 @@ class Status(google.protobuf.message.Message):
         wrapper: global___EventWrapper | None = ...,
         game_event: global___GameEvent | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["game_event", b"game_event", "logfileEntry", b"logfileEntry", "wrapper", b"wrapper"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["game_event", b"game_event", "logfileEntry", b"logfileEntry", "wrapper", b"wrapper"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["logfileEntry", b"logfileEntry"]) -> typing_extensions.Literal["wrapper", "game_event"] | None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "game_event", b"game_event", "logfileEntry", b"logfileEntry", "wrapper", b"wrapper"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "game_event", b"game_event", "logfileEntry", b"logfileEntry", "wrapper", b"wrapper"
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing_extensions.Literal["logfileEntry", b"logfileEntry"]
+    ) -> typing_extensions.Literal["wrapper", "game_event"] | None: ...
 
 global___Status = Status

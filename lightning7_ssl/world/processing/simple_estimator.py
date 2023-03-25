@@ -2,13 +2,7 @@ from collections import OrderedDict
 from typing import List, Optional
 
 from ...vecMath.vec_math import Vec2, Vec3
-from .estimators import (
-    BallData,
-    BallDataRaw,
-    RobotData,
-    RobotDataRaw,
-    StatusEstimator,
-)
+from .estimators import BallData, BallDataRaw, RobotData, RobotDataRaw, StatusEstimator
 
 
 class SimpleEstimator(StatusEstimator):
@@ -16,9 +10,7 @@ class SimpleEstimator(StatusEstimator):
     State estimation filter that uses the last two positions and estimates velocity.
     """
 
-    def ball_filter(
-        self, raw_data: OrderedDict[float, List[BallDataRaw]]
-    ) -> Optional[BallData]:
+    def ball_filter(self, raw_data: OrderedDict[float, List[BallDataRaw]]) -> Optional[BallData]:
         """
         it chooses the ball with the highest confidence and estimate the velocity based on the last two positions.
 
@@ -33,9 +25,7 @@ class SimpleEstimator(StatusEstimator):
 
         current_frame = records[-1]
         # Select reading with highest confidence
-        cur_pos = sorted(current_frame, key=lambda x: x.confidence, reverse=True)[
-            0
-        ].position
+        cur_pos = sorted(current_frame, key=lambda x: x.confidence, reverse=True)[0].position
 
         # If there is only one position reading, we cannot estimate velocity
         if len(records) == 1:
@@ -43,17 +33,13 @@ class SimpleEstimator(StatusEstimator):
 
         previous_frame = records[-2]
         # Select reading with highest confidence
-        prev_pos = sorted(previous_frame, key=lambda x: x.confidence, reverse=True)[
-            0
-        ].position
+        prev_pos = sorted(previous_frame, key=lambda x: x.confidence, reverse=True)[0].position
 
         timediff = current_frame[0].time_stamp - previous_frame[0].time_stamp
         velocity = (cur_pos - prev_pos) / timediff
         return BallData(cur_pos, velocity)
 
-    def robot_filter(
-        self, raw_data: OrderedDict[float, List[RobotDataRaw]]
-    ) -> Optional[RobotData]:
+    def robot_filter(self, raw_data: OrderedDict[float, List[RobotDataRaw]]) -> Optional[RobotData]:
         """
         it uses the last two positions and estimate the velocity. and
         uses the last position/orientation as the final position/orientation.
@@ -69,13 +55,11 @@ class SimpleEstimator(StatusEstimator):
 
         current_frame = records[-1]
         # Average positions and orientations in readings from the current frame
-        pos: Vec2 = sum([cand.position for cand in current_frame], Vec2()) / len(
-            current_frame
-        )
+        pos: Vec2 = sum([cand.position for cand in current_frame], Vec2()) / len(current_frame)
         ori = sum([cand.orientation for cand in current_frame]) / len(current_frame)
 
         v = Vec2()
-        spinv = 0
+        spinv = 0.0
         if len(records) > 1:
             previous_frame = records[-2]
             # Average positions and orientations in readings from the previous frame
@@ -83,9 +67,7 @@ class SimpleEstimator(StatusEstimator):
                 [cand.position for cand in previous_frame],
                 Vec2(),
             ) / len(previous_frame)
-            prev_ori = sum([cand.orientation for cand in previous_frame]) / len(
-                previous_frame
-            )
+            prev_ori = sum([cand.orientation for cand in previous_frame]) / len(previous_frame)
 
             timediff = current_frame[0].time_stamp - previous_frame[0].time_stamp
             v = (pos - prev_pos) / timediff

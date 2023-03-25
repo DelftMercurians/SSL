@@ -1,10 +1,9 @@
-from typing import List
-import unittest
 import math
-from lightning7_ssl.player.pathfinder import find_path
-from unittest.mock import MagicMock, patch
 import tkinter as tk
+from typing import List
+from unittest.mock import MagicMock
 
+from lightning7_ssl.player.pathfinder import find_path
 from lightning7_ssl.vecMath.vec_math import Vec2
 
 root = tk.Tk()
@@ -26,9 +25,7 @@ class MovableCircle:
         self.y = y
         self.radius = radius
         self.r = radius * BASE_FACTOR
-        self.circle = self.canvas.create_oval(
-            x - radius, y - radius, x + radius, y + radius, fill=color
-        )
+        self.circle = self.canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill=color)
         # make another circle to show the influence radius
         self.influence_circle = self.canvas.create_oval(
             x - radius * BASE_FACTOR,
@@ -43,9 +40,7 @@ class MovableCircle:
         # bind the influence circle to the drag event
         self.canvas.tag_bind(self.influence_circle, "<Button-1>", self.on_click)
         self.canvas.tag_bind(self.influence_circle, "<B1-Motion>", self.shrink)
-        self.canvas.tag_bind(
-            self.influence_circle, "<ButtonRelease-1>", self.on_release
-        )
+        self.canvas.tag_bind(self.influence_circle, "<ButtonRelease-1>", self.on_release)
         self.is_dragging = False
 
     def on_click(self, event):
@@ -98,7 +93,7 @@ for i in range(6):
 canvas.delete(items[1].influence_circle)
 
 
-def update():
+def update() -> None:
     # delete previous path
     for item in canvas.find_all():
         if canvas.type(item) == "line":
@@ -150,7 +145,7 @@ def test_pathfinder(
     mock_world.get_opp_position.return_value = [pos * 10 for pos in opp_position]
     mock_world.get_team_vel.return_value = [pos * 10 for pos in team_vel]
     mock_world.get_opp_vel.return_value = [pos * 10 for pos in opp_speed]
-    return find_path(mock_world, 0, goal * 10)
+    return find_path(0, goal * 10)
 
 
 button = tk.Button(root, text="Update", command=update)

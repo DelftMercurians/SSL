@@ -1,8 +1,9 @@
-from dataclasses import dataclass, field
-from typing import List, Optional, Tuple
-from collections import OrderedDict
-from ...vecMath.vec_math import Vec2, Vec3
 import abc
+from collections import OrderedDict
+from dataclasses import dataclass
+from typing import List, Optional
+
+from ...vecMath.vec_math import Vec2, Vec3
 
 
 @dataclass
@@ -75,9 +76,7 @@ class StatusEstimator(metaclass=abc.ABCMeta):
     """
 
     @abc.abstractmethod
-    def ball_filter(
-        self, raw_data: OrderedDict[float, List[BallDataRaw]]
-    ) -> Optional[BallData]:
+    def ball_filter(self, raw_data: OrderedDict[float, List[BallDataRaw]]) -> Optional[BallData]:
         """
         filter the ball data
 
@@ -89,9 +88,7 @@ class StatusEstimator(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def robot_filter(
-        self, raw_data: OrderedDict[float, List[RobotDataRaw]]
-    ) -> Optional[RobotData]:
+    def robot_filter(self, raw_data: OrderedDict[float, List[RobotDataRaw]]) -> Optional[RobotData]:
         """
         filter the robot data
 

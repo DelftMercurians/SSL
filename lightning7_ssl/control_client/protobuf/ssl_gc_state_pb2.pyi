@@ -43,8 +43,18 @@ class YellowCard(google.protobuf.message.Message):
         caused_by_game_event: ssl_game_event_2019_pb2.GameEvent | None = ...,
         time_remaining: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["caused_by_game_event", b"caused_by_game_event", "id", b"id", "time_remaining", b"time_remaining"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["caused_by_game_event", b"caused_by_game_event", "id", b"id", "time_remaining", b"time_remaining"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "caused_by_game_event", b"caused_by_game_event", "id", b"id", "time_remaining", b"time_remaining"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "caused_by_game_event", b"caused_by_game_event", "id", b"id", "time_remaining", b"time_remaining"
+        ],
+    ) -> None: ...
 
 global___YellowCard = YellowCard
 
@@ -63,8 +73,14 @@ class RedCard(google.protobuf.message.Message):
         id: builtins.int | None = ...,
         caused_by_game_event: ssl_game_event_2019_pb2.GameEvent | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["caused_by_game_event", b"caused_by_game_event", "id", b"id"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["caused_by_game_event", b"caused_by_game_event", "id", b"id"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal["caused_by_game_event", b"caused_by_game_event", "id", b"id"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal["caused_by_game_event", b"caused_by_game_event", "id", b"id"],
+    ) -> None: ...
 
 global___RedCard = RedCard
 
@@ -87,8 +103,18 @@ class Foul(google.protobuf.message.Message):
         caused_by_game_event: ssl_game_event_2019_pb2.GameEvent | None = ...,
         timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["caused_by_game_event", b"caused_by_game_event", "id", b"id", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["caused_by_game_event", b"caused_by_game_event", "id", b"id", "timestamp", b"timestamp"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "caused_by_game_event", b"caused_by_game_event", "id", b"id", "timestamp", b"timestamp"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "caused_by_game_event", b"caused_by_game_event", "id", b"id", "timestamp", b"timestamp"
+        ],
+    ) -> None: ...
 
 global___Foul = Foul
 
@@ -100,7 +126,9 @@ class Command(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Command._Type.ValueType], builtins.type):  # noqa: F821
+    class _TypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Command._Type.ValueType], builtins.type
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: Command._Type.ValueType  # 0
         HALT: Command._Type.ValueType  # 1
@@ -137,8 +165,12 @@ class Command(google.protobuf.message.Message):
         type: global___Command.Type.ValueType | None = ...,
         for_team: ssl_game_controller_common_pb2.Team.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["for_team", b"for_team", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["for_team", b"for_team", "type", b"type"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["for_team", b"for_team", "type", b"type"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["for_team", b"for_team", "type", b"type"]
+    ) -> None: ...
 
 global___Command = Command
 
@@ -150,7 +182,9 @@ class GameState(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GameState._Type.ValueType], builtins.type):  # noqa: F821
+    class _TypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GameState._Type.ValueType], builtins.type
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: GameState._Type.ValueType  # 0
         HALT: GameState._Type.ValueType  # 1
@@ -183,8 +217,12 @@ class GameState(google.protobuf.message.Message):
         type: global___GameState.Type.ValueType | None = ...,
         for_team: ssl_game_controller_common_pb2.Team.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["for_team", b"for_team", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["for_team", b"for_team", "type", b"type"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["for_team", b"for_team", "type", b"type"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["for_team", b"for_team", "type", b"type"]
+    ) -> None: ...
 
 global___GameState = GameState
 
@@ -206,8 +244,12 @@ class Proposal(google.protobuf.message.Message):
         timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         game_event: ssl_game_event_2019_pb2.GameEvent | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["game_event", b"game_event", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["game_event", b"game_event", "timestamp", b"timestamp"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["game_event", b"game_event", "timestamp", b"timestamp"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["game_event", b"game_event", "timestamp", b"timestamp"]
+    ) -> None: ...
 
 global___Proposal = Proposal
 
@@ -218,7 +260,9 @@ class ProposalGroup(google.protobuf.message.Message):
     PROPOSALS_FIELD_NUMBER: builtins.int
     ACCEPTED_FIELD_NUMBER: builtins.int
     @property
-    def proposals(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Proposal]:
+    def proposals(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Proposal]:
         """List of proposals in this group"""
     accepted: builtins.bool
     """Whether the proposal group was accepted"""
@@ -229,7 +273,9 @@ class ProposalGroup(google.protobuf.message.Message):
         accepted: builtins.bool | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["accepted", b"accepted"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["accepted", b"accepted", "proposals", b"proposals"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["accepted", b"accepted", "proposals", b"proposals"]
+    ) -> None: ...
 
 global___ProposalGroup = ProposalGroup
 
@@ -258,9 +304,13 @@ class TeamInfo(google.protobuf.message.Message):
     goals: builtins.int
     goalkeeper: builtins.int
     @property
-    def yellow_cards(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___YellowCard]: ...
+    def yellow_cards(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___YellowCard]: ...
     @property
-    def red_cards(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RedCard]: ...
+    def red_cards(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RedCard]: ...
     timeouts_left: builtins.int
     @property
     def timeout_time_left(self) -> google.protobuf.duration_pb2.Duration: ...
@@ -299,8 +349,78 @@ class TeamInfo(google.protobuf.message.Message):
         requests_emergency_stop_since: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         challenge_flags: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ball_placement_failures", b"ball_placement_failures", "ball_placement_failures_reached", b"ball_placement_failures_reached", "can_place_ball", b"can_place_ball", "challenge_flags", b"challenge_flags", "goalkeeper", b"goalkeeper", "goals", b"goals", "max_allowed_bots", b"max_allowed_bots", "name", b"name", "on_positive_half", b"on_positive_half", "requests_bot_substitution_since", b"requests_bot_substitution_since", "requests_emergency_stop_since", b"requests_emergency_stop_since", "requests_timeout_since", b"requests_timeout_since", "timeout_time_left", b"timeout_time_left", "timeouts_left", b"timeouts_left"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ball_placement_failures", b"ball_placement_failures", "ball_placement_failures_reached", b"ball_placement_failures_reached", "can_place_ball", b"can_place_ball", "challenge_flags", b"challenge_flags", "fouls", b"fouls", "goalkeeper", b"goalkeeper", "goals", b"goals", "max_allowed_bots", b"max_allowed_bots", "name", b"name", "on_positive_half", b"on_positive_half", "red_cards", b"red_cards", "requests_bot_substitution_since", b"requests_bot_substitution_since", "requests_emergency_stop_since", b"requests_emergency_stop_since", "requests_timeout_since", b"requests_timeout_since", "timeout_time_left", b"timeout_time_left", "timeouts_left", b"timeouts_left", "yellow_cards", b"yellow_cards"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball_placement_failures",
+            b"ball_placement_failures",
+            "ball_placement_failures_reached",
+            b"ball_placement_failures_reached",
+            "can_place_ball",
+            b"can_place_ball",
+            "challenge_flags",
+            b"challenge_flags",
+            "goalkeeper",
+            b"goalkeeper",
+            "goals",
+            b"goals",
+            "max_allowed_bots",
+            b"max_allowed_bots",
+            "name",
+            b"name",
+            "on_positive_half",
+            b"on_positive_half",
+            "requests_bot_substitution_since",
+            b"requests_bot_substitution_since",
+            "requests_emergency_stop_since",
+            b"requests_emergency_stop_since",
+            "requests_timeout_since",
+            b"requests_timeout_since",
+            "timeout_time_left",
+            b"timeout_time_left",
+            "timeouts_left",
+            b"timeouts_left",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball_placement_failures",
+            b"ball_placement_failures",
+            "ball_placement_failures_reached",
+            b"ball_placement_failures_reached",
+            "can_place_ball",
+            b"can_place_ball",
+            "challenge_flags",
+            b"challenge_flags",
+            "fouls",
+            b"fouls",
+            "goalkeeper",
+            b"goalkeeper",
+            "goals",
+            b"goals",
+            "max_allowed_bots",
+            b"max_allowed_bots",
+            "name",
+            b"name",
+            "on_positive_half",
+            b"on_positive_half",
+            "red_cards",
+            b"red_cards",
+            "requests_bot_substitution_since",
+            b"requests_bot_substitution_since",
+            "requests_emergency_stop_since",
+            b"requests_emergency_stop_since",
+            "requests_timeout_since",
+            b"requests_timeout_since",
+            "timeout_time_left",
+            b"timeout_time_left",
+            "timeouts_left",
+            b"timeouts_left",
+            "yellow_cards",
+            b"yellow_cards",
+        ],
+    ) -> None: ...
 
 global___TeamInfo = TeamInfo
 
@@ -323,8 +443,12 @@ class State(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: global___TeamInfo | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> None: ...
 
     STAGE_FIELD_NUMBER: builtins.int
     COMMAND_FIELD_NUMBER: builtins.int
@@ -353,7 +477,9 @@ class State(google.protobuf.message.Message):
     @property
     def match_time_start(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     @property
-    def team_state(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___TeamInfo]: ...
+    def team_state(
+        self,
+    ) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___TeamInfo]: ...
     @property
     def placement_pos(self) -> ssl_game_controller_geometry_pb2.Vector2: ...
     @property
@@ -361,9 +487,15 @@ class State(google.protobuf.message.Message):
     @property
     def current_action_time_remaining(self) -> google.protobuf.duration_pb2.Duration: ...
     @property
-    def game_events(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ssl_game_event_2019_pb2.GameEvent]: ...
+    def game_events(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        ssl_game_event_2019_pb2.GameEvent
+    ]: ...
     @property
-    def proposal_groups(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProposalGroup]: ...
+    def proposal_groups(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ProposalGroup]: ...
     division: ssl_game_controller_common_pb2.Division.ValueType
     auto_continue: builtins.bool
     first_kickoff_team: ssl_game_controller_common_pb2.Team.ValueType
@@ -386,7 +518,69 @@ class State(google.protobuf.message.Message):
         auto_continue: builtins.bool | None = ...,
         first_kickoff_team: ssl_game_controller_common_pb2.Team.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["auto_continue", b"auto_continue", "command", b"command", "current_action_time_remaining", b"current_action_time_remaining", "division", b"division", "first_kickoff_team", b"first_kickoff_team", "game_state", b"game_state", "match_time_start", b"match_time_start", "next_command", b"next_command", "placement_pos", b"placement_pos", "stage", b"stage", "stage_time_elapsed", b"stage_time_elapsed", "stage_time_left", b"stage_time_left"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["auto_continue", b"auto_continue", "command", b"command", "current_action_time_remaining", b"current_action_time_remaining", "division", b"division", "first_kickoff_team", b"first_kickoff_team", "game_events", b"game_events", "game_state", b"game_state", "match_time_start", b"match_time_start", "next_command", b"next_command", "placement_pos", b"placement_pos", "proposal_groups", b"proposal_groups", "stage", b"stage", "stage_time_elapsed", b"stage_time_elapsed", "stage_time_left", b"stage_time_left", "team_state", b"team_state"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "auto_continue",
+            b"auto_continue",
+            "command",
+            b"command",
+            "current_action_time_remaining",
+            b"current_action_time_remaining",
+            "division",
+            b"division",
+            "first_kickoff_team",
+            b"first_kickoff_team",
+            "game_state",
+            b"game_state",
+            "match_time_start",
+            b"match_time_start",
+            "next_command",
+            b"next_command",
+            "placement_pos",
+            b"placement_pos",
+            "stage",
+            b"stage",
+            "stage_time_elapsed",
+            b"stage_time_elapsed",
+            "stage_time_left",
+            b"stage_time_left",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "auto_continue",
+            b"auto_continue",
+            "command",
+            b"command",
+            "current_action_time_remaining",
+            b"current_action_time_remaining",
+            "division",
+            b"division",
+            "first_kickoff_team",
+            b"first_kickoff_team",
+            "game_events",
+            b"game_events",
+            "game_state",
+            b"game_state",
+            "match_time_start",
+            b"match_time_start",
+            "next_command",
+            b"next_command",
+            "placement_pos",
+            b"placement_pos",
+            "proposal_groups",
+            b"proposal_groups",
+            "stage",
+            b"stage",
+            "stage_time_elapsed",
+            b"stage_time_elapsed",
+            "stage_time_left",
+            b"stage_time_left",
+            "team_state",
+            b"team_state",
+        ],
+    ) -> None: ...
 
 global___State = State

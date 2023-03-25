@@ -22,7 +22,9 @@ class _DebugSource:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _DebugSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DebugSource.ValueType], builtins.type):
+class _DebugSourceEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DebugSource.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     StrategyBlue: _DebugSource.ValueType  # 1
     StrategyYellow: _DebugSource.ValueType  # 2
@@ -69,8 +71,18 @@ class Color(google.protobuf.message.Message):
         blue: builtins.int | None = ...,
         alpha: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["alpha", b"alpha", "blue", b"blue", "green", b"green", "red", b"red"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["alpha", b"alpha", "blue", b"blue", "green", b"green", "red", b"red"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "alpha", b"alpha", "blue", b"blue", "green", b"green", "red", b"red"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "alpha", b"alpha", "blue", b"blue", "green", b"green", "red", b"red"
+        ],
+    ) -> None: ...
 
 global___Color = Color
 
@@ -82,7 +94,9 @@ class Pen(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StyleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Pen._Style.ValueType], builtins.type):  # noqa: F821
+    class _StyleEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Pen._Style.ValueType], builtins.type
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DashLine: Pen._Style.ValueType  # 1
         DotLine: Pen._Style.ValueType  # 2
@@ -106,8 +120,12 @@ class Pen(google.protobuf.message.Message):
         style: global___Pen.Style.ValueType | None = ...,
         color: global___Color | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["color", b"color", "style", b"style"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["color", b"color", "style", b"style"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["color", b"color", "style", b"style"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["color", b"color", "style", b"style"]
+    ) -> None: ...
 
 global___Pen = Pen
 
@@ -128,8 +146,12 @@ class Circle(google.protobuf.message.Message):
         p_y: builtins.float | None = ...,
         radius: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["p_x", b"p_x", "p_y", b"p_y", "radius", b"radius"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["p_x", b"p_x", "p_y", b"p_y", "radius", b"radius"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["p_x", b"p_x", "p_y", b"p_y", "radius", b"radius"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["p_x", b"p_x", "p_y", b"p_y", "radius", b"radius"]
+    ) -> None: ...
 
 global___Circle = Circle
 
@@ -158,7 +180,9 @@ class Polygon(google.protobuf.message.Message):
 
     POINT_FIELD_NUMBER: builtins.int
     @property
-    def point(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Point]: ...
+    def point(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Point]: ...
     def __init__(
         self,
         *,
@@ -174,7 +198,9 @@ class Path(google.protobuf.message.Message):
 
     POINT_FIELD_NUMBER: builtins.int
     @property
-    def point(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Point]: ...
+    def point(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Point]: ...
     def __init__(
         self,
         *,
@@ -202,8 +228,12 @@ class Rectangle(google.protobuf.message.Message):
         topleft: global___Point | None = ...,
         bottomright: global___Point | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["bottomright", b"bottomright", "topleft", b"topleft"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["bottomright", b"bottomright", "topleft", b"topleft"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["bottomright", b"bottomright", "topleft", b"topleft"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["bottomright", b"bottomright", "topleft", b"topleft"]
+    ) -> None: ...
 
 global___Rectangle = Rectangle
 
@@ -230,8 +260,18 @@ class ImageVisualization(google.protobuf.message.Message):
         data: builtins.bytes | None = ...,
         draw_area: global___Rectangle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["data", b"data", "draw_area", b"draw_area", "height", b"height", "width", b"width"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["data", b"data", "draw_area", b"draw_area", "height", b"height", "width", b"width"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "data", b"data", "draw_area", b"draw_area", "height", b"height", "width", b"width"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "data", b"data", "draw_area", b"draw_area", "height", b"height", "width", b"width"
+        ],
+    ) -> None: ...
 
 global___ImageVisualization = ImageVisualization
 
@@ -276,8 +316,52 @@ class Visualization(google.protobuf.message.Message):
         background: builtins.bool | None = ...,
         image: global___ImageVisualization | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["background", b"background", "brush", b"brush", "circle", b"circle", "image", b"image", "name", b"name", "path", b"path", "pen", b"pen", "polygon", b"polygon", "width", b"width"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["background", b"background", "brush", b"brush", "circle", b"circle", "image", b"image", "name", b"name", "path", b"path", "pen", b"pen", "polygon", b"polygon", "width", b"width"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "background",
+            b"background",
+            "brush",
+            b"brush",
+            "circle",
+            b"circle",
+            "image",
+            b"image",
+            "name",
+            b"name",
+            "path",
+            b"path",
+            "pen",
+            b"pen",
+            "polygon",
+            b"polygon",
+            "width",
+            b"width",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "background",
+            b"background",
+            "brush",
+            b"brush",
+            "circle",
+            b"circle",
+            "image",
+            b"image",
+            "name",
+            b"name",
+            "path",
+            b"path",
+            "pen",
+            b"pen",
+            "polygon",
+            b"polygon",
+            "width",
+            b"width",
+        ],
+    ) -> None: ...
 
 global___Visualization = Visualization
 
@@ -301,8 +385,32 @@ class DebugValue(google.protobuf.message.Message):
         bool_value: builtins.bool | None = ...,
         string_value: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["bool_value", b"bool_value", "float_value", b"float_value", "key", b"key", "string_value", b"string_value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["bool_value", b"bool_value", "float_value", b"float_value", "key", b"key", "string_value", b"string_value"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "bool_value",
+            b"bool_value",
+            "float_value",
+            b"float_value",
+            "key",
+            b"key",
+            "string_value",
+            b"string_value",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "bool_value",
+            b"bool_value",
+            "float_value",
+            b"float_value",
+            "key",
+            b"key",
+            "string_value",
+            b"string_value",
+        ],
+    ) -> None: ...
 
 global___DebugValue = DebugValue
 
@@ -320,8 +428,12 @@ class StatusLog(google.protobuf.message.Message):
         timestamp: builtins.int | None = ...,
         text: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["text", b"text", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["text", b"text", "timestamp", b"timestamp"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["text", b"text", "timestamp", b"timestamp"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["text", b"text", "timestamp", b"timestamp"]
+    ) -> None: ...
 
 global___StatusLog = StatusLog
 
@@ -339,8 +451,12 @@ class PlotValue(google.protobuf.message.Message):
         name: builtins.str | None = ...,
         value: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]
+    ) -> None: ...
 
 global___PlotValue = PlotValue
 
@@ -361,8 +477,18 @@ class RobotValue(google.protobuf.message.Message):
         id: builtins.int | None = ...,
         exchange: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["exchange", b"exchange", "generation", b"generation", "id", b"id"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["exchange", b"exchange", "generation", b"generation", "id", b"id"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "exchange", b"exchange", "generation", b"generation", "id", b"id"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "exchange", b"exchange", "generation", b"generation", "id", b"id"
+        ],
+    ) -> None: ...
 
 global___RobotValue = RobotValue
 
@@ -397,15 +523,25 @@ class DebugValues(google.protobuf.message.Message):
     source: global___DebugSource.ValueType
     time: builtins.int
     @property
-    def value(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DebugValue]: ...
+    def value(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DebugValue]: ...
     @property
-    def visualization(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Visualization]: ...
+    def visualization(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Visualization]: ...
     @property
-    def log(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusLog]: ...
+    def log(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StatusLog]: ...
     @property
-    def plot(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PlotValue]: ...
+    def plot(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PlotValue]: ...
     @property
-    def robot(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotValue]: ...
+    def robot(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotValue]: ...
     @property
     def debugger_output(self) -> global___DebuggerOutput: ...
     def __init__(
@@ -420,7 +556,32 @@ class DebugValues(google.protobuf.message.Message):
         robot: collections.abc.Iterable[global___RobotValue] | None = ...,
         debugger_output: global___DebuggerOutput | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["debugger_output", b"debugger_output", "source", b"source", "time", b"time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["debugger_output", b"debugger_output", "log", b"log", "plot", b"plot", "robot", b"robot", "source", b"source", "time", b"time", "value", b"value", "visualization", b"visualization"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "debugger_output", b"debugger_output", "source", b"source", "time", b"time"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "debugger_output",
+            b"debugger_output",
+            "log",
+            b"log",
+            "plot",
+            b"plot",
+            "robot",
+            b"robot",
+            "source",
+            b"source",
+            "time",
+            b"time",
+            "value",
+            b"value",
+            "visualization",
+            b"visualization",
+        ],
+    ) -> None: ...
 
 global___DebugValues = DebugValues

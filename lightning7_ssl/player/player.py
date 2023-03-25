@@ -1,12 +1,11 @@
-from typing import Optional
 from dataclasses import dataclass
-import unittest
+from typing import Optional
 
 from lightning7_ssl.vecMath.vec_math import Vec2
 
 from .. import cfg
-from .pathfinder import find_path
 from ..control_client import SSLClient
+from .pathfinder import find_path
 
 # Margin of error when arriving at a target location
 TARGET_TRESHOLD = 10

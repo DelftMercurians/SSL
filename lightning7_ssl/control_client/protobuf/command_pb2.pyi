@@ -28,7 +28,9 @@ class _DebuggerInputTarget:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _DebuggerInputTargetEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DebuggerInputTarget.ValueType], builtins.type):
+class _DebuggerInputTargetEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DebuggerInputTarget.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     DITStrategyYellow: _DebuggerInputTarget.ValueType  # 0
     DITStrategyBlue: _DebuggerInputTarget.ValueType  # 1
@@ -45,7 +47,10 @@ class _PauseSimulatorReason:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _PauseSimulatorReasonEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PauseSimulatorReason.ValueType], builtins.type):
+class _PauseSimulatorReasonEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PauseSimulatorReason.ValueType],
+    builtins.type,
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     Ui: _PauseSimulatorReason.ValueType  # 1
     WindowFocus: _PauseSimulatorReason.ValueType  # 2
@@ -85,8 +90,12 @@ class RobotMoveCommand(google.protobuf.message.Message):
         p_x: builtins.float | None = ...,
         p_y: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["id", b"id", "p_x", b"p_x", "p_y", b"p_y"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "p_x", b"p_x", "p_y", b"p_y"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["id", b"id", "p_x", b"p_x", "p_y", b"p_y"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["id", b"id", "p_x", b"p_x", "p_y", b"p_y"]
+    ) -> None: ...
 
 global___RobotMoveCommand = RobotMoveCommand
 
@@ -99,7 +108,11 @@ class SimulatorSetup(google.protobuf.message.Message):
     @property
     def geometry(self) -> world_pb2.Geometry: ...
     @property
-    def camera_setup(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ssl_geometry_pb2.SSL_GeometryCameraCalibration]: ...
+    def camera_setup(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        ssl_geometry_pb2.SSL_GeometryCameraCalibration
+    ]: ...
     def __init__(
         self,
         *,
@@ -107,7 +120,9 @@ class SimulatorSetup(google.protobuf.message.Message):
         camera_setup: collections.abc.Iterable[ssl_geometry_pb2.SSL_GeometryCameraCalibration] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["geometry", b"geometry"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["camera_setup", b"camera_setup", "geometry", b"geometry"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["camera_setup", b"camera_setup", "geometry", b"geometry"]
+    ) -> None: ...
 
 global___SimulatorSetup = SimulatorSetup
 
@@ -128,8 +143,24 @@ class SimulatorWorstCaseVision(google.protobuf.message.Message):
         min_robot_detection_time: builtins.float | None = ...,
         min_ball_detection_time: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["min_ball_detection_time", b"min_ball_detection_time", "min_robot_detection_time", b"min_robot_detection_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["min_ball_detection_time", b"min_ball_detection_time", "min_robot_detection_time", b"min_robot_detection_time"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "min_ball_detection_time",
+            b"min_ball_detection_time",
+            "min_robot_detection_time",
+            b"min_robot_detection_time",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "min_ball_detection_time",
+            b"min_ball_detection_time",
+            "min_robot_detection_time",
+            b"min_robot_detection_time",
+        ],
+    ) -> None: ...
 
 global___SimulatorWorstCaseVision = SimulatorWorstCaseVision
 
@@ -164,8 +195,40 @@ class CommandSimulator(google.protobuf.message.Message):
         set_simulator_state: world_pb2.SimulatorState | None = ...,
         ssl_control: ssl_simulation_control_pb2.SimulatorControl | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["enable", b"enable", "realism_config", b"realism_config", "set_simulator_state", b"set_simulator_state", "simulator_setup", b"simulator_setup", "ssl_control", b"ssl_control", "vision_worst_case", b"vision_worst_case"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["enable", b"enable", "realism_config", b"realism_config", "set_simulator_state", b"set_simulator_state", "simulator_setup", b"simulator_setup", "ssl_control", b"ssl_control", "vision_worst_case", b"vision_worst_case"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "enable",
+            b"enable",
+            "realism_config",
+            b"realism_config",
+            "set_simulator_state",
+            b"set_simulator_state",
+            "simulator_setup",
+            b"simulator_setup",
+            "ssl_control",
+            b"ssl_control",
+            "vision_worst_case",
+            b"vision_worst_case",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "enable",
+            b"enable",
+            "realism_config",
+            b"realism_config",
+            "set_simulator_state",
+            b"set_simulator_state",
+            "simulator_setup",
+            b"simulator_setup",
+            "ssl_control",
+            b"ssl_control",
+            "vision_worst_case",
+            b"vision_worst_case",
+        ],
+    ) -> None: ...
 
 global___CommandSimulator = CommandSimulator
 
@@ -189,8 +252,32 @@ class CommandReferee(google.protobuf.message.Message):
         use_internal_autoref: builtins.bool | None = ...,
         use_automatic_robot_exchange: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["active", b"active", "command", b"command", "use_automatic_robot_exchange", b"use_automatic_robot_exchange", "use_internal_autoref", b"use_internal_autoref"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "command", b"command", "use_automatic_robot_exchange", b"use_automatic_robot_exchange", "use_internal_autoref", b"use_internal_autoref"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "active",
+            b"active",
+            "command",
+            b"command",
+            "use_automatic_robot_exchange",
+            b"use_automatic_robot_exchange",
+            "use_internal_autoref",
+            b"use_internal_autoref",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "active",
+            b"active",
+            "command",
+            b"command",
+            "use_automatic_robot_exchange",
+            b"use_automatic_robot_exchange",
+            "use_internal_autoref",
+            b"use_internal_autoref",
+        ],
+    ) -> None: ...
 
 global___CommandReferee = CommandReferee
 
@@ -208,8 +295,12 @@ class CommandStrategyLoad(google.protobuf.message.Message):
         filename: builtins.str | None = ...,
         entry_point: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["entry_point", b"entry_point", "filename", b"filename"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["entry_point", b"entry_point", "filename", b"filename"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["entry_point", b"entry_point", "filename", b"filename"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["entry_point", b"entry_point", "filename", b"filename"]
+    ) -> None: ...
 
 global___CommandStrategyLoad = CommandStrategyLoad
 
@@ -274,8 +365,56 @@ class CommandStrategy(google.protobuf.message.Message):
         finish_and_save_profile: builtins.str | None = ...,
         tournament_mode: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["auto_reload", b"auto_reload", "close", b"close", "debug", b"debug", "enable_debug", b"enable_debug", "finish_and_save_profile", b"finish_and_save_profile", "load", b"load", "performance_mode", b"performance_mode", "reload", b"reload", "start_profiling", b"start_profiling", "tournament_mode", b"tournament_mode"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["auto_reload", b"auto_reload", "close", b"close", "debug", b"debug", "enable_debug", b"enable_debug", "finish_and_save_profile", b"finish_and_save_profile", "load", b"load", "performance_mode", b"performance_mode", "reload", b"reload", "start_profiling", b"start_profiling", "tournament_mode", b"tournament_mode"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "auto_reload",
+            b"auto_reload",
+            "close",
+            b"close",
+            "debug",
+            b"debug",
+            "enable_debug",
+            b"enable_debug",
+            "finish_and_save_profile",
+            b"finish_and_save_profile",
+            "load",
+            b"load",
+            "performance_mode",
+            b"performance_mode",
+            "reload",
+            b"reload",
+            "start_profiling",
+            b"start_profiling",
+            "tournament_mode",
+            b"tournament_mode",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "auto_reload",
+            b"auto_reload",
+            "close",
+            b"close",
+            "debug",
+            b"debug",
+            "enable_debug",
+            b"enable_debug",
+            "finish_and_save_profile",
+            b"finish_and_save_profile",
+            "load",
+            b"load",
+            "performance_mode",
+            b"performance_mode",
+            "reload",
+            b"reload",
+            "start_profiling",
+            b"start_profiling",
+            "tournament_mode",
+            b"tournament_mode",
+        ],
+    ) -> None: ...
 
 global___CommandStrategy = CommandStrategy
 
@@ -285,7 +424,9 @@ class CommandControl(google.protobuf.message.Message):
 
     COMMANDS_FIELD_NUMBER: builtins.int
     @property
-    def commands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[robot_pb2.RadioCommand]: ...
+    def commands(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[robot_pb2.RadioCommand]: ...
     def __init__(
         self,
         *,
@@ -325,7 +466,9 @@ class HostAddress(google.protobuf.message.Message):
         host: builtins.str | None = ...,
         port: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["host", b"host", "port", b"port"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["host", b"host", "port", b"port"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["host", b"host", "port", b"port"]) -> None: ...
 
 global___HostAddress = HostAddress
@@ -353,8 +496,36 @@ class SimulatorNetworking(google.protobuf.message.Message):
         port_blue: builtins.int | None = ...,
         port_yellow: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["control_blue", b"control_blue", "control_simulator", b"control_simulator", "control_yellow", b"control_yellow", "port_blue", b"port_blue", "port_yellow", b"port_yellow"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["control_blue", b"control_blue", "control_simulator", b"control_simulator", "control_yellow", b"control_yellow", "port_blue", b"port_blue", "port_yellow", b"port_yellow"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "control_blue",
+            b"control_blue",
+            "control_simulator",
+            b"control_simulator",
+            "control_yellow",
+            b"control_yellow",
+            "port_blue",
+            b"port_blue",
+            "port_yellow",
+            b"port_yellow",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "control_blue",
+            b"control_blue",
+            "control_simulator",
+            b"control_simulator",
+            "control_yellow",
+            b"control_yellow",
+            "port_blue",
+            b"port_blue",
+            "port_yellow",
+            b"port_yellow",
+        ],
+    ) -> None: ...
 
 global___SimulatorNetworking = SimulatorNetworking
 
@@ -387,8 +558,40 @@ class CommandTransceiver(google.protobuf.message.Message):
         use_network: builtins.bool | None = ...,
         simulator_configuration: global___SimulatorNetworking | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["charge", b"charge", "configuration", b"configuration", "enable", b"enable", "network_configuration", b"network_configuration", "simulator_configuration", b"simulator_configuration", "use_network", b"use_network"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["charge", b"charge", "configuration", b"configuration", "enable", b"enable", "network_configuration", b"network_configuration", "simulator_configuration", b"simulator_configuration", "use_network", b"use_network"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "charge",
+            b"charge",
+            "configuration",
+            b"configuration",
+            "enable",
+            b"enable",
+            "network_configuration",
+            b"network_configuration",
+            "simulator_configuration",
+            b"simulator_configuration",
+            "use_network",
+            b"use_network",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "charge",
+            b"charge",
+            "configuration",
+            b"configuration",
+            "enable",
+            b"enable",
+            "network_configuration",
+            b"network_configuration",
+            "simulator_configuration",
+            b"simulator_configuration",
+            "use_network",
+            b"use_network",
+        ],
+    ) -> None: ...
 
 global___CommandTransceiver = CommandTransceiver
 
@@ -418,8 +621,40 @@ class VirtualFieldTransform(google.protobuf.message.Message):
         offsetX: builtins.float | None = ...,
         offsetY: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["a11", b"a11", "a12", b"a12", "a21", b"a21", "a22", b"a22", "offsetX", b"offsetX", "offsetY", b"offsetY"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["a11", b"a11", "a12", b"a12", "a21", b"a21", "a22", b"a22", "offsetX", b"offsetX", "offsetY", b"offsetY"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "a11",
+            b"a11",
+            "a12",
+            b"a12",
+            "a21",
+            b"a21",
+            "a22",
+            b"a22",
+            "offsetX",
+            b"offsetX",
+            "offsetY",
+            b"offsetY",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "a11",
+            b"a11",
+            "a12",
+            b"a12",
+            "a21",
+            b"a21",
+            "a22",
+            b"a22",
+            "offsetX",
+            b"offsetX",
+            "offsetY",
+            b"offsetY",
+        ],
+    ) -> None: ...
 
 global___VirtualFieldTransform = VirtualFieldTransform
 
@@ -466,8 +701,52 @@ class CommandTracking(google.protobuf.message.Message):
         tracking_replay_enabled: builtins.bool | None = ...,
         ball_model: world_pb2.BallModel | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["aoi", b"aoi", "aoi_enabled", b"aoi_enabled", "ball_model", b"ball_model", "enable_virtual_field", b"enable_virtual_field", "field_transform", b"field_transform", "reset", b"reset", "system_delay", b"system_delay", "tracking_replay_enabled", b"tracking_replay_enabled", "virtual_geometry", b"virtual_geometry"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["aoi", b"aoi", "aoi_enabled", b"aoi_enabled", "ball_model", b"ball_model", "enable_virtual_field", b"enable_virtual_field", "field_transform", b"field_transform", "reset", b"reset", "system_delay", b"system_delay", "tracking_replay_enabled", b"tracking_replay_enabled", "virtual_geometry", b"virtual_geometry"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "aoi",
+            b"aoi",
+            "aoi_enabled",
+            b"aoi_enabled",
+            "ball_model",
+            b"ball_model",
+            "enable_virtual_field",
+            b"enable_virtual_field",
+            "field_transform",
+            b"field_transform",
+            "reset",
+            b"reset",
+            "system_delay",
+            b"system_delay",
+            "tracking_replay_enabled",
+            b"tracking_replay_enabled",
+            "virtual_geometry",
+            b"virtual_geometry",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "aoi",
+            b"aoi",
+            "aoi_enabled",
+            b"aoi_enabled",
+            "ball_model",
+            b"ball_model",
+            "enable_virtual_field",
+            b"enable_virtual_field",
+            "field_transform",
+            b"field_transform",
+            "reset",
+            b"reset",
+            "system_delay",
+            b"system_delay",
+            "tracking_replay_enabled",
+            b"tracking_replay_enabled",
+            "virtual_geometry",
+            b"virtual_geometry",
+        ],
+    ) -> None: ...
 
 global___CommandTracking = CommandTracking
 
@@ -487,8 +766,12 @@ class CommandStrategyChangeOption(google.protobuf.message.Message):
         name: builtins.str | None = ...,
         value: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]
+    ) -> None: ...
 
 global___CommandStrategyChangeOption = CommandStrategyChangeOption
 
@@ -510,8 +793,18 @@ class CommandAmun(google.protobuf.message.Message):
         referee_port: builtins.int | None = ...,
         change_option: global___CommandStrategyChangeOption | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["change_option", b"change_option", "referee_port", b"referee_port", "vision_port", b"vision_port"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["change_option", b"change_option", "referee_port", b"referee_port", "vision_port", b"vision_port"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "change_option", b"change_option", "referee_port", b"referee_port", "vision_port", b"vision_port"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "change_option", b"change_option", "referee_port", b"referee_port", "vision_port", b"vision_port"
+        ],
+    ) -> None: ...
 
 global___CommandAmun = CommandAmun
 
@@ -560,8 +853,18 @@ class CommandDebuggerInput(google.protobuf.message.Message):
         disable: global___CommandDebuggerInputDisable | None = ...,
         queue_line: global___CommandDebuggerInputLine | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["disable", b"disable", "queue_line", b"queue_line", "strategy_type", b"strategy_type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["disable", b"disable", "queue_line", b"queue_line", "strategy_type", b"strategy_type"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "disable", b"disable", "queue_line", b"queue_line", "strategy_type", b"strategy_type"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "disable", b"disable", "queue_line", b"queue_line", "strategy_type", b"strategy_type"
+        ],
+    ) -> None: ...
 
 global___CommandDebuggerInput = CommandDebuggerInput
 
@@ -582,8 +885,14 @@ class PauseSimulatorCommand(google.protobuf.message.Message):
         pause: builtins.bool | None = ...,
         toggle: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["pause", b"pause", "reason", b"reason", "toggle", b"toggle"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["pause", b"pause", "reason", b"reason", "toggle", b"toggle"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal["pause", b"pause", "reason", b"reason", "toggle", b"toggle"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal["pause", b"pause", "reason", b"reason", "toggle", b"toggle"],
+    ) -> None: ...
 
 global___PauseSimulatorCommand = PauseSimulatorCommand
 
@@ -613,8 +922,36 @@ class CommandReplay(google.protobuf.message.Message):
         enable_yellow_strategy: builtins.bool | None = ...,
         yellow_strategy: global___CommandStrategy | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["blue_strategy", b"blue_strategy", "enable", b"enable", "enable_blue_strategy", b"enable_blue_strategy", "enable_yellow_strategy", b"enable_yellow_strategy", "yellow_strategy", b"yellow_strategy"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["blue_strategy", b"blue_strategy", "enable", b"enable", "enable_blue_strategy", b"enable_blue_strategy", "enable_yellow_strategy", b"enable_yellow_strategy", "yellow_strategy", b"yellow_strategy"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "blue_strategy",
+            b"blue_strategy",
+            "enable",
+            b"enable",
+            "enable_blue_strategy",
+            b"enable_blue_strategy",
+            "enable_yellow_strategy",
+            b"enable_yellow_strategy",
+            "yellow_strategy",
+            b"yellow_strategy",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "blue_strategy",
+            b"blue_strategy",
+            "enable",
+            b"enable",
+            "enable_blue_strategy",
+            b"enable_blue_strategy",
+            "enable_yellow_strategy",
+            b"enable_yellow_strategy",
+            "yellow_strategy",
+            b"yellow_strategy",
+        ],
+    ) -> None: ...
 
 global___CommandReplay = CommandReplay
 
@@ -678,8 +1015,64 @@ class CommandPlayback(google.protobuf.message.Message):
         find_logfile: builtins.str | None = ...,
         playback_limit: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["export_vision_log", b"export_vision_log", "find_logfile", b"find_logfile", "get_uid", b"get_uid", "instant_replay", b"instant_replay", "log_path", b"log_path", "playback_limit", b"playback_limit", "playback_speed", b"playback_speed", "run_playback", b"run_playback", "seek_packet", b"seek_packet", "seek_time", b"seek_time", "seek_time_backwards", b"seek_time_backwards", "toggle_paused", b"toggle_paused"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["export_vision_log", b"export_vision_log", "find_logfile", b"find_logfile", "get_uid", b"get_uid", "instant_replay", b"instant_replay", "log_path", b"log_path", "playback_limit", b"playback_limit", "playback_speed", b"playback_speed", "run_playback", b"run_playback", "seek_packet", b"seek_packet", "seek_time", b"seek_time", "seek_time_backwards", b"seek_time_backwards", "toggle_paused", b"toggle_paused"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "export_vision_log",
+            b"export_vision_log",
+            "find_logfile",
+            b"find_logfile",
+            "get_uid",
+            b"get_uid",
+            "instant_replay",
+            b"instant_replay",
+            "log_path",
+            b"log_path",
+            "playback_limit",
+            b"playback_limit",
+            "playback_speed",
+            b"playback_speed",
+            "run_playback",
+            b"run_playback",
+            "seek_packet",
+            b"seek_packet",
+            "seek_time",
+            b"seek_time",
+            "seek_time_backwards",
+            b"seek_time_backwards",
+            "toggle_paused",
+            b"toggle_paused",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "export_vision_log",
+            b"export_vision_log",
+            "find_logfile",
+            b"find_logfile",
+            "get_uid",
+            b"get_uid",
+            "instant_replay",
+            b"instant_replay",
+            "log_path",
+            b"log_path",
+            "playback_limit",
+            b"playback_limit",
+            "playback_speed",
+            b"playback_speed",
+            "run_playback",
+            b"run_playback",
+            "seek_packet",
+            b"seek_packet",
+            "seek_time",
+            b"seek_time",
+            "seek_time_backwards",
+            b"seek_time_backwards",
+            "toggle_paused",
+            b"toggle_paused",
+        ],
+    ) -> None: ...
 
 global___CommandPlayback = CommandPlayback
 
@@ -713,8 +1106,40 @@ class CommandRecord(google.protobuf.message.Message):
         request_backlog: builtins.int | None = ...,
         overwrite_record_filename: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["for_replay", b"for_replay", "overwrite_record_filename", b"overwrite_record_filename", "request_backlog", b"request_backlog", "run_logging", b"run_logging", "save_backlog", b"save_backlog", "use_logfile_location", b"use_logfile_location"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["for_replay", b"for_replay", "overwrite_record_filename", b"overwrite_record_filename", "request_backlog", b"request_backlog", "run_logging", b"run_logging", "save_backlog", b"save_backlog", "use_logfile_location", b"use_logfile_location"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "for_replay",
+            b"for_replay",
+            "overwrite_record_filename",
+            b"overwrite_record_filename",
+            "request_backlog",
+            b"request_backlog",
+            "run_logging",
+            b"run_logging",
+            "save_backlog",
+            b"save_backlog",
+            "use_logfile_location",
+            b"use_logfile_location",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "for_replay",
+            b"for_replay",
+            "overwrite_record_filename",
+            b"overwrite_record_filename",
+            "request_backlog",
+            b"request_backlog",
+            "run_logging",
+            b"run_logging",
+            "save_backlog",
+            b"save_backlog",
+            "use_logfile_location",
+            b"use_logfile_location",
+        ],
+    ) -> None: ...
 
 global___CommandRecord = CommandRecord
 
@@ -761,15 +1186,19 @@ class Command(google.protobuf.message.Message):
     def transceiver(self) -> global___CommandTransceiver: ...
     @property
     def tracking(self) -> global___CommandTracking:
-        """   optional float speed = 10;"""
+        """optional float speed = 10;"""
     @property
     def amun(self) -> global___CommandAmun: ...
     @property
     def mixed_team_destination(self) -> global___HostAddress: ...
     @property
-    def robot_move_blue(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotMoveCommand]: ...
+    def robot_move_blue(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotMoveCommand]: ...
     @property
-    def robot_move_yellow(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotMoveCommand]: ...
+    def robot_move_yellow(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotMoveCommand]: ...
     @property
     def debugger_input(self) -> global___CommandDebuggerInput: ...
     @property
@@ -803,7 +1232,87 @@ class Command(google.protobuf.message.Message):
         playback: global___CommandPlayback | None = ...,
         record: global___CommandRecord | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["amun", b"amun", "control", b"control", "debugger_input", b"debugger_input", "mixed_team_destination", b"mixed_team_destination", "pause_simulator", b"pause_simulator", "playback", b"playback", "record", b"record", "referee", b"referee", "replay", b"replay", "set_team_blue", b"set_team_blue", "set_team_yellow", b"set_team_yellow", "simulator", b"simulator", "strategy_autoref", b"strategy_autoref", "strategy_blue", b"strategy_blue", "strategy_yellow", b"strategy_yellow", "tracking", b"tracking", "transceiver", b"transceiver"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["amun", b"amun", "control", b"control", "debugger_input", b"debugger_input", "mixed_team_destination", b"mixed_team_destination", "pause_simulator", b"pause_simulator", "playback", b"playback", "record", b"record", "referee", b"referee", "replay", b"replay", "robot_move_blue", b"robot_move_blue", "robot_move_yellow", b"robot_move_yellow", "set_team_blue", b"set_team_blue", "set_team_yellow", b"set_team_yellow", "simulator", b"simulator", "strategy_autoref", b"strategy_autoref", "strategy_blue", b"strategy_blue", "strategy_yellow", b"strategy_yellow", "tracking", b"tracking", "transceiver", b"transceiver"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "amun",
+            b"amun",
+            "control",
+            b"control",
+            "debugger_input",
+            b"debugger_input",
+            "mixed_team_destination",
+            b"mixed_team_destination",
+            "pause_simulator",
+            b"pause_simulator",
+            "playback",
+            b"playback",
+            "record",
+            b"record",
+            "referee",
+            b"referee",
+            "replay",
+            b"replay",
+            "set_team_blue",
+            b"set_team_blue",
+            "set_team_yellow",
+            b"set_team_yellow",
+            "simulator",
+            b"simulator",
+            "strategy_autoref",
+            b"strategy_autoref",
+            "strategy_blue",
+            b"strategy_blue",
+            "strategy_yellow",
+            b"strategy_yellow",
+            "tracking",
+            b"tracking",
+            "transceiver",
+            b"transceiver",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "amun",
+            b"amun",
+            "control",
+            b"control",
+            "debugger_input",
+            b"debugger_input",
+            "mixed_team_destination",
+            b"mixed_team_destination",
+            "pause_simulator",
+            b"pause_simulator",
+            "playback",
+            b"playback",
+            "record",
+            b"record",
+            "referee",
+            b"referee",
+            "replay",
+            b"replay",
+            "robot_move_blue",
+            b"robot_move_blue",
+            "robot_move_yellow",
+            b"robot_move_yellow",
+            "set_team_blue",
+            b"set_team_blue",
+            "set_team_yellow",
+            b"set_team_yellow",
+            "simulator",
+            b"simulator",
+            "strategy_autoref",
+            b"strategy_autoref",
+            "strategy_blue",
+            b"strategy_blue",
+            "strategy_yellow",
+            b"strategy_yellow",
+            "tracking",
+            b"tracking",
+            "transceiver",
+            b"transceiver",
+        ],
+    ) -> None: ...
 
 global___Command = Command

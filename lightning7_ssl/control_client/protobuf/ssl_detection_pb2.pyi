@@ -45,8 +45,44 @@ class SSL_DetectionBall(google.protobuf.message.Message):
         pixel_x: builtins.float | None = ...,
         pixel_y: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["area", b"area", "confidence", b"confidence", "pixel_x", b"pixel_x", "pixel_y", b"pixel_y", "x", b"x", "y", b"y", "z", b"z"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["area", b"area", "confidence", b"confidence", "pixel_x", b"pixel_x", "pixel_y", b"pixel_y", "x", b"x", "y", b"y", "z", b"z"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "area",
+            b"area",
+            "confidence",
+            b"confidence",
+            "pixel_x",
+            b"pixel_x",
+            "pixel_y",
+            b"pixel_y",
+            "x",
+            b"x",
+            "y",
+            b"y",
+            "z",
+            b"z",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "area",
+            b"area",
+            "confidence",
+            b"confidence",
+            "pixel_x",
+            b"pixel_x",
+            "pixel_y",
+            b"pixel_y",
+            "x",
+            b"x",
+            "y",
+            b"y",
+            "z",
+            b"z",
+        ],
+    ) -> None: ...
 
 global___SSL_DetectionBall = SSL_DetectionBall
 
@@ -82,8 +118,48 @@ class SSL_DetectionRobot(google.protobuf.message.Message):
         pixel_y: builtins.float | None = ...,
         height: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["confidence", b"confidence", "height", b"height", "orientation", b"orientation", "pixel_x", b"pixel_x", "pixel_y", b"pixel_y", "robot_id", b"robot_id", "x", b"x", "y", b"y"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["confidence", b"confidence", "height", b"height", "orientation", b"orientation", "pixel_x", b"pixel_x", "pixel_y", b"pixel_y", "robot_id", b"robot_id", "x", b"x", "y", b"y"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "confidence",
+            b"confidence",
+            "height",
+            b"height",
+            "orientation",
+            b"orientation",
+            "pixel_x",
+            b"pixel_x",
+            "pixel_y",
+            b"pixel_y",
+            "robot_id",
+            b"robot_id",
+            "x",
+            b"x",
+            "y",
+            b"y",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "confidence",
+            b"confidence",
+            "height",
+            b"height",
+            "orientation",
+            b"orientation",
+            "pixel_x",
+            b"pixel_x",
+            "pixel_y",
+            b"pixel_y",
+            "robot_id",
+            b"robot_id",
+            "x",
+            b"x",
+            "y",
+            b"y",
+        ],
+    ) -> None: ...
 
 global___SSL_DetectionRobot = SSL_DetectionRobot
 
@@ -103,11 +179,17 @@ class SSL_DetectionFrame(google.protobuf.message.Message):
     t_sent: builtins.float
     camera_id: builtins.int
     @property
-    def balls(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SSL_DetectionBall]: ...
+    def balls(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SSL_DetectionBall]: ...
     @property
-    def robots_yellow(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SSL_DetectionRobot]: ...
+    def robots_yellow(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SSL_DetectionRobot]: ...
     @property
-    def robots_blue(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SSL_DetectionRobot]: ...
+    def robots_blue(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SSL_DetectionRobot]: ...
     def __init__(
         self,
         *,
@@ -119,7 +201,37 @@ class SSL_DetectionFrame(google.protobuf.message.Message):
         robots_yellow: collections.abc.Iterable[global___SSL_DetectionRobot] | None = ...,
         robots_blue: collections.abc.Iterable[global___SSL_DetectionRobot] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["camera_id", b"camera_id", "frame_number", b"frame_number", "t_capture", b"t_capture", "t_sent", b"t_sent"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["balls", b"balls", "camera_id", b"camera_id", "frame_number", b"frame_number", "robots_blue", b"robots_blue", "robots_yellow", b"robots_yellow", "t_capture", b"t_capture", "t_sent", b"t_sent"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "camera_id",
+            b"camera_id",
+            "frame_number",
+            b"frame_number",
+            "t_capture",
+            b"t_capture",
+            "t_sent",
+            b"t_sent",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "balls",
+            b"balls",
+            "camera_id",
+            b"camera_id",
+            "frame_number",
+            b"frame_number",
+            "robots_blue",
+            b"robots_blue",
+            "robots_yellow",
+            b"robots_yellow",
+            "t_capture",
+            b"t_capture",
+            "t_sent",
+            b"t_sent",
+        ],
+    ) -> None: ...
 
 global___SSL_DetectionFrame = SSL_DetectionFrame

@@ -1,6 +1,7 @@
 from typing import Literal
-from .world import World
+
 from .vis.data_store import DataStore
+from .world import World
 
 # Use this file to store global variables. This is a good place to keep
 # the world object, or a config object for example.

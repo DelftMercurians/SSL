@@ -1,5 +1,5 @@
-from typing import TYPE_CHECKING
 from abc import ABC, abstractmethod
+from typing import TYPE_CHECKING
 
 # Avoid circular import
 if TYPE_CHECKING:

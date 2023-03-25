@@ -22,7 +22,9 @@ class _SSL_FieldShapeType:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _SSL_FieldShapeTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SSL_FieldShapeType.ValueType], builtins.type):
+class _SSL_FieldShapeTypeEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SSL_FieldShapeType.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     Undefined: _SSL_FieldShapeType.ValueType  # 0
     CenterCircle: _SSL_FieldShapeType.ValueType  # 1
@@ -114,8 +116,18 @@ class SSL_FieldLineSegment(google.protobuf.message.Message):
         thickness: builtins.float | None = ...,
         type: global___SSL_FieldShapeType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["name", b"name", "p1", b"p1", "p2", b"p2", "thickness", b"thickness", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "p1", b"p1", "p2", b"p2", "thickness", b"thickness", "type", b"type"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "name", b"name", "p1", b"p1", "p2", b"p2", "thickness", b"thickness", "type", b"type"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "name", b"name", "p1", b"p1", "p2", b"p2", "thickness", b"thickness", "type", b"type"
+        ],
+    ) -> None: ...
 
 global___SSL_FieldLineSegment = SSL_FieldLineSegment
 
@@ -160,8 +172,44 @@ class SSL_FieldCircularArc(google.protobuf.message.Message):
         thickness: builtins.float | None = ...,
         type: global___SSL_FieldShapeType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["a1", b"a1", "a2", b"a2", "center", b"center", "name", b"name", "radius", b"radius", "thickness", b"thickness", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["a1", b"a1", "a2", b"a2", "center", b"center", "name", b"name", "radius", b"radius", "thickness", b"thickness", "type", b"type"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "a1",
+            b"a1",
+            "a2",
+            b"a2",
+            "center",
+            b"center",
+            "name",
+            b"name",
+            "radius",
+            b"radius",
+            "thickness",
+            b"thickness",
+            "type",
+            b"type",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "a1",
+            b"a1",
+            "a2",
+            b"a2",
+            "center",
+            b"center",
+            "name",
+            b"name",
+            "radius",
+            b"radius",
+            "thickness",
+            b"thickness",
+            "type",
+            b"type",
+        ],
+    ) -> None: ...
 
 global___SSL_FieldCircularArc = SSL_FieldCircularArc
 
@@ -184,9 +232,17 @@ class SSL_GeometryFieldSize(google.protobuf.message.Message):
     goal_depth: builtins.int
     boundary_width: builtins.int
     @property
-    def field_lines(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SSL_FieldLineSegment]: ...
+    def field_lines(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___SSL_FieldLineSegment
+    ]: ...
     @property
-    def field_arcs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SSL_FieldCircularArc]: ...
+    def field_arcs(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___SSL_FieldCircularArc
+    ]: ...
     penalty_area_depth: builtins.int
     penalty_area_width: builtins.int
     def __init__(
@@ -202,8 +258,48 @@ class SSL_GeometryFieldSize(google.protobuf.message.Message):
         penalty_area_depth: builtins.int | None = ...,
         penalty_area_width: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["boundary_width", b"boundary_width", "field_length", b"field_length", "field_width", b"field_width", "goal_depth", b"goal_depth", "goal_width", b"goal_width", "penalty_area_depth", b"penalty_area_depth", "penalty_area_width", b"penalty_area_width"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["boundary_width", b"boundary_width", "field_arcs", b"field_arcs", "field_length", b"field_length", "field_lines", b"field_lines", "field_width", b"field_width", "goal_depth", b"goal_depth", "goal_width", b"goal_width", "penalty_area_depth", b"penalty_area_depth", "penalty_area_width", b"penalty_area_width"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "boundary_width",
+            b"boundary_width",
+            "field_length",
+            b"field_length",
+            "field_width",
+            b"field_width",
+            "goal_depth",
+            b"goal_depth",
+            "goal_width",
+            b"goal_width",
+            "penalty_area_depth",
+            b"penalty_area_depth",
+            "penalty_area_width",
+            b"penalty_area_width",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "boundary_width",
+            b"boundary_width",
+            "field_arcs",
+            b"field_arcs",
+            "field_length",
+            b"field_length",
+            "field_lines",
+            b"field_lines",
+            "field_width",
+            b"field_width",
+            "goal_depth",
+            b"goal_depth",
+            "goal_width",
+            b"goal_width",
+            "penalty_area_depth",
+            b"penalty_area_depth",
+            "penalty_area_width",
+            b"penalty_area_width",
+        ],
+    ) -> None: ...
 
 global___SSL_GeometryFieldSize = SSL_GeometryFieldSize
 
@@ -266,8 +362,84 @@ class SSL_GeometryCameraCalibration(google.protobuf.message.Message):
         pixel_image_width: builtins.int | None = ...,
         pixel_image_height: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["camera_id", b"camera_id", "derived_camera_world_tx", b"derived_camera_world_tx", "derived_camera_world_ty", b"derived_camera_world_ty", "derived_camera_world_tz", b"derived_camera_world_tz", "distortion", b"distortion", "focal_length", b"focal_length", "pixel_image_height", b"pixel_image_height", "pixel_image_width", b"pixel_image_width", "principal_point_x", b"principal_point_x", "principal_point_y", b"principal_point_y", "q0", b"q0", "q1", b"q1", "q2", b"q2", "q3", b"q3", "tx", b"tx", "ty", b"ty", "tz", b"tz"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["camera_id", b"camera_id", "derived_camera_world_tx", b"derived_camera_world_tx", "derived_camera_world_ty", b"derived_camera_world_ty", "derived_camera_world_tz", b"derived_camera_world_tz", "distortion", b"distortion", "focal_length", b"focal_length", "pixel_image_height", b"pixel_image_height", "pixel_image_width", b"pixel_image_width", "principal_point_x", b"principal_point_x", "principal_point_y", b"principal_point_y", "q0", b"q0", "q1", b"q1", "q2", b"q2", "q3", b"q3", "tx", b"tx", "ty", b"ty", "tz", b"tz"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "camera_id",
+            b"camera_id",
+            "derived_camera_world_tx",
+            b"derived_camera_world_tx",
+            "derived_camera_world_ty",
+            b"derived_camera_world_ty",
+            "derived_camera_world_tz",
+            b"derived_camera_world_tz",
+            "distortion",
+            b"distortion",
+            "focal_length",
+            b"focal_length",
+            "pixel_image_height",
+            b"pixel_image_height",
+            "pixel_image_width",
+            b"pixel_image_width",
+            "principal_point_x",
+            b"principal_point_x",
+            "principal_point_y",
+            b"principal_point_y",
+            "q0",
+            b"q0",
+            "q1",
+            b"q1",
+            "q2",
+            b"q2",
+            "q3",
+            b"q3",
+            "tx",
+            b"tx",
+            "ty",
+            b"ty",
+            "tz",
+            b"tz",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "camera_id",
+            b"camera_id",
+            "derived_camera_world_tx",
+            b"derived_camera_world_tx",
+            "derived_camera_world_ty",
+            b"derived_camera_world_ty",
+            "derived_camera_world_tz",
+            b"derived_camera_world_tz",
+            "distortion",
+            b"distortion",
+            "focal_length",
+            b"focal_length",
+            "pixel_image_height",
+            b"pixel_image_height",
+            "pixel_image_width",
+            b"pixel_image_width",
+            "principal_point_x",
+            b"principal_point_x",
+            "principal_point_y",
+            b"principal_point_y",
+            "q0",
+            b"q0",
+            "q1",
+            b"q1",
+            "q2",
+            b"q2",
+            "q3",
+            b"q3",
+            "tx",
+            b"tx",
+            "ty",
+            b"ty",
+            "tz",
+            b"tz",
+        ],
+    ) -> None: ...
 
 global___SSL_GeometryCameraCalibration = SSL_GeometryCameraCalibration
 
@@ -299,8 +471,18 @@ class SSL_BallModelStraightTwoPhase(google.protobuf.message.Message):
         acc_roll: builtins.float | None = ...,
         k_switch: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["acc_roll", b"acc_roll", "acc_slide", b"acc_slide", "k_switch", b"k_switch"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["acc_roll", b"acc_roll", "acc_slide", b"acc_slide", "k_switch", b"k_switch"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "acc_roll", b"acc_roll", "acc_slide", b"acc_slide", "k_switch", b"k_switch"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "acc_roll", b"acc_roll", "acc_slide", b"acc_slide", "k_switch", b"k_switch"
+        ],
+    ) -> None: ...
 
 global___SSL_BallModelStraightTwoPhase = SSL_BallModelStraightTwoPhase
 
@@ -328,8 +510,28 @@ class SSL_BallModelChipFixedLoss(google.protobuf.message.Message):
         damping_xy_other_hops: builtins.float | None = ...,
         damping_z: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["damping_xy_first_hop", b"damping_xy_first_hop", "damping_xy_other_hops", b"damping_xy_other_hops", "damping_z", b"damping_z"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["damping_xy_first_hop", b"damping_xy_first_hop", "damping_xy_other_hops", b"damping_xy_other_hops", "damping_z", b"damping_z"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "damping_xy_first_hop",
+            b"damping_xy_first_hop",
+            "damping_xy_other_hops",
+            b"damping_xy_other_hops",
+            "damping_z",
+            b"damping_z",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "damping_xy_first_hop",
+            b"damping_xy_first_hop",
+            "damping_xy_other_hops",
+            b"damping_xy_other_hops",
+            "damping_z",
+            b"damping_z",
+        ],
+    ) -> None: ...
 
 global___SSL_BallModelChipFixedLoss = SSL_BallModelChipFixedLoss
 
@@ -349,8 +551,18 @@ class SSL_GeometryModels(google.protobuf.message.Message):
         straight_two_phase: global___SSL_BallModelStraightTwoPhase | None = ...,
         chip_fixed_loss: global___SSL_BallModelChipFixedLoss | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["chip_fixed_loss", b"chip_fixed_loss", "straight_two_phase", b"straight_two_phase"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["chip_fixed_loss", b"chip_fixed_loss", "straight_two_phase", b"straight_two_phase"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "chip_fixed_loss", b"chip_fixed_loss", "straight_two_phase", b"straight_two_phase"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "chip_fixed_loss", b"chip_fixed_loss", "straight_two_phase", b"straight_two_phase"
+        ],
+    ) -> None: ...
 
 global___SSL_GeometryModels = SSL_GeometryModels
 
@@ -364,7 +576,11 @@ class SSL_GeometryData(google.protobuf.message.Message):
     @property
     def field(self) -> global___SSL_GeometryFieldSize: ...
     @property
-    def calib(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SSL_GeometryCameraCalibration]: ...
+    def calib(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___SSL_GeometryCameraCalibration
+    ]: ...
     @property
     def models(self) -> global___SSL_GeometryModels: ...
     def __init__(
@@ -374,7 +590,11 @@ class SSL_GeometryData(google.protobuf.message.Message):
         calib: collections.abc.Iterable[global___SSL_GeometryCameraCalibration] | None = ...,
         models: global___SSL_GeometryModels | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["field", b"field", "models", b"models"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["calib", b"calib", "field", b"field", "models", b"models"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["field", b"field", "models", b"models"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["calib", b"calib", "field", b"field", "models", b"models"]
+    ) -> None: ...
 
 global___SSL_GeometryData = SSL_GeometryData

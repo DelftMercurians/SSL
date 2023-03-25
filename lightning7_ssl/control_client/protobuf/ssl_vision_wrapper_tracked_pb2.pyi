@@ -42,7 +42,17 @@ class TrackerWrapperPacket(google.protobuf.message.Message):
         source_name: builtins.str | None = ...,
         tracked_frame: ssl_vision_detection_tracked_pb2.TrackedFrame | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["source_name", b"source_name", "tracked_frame", b"tracked_frame", "uuid", b"uuid"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["source_name", b"source_name", "tracked_frame", b"tracked_frame", "uuid", b"uuid"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "source_name", b"source_name", "tracked_frame", b"tracked_frame", "uuid", b"uuid"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "source_name", b"source_name", "tracked_frame", b"tracked_frame", "uuid", b"uuid"
+        ],
+    ) -> None: ...
 
 global___TrackerWrapperPacket = TrackerWrapperPacket

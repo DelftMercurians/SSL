@@ -40,8 +40,12 @@ class StrategyOption(google.protobuf.message.Message):
         name: builtins.str | None = ...,
         default_value: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["default_value", b"default_value", "name", b"name"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["default_value", b"default_value", "name", b"name"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["default_value", b"default_value", "name", b"name"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["default_value", b"default_value", "name", b"name"]
+    ) -> None: ...
 
 global___StrategyOption = StrategyOption
 
@@ -53,7 +57,10 @@ class StatusStrategy(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _STATEEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[StatusStrategy._STATE.ValueType], builtins.type):  # noqa: F821
+    class _STATEEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[StatusStrategy._STATE.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         CLOSED: StatusStrategy._STATE.ValueType  # 1
         RUNNING: StatusStrategy._STATE.ValueType  # 3
@@ -78,11 +85,15 @@ class StatusStrategy(google.protobuf.message.Message):
     name: builtins.str
     current_entry_point: builtins.str
     @property
-    def entry_point(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    def entry_point(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     has_debugger: builtins.bool
     """deprecated = 6"""
     @property
-    def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StrategyOption]: ...
+    def options(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StrategyOption]: ...
     def __init__(
         self,
         *,
@@ -94,8 +105,40 @@ class StatusStrategy(google.protobuf.message.Message):
         has_debugger: builtins.bool | None = ...,
         options: collections.abc.Iterable[global___StrategyOption] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["current_entry_point", b"current_entry_point", "filename", b"filename", "has_debugger", b"has_debugger", "name", b"name", "state", b"state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["current_entry_point", b"current_entry_point", "entry_point", b"entry_point", "filename", b"filename", "has_debugger", b"has_debugger", "name", b"name", "options", b"options", "state", b"state"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "current_entry_point",
+            b"current_entry_point",
+            "filename",
+            b"filename",
+            "has_debugger",
+            b"has_debugger",
+            "name",
+            b"name",
+            "state",
+            b"state",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "current_entry_point",
+            b"current_entry_point",
+            "entry_point",
+            b"entry_point",
+            "filename",
+            b"filename",
+            "has_debugger",
+            b"has_debugger",
+            "name",
+            b"name",
+            "options",
+            b"options",
+            "state",
+            b"state",
+        ],
+    ) -> None: ...
 
 global___StatusStrategy = StatusStrategy
 
@@ -107,7 +150,9 @@ class GitInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _KindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GitInfo._Kind.ValueType], builtins.type):  # noqa: F821
+    class _KindEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GitInfo._Kind.ValueType], builtins.type
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         BLUE: GitInfo._Kind.ValueType  # 1
         YELLOW: GitInfo._Kind.ValueType  # 2
@@ -141,8 +186,18 @@ class GitInfo(google.protobuf.message.Message):
         min_hash: builtins.str | None = ...,
         error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["diff", b"diff", "error", b"error", "hash", b"hash", "kind", b"kind", "min_hash", b"min_hash"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["diff", b"diff", "error", b"error", "hash", b"hash", "kind", b"kind", "min_hash", b"min_hash"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "diff", b"diff", "error", b"error", "hash", b"hash", "kind", b"kind", "min_hash", b"min_hash"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "diff", b"diff", "error", b"error", "hash", b"hash", "kind", b"kind", "min_hash", b"min_hash"
+        ],
+    ) -> None: ...
 
 global___GitInfo = GitInfo
 
@@ -154,7 +209,12 @@ class StatusStrategyWrapper(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StrategyTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[StatusStrategyWrapper._StrategyType.ValueType], builtins.type):  # noqa: F821
+    class _StrategyTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            StatusStrategyWrapper._StrategyType.ValueType
+        ],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         BLUE: StatusStrategyWrapper._StrategyType.ValueType  # 1
         YELLOW: StatusStrategyWrapper._StrategyType.ValueType  # 2
@@ -180,8 +240,12 @@ class StatusStrategyWrapper(google.protobuf.message.Message):
         type: global___StatusStrategyWrapper.StrategyType.ValueType | None = ...,
         status: global___StatusStrategy | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["status", b"status", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["status", b"status", "type", b"type"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["status", b"status", "type", b"type"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["status", b"status", "type", b"type"]
+    ) -> None: ...
 
 global___StatusStrategyWrapper = StatusStrategyWrapper
 
@@ -223,8 +287,56 @@ class Timing(google.protobuf.message.Message):
         transceiver_rtt: builtins.float | None = ...,
         simulator: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["autoref_total", b"autoref_total", "blue_path", b"blue_path", "blue_total", b"blue_total", "controller", b"controller", "simulator", b"simulator", "tracking", b"tracking", "transceiver", b"transceiver", "transceiver_rtt", b"transceiver_rtt", "yellow_path", b"yellow_path", "yellow_total", b"yellow_total"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["autoref_total", b"autoref_total", "blue_path", b"blue_path", "blue_total", b"blue_total", "controller", b"controller", "simulator", b"simulator", "tracking", b"tracking", "transceiver", b"transceiver", "transceiver_rtt", b"transceiver_rtt", "yellow_path", b"yellow_path", "yellow_total", b"yellow_total"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "autoref_total",
+            b"autoref_total",
+            "blue_path",
+            b"blue_path",
+            "blue_total",
+            b"blue_total",
+            "controller",
+            b"controller",
+            "simulator",
+            b"simulator",
+            "tracking",
+            b"tracking",
+            "transceiver",
+            b"transceiver",
+            "transceiver_rtt",
+            b"transceiver_rtt",
+            "yellow_path",
+            b"yellow_path",
+            "yellow_total",
+            b"yellow_total",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "autoref_total",
+            b"autoref_total",
+            "blue_path",
+            b"blue_path",
+            "blue_total",
+            b"blue_total",
+            "controller",
+            b"controller",
+            "simulator",
+            b"simulator",
+            "tracking",
+            b"tracking",
+            "transceiver",
+            b"transceiver",
+            "transceiver_rtt",
+            b"transceiver_rtt",
+            "yellow_path",
+            b"yellow_path",
+            "yellow_total",
+            b"yellow_total",
+        ],
+    ) -> None: ...
 
 global___Timing = Timing
 
@@ -248,8 +360,32 @@ class StatusTransceiver(google.protobuf.message.Message):
         dropped_usb_packets: builtins.int | None = ...,
         dropped_commands: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["active", b"active", "dropped_commands", b"dropped_commands", "dropped_usb_packets", b"dropped_usb_packets", "error", b"error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["active", b"active", "dropped_commands", b"dropped_commands", "dropped_usb_packets", b"dropped_usb_packets", "error", b"error"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "active",
+            b"active",
+            "dropped_commands",
+            b"dropped_commands",
+            "dropped_usb_packets",
+            b"dropped_usb_packets",
+            "error",
+            b"error",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "active",
+            b"active",
+            "dropped_commands",
+            b"dropped_commands",
+            "dropped_usb_packets",
+            b"dropped_usb_packets",
+            "error",
+            b"error",
+        ],
+    ) -> None: ...
 
 global___StatusTransceiver = StatusTransceiver
 
@@ -285,8 +421,12 @@ class OptionStatus(google.protobuf.message.Message):
         name: builtins.str | None = ...,
         value: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]
+    ) -> None: ...
 
 global___OptionStatus = OptionStatus
 
@@ -298,7 +438,12 @@ class StatusGameController(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _GameControllerStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[StatusGameController._GameControllerState.ValueType], builtins.type):  # noqa: F821
+    class _GameControllerStateEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[
+            StatusGameController._GameControllerState.ValueType
+        ],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         STOPPED: StatusGameController._GameControllerState.ValueType  # 1
         STARTING: StatusGameController._GameControllerState.ValueType  # 2
@@ -320,8 +465,12 @@ class StatusGameController(google.protobuf.message.Message):
         *,
         current_state: global___StatusGameController.GameControllerState.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["current_state", b"current_state"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["current_state", b"current_state"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["current_state", b"current_state"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["current_state", b"current_state"]
+    ) -> None: ...
 
 global___StatusGameController = StatusGameController
 
@@ -335,7 +484,9 @@ class StatusAmun(google.protobuf.message.Message):
     @property
     def port_bind_error(self) -> global___PortBindError: ...
     @property
-    def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OptionStatus]: ...
+    def options(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OptionStatus]: ...
     @property
     def game_controller(self) -> global___StatusGameController: ...
     def __init__(
@@ -345,8 +496,23 @@ class StatusAmun(google.protobuf.message.Message):
         options: collections.abc.Iterable[global___OptionStatus] | None = ...,
         game_controller: global___StatusGameController | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["game_controller", b"game_controller", "port_bind_error", b"port_bind_error"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["game_controller", b"game_controller", "options", b"options", "port_bind_error", b"port_bind_error"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "game_controller", b"game_controller", "port_bind_error", b"port_bind_error"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "game_controller",
+            b"game_controller",
+            "options",
+            b"options",
+            "port_bind_error",
+            b"port_bind_error",
+        ],
+    ) -> None: ...
 
 global___StatusAmun = StatusAmun
 
@@ -409,11 +575,15 @@ class Status(google.protobuf.message.Message):
     def strategy_autoref(self) -> global___StatusStrategy:
         """deprecated"""
     @property
-    def debug(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[debug_pb2.DebugValues]: ...
+    def debug(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[debug_pb2.DebugValues]: ...
     @property
     def timing(self) -> global___Timing: ...
     @property
-    def radio_command(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[robot_pb2.RadioCommand]: ...
+    def radio_command(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[robot_pb2.RadioCommand]: ...
     @property
     def transceiver(self) -> global___StatusTransceiver: ...
     @property
@@ -442,7 +612,9 @@ class Status(google.protobuf.message.Message):
     def pure_ui_response(self) -> global___UiResponse:
         """NOTE: ANY STATUS containing this message will not be serialized in a log."""
     @property
-    def git_info(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GitInfo]: ...
+    def git_info(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GitInfo]: ...
     def __init__(
         self,
         *,
@@ -475,8 +647,122 @@ class Status(google.protobuf.message.Message):
         pure_ui_response: global___UiResponse | None = ...,
         git_info: collections.abc.Iterable[global___GitInfo] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["amun_state", b"amun_state", "autoref_running", b"autoref_running", "blue_running", b"blue_running", "execution_game_state", b"execution_game_state", "execution_state", b"execution_state", "execution_user_input", b"execution_user_input", "game_state", b"game_state", "geometry", b"geometry", "log_id", b"log_id", "original_frame_number", b"original_frame_number", "pure_ui_response", b"pure_ui_response", "status_strategy", b"status_strategy", "strategy_autoref", b"strategy_autoref", "strategy_blue", b"strategy_blue", "strategy_yellow", b"strategy_yellow", "team_blue", b"team_blue", "team_yellow", b"team_yellow", "time", b"time", "timer_scaling", b"timer_scaling", "timing", b"timing", "transceiver", b"transceiver", "user_input_blue", b"user_input_blue", "user_input_yellow", b"user_input_yellow", "world_state", b"world_state", "yellow_running", b"yellow_running"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["amun_state", b"amun_state", "autoref_running", b"autoref_running", "blue_running", b"blue_running", "debug", b"debug", "execution_game_state", b"execution_game_state", "execution_state", b"execution_state", "execution_user_input", b"execution_user_input", "game_state", b"game_state", "geometry", b"geometry", "git_info", b"git_info", "log_id", b"log_id", "original_frame_number", b"original_frame_number", "pure_ui_response", b"pure_ui_response", "radio_command", b"radio_command", "status_strategy", b"status_strategy", "strategy_autoref", b"strategy_autoref", "strategy_blue", b"strategy_blue", "strategy_yellow", b"strategy_yellow", "team_blue", b"team_blue", "team_yellow", b"team_yellow", "time", b"time", "timer_scaling", b"timer_scaling", "timing", b"timing", "transceiver", b"transceiver", "user_input_blue", b"user_input_blue", "user_input_yellow", b"user_input_yellow", "world_state", b"world_state", "yellow_running", b"yellow_running"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "amun_state",
+            b"amun_state",
+            "autoref_running",
+            b"autoref_running",
+            "blue_running",
+            b"blue_running",
+            "execution_game_state",
+            b"execution_game_state",
+            "execution_state",
+            b"execution_state",
+            "execution_user_input",
+            b"execution_user_input",
+            "game_state",
+            b"game_state",
+            "geometry",
+            b"geometry",
+            "log_id",
+            b"log_id",
+            "original_frame_number",
+            b"original_frame_number",
+            "pure_ui_response",
+            b"pure_ui_response",
+            "status_strategy",
+            b"status_strategy",
+            "strategy_autoref",
+            b"strategy_autoref",
+            "strategy_blue",
+            b"strategy_blue",
+            "strategy_yellow",
+            b"strategy_yellow",
+            "team_blue",
+            b"team_blue",
+            "team_yellow",
+            b"team_yellow",
+            "time",
+            b"time",
+            "timer_scaling",
+            b"timer_scaling",
+            "timing",
+            b"timing",
+            "transceiver",
+            b"transceiver",
+            "user_input_blue",
+            b"user_input_blue",
+            "user_input_yellow",
+            b"user_input_yellow",
+            "world_state",
+            b"world_state",
+            "yellow_running",
+            b"yellow_running",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "amun_state",
+            b"amun_state",
+            "autoref_running",
+            b"autoref_running",
+            "blue_running",
+            b"blue_running",
+            "debug",
+            b"debug",
+            "execution_game_state",
+            b"execution_game_state",
+            "execution_state",
+            b"execution_state",
+            "execution_user_input",
+            b"execution_user_input",
+            "game_state",
+            b"game_state",
+            "geometry",
+            b"geometry",
+            "git_info",
+            b"git_info",
+            "log_id",
+            b"log_id",
+            "original_frame_number",
+            b"original_frame_number",
+            "pure_ui_response",
+            b"pure_ui_response",
+            "radio_command",
+            b"radio_command",
+            "status_strategy",
+            b"status_strategy",
+            "strategy_autoref",
+            b"strategy_autoref",
+            "strategy_blue",
+            b"strategy_blue",
+            "strategy_yellow",
+            b"strategy_yellow",
+            "team_blue",
+            b"team_blue",
+            "team_yellow",
+            b"team_yellow",
+            "time",
+            b"time",
+            "timer_scaling",
+            b"timer_scaling",
+            "timing",
+            b"timing",
+            "transceiver",
+            b"transceiver",
+            "user_input_blue",
+            b"user_input_blue",
+            "user_input_yellow",
+            b"user_input_yellow",
+            "world_state",
+            b"world_state",
+            "yellow_running",
+            b"yellow_running",
+        ],
+    ) -> None: ...
 
 global___Status = Status
 
@@ -508,7 +794,9 @@ class UiResponse(google.protobuf.message.Message):
     @property
     def logging_info(self) -> global___LoggingInfo: ...
     @property
-    def logger_status(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Status]:
+    def logger_status(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Status]:
         """used for the plotter right now"""
     playback_burst_end: builtins.bool
     """used to notify logslider to update its position to Status::time"""
@@ -542,8 +830,66 @@ class UiResponse(google.protobuf.message.Message):
         log_offers: logfile_pb2.LogOffer | None = ...,
         log_uid_parser_error: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["enable_logging", b"enable_logging", "export_visionlog_error", b"export_visionlog_error", "force_ra_horus", b"force_ra_horus", "frame_number", b"frame_number", "log_info", b"log_info", "log_offers", b"log_offers", "log_open", b"log_open", "log_uid_parser_error", b"log_uid_parser_error", "logging_info", b"logging_info", "playback_burst_end", b"playback_burst_end", "playback_paused", b"playback_paused", "requested_log_uid", b"requested_log_uid"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["enable_logging", b"enable_logging", "export_visionlog_error", b"export_visionlog_error", "force_ra_horus", b"force_ra_horus", "frame_number", b"frame_number", "log_info", b"log_info", "log_offers", b"log_offers", "log_open", b"log_open", "log_uid_parser_error", b"log_uid_parser_error", "logger_status", b"logger_status", "logging_info", b"logging_info", "playback_burst_end", b"playback_burst_end", "playback_paused", b"playback_paused", "requested_log_uid", b"requested_log_uid"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "enable_logging",
+            b"enable_logging",
+            "export_visionlog_error",
+            b"export_visionlog_error",
+            "force_ra_horus",
+            b"force_ra_horus",
+            "frame_number",
+            b"frame_number",
+            "log_info",
+            b"log_info",
+            "log_offers",
+            b"log_offers",
+            "log_open",
+            b"log_open",
+            "log_uid_parser_error",
+            b"log_uid_parser_error",
+            "logging_info",
+            b"logging_info",
+            "playback_burst_end",
+            b"playback_burst_end",
+            "playback_paused",
+            b"playback_paused",
+            "requested_log_uid",
+            b"requested_log_uid",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "enable_logging",
+            b"enable_logging",
+            "export_visionlog_error",
+            b"export_visionlog_error",
+            "force_ra_horus",
+            b"force_ra_horus",
+            "frame_number",
+            b"frame_number",
+            "log_info",
+            b"log_info",
+            "log_offers",
+            b"log_offers",
+            "log_open",
+            b"log_open",
+            "log_uid_parser_error",
+            b"log_uid_parser_error",
+            "logger_status",
+            b"logger_status",
+            "logging_info",
+            b"logging_info",
+            "playback_burst_end",
+            b"playback_burst_end",
+            "playback_paused",
+            b"playback_paused",
+            "requested_log_uid",
+            b"requested_log_uid",
+        ],
+    ) -> None: ...
 
 global___UiResponse = UiResponse
 
@@ -561,8 +907,18 @@ class LoggingInfo(google.protobuf.message.Message):
         is_logging: builtins.bool | None = ...,
         is_replay_logger: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["is_logging", b"is_logging", "is_replay_logger", b"is_replay_logger"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["is_logging", b"is_logging", "is_replay_logger", b"is_replay_logger"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "is_logging", b"is_logging", "is_replay_logger", b"is_replay_logger"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "is_logging", b"is_logging", "is_replay_logger", b"is_replay_logger"
+        ],
+    ) -> None: ...
 
 global___LoggingInfo = LoggingInfo
 
@@ -583,8 +939,18 @@ class LogPlaybackInfo(google.protobuf.message.Message):
         duration: builtins.int | None = ...,
         packet_count: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["duration", b"duration", "packet_count", b"packet_count", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["duration", b"duration", "packet_count", b"packet_count", "start_time", b"start_time"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "duration", b"duration", "packet_count", b"packet_count", "start_time", b"start_time"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "duration", b"duration", "packet_count", b"packet_count", "start_time", b"start_time"
+        ],
+    ) -> None: ...
 
 global___LogPlaybackInfo = LogPlaybackInfo
 
@@ -603,7 +969,11 @@ class LogfileOpenInfo(google.protobuf.message.Message):
         success: builtins.bool | None = ...,
         filename: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["filename", b"filename", "success", b"success"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["filename", b"filename", "success", b"success"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["filename", b"filename", "success", b"success"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["filename", b"filename", "success", b"success"]
+    ) -> None: ...
 
 global___LogfileOpenInfo = LogfileOpenInfo

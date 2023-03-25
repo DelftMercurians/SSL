@@ -22,7 +22,9 @@ class _InputSourceType:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _InputSourceTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_InputSourceType.ValueType], builtins.type):
+class _InputSourceTypeEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_InputSourceType.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     AllSamplers: _InputSourceType.ValueType  # 1
     StandardSampler: _InputSourceType.ValueType  # 2
@@ -91,8 +93,12 @@ class RectObstacle(google.protobuf.message.Message):
         bottom_left: global___Vector | None = ...,
         top_right: global___Vector | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["bottom_left", b"bottom_left", "top_right", b"top_right"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["bottom_left", b"bottom_left", "top_right", b"top_right"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["bottom_left", b"bottom_left", "top_right", b"top_right"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["bottom_left", b"bottom_left", "top_right", b"top_right"]
+    ) -> None: ...
 
 global___RectObstacle = RectObstacle
 
@@ -116,8 +122,12 @@ class TriangleObstacle(google.protobuf.message.Message):
         p2: global___Vector | None = ...,
         p3: global___Vector | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["p1", b"p1", "p2", b"p2", "p3", b"p3"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["p1", b"p1", "p2", b"p2", "p3", b"p3"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["p1", b"p1", "p2", b"p2", "p3", b"p3"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["p1", b"p1", "p2", b"p2", "p3", b"p3"]
+    ) -> None: ...
 
 global___TriangleObstacle = TriangleObstacle
 
@@ -137,7 +147,9 @@ class LineObstacle(google.protobuf.message.Message):
         start: global___Vector | None = ...,
         end: global___Vector | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["end", b"end", "start", b"start"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["end", b"end", "start", b"start"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["end", b"end", "start", b"start"]) -> None: ...
 
 global___LineObstacle = LineObstacle
@@ -170,8 +182,36 @@ class MovingCircleObstacle(google.protobuf.message.Message):
         start_time: builtins.float | None = ...,
         end_time: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["acc", b"acc", "end_time", b"end_time", "speed", b"speed", "start_pos", b"start_pos", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["acc", b"acc", "end_time", b"end_time", "speed", b"speed", "start_pos", b"start_pos", "start_time", b"start_time"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "acc",
+            b"acc",
+            "end_time",
+            b"end_time",
+            "speed",
+            b"speed",
+            "start_pos",
+            b"start_pos",
+            "start_time",
+            b"start_time",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "acc",
+            b"acc",
+            "end_time",
+            b"end_time",
+            "speed",
+            b"speed",
+            "start_pos",
+            b"start_pos",
+            "start_time",
+            b"start_time",
+        ],
+    ) -> None: ...
 
 global___MovingCircleObstacle = MovingCircleObstacle
 
@@ -213,8 +253,48 @@ class MovingLineObstacle(google.protobuf.message.Message):
         start_time: builtins.float | None = ...,
         end_time: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["acc1", b"acc1", "acc2", b"acc2", "end_time", b"end_time", "speed1", b"speed1", "speed2", b"speed2", "start_pos1", b"start_pos1", "start_pos2", b"start_pos2", "start_time", b"start_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["acc1", b"acc1", "acc2", b"acc2", "end_time", b"end_time", "speed1", b"speed1", "speed2", b"speed2", "start_pos1", b"start_pos1", "start_pos2", b"start_pos2", "start_time", b"start_time"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "acc1",
+            b"acc1",
+            "acc2",
+            b"acc2",
+            "end_time",
+            b"end_time",
+            "speed1",
+            b"speed1",
+            "speed2",
+            b"speed2",
+            "start_pos1",
+            b"start_pos1",
+            "start_pos2",
+            b"start_pos2",
+            "start_time",
+            b"start_time",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "acc1",
+            b"acc1",
+            "acc2",
+            b"acc2",
+            "end_time",
+            b"end_time",
+            "speed1",
+            b"speed1",
+            "speed2",
+            b"speed2",
+            "start_pos1",
+            b"start_pos1",
+            "start_pos2",
+            b"start_pos2",
+            "start_time",
+            b"start_time",
+        ],
+    ) -> None: ...
 
 global___MovingLineObstacle = MovingLineObstacle
 
@@ -237,8 +317,12 @@ class TrajectoryPoint(google.protobuf.message.Message):
         speed: global___Vector | None = ...,
         time: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["pos", b"pos", "speed", b"speed", "time", b"time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["pos", b"pos", "speed", b"speed", "time", b"time"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["pos", b"pos", "speed", b"speed", "time", b"time"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["pos", b"pos", "speed", b"speed", "time", b"time"]
+    ) -> None: ...
 
 global___TrajectoryPoint = TrajectoryPoint
 
@@ -248,13 +332,17 @@ class FriendlyRobotObstacle(google.protobuf.message.Message):
 
     ROBOT_TRAJECTORY_FIELD_NUMBER: builtins.int
     @property
-    def robot_trajectory(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TrajectoryPoint]: ...
+    def robot_trajectory(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TrajectoryPoint]: ...
     def __init__(
         self,
         *,
         robot_trajectory: collections.abc.Iterable[global___TrajectoryPoint] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["robot_trajectory", b"robot_trajectory"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["robot_trajectory", b"robot_trajectory"]
+    ) -> None: ...
 
 global___FriendlyRobotObstacle = FriendlyRobotObstacle
 
@@ -274,8 +362,12 @@ class OpponentRobotObstacle(google.protobuf.message.Message):
         start_pos: global___Vector | None = ...,
         speed: global___Vector | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["speed", b"speed", "start_pos", b"start_pos"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["speed", b"speed", "start_pos", b"start_pos"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["speed", b"speed", "start_pos", b"start_pos"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["speed", b"speed", "start_pos", b"start_pos"]
+    ) -> None: ...
 
 global___OpponentRobotObstacle = OpponentRobotObstacle
 
@@ -329,9 +421,76 @@ class Obstacle(google.protobuf.message.Message):
         friendly_robot: global___FriendlyRobotObstacle | None = ...,
         opponent_robot: global___OpponentRobotObstacle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["circle", b"circle", "friendly_robot", b"friendly_robot", "line", b"line", "moving_circle", b"moving_circle", "moving_line", b"moving_line", "name", b"name", "obstacle", b"obstacle", "opponent_robot", b"opponent_robot", "prio", b"prio", "radius", b"radius", "rectangle", b"rectangle", "triangle", b"triangle"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["circle", b"circle", "friendly_robot", b"friendly_robot", "line", b"line", "moving_circle", b"moving_circle", "moving_line", b"moving_line", "name", b"name", "obstacle", b"obstacle", "opponent_robot", b"opponent_robot", "prio", b"prio", "radius", b"radius", "rectangle", b"rectangle", "triangle", b"triangle"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["obstacle", b"obstacle"]) -> typing_extensions.Literal["circle", "rectangle", "triangle", "line", "moving_circle", "moving_line", "friendly_robot", "opponent_robot"] | None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "circle",
+            b"circle",
+            "friendly_robot",
+            b"friendly_robot",
+            "line",
+            b"line",
+            "moving_circle",
+            b"moving_circle",
+            "moving_line",
+            b"moving_line",
+            "name",
+            b"name",
+            "obstacle",
+            b"obstacle",
+            "opponent_robot",
+            b"opponent_robot",
+            "prio",
+            b"prio",
+            "radius",
+            b"radius",
+            "rectangle",
+            b"rectangle",
+            "triangle",
+            b"triangle",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "circle",
+            b"circle",
+            "friendly_robot",
+            b"friendly_robot",
+            "line",
+            b"line",
+            "moving_circle",
+            b"moving_circle",
+            "moving_line",
+            b"moving_line",
+            "name",
+            b"name",
+            "obstacle",
+            b"obstacle",
+            "opponent_robot",
+            b"opponent_robot",
+            "prio",
+            b"prio",
+            "radius",
+            b"radius",
+            "rectangle",
+            b"rectangle",
+            "triangle",
+            b"triangle",
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing_extensions.Literal["obstacle", b"obstacle"]
+    ) -> typing_extensions.Literal[
+        "circle",
+        "rectangle",
+        "triangle",
+        "line",
+        "moving_circle",
+        "moving_line",
+        "friendly_robot",
+        "opponent_robot",
+    ] | None: ...
 
 global___Obstacle = Obstacle
 
@@ -345,7 +504,9 @@ class WorldState(google.protobuf.message.Message):
     RADIUS_FIELD_NUMBER: builtins.int
     ROBOT_ID_FIELD_NUMBER: builtins.int
     @property
-    def obstacles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Obstacle]: ...
+    def obstacles(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Obstacle]: ...
     out_of_field_priority: builtins.int
     @property
     def boundary(self) -> global___RectObstacle: ...
@@ -360,8 +521,34 @@ class WorldState(google.protobuf.message.Message):
         radius: builtins.float | None = ...,
         robot_id: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["boundary", b"boundary", "out_of_field_priority", b"out_of_field_priority", "radius", b"radius", "robot_id", b"robot_id"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["boundary", b"boundary", "obstacles", b"obstacles", "out_of_field_priority", b"out_of_field_priority", "radius", b"radius", "robot_id", b"robot_id"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "boundary",
+            b"boundary",
+            "out_of_field_priority",
+            b"out_of_field_priority",
+            "radius",
+            b"radius",
+            "robot_id",
+            b"robot_id",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "boundary",
+            b"boundary",
+            "obstacles",
+            b"obstacles",
+            "out_of_field_priority",
+            b"out_of_field_priority",
+            "radius",
+            b"radius",
+            "robot_id",
+            b"robot_id",
+        ],
+    ) -> None: ...
 
 global___WorldState = WorldState
 
@@ -395,8 +582,40 @@ class TrajectoryInput(google.protobuf.message.Message):
         max_speed: builtins.float | None = ...,
         acceleration: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["acceleration", b"acceleration", "max_speed", b"max_speed", "s0", b"s0", "s1", b"s1", "v0", b"v0", "v1", b"v1"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["acceleration", b"acceleration", "max_speed", b"max_speed", "s0", b"s0", "s1", b"s1", "v0", b"v0", "v1", b"v1"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "acceleration",
+            b"acceleration",
+            "max_speed",
+            b"max_speed",
+            "s0",
+            b"s0",
+            "s1",
+            b"s1",
+            "v0",
+            b"v0",
+            "v1",
+            b"v1",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "acceleration",
+            b"acceleration",
+            "max_speed",
+            b"max_speed",
+            "s0",
+            b"s0",
+            "s1",
+            b"s1",
+            "v0",
+            b"v0",
+            "v1",
+            b"v1",
+        ],
+    ) -> None: ...
 
 global___TrajectoryInput = TrajectoryInput
 
@@ -419,8 +638,12 @@ class PathFindingTask(google.protobuf.message.Message):
         input: global___TrajectoryInput | None = ...,
         type: global___InputSourceType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["input", b"input", "state", b"state", "type", b"type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["input", b"input", "state", b"state", "type", b"type"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["input", b"input", "state", b"state", "type", b"type"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["input", b"input", "state", b"state", "type", b"type"]
+    ) -> None: ...
 
 global___PathFindingTask = PathFindingTask
 
@@ -446,8 +669,18 @@ class StandardSamplerPoint(google.protobuf.message.Message):
         mid_speed_x: builtins.float | None = ...,
         mid_speed_y: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["angle", b"angle", "mid_speed_x", b"mid_speed_x", "mid_speed_y", b"mid_speed_y", "time", b"time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["angle", b"angle", "mid_speed_x", b"mid_speed_x", "mid_speed_y", b"mid_speed_y", "time", b"time"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "angle", b"angle", "mid_speed_x", b"mid_speed_x", "mid_speed_y", b"mid_speed_y", "time", b"time"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "angle", b"angle", "mid_speed_x", b"mid_speed_x", "mid_speed_y", b"mid_speed_y", "time", b"time"
+        ],
+    ) -> None: ...
 
 global___StandardSamplerPoint = StandardSamplerPoint
 
@@ -459,7 +692,11 @@ class StandardSamplerPrecomputationSegment(google.protobuf.message.Message):
     MIN_DISTANCE_FIELD_NUMBER: builtins.int
     MAX_DISTANCE_FIELD_NUMBER: builtins.int
     @property
-    def precomputed_points(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StandardSamplerPoint]: ...
+    def precomputed_points(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___StandardSamplerPoint
+    ]: ...
     min_distance: builtins.float
     max_distance: builtins.float
     def __init__(
@@ -469,8 +706,23 @@ class StandardSamplerPrecomputationSegment(google.protobuf.message.Message):
         min_distance: builtins.float | None = ...,
         max_distance: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["max_distance", b"max_distance", "min_distance", b"min_distance"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["max_distance", b"max_distance", "min_distance", b"min_distance", "precomputed_points", b"precomputed_points"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "max_distance", b"max_distance", "min_distance", b"min_distance"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "max_distance",
+            b"max_distance",
+            "min_distance",
+            b"min_distance",
+            "precomputed_points",
+            b"precomputed_points",
+        ],
+    ) -> None: ...
 
 global___StandardSamplerPrecomputationSegment = StandardSamplerPrecomputationSegment
 
@@ -480,7 +732,11 @@ class StandardSamplerPrecomputation(google.protobuf.message.Message):
 
     SEGMENTS_FIELD_NUMBER: builtins.int
     @property
-    def segments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StandardSamplerPrecomputationSegment]: ...
+    def segments(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___StandardSamplerPrecomputationSegment
+    ]: ...
     def __init__(
         self,
         *,

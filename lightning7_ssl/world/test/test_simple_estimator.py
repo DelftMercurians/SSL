@@ -1,13 +1,15 @@
-from collections import OrderedDict
+import math
 import unittest
-from ...vecMath.vec_math import Vec3, Vec2
+from collections import OrderedDict
+
 from lightning7_ssl.world.processing import (
     BallData,
     BallDataRaw,
     RobotDataRaw,
     SimpleEstimator,
 )
-import math
+
+from ...vecMath.vec_math import Vec2, Vec3
 
 
 class SimpleEstimatorTestsuite(unittest.TestCase):

@@ -31,7 +31,9 @@ class TeamPlan(google.protobuf.message.Message):
 
     PLANS_FIELD_NUMBER: builtins.int
     @property
-    def plans(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotPlan]: ...
+    def plans(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotPlan]: ...
     def __init__(
         self,
         *,
@@ -51,7 +53,10 @@ class RobotPlan(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _RobotRoleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RobotPlan._RobotRole.ValueType], builtins.type):  # noqa: F821
+    class _RobotRoleEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RobotPlan._RobotRole.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         Default: RobotPlan._RobotRole.ValueType  # 0
         """no specified role"""
@@ -90,8 +95,32 @@ class RobotPlan(google.protobuf.message.Message):
         nav_target: global___Pose | None = ...,
         shot_target: global___Location | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["nav_target", b"nav_target", "robot_id", b"robot_id", "role", b"role", "shot_target", b"shot_target"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["nav_target", b"nav_target", "robot_id", b"robot_id", "role", b"role", "shot_target", b"shot_target"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "nav_target",
+            b"nav_target",
+            "robot_id",
+            b"robot_id",
+            "role",
+            b"role",
+            "shot_target",
+            b"shot_target",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "nav_target",
+            b"nav_target",
+            "robot_id",
+            b"robot_id",
+            "role",
+            b"role",
+            "shot_target",
+            b"shot_target",
+        ],
+    ) -> None: ...
 
 global___RobotPlan = RobotPlan
 
@@ -135,7 +164,11 @@ class Pose(google.protobuf.message.Message):
         loc: global___Location | None = ...,
         heading: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["heading", b"heading", "loc", b"loc"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["heading", b"heading", "loc", b"loc"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["heading", b"heading", "loc", b"loc"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["heading", b"heading", "loc", b"loc"]
+    ) -> None: ...
 
 global___Pose = Pose

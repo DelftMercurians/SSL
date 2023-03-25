@@ -36,7 +36,9 @@ class CiInput(google.protobuf.message.Message):
     def tracker_packet(self) -> ssl_vision_wrapper_tracked_pb2.TrackerWrapperPacket:
         """New tracker packet with ball and robot data"""
     @property
-    def api_inputs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ssl_gc_api_pb2.Input]:
+    def api_inputs(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ssl_gc_api_pb2.Input]:
         """(UI) API input"""
     @property
     def geometry(self) -> ssl_geometry_pb2.SSL_GeometryData:
@@ -49,8 +51,25 @@ class CiInput(google.protobuf.message.Message):
         api_inputs: collections.abc.Iterable[ssl_gc_api_pb2.Input] | None = ...,
         geometry: ssl_geometry_pb2.SSL_GeometryData | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["geometry", b"geometry", "timestamp", b"timestamp", "tracker_packet", b"tracker_packet"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["api_inputs", b"api_inputs", "geometry", b"geometry", "timestamp", b"timestamp", "tracker_packet", b"tracker_packet"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "geometry", b"geometry", "timestamp", b"timestamp", "tracker_packet", b"tracker_packet"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "api_inputs",
+            b"api_inputs",
+            "geometry",
+            b"geometry",
+            "timestamp",
+            b"timestamp",
+            "tracker_packet",
+            b"tracker_packet",
+        ],
+    ) -> None: ...
 
 global___CiInput = CiInput
 
@@ -69,7 +88,9 @@ class CiOutput(google.protobuf.message.Message):
         *,
         referee_msg: ssl_referee_pb2.SSL_Referee | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["referee_msg", b"referee_msg"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["referee_msg", b"referee_msg"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["referee_msg", b"referee_msg"]) -> None: ...
 
 global___CiOutput = CiOutput

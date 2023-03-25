@@ -24,7 +24,9 @@ class _Capability:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _CapabilityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Capability.ValueType], builtins.type):
+class _CapabilityEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Capability.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     CAPABILITY_UNKNOWN: _Capability.ValueType  # 0
     CAPABILITY_DETECT_FLYING_BALLS: _Capability.ValueType  # 1
@@ -70,8 +72,12 @@ class TrackedBall(google.protobuf.message.Message):
         vel: ssl_game_controller_geometry_pb2.Vector3 | None = ...,
         visibility: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["pos", b"pos", "vel", b"vel", "visibility", b"visibility"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["pos", b"pos", "vel", b"vel", "visibility", b"visibility"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["pos", b"pos", "vel", b"vel", "visibility", b"visibility"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["pos", b"pos", "vel", b"vel", "visibility", b"visibility"]
+    ) -> None: ...
 
 global___TrackedBall = TrackedBall
 
@@ -113,8 +119,40 @@ class KickedBall(google.protobuf.message.Message):
         stop_pos: ssl_game_controller_geometry_pb2.Vector2 | None = ...,
         robot_id: ssl_game_controller_common_pb2.BotId | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["pos", b"pos", "robot_id", b"robot_id", "start_timestamp", b"start_timestamp", "stop_pos", b"stop_pos", "stop_timestamp", b"stop_timestamp", "vel", b"vel"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["pos", b"pos", "robot_id", b"robot_id", "start_timestamp", b"start_timestamp", "stop_pos", b"stop_pos", "stop_timestamp", b"stop_timestamp", "vel", b"vel"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "pos",
+            b"pos",
+            "robot_id",
+            b"robot_id",
+            "start_timestamp",
+            b"start_timestamp",
+            "stop_pos",
+            b"stop_pos",
+            "stop_timestamp",
+            b"stop_timestamp",
+            "vel",
+            b"vel",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "pos",
+            b"pos",
+            "robot_id",
+            b"robot_id",
+            "start_timestamp",
+            b"start_timestamp",
+            "stop_pos",
+            b"stop_pos",
+            "stop_timestamp",
+            b"stop_timestamp",
+            "vel",
+            b"vel",
+        ],
+    ) -> None: ...
 
 global___KickedBall = KickedBall
 
@@ -157,8 +195,40 @@ class TrackedRobot(google.protobuf.message.Message):
         vel_angular: builtins.float | None = ...,
         visibility: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["orientation", b"orientation", "pos", b"pos", "robot_id", b"robot_id", "vel", b"vel", "vel_angular", b"vel_angular", "visibility", b"visibility"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["orientation", b"orientation", "pos", b"pos", "robot_id", b"robot_id", "vel", b"vel", "vel_angular", b"vel_angular", "visibility", b"visibility"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "orientation",
+            b"orientation",
+            "pos",
+            b"pos",
+            "robot_id",
+            b"robot_id",
+            "vel",
+            b"vel",
+            "vel_angular",
+            b"vel_angular",
+            "visibility",
+            b"visibility",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "orientation",
+            b"orientation",
+            "pos",
+            b"pos",
+            "robot_id",
+            b"robot_id",
+            "vel",
+            b"vel",
+            "vel_angular",
+            b"vel_angular",
+            "visibility",
+            b"visibility",
+        ],
+    ) -> None: ...
 
 global___TrackedRobot = TrackedRobot
 
@@ -181,13 +251,17 @@ class TrackedFrame(google.protobuf.message.Message):
     If timestamp is larger than timestamp_captured, the source has applied a prediction already
     """
     @property
-    def balls(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TrackedBall]:
+    def balls(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TrackedBall]:
         """The list of detected balls
         The first ball is the primary one
         Sources may add additional balls based on their capabilities
         """
     @property
-    def robots(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TrackedRobot]:
+    def robots(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TrackedRobot]:
         """The list of detected robots of both teams"""
     @property
     def kicked_ball(self) -> global___KickedBall:
@@ -195,7 +269,9 @@ class TrackedFrame(google.protobuf.message.Message):
         Note: This field is optional. Some source implementations might not set this at any time
         """
     @property
-    def capabilities(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___Capability.ValueType]:
+    def capabilities(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___Capability.ValueType]:
         """List of capabilities of the source implementation"""
     def __init__(
         self,
@@ -207,7 +283,28 @@ class TrackedFrame(google.protobuf.message.Message):
         kicked_ball: global___KickedBall | None = ...,
         capabilities: collections.abc.Iterable[global___Capability.ValueType] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["frame_number", b"frame_number", "kicked_ball", b"kicked_ball", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["balls", b"balls", "capabilities", b"capabilities", "frame_number", b"frame_number", "kicked_ball", b"kicked_ball", "robots", b"robots", "timestamp", b"timestamp"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "frame_number", b"frame_number", "kicked_ball", b"kicked_ball", "timestamp", b"timestamp"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "balls",
+            b"balls",
+            "capabilities",
+            b"capabilities",
+            "frame_number",
+            b"frame_number",
+            "kicked_ball",
+            b"kicked_ball",
+            "robots",
+            b"robots",
+            "timestamp",
+            b"timestamp",
+        ],
+    ) -> None: ...
 
 global___TrackedFrame = TrackedFrame

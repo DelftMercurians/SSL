@@ -1,9 +1,10 @@
 import unittest
+
 from lightning7_ssl.world.processing import (
-    RobotDataRaw,
     BallDataRaw,
-    RobotTracker,
     BallTracker,
+    RobotDataRaw,
+    RobotTracker,
 )
 from lightning7_ssl.world.processing.simple_estimator import SimpleEstimator
 
@@ -30,9 +31,7 @@ class TrackersTestSuite(unittest.TestCase):
         self.assertEqual(robot_tracker.record.get(self.time1)[0], p1)
         self.assertEqual(robot_tracker.record.get(self.time1)[1], p1s)
         # test overflow
-        lastest = RobotDataRaw(
-            self.time2 + self.time1, self.camera_id, self.pos2, self.orientation2
-        )
+        lastest = RobotDataRaw(self.time2 + self.time1, self.camera_id, self.pos2, self.orientation2)
         robot_tracker.add(p2)
         robot_tracker.add(lastest)
         self.assertFalse(robot_tracker.record.__contains__(self.time1))

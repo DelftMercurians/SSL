@@ -74,8 +74,52 @@ class TeleportBall(google.protobuf.message.Message):
         roll: builtins.bool | None = ...,
         by_force: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["by_force", b"by_force", "roll", b"roll", "teleport_safely", b"teleport_safely", "vx", b"vx", "vy", b"vy", "vz", b"vz", "x", b"x", "y", b"y", "z", b"z"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["by_force", b"by_force", "roll", b"roll", "teleport_safely", b"teleport_safely", "vx", b"vx", "vy", b"vy", "vz", b"vz", "x", b"x", "y", b"y", "z", b"z"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "by_force",
+            b"by_force",
+            "roll",
+            b"roll",
+            "teleport_safely",
+            b"teleport_safely",
+            "vx",
+            b"vx",
+            "vy",
+            b"vy",
+            "vz",
+            b"vz",
+            "x",
+            b"x",
+            "y",
+            b"y",
+            "z",
+            b"z",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "by_force",
+            b"by_force",
+            "roll",
+            b"roll",
+            "teleport_safely",
+            b"teleport_safely",
+            "vx",
+            b"vx",
+            "vy",
+            b"vy",
+            "vz",
+            b"vz",
+            "x",
+            b"x",
+            "y",
+            b"y",
+            "z",
+            b"z",
+        ],
+    ) -> None: ...
 
 global___TeleportBall = TeleportBall
 
@@ -131,8 +175,52 @@ class TeleportRobot(google.protobuf.message.Message):
         present: builtins.bool | None = ...,
         by_force: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["by_force", b"by_force", "id", b"id", "orientation", b"orientation", "present", b"present", "v_angular", b"v_angular", "v_x", b"v_x", "v_y", b"v_y", "x", b"x", "y", b"y"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["by_force", b"by_force", "id", b"id", "orientation", b"orientation", "present", b"present", "v_angular", b"v_angular", "v_x", b"v_x", "v_y", b"v_y", "x", b"x", "y", b"y"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "by_force",
+            b"by_force",
+            "id",
+            b"id",
+            "orientation",
+            b"orientation",
+            "present",
+            b"present",
+            "v_angular",
+            b"v_angular",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+            "x",
+            b"x",
+            "y",
+            b"y",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "by_force",
+            b"by_force",
+            "id",
+            b"id",
+            "orientation",
+            b"orientation",
+            "present",
+            b"present",
+            "v_angular",
+            b"v_angular",
+            "v_x",
+            b"v_x",
+            "v_y",
+            b"v_y",
+            "x",
+            b"x",
+            "y",
+            b"y",
+        ],
+    ) -> None: ...
 
 global___TeleportRobot = TeleportRobot
 
@@ -149,7 +237,9 @@ class SimulatorControl(google.protobuf.message.Message):
     def teleport_ball(self) -> global___TeleportBall:
         """Teleport the ball"""
     @property
-    def teleport_robot(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TeleportRobot]:
+    def teleport_robot(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TeleportRobot]:
         """Teleport robots"""
     simulation_speed: builtins.float
     """Change the simulation speed"""
@@ -160,8 +250,23 @@ class SimulatorControl(google.protobuf.message.Message):
         teleport_robot: collections.abc.Iterable[global___TeleportRobot] | None = ...,
         simulation_speed: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["simulation_speed", b"simulation_speed", "teleport_ball", b"teleport_ball"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["simulation_speed", b"simulation_speed", "teleport_ball", b"teleport_ball", "teleport_robot", b"teleport_robot"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "simulation_speed", b"simulation_speed", "teleport_ball", b"teleport_ball"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "simulation_speed",
+            b"simulation_speed",
+            "teleport_ball",
+            b"teleport_ball",
+            "teleport_robot",
+            b"teleport_robot",
+        ],
+    ) -> None: ...
 
 global___SimulatorControl = SimulatorControl
 
@@ -185,8 +290,12 @@ class SimulatorCommand(google.protobuf.message.Message):
         control: global___SimulatorControl | None = ...,
         config: ssl_simulation_config_pb2.SimulatorConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "control", b"control"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "control", b"control"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["config", b"config", "control", b"control"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["config", b"config", "control", b"control"]
+    ) -> None: ...
 
 global___SimulatorCommand = SimulatorCommand
 
@@ -198,7 +307,11 @@ class SimulatorResponse(google.protobuf.message.Message):
 
     ERRORS_FIELD_NUMBER: builtins.int
     @property
-    def errors(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ssl_simulation_error_pb2.SimulatorError]:
+    def errors(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        ssl_simulation_error_pb2.SimulatorError
+    ]:
         """List of errors, like using unsupported features"""
     def __init__(
         self,

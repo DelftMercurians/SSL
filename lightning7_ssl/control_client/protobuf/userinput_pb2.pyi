@@ -27,15 +27,26 @@ class UserInput(google.protobuf.message.Message):
     RADIO_COMMAND_FIELD_NUMBER: builtins.int
     MOVE_COMMAND_FIELD_NUMBER: builtins.int
     @property
-    def radio_command(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[robot_pb2.RadioCommand]: ...
+    def radio_command(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[robot_pb2.RadioCommand]: ...
     @property
-    def move_command(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[command_pb2.RobotMoveCommand]: ...
+    def move_command(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        command_pb2.RobotMoveCommand
+    ]: ...
     def __init__(
         self,
         *,
         radio_command: collections.abc.Iterable[robot_pb2.RadioCommand] | None = ...,
         move_command: collections.abc.Iterable[command_pb2.RobotMoveCommand] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["move_command", b"move_command", "radio_command", b"radio_command"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "move_command", b"move_command", "radio_command", b"radio_command"
+        ],
+    ) -> None: ...
 
 global___UserInput = UserInput

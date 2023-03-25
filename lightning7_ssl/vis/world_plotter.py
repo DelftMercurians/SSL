@@ -1,8 +1,8 @@
-from typing import List
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
 import pickle
+
+import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.animation import FuncAnimation
 
 
 class WorldPlotter:
@@ -31,9 +31,7 @@ class WorldPlotter:
             # Check if robot positions are correct
             # Check if field size is correct
             if ball is not None:
-                self.ax.scatter(
-                    ball.position[0] / 1000, ball.position[1] / 1000, s=10, c="red"
-                )
+                self.ax.scatter(ball.position[0] / 1000, ball.position[1] / 1000, s=10, c="red")
 
             if blues is not None:
                 for pointB in blues:
@@ -69,7 +67,7 @@ class WorldPlotter:
 
             self.ax.scatter(ball.position[0], ball.position[1], s=10, c=colors[i])
 
-        animation = FuncAnimation(
+        FuncAnimation(
             self.fig,
             func=replay_frmaes,
             frames=np.arange(0, len(self.data)),

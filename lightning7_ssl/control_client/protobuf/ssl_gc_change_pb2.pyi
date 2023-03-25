@@ -54,8 +54,36 @@ class StateChange(google.protobuf.message.Message):
         change: global___Change | None = ...,
         timestamp: google.protobuf.timestamp_pb2.Timestamp | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["change", b"change", "id", b"id", "state", b"state", "state_pre", b"state_pre", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["change", b"change", "id", b"id", "state", b"state", "state_pre", b"state_pre", "timestamp", b"timestamp"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "change",
+            b"change",
+            "id",
+            b"id",
+            "state",
+            b"state",
+            "state_pre",
+            b"state_pre",
+            "timestamp",
+            b"timestamp",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "change",
+            b"change",
+            "id",
+            b"id",
+            "state",
+            b"state",
+            "state_pre",
+            b"state_pre",
+            "timestamp",
+            b"timestamp",
+        ],
+    ) -> None: ...
 
 global___StateChange = StateChange
 
@@ -142,9 +170,117 @@ class Change(google.protobuf.message.Message):
         new_game_state: global___NewGameState | None = ...,
         accept_proposal_group: global___AcceptProposalGroup | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["accept_proposal_group", b"accept_proposal_group", "add_game_event", b"add_game_event", "add_passive_game_event", b"add_passive_game_event", "add_proposal", b"add_proposal", "add_red_card", b"add_red_card", "add_yellow_card", b"add_yellow_card", "change", b"change", "change_stage", b"change_stage", "continue", b"continue", "new_command", b"new_command", "new_game_state", b"new_game_state", "origin", b"origin", "revert", b"revert", "revertible", b"revertible", "set_ball_placement_pos", b"set_ball_placement_pos", "start_ball_placement", b"start_ball_placement", "switch_colors", b"switch_colors", "update_config", b"update_config", "update_team_state", b"update_team_state", "yellow_card_over", b"yellow_card_over"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["accept_proposal_group", b"accept_proposal_group", "add_game_event", b"add_game_event", "add_passive_game_event", b"add_passive_game_event", "add_proposal", b"add_proposal", "add_red_card", b"add_red_card", "add_yellow_card", b"add_yellow_card", "change", b"change", "change_stage", b"change_stage", "continue", b"continue", "new_command", b"new_command", "new_game_state", b"new_game_state", "origin", b"origin", "revert", b"revert", "revertible", b"revertible", "set_ball_placement_pos", b"set_ball_placement_pos", "start_ball_placement", b"start_ball_placement", "switch_colors", b"switch_colors", "update_config", b"update_config", "update_team_state", b"update_team_state", "yellow_card_over", b"yellow_card_over"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["change", b"change"]) -> typing_extensions.Literal["new_command", "change_stage", "set_ball_placement_pos", "add_yellow_card", "add_red_card", "yellow_card_over", "add_game_event", "add_passive_game_event", "add_proposal", "start_ball_placement", "continue", "update_config", "update_team_state", "switch_colors", "revert", "new_game_state", "accept_proposal_group"] | None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "accept_proposal_group",
+            b"accept_proposal_group",
+            "add_game_event",
+            b"add_game_event",
+            "add_passive_game_event",
+            b"add_passive_game_event",
+            "add_proposal",
+            b"add_proposal",
+            "add_red_card",
+            b"add_red_card",
+            "add_yellow_card",
+            b"add_yellow_card",
+            "change",
+            b"change",
+            "change_stage",
+            b"change_stage",
+            "continue",
+            b"continue",
+            "new_command",
+            b"new_command",
+            "new_game_state",
+            b"new_game_state",
+            "origin",
+            b"origin",
+            "revert",
+            b"revert",
+            "revertible",
+            b"revertible",
+            "set_ball_placement_pos",
+            b"set_ball_placement_pos",
+            "start_ball_placement",
+            b"start_ball_placement",
+            "switch_colors",
+            b"switch_colors",
+            "update_config",
+            b"update_config",
+            "update_team_state",
+            b"update_team_state",
+            "yellow_card_over",
+            b"yellow_card_over",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "accept_proposal_group",
+            b"accept_proposal_group",
+            "add_game_event",
+            b"add_game_event",
+            "add_passive_game_event",
+            b"add_passive_game_event",
+            "add_proposal",
+            b"add_proposal",
+            "add_red_card",
+            b"add_red_card",
+            "add_yellow_card",
+            b"add_yellow_card",
+            "change",
+            b"change",
+            "change_stage",
+            b"change_stage",
+            "continue",
+            b"continue",
+            "new_command",
+            b"new_command",
+            "new_game_state",
+            b"new_game_state",
+            "origin",
+            b"origin",
+            "revert",
+            b"revert",
+            "revertible",
+            b"revertible",
+            "set_ball_placement_pos",
+            b"set_ball_placement_pos",
+            "start_ball_placement",
+            b"start_ball_placement",
+            "switch_colors",
+            b"switch_colors",
+            "update_config",
+            b"update_config",
+            "update_team_state",
+            b"update_team_state",
+            "yellow_card_over",
+            b"yellow_card_over",
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing_extensions.Literal["change", b"change"]
+    ) -> typing_extensions.Literal[
+        "new_command",
+        "change_stage",
+        "set_ball_placement_pos",
+        "add_yellow_card",
+        "add_red_card",
+        "yellow_card_over",
+        "add_game_event",
+        "add_passive_game_event",
+        "add_proposal",
+        "start_ball_placement",
+        "continue",
+        "update_config",
+        "update_team_state",
+        "switch_colors",
+        "revert",
+        "new_game_state",
+        "accept_proposal_group",
+    ] | None: ...
 
 global___Change = Change
 
@@ -226,8 +362,18 @@ class AddYellowCard(google.protobuf.message.Message):
         for_team: ssl_game_controller_common_pb2.Team.ValueType | None = ...,
         caused_by_game_event: ssl_game_event_2019_pb2.GameEvent | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["caused_by_game_event", b"caused_by_game_event", "for_team", b"for_team"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["caused_by_game_event", b"caused_by_game_event", "for_team", b"for_team"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "caused_by_game_event", b"caused_by_game_event", "for_team", b"for_team"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "caused_by_game_event", b"caused_by_game_event", "for_team", b"for_team"
+        ],
+    ) -> None: ...
 
 global___AddYellowCard = AddYellowCard
 
@@ -250,8 +396,18 @@ class AddRedCard(google.protobuf.message.Message):
         for_team: ssl_game_controller_common_pb2.Team.ValueType | None = ...,
         caused_by_game_event: ssl_game_event_2019_pb2.GameEvent | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["caused_by_game_event", b"caused_by_game_event", "for_team", b"for_team"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["caused_by_game_event", b"caused_by_game_event", "for_team", b"for_team"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "caused_by_game_event", b"caused_by_game_event", "for_team", b"for_team"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "caused_by_game_event", b"caused_by_game_event", "for_team", b"for_team"
+        ],
+    ) -> None: ...
 
 global___AddRedCard = AddRedCard
 
@@ -289,7 +445,9 @@ class AddGameEvent(google.protobuf.message.Message):
         *,
         game_event: ssl_game_event_2019_pb2.GameEvent | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["game_event", b"game_event"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["game_event", b"game_event"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["game_event", b"game_event"]) -> None: ...
 
 global___AddGameEvent = AddGameEvent
@@ -309,7 +467,9 @@ class AddPassiveGameEvent(google.protobuf.message.Message):
         *,
         game_event: ssl_game_event_2019_pb2.GameEvent | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["game_event", b"game_event"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["game_event", b"game_event"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["game_event", b"game_event"]) -> None: ...
 
 global___AddPassiveGameEvent = AddPassiveGameEvent
@@ -352,8 +512,12 @@ class AcceptProposalGroup(google.protobuf.message.Message):
         group_id: builtins.int | None = ...,
         accepted_by: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["accepted_by", b"accepted_by", "group_id", b"group_id"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["accepted_by", b"accepted_by", "group_id", b"group_id"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["accepted_by", b"accepted_by", "group_id", b"group_id"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["accepted_by", b"accepted_by", "group_id", b"group_id"]
+    ) -> None: ...
 
 global___AcceptProposalGroup = AcceptProposalGroup
 
@@ -403,8 +567,28 @@ class UpdateConfig(google.protobuf.message.Message):
         first_kickoff_team: ssl_game_controller_common_pb2.Team.ValueType | None = ...,
         auto_continue: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["auto_continue", b"auto_continue", "division", b"division", "first_kickoff_team", b"first_kickoff_team"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["auto_continue", b"auto_continue", "division", b"division", "first_kickoff_team", b"first_kickoff_team"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "auto_continue",
+            b"auto_continue",
+            "division",
+            b"division",
+            "first_kickoff_team",
+            b"first_kickoff_team",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "auto_continue",
+            b"auto_continue",
+            "division",
+            b"division",
+            "first_kickoff_team",
+            b"first_kickoff_team",
+        ],
+    ) -> None: ...
 
 global___UpdateConfig = UpdateConfig
 
@@ -501,8 +685,96 @@ class UpdateTeamState(google.protobuf.message.Message):
         remove_red_card: builtins.int | None = ...,
         remove_foul: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ball_placement_failures", b"ball_placement_failures", "can_place_ball", b"can_place_ball", "challenge_flags_left", b"challenge_flags_left", "for_team", b"for_team", "foul", b"foul", "goalkeeper", b"goalkeeper", "goals", b"goals", "on_positive_half", b"on_positive_half", "red_card", b"red_card", "remove_foul", b"remove_foul", "remove_red_card", b"remove_red_card", "remove_yellow_card", b"remove_yellow_card", "requests_bot_substitution", b"requests_bot_substitution", "requests_challenge", b"requests_challenge", "requests_emergency_stop", b"requests_emergency_stop", "requests_timeout", b"requests_timeout", "team_name", b"team_name", "timeout_time_left", b"timeout_time_left", "timeouts_left", b"timeouts_left", "yellow_card", b"yellow_card"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ball_placement_failures", b"ball_placement_failures", "can_place_ball", b"can_place_ball", "challenge_flags_left", b"challenge_flags_left", "for_team", b"for_team", "foul", b"foul", "goalkeeper", b"goalkeeper", "goals", b"goals", "on_positive_half", b"on_positive_half", "red_card", b"red_card", "remove_foul", b"remove_foul", "remove_red_card", b"remove_red_card", "remove_yellow_card", b"remove_yellow_card", "requests_bot_substitution", b"requests_bot_substitution", "requests_challenge", b"requests_challenge", "requests_emergency_stop", b"requests_emergency_stop", "requests_timeout", b"requests_timeout", "team_name", b"team_name", "timeout_time_left", b"timeout_time_left", "timeouts_left", b"timeouts_left", "yellow_card", b"yellow_card"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball_placement_failures",
+            b"ball_placement_failures",
+            "can_place_ball",
+            b"can_place_ball",
+            "challenge_flags_left",
+            b"challenge_flags_left",
+            "for_team",
+            b"for_team",
+            "foul",
+            b"foul",
+            "goalkeeper",
+            b"goalkeeper",
+            "goals",
+            b"goals",
+            "on_positive_half",
+            b"on_positive_half",
+            "red_card",
+            b"red_card",
+            "remove_foul",
+            b"remove_foul",
+            "remove_red_card",
+            b"remove_red_card",
+            "remove_yellow_card",
+            b"remove_yellow_card",
+            "requests_bot_substitution",
+            b"requests_bot_substitution",
+            "requests_challenge",
+            b"requests_challenge",
+            "requests_emergency_stop",
+            b"requests_emergency_stop",
+            "requests_timeout",
+            b"requests_timeout",
+            "team_name",
+            b"team_name",
+            "timeout_time_left",
+            b"timeout_time_left",
+            "timeouts_left",
+            b"timeouts_left",
+            "yellow_card",
+            b"yellow_card",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "ball_placement_failures",
+            b"ball_placement_failures",
+            "can_place_ball",
+            b"can_place_ball",
+            "challenge_flags_left",
+            b"challenge_flags_left",
+            "for_team",
+            b"for_team",
+            "foul",
+            b"foul",
+            "goalkeeper",
+            b"goalkeeper",
+            "goals",
+            b"goals",
+            "on_positive_half",
+            b"on_positive_half",
+            "red_card",
+            b"red_card",
+            "remove_foul",
+            b"remove_foul",
+            "remove_red_card",
+            b"remove_red_card",
+            "remove_yellow_card",
+            b"remove_yellow_card",
+            "requests_bot_substitution",
+            b"requests_bot_substitution",
+            "requests_challenge",
+            b"requests_challenge",
+            "requests_emergency_stop",
+            b"requests_emergency_stop",
+            "requests_timeout",
+            b"requests_timeout",
+            "team_name",
+            b"team_name",
+            "timeout_time_left",
+            b"timeout_time_left",
+            "timeouts_left",
+            b"timeouts_left",
+            "yellow_card",
+            b"yellow_card",
+        ],
+    ) -> None: ...
 
 global___UpdateTeamState = UpdateTeamState
 
@@ -552,7 +824,9 @@ class NewGameState(google.protobuf.message.Message):
         *,
         game_state: ssl_gc_state_pb2.GameState | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["game_state", b"game_state"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["game_state", b"game_state"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["game_state", b"game_state"]) -> None: ...
 
 global___NewGameState = NewGameState

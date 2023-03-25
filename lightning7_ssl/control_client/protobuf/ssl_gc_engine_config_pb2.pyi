@@ -28,7 +28,9 @@ class Config(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _BehaviorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Config._Behavior.ValueType], builtins.type):  # noqa: F821
+    class _BehaviorEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Config._Behavior.ValueType], builtins.type
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         BEHAVIOR_UNKNOWN: Config._Behavior.ValueType  # 0
         """Not set or unknown"""
@@ -73,8 +75,12 @@ class Config(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: global___Config.Behavior.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> None: ...
 
     @typing_extensions.final
     class AutoRefConfigsEntry(google.protobuf.message.Message):
@@ -91,18 +97,26 @@ class Config(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: global___AutoRefConfig | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> None: ...
 
     GAME_EVENT_BEHAVIOR_FIELD_NUMBER: builtins.int
     AUTO_REF_CONFIGS_FIELD_NUMBER: builtins.int
     ACTIVE_TRACKER_SOURCE_FIELD_NUMBER: builtins.int
     TEAMS_FIELD_NUMBER: builtins.int
     @property
-    def game_event_behavior(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, global___Config.Behavior.ValueType]:
+    def game_event_behavior(
+        self,
+    ) -> google.protobuf.internal.containers.ScalarMap[builtins.str, global___Config.Behavior.ValueType]:
         """The behavior for each game event"""
     @property
-    def auto_ref_configs(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___AutoRefConfig]:
+    def auto_ref_configs(
+        self,
+    ) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___AutoRefConfig]:
         """The config for each auto referee"""
     active_tracker_source: builtins.str
     """The selected tracker source"""
@@ -112,13 +126,28 @@ class Config(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        game_event_behavior: collections.abc.Mapping[builtins.str, global___Config.Behavior.ValueType] | None = ...,
+        game_event_behavior: collections.abc.Mapping[builtins.str, global___Config.Behavior.ValueType]
+        | None = ...,
         auto_ref_configs: collections.abc.Mapping[builtins.str, global___AutoRefConfig] | None = ...,
         active_tracker_source: builtins.str | None = ...,
         teams: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["active_tracker_source", b"active_tracker_source"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["active_tracker_source", b"active_tracker_source", "auto_ref_configs", b"auto_ref_configs", "game_event_behavior", b"game_event_behavior", "teams", b"teams"]) -> None: ...
+    def HasField(
+        self, field_name: typing_extensions.Literal["active_tracker_source", b"active_tracker_source"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "active_tracker_source",
+            b"active_tracker_source",
+            "auto_ref_configs",
+            b"auto_ref_configs",
+            "game_event_behavior",
+            b"game_event_behavior",
+            "teams",
+            b"teams",
+        ],
+    ) -> None: ...
 
 global___Config = Config
 
@@ -132,7 +161,10 @@ class AutoRefConfig(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _BehaviorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[AutoRefConfig._Behavior.ValueType], builtins.type):  # noqa: F821
+    class _BehaviorEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[AutoRefConfig._Behavior.ValueType],
+        builtins.type,
+    ):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         BEHAVIOR_UNKNOWN: AutoRefConfig._Behavior.ValueType  # 0
         """Not set or unknown"""
@@ -169,18 +201,29 @@ class AutoRefConfig(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: global___AutoRefConfig.Behavior.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def HasField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]
+        ) -> None: ...
 
     GAME_EVENT_BEHAVIOR_FIELD_NUMBER: builtins.int
     @property
-    def game_event_behavior(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, global___AutoRefConfig.Behavior.ValueType]:
+    def game_event_behavior(
+        self,
+    ) -> google.protobuf.internal.containers.ScalarMap[
+        builtins.str, global___AutoRefConfig.Behavior.ValueType
+    ]:
         """The game event behaviors for this auto referee"""
     def __init__(
         self,
         *,
-        game_event_behavior: collections.abc.Mapping[builtins.str, global___AutoRefConfig.Behavior.ValueType] | None = ...,
+        game_event_behavior: collections.abc.Mapping[builtins.str, global___AutoRefConfig.Behavior.ValueType]
+        | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["game_event_behavior", b"game_event_behavior"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["game_event_behavior", b"game_event_behavior"]
+    ) -> None: ...
 
 global___AutoRefConfig = AutoRefConfig

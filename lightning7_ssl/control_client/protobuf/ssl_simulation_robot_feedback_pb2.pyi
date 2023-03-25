@@ -41,8 +41,18 @@ class RobotFeedback(google.protobuf.message.Message):
         dribbler_ball_contact: builtins.bool | None = ...,
         custom: google.protobuf.any_pb2.Any | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["custom", b"custom", "dribbler_ball_contact", b"dribbler_ball_contact", "id", b"id"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["custom", b"custom", "dribbler_ball_contact", b"dribbler_ball_contact", "id", b"id"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "custom", b"custom", "dribbler_ball_contact", b"dribbler_ball_contact", "id", b"id"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "custom", b"custom", "dribbler_ball_contact", b"dribbler_ball_contact", "id", b"id"
+        ],
+    ) -> None: ...
 
 global___RobotFeedback = RobotFeedback
 
@@ -55,10 +65,16 @@ class RobotControlResponse(google.protobuf.message.Message):
     ERRORS_FIELD_NUMBER: builtins.int
     FEEDBACK_FIELD_NUMBER: builtins.int
     @property
-    def errors(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[ssl_simulation_error_pb2.SimulatorError]:
+    def errors(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        ssl_simulation_error_pb2.SimulatorError
+    ]:
         """List of errors, like using unsupported features"""
     @property
-    def feedback(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotFeedback]:
+    def feedback(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RobotFeedback]:
         """Feedback of the robots"""
     def __init__(
         self,
@@ -66,6 +82,8 @@ class RobotControlResponse(google.protobuf.message.Message):
         errors: collections.abc.Iterable[ssl_simulation_error_pb2.SimulatorError] | None = ...,
         feedback: collections.abc.Iterable[global___RobotFeedback] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["errors", b"errors", "feedback", b"feedback"]) -> None: ...
+    def ClearField(
+        self, field_name: typing_extensions.Literal["errors", b"errors", "feedback", b"feedback"]
+    ) -> None: ...
 
 global___RobotControlResponse = RobotControlResponse

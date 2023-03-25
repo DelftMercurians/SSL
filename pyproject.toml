@@ -24,6 +24,10 @@ flake8 = "^6.0.0"
 mypy = "^1.1.1"
 types-protobuf = "^4.22.0.0"
 mypy-protobuf = "^3.4.0"
+poethepoet = "^0.19.0"
+flake8-pyproject = "^1.2.3"
+isort = "^5.12.0"
+pre-commit = "^3.2.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -31,5 +35,18 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
 exclude = [
-    '_pb2.py$',  # TOML literal string (single-quotes, no escaping necessary)
+    "lightning7_ssl/docs/*",
 ]
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 110
+
+[tool.poe.tasks]
+mypy   = "mypy -p lightning7_ssl --config-file pyproject.toml --follow-imports=silent --ignore-missing-imports"
+black = "black lightning7_ssl"
+isort = "isort lightning7_ssl"
+format  = ["black", "isort"]
+lint = "flake8 lightning7_ssl"

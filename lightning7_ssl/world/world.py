@@ -16,13 +16,15 @@ from .processing.simple_estimator import SimpleEstimator
 
 
 class UninitializedError(Exception):
-    """Raised when an object in the world is accessed before it is initialized, ie. before a detection frame is received."""
+    """Raised when an object in the world is accessed before it is initialized, ie.
+    before a detection frame is received."""
 
     pass
 
 
 class World:
-    """Represents the current state of the world.response for assign the data to the right robot and ball, only this class
+    """Represents the current state of the world.response for assign the data to the
+    right robot and ball, only this class
     keeps track of different robots and ball, anything below it is anonymous.
 
     Attributes:
@@ -165,9 +167,7 @@ class World:
 
         if packet.detection is not None:
             self.update_vision_data(packet.detection)
-        if packet.geometry is not None and (
-            not self.update_geom_only_once or self.field_geometry is None
-        ):
+        if packet.geometry is not None and (not self.update_geom_only_once or self.field_geometry is None):
             print("update_geometry")
             self.update_geometry(packet.geometry)
 
@@ -182,24 +182,16 @@ class World:
         camera_id = frame.camera_id
         time = frame.t_capture
         for ball in frame.balls:
-            self.ball_status.add(
-                BallDataRaw(
-                    time, camera_id, Vec3(ball.x, ball.y, ball.z), ball.confidence
-                )
-            )
+            self.ball_status.add(BallDataRaw(time, camera_id, Vec3(ball.x, ball.y, ball.z), ball.confidence))
 
-        own_robots_status_frame = (
-            frame.robots_blue if self.is_blue else frame.robots_yellow
-        )
+        own_robots_status_frame = frame.robots_blue if self.is_blue else frame.robots_yellow
         for robot in own_robots_status_frame:
             if robot.robot_id not in range(self.num_robots):
                 continue
             self.own_robots_status[robot.robot_id].add(
                 RobotDataRaw(time, camera_id, Vec2(robot.x, robot.y), robot.orientation)
             )
-        opp_robots_status_frame = (
-            frame.robots_yellow if self.is_blue else frame.robots_blue
-        )
+        opp_robots_status_frame = frame.robots_yellow if self.is_blue else frame.robots_blue
         for robot in opp_robots_status_frame:
             if robot.robot_id not in range(self.num_robots):
                 continue

@@ -60,8 +60,64 @@ class grSim_Robot_Command(google.protobuf.message.Message):
         wheel3: builtins.float | None = ...,
         wheel4: builtins.float | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["id", b"id", "kickspeedx", b"kickspeedx", "kickspeedz", b"kickspeedz", "spinner", b"spinner", "velangular", b"velangular", "velnormal", b"velnormal", "veltangent", b"veltangent", "wheel1", b"wheel1", "wheel2", b"wheel2", "wheel3", b"wheel3", "wheel4", b"wheel4", "wheelsspeed", b"wheelsspeed"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["id", b"id", "kickspeedx", b"kickspeedx", "kickspeedz", b"kickspeedz", "spinner", b"spinner", "velangular", b"velangular", "velnormal", b"velnormal", "veltangent", b"veltangent", "wheel1", b"wheel1", "wheel2", b"wheel2", "wheel3", b"wheel3", "wheel4", b"wheel4", "wheelsspeed", b"wheelsspeed"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal[
+            "id",
+            b"id",
+            "kickspeedx",
+            b"kickspeedx",
+            "kickspeedz",
+            b"kickspeedz",
+            "spinner",
+            b"spinner",
+            "velangular",
+            b"velangular",
+            "velnormal",
+            b"velnormal",
+            "veltangent",
+            b"veltangent",
+            "wheel1",
+            b"wheel1",
+            "wheel2",
+            b"wheel2",
+            "wheel3",
+            b"wheel3",
+            "wheel4",
+            b"wheel4",
+            "wheelsspeed",
+            b"wheelsspeed",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "id",
+            b"id",
+            "kickspeedx",
+            b"kickspeedx",
+            "kickspeedz",
+            b"kickspeedz",
+            "spinner",
+            b"spinner",
+            "velangular",
+            b"velangular",
+            "velnormal",
+            b"velnormal",
+            "veltangent",
+            b"veltangent",
+            "wheel1",
+            b"wheel1",
+            "wheel2",
+            b"wheel2",
+            "wheel3",
+            b"wheel3",
+            "wheel4",
+            b"wheel4",
+            "wheelsspeed",
+            b"wheelsspeed",
+        ],
+    ) -> None: ...
 
 global___grSim_Robot_Command = grSim_Robot_Command
 
@@ -75,7 +131,11 @@ class grSim_Commands(google.protobuf.message.Message):
     timestamp: builtins.float
     isteamyellow: builtins.bool
     @property
-    def robot_commands(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___grSim_Robot_Command]: ...
+    def robot_commands(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___grSim_Robot_Command
+    ]: ...
     def __init__(
         self,
         *,
@@ -83,7 +143,15 @@ class grSim_Commands(google.protobuf.message.Message):
         isteamyellow: builtins.bool | None = ...,
         robot_commands: collections.abc.Iterable[global___grSim_Robot_Command] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["isteamyellow", b"isteamyellow", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["isteamyellow", b"isteamyellow", "robot_commands", b"robot_commands", "timestamp", b"timestamp"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing_extensions.Literal["isteamyellow", b"isteamyellow", "timestamp", b"timestamp"],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing_extensions.Literal[
+            "isteamyellow", b"isteamyellow", "robot_commands", b"robot_commands", "timestamp", b"timestamp"
+        ],
+    ) -> None: ...
 
 global___grSim_Commands = grSim_Commands
