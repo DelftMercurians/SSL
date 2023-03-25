@@ -1,184 +1,24 @@
-from collections import OrderedDict
 from typing import List, Optional
+
 from google.protobuf.message import DecodeError
-from dataclasses import dataclass
 
-from lightning7_ssl.vecMath.vec_math import Vec2, Vec3
-from .estimators.simple_filter import SimpleFilter
+from lightning7_ssl import cfg
+
 from ..control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
+from ..control_client.protobuf.ssl_geometry_pb2 import SSL_GeometryData
 from ..control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
-from .estimators import (
-    StatusEstimator,
-    BallDataEstimated,
-    RobotDataEstimated,
-    BallDataRaw,
-    RobotDataRaw,
-)
+from ..vecMath.vec_math import Vec2, Vec3
+from ..world.processing.trackers import BallTracker, RobotTracker
+from .geometry import FieldCircularArc, FieldGeometry, FieldLinesSegment
+from .processing import BallDataRaw, RobotDataRaw
+from .processing.estimators import BallData, RobotData
+from .processing.simple_estimator import SimpleEstimator
 
 
-@dataclass
-class FilteredDataWrapper:
-    """Represents the current state of the world.
-    it's the fianl diliverable it can provide for other modules.
-    """
+class UninitializedError(Exception):
+    """Raised when an object in the world is accessed before it is initialized, ie. before a detection frame is received."""
 
-    #: The ball status.
-    ball_status: BallDataEstimated
-    #: The own robots status.
-    own_robots_status: List[RobotDataEstimated]
-    #: The opponent robots status.
-    opp_robots_status: List[RobotDataEstimated]
-
-
-@dataclass
-class FieldGeometry:
-    """
-    A dataclass to store field geometry data from ssl vision.
-    """
-
-    # Excluded field line segments, arcs, and penalty area for now, can be added later
-    field_length: int
-    field_width: int
-    goal_width: int
-    goal_depth: int
-    boundary_width: int
-    penalty_area_depth: int
-    penalty_area_width: int
-
-
-@dataclass
-class FieldLinesSegment:
-    """
-    A dataclass to store a single line segments.
-
-    @params:
-        p1: Start point of segment
-        p2: End point of segment
-    """
-
-    index: int
-    name: str
-    p1: Vec2
-    p2: Vec2
-    thickness: float
-
-
-@dataclass
-class FieldCircularArc:
-    """
-    A class to store a single field arc.
-
-    @params:
-        a1: Start angle in counter-clockwise order.
-        a2: End angle in counter-clockwise order.
-    """
-
-    index: int
-    name: str
-    center: Vec2
-    radius: float
-    a1: float
-    a2: float
-    thickness: float
-
-
-class BallTracker:
-    """
-    the tracker for ball, it keeps a specific filter strategy and also responsible for the data storage
-    """
-
-    #: the data storage, it is a ordered dict, the key is the time stamp, the value is a list of data because it
-    #  may came from different cameras
-    record: OrderedDict[float, List[BallDataRaw]]
-    #: the capacity of the storage, related to the filter process speed.
-    capacity: int
-    #: the filter strategy
-    filter: StatusEstimator
-
-    def __init__(self, filter: StatusEstimator, limit=500):
-        """
-        init the tracker
-
-        Args:
-            filter:  the filter strategy
-            limit:  the capacity of the storage
-        """
-        self.record = OrderedDict()
-        self.capacity = limit
-        self.filter = filter
-
-    def add(self, ball_data: BallDataRaw):
-        """
-        add a new data to the storage
-        while maintaining the max capacity
-
-        Args:
-            ball_data: the new data
-        """
-        if len(self.record) == self.capacity:
-            self.record.popitem(last=False)
-        time = ball_data.time_stamp
-        if time in self.record:
-            self.record[time].append(ball_data)
-        else:
-            self.record[time] = [ball_data]
-
-    def get(self):
-        """
-        get the most related data
-        Returns: the estimated data
-        TODO: probably need to the request time into consideration
-        """
-        return self.filter.ball_filter(self.record)
-
-
-class RobotTracker:
-    """
-    the tracker for robot, it keeps a specific filter strategy and also responsible for the data storage
-    """
-
-    #: the data storage, it is a ordered dict, the key is the time stamp, the value is a list of data
-    record: OrderedDict[float, List[RobotDataRaw]]
-    #: the capacity of the storage, related to the filter process speed.
-    capacity: int
-    #: the filter strategy
-    filter: StatusEstimator
-
-    def __init__(self, filter: StatusEstimator, limit=100):
-        """
-        init the tracker
-
-        Args:
-            filter:  the filter strategy
-            limit:  the capacity of the storage
-        """
-        self.record = OrderedDict()
-        self.capacity = limit
-        self.filter = filter
-
-    def add(self, robot_data: RobotDataEstimated):
-        """
-        add a new data to the storage while maintaining the max capacity.
-
-        Args:
-            robot_data:  the new data
-        """
-        # if it is full, remove the oldest one
-        if len(self.record) == self.capacity:
-            self.record.popitem(last=False)
-        time = robot_data.time_stamp
-        if time in self.record:
-            self.record[time].append(robot_data)
-        else:
-            self.record[time] = [robot_data]
-
-    def get(self):
-        """
-        get the most related data
-        Returns: the estimated data
-        TODO: probably need to the request time into consideration
-        """
-        return self.filter.robot_filter(self.record)
+    pass
 
 
 class World:
@@ -195,26 +35,32 @@ class World:
         is_blue: Whether the team is blue or not.
 
         num_robots: The number of robots on the team.
+
+        update_geom_only_once: Whether to update the field geometry only once or not.
     """
+
+    is_blue: bool
+    num_robots: int
+    update_geom_only_once: bool
 
     own_robots_status: List[RobotTracker]
     opp_robots_status: List[RobotTracker]
-    field_geometry: FieldGeometry
+    field_geometry: Optional[FieldGeometry]
     field_line_segments: List[FieldLinesSegment]
     field_circular_arcs: List[FieldCircularArc]
     ball_status: BallTracker
-    is_blue: bool
-    num_robots: int
 
-    def __init__(self, num_robots=6, is_blue=True):
-        filter = SimpleFilter()
+    def __init__(self, num_robots=6, is_blue=True, update_geom_only_once=True):
+        self.is_blue = is_blue
+        self.num_robots = num_robots
+        self.update_geom_only_once = update_geom_only_once
+
+        filter = SimpleEstimator()
 
         # Robots
         self.own_robots_status = []
         self.opp_robots_status = []
         self.ball_status = BallTracker(filter)
-        self.is_blue = is_blue
-        self.num_robots = num_robots
         for i in range(num_robots):
             self.own_robots_status.append(RobotTracker(filter))
             self.opp_robots_status.append(RobotTracker(filter))
@@ -224,88 +70,108 @@ class World:
         self.field_line_segments = []
         self.field_circular_arcs = []
 
-    def set_geom(self, raw_data: bytes) -> None:
-        """
-        Sets the geometry of the field from raw protobuf data. The data is updated in attributes
-            :field_geometry:
+    #################
+    # Access methods
+    #################
 
-            :field_line_segments:
+    def get_ball_state(self) -> Optional[BallData]:
+        """Returns the current state of the ball or None if uninitialized."""
+        return self.ball_status.get()
 
-            :field_circular_arcs:
+    def get_team_state(self) -> Optional[List[RobotData]]:
+        """Returns the current state of the own robots or None if uninitialized."""
+        states = [tracker.get() for tracker in self.own_robots_status]
+        if None in states:
+            return None
+        return states
 
-        :param:
-            raw_data: The raw protobuf data in bytes.
-        """
-        packet = SSL_WrapperPacket()
-        packet.ParseFromString(raw_data)
-        fg = packet.geometry.field
+    def get_opp_state(self) -> Optional[List[RobotData]]:
+        """Returns the current state of the opponent robots or None if uninitialized."""
+        states = [tracker.get() for tracker in self.opp_robots_status]
+        if None in states:
+            return None
+        return states
 
-        self.field_geometry = FieldGeometry(
-            fg.field_length / 1000,
-            fg.field_width / 1000,
-            fg.goal_width / 1000,
-            fg.goal_depth / 1000,
-            fg.boundary_width / 1000,
-            fg.penalty_area_depth / 1000,
-            fg.penalty_area_width / 1000,
-        )
+    def get_robot_pos(self, id: int) -> Vec2:
+        """Returns the current position of the robot with the given id.
 
-        # Append each line segment into the field_ling_segments list
-        for i, segment in enumerate(fg.field_lines):
-            line = FieldLinesSegment(
-                i,
-                segment.name,
-                Vec2(segment.p1.x / 1000, segment.p1.y / 1000),
-                Vec2(segment.p2.x / 1000, segment.p2.y / 1000),
-                segment.thickness,
-            )
-            self.field_line_segments.append(line)
+        This will raise an exception if the robot is not initialized."""
+        try:
+            return self.own_robots_status[id].get().position
+        except AttributeError:
+            raise UninitializedError("Robot not initialized")
 
-        for i, arc in enumerate(fg.field_arcs):
-            t = FieldCircularArc(
-                i,
-                arc.name,
-                Vec2(arc.center.x, arc.center.y),
-                arc.radius,
-                arc.a1,
-                arc.a2,
-                arc.thickness,
-            )
-            self.field_circular_arcs.append(t)
+    def get_robot_vel(self, id: int) -> Vec2:
+        """Returns the current velocity of the robot with the given id.
 
-    def get_status(self) -> FilteredDataWrapper:
-        """Returns the current world state.
+        This will raise an exception if the robot is not initialized."""
+        try:
+            return self.own_robots_status[id].get().velocity
+        except AttributeError:
+            raise UninitializedError("Robot not initialized")
 
-        Usage:
-            call self.ball_status/own_robots_status/opp_robots_status
-        """
-        return FilteredDataWrapper(
-            self.ball_status.get(),
-            [tracker.get() for tracker in self.own_robots_status],
-            [tracker.get() for tracker in self.opp_robots_status],
-        )
+    def get_team_position(self) -> List[Vec2]:
+        """Returns the current position of the own robots.
 
-    def update_from_protobuf(self, raw_data: bytes) -> Optional[FilteredDataWrapper]:
+        This will raise an exception if a robot is not initialized."""
+        try:
+            return [tracker.get().position for tracker in self.own_robots_status]
+        except AttributeError:
+            raise UninitializedError("Robot not initialized")
+
+    def get_team_vel(self) -> List[Vec2]:
+        """Returns the current speed of the own robots.
+
+        This will raise an exception if a robot is not initialized."""
+        try:
+            return [tracker.get().velocity for tracker in self.own_robots_status]
+        except AttributeError:
+            raise UninitializedError("Robot not initialized")
+
+    def get_opp_position(self) -> List[Vec2]:
+        """Returns the current position of the opponent robots.
+
+        This will raise an exception if a robot is not initialized."""
+        try:
+            return [tracker.get().position for tracker in self.opp_robots_status]
+        except AttributeError:
+            raise UninitializedError("Robot not initialized")
+
+    def get_opp_vel(self) -> List[Vec2]:
+        """Returns the current speed of the opponent robots.
+
+        This will raise an exception if a robot is not initialized."""
+        try:
+            return [tracker.get().velocity for tracker in self.opp_robots_status]
+        except AttributeError:
+            raise UninitializedError("Robot not initialized")
+
+    #################
+    # Update methods
+    #################
+
+    def update_from_protobuf(self, raw_data: bytes) -> None:
         """
         Updates the world state from raw protobuf data.
 
         Args:
             raw_data: The raw protobuf data in bytes.
-
-        Raises:
-            DecodeError: If the data is not a valid SSL_WrapperPacket.
         """
         packet = SSL_WrapperPacket()
         try:
             packet.ParseFromString(raw_data)
         except DecodeError:
-            return None
-        frame = packet.detection
-        if frame is None:
-            return None
-        return self.update_vision_data(frame)
+            return
 
-    def update_vision_data(self, frame: SSL_DetectionFrame) -> FilteredDataWrapper:
+        if packet.detection is not None:
+            self.update_vision_data(packet.detection)
+        if packet.geometry is not None and (
+            not self.update_geom_only_once or self.field_geometry is None
+        ):
+            print("update_geometry")
+            self.update_geometry(packet.geometry)
+
+    def update_vision_data(self, frame: SSL_DetectionFrame) -> None:
         """
         Updates the world state from vision data. it depack the data and assign it
         to the right robot and ball.
@@ -340,20 +206,48 @@ class World:
             self.opp_robots_status[robot.robot_id].add(
                 RobotDataRaw(time, camera_id, Vec2(robot.x, robot.y), robot.orientation)
             )
-        return self.get_status()
+        # Try to update data store
+        cfg.data_store.update_player_and_ball_states()
 
-    def get_team_position(self):
-        """Returns the current position of the own robots."""
-        return [tracker.get().position for tracker in self.own_robots_status]
+    def update_geometry(self, geometry: SSL_GeometryData) -> None:
+        """
+        Updates the world state from geometry data.
+        """
+        fg = geometry.field
 
-    def get_team_vel(self):
-        """Returns the current speed of the own robots."""
-        return [tracker.get().velocity for tracker in self.own_robots_status]
+        self.field_geometry = FieldGeometry(
+            fg.field_length / 1000,
+            fg.field_width / 1000,
+            fg.goal_width / 1000,
+            fg.goal_depth / 1000,
+            fg.boundary_width / 1000,
+            fg.penalty_area_depth / 1000,
+            fg.penalty_area_width / 1000,
+        )
 
-    def get_opp_position(self):
-        """Returns the current position of the opponent robots."""
-        return [tracker.get().position for tracker in self.opp_robots_status]
+        # Append each line segment into the field_ling_segments list
+        for i, segment in enumerate(fg.field_lines):
+            line = FieldLinesSegment(
+                i,
+                segment.name,
+                Vec2(segment.p1.x / 1000, segment.p1.y / 1000),
+                Vec2(segment.p2.x / 1000, segment.p2.y / 1000),
+                segment.thickness,
+            )
+            self.field_line_segments.append(line)
 
-    def get_opp_vel(self):
-        """Returns the current speed of the opponent robots."""
-        return [tracker.get().velocity for tracker in self.opp_robots_status]
+        for i, arc in enumerate(fg.field_arcs):
+            t = FieldCircularArc(
+                i,
+                arc.name,
+                Vec2(arc.center.x, arc.center.y),
+                arc.radius,
+                arc.a1,
+                arc.a2,
+                arc.thickness,
+            )
+            self.field_circular_arcs.append(t)
+
+        print("Received field geometry")
+        # Try to update data store
+        cfg.data_store.update_geom()

@@ -1,12 +1,18 @@
+from collections import OrderedDict
 import unittest
-from lightning7_ssl.world.common import *
-from lightning7_ssl.world.estimators.simple_filter import SimpleFilter
+from ...vecMath.vec_math import Vec3, Vec2
+from lightning7_ssl.world.processing import (
+    BallData,
+    BallDataRaw,
+    RobotDataRaw,
+    SimpleEstimator,
+)
 import math
 
 
-class MyTestCase(unittest.TestCase):
+class SimpleEstimatorTestsuite(unittest.TestCase):
     def test_ball_filter(self):
-        filter = SimpleFilter()
+        filter = SimpleEstimator()
         records = OrderedDict()
         # test empty
         self.assertIsNone(filter.ball_filter(records))
@@ -17,7 +23,7 @@ class MyTestCase(unittest.TestCase):
             BallDataRaw(0, 2, Vec3(0.2, 0.2, 0), 0.7),
         ]
         res = filter.ball_filter(records)
-        self.assertEqual(res, BallDataEstimated(Vec3(0.2, 0.2, 0), Vec3(0, 0, 0)))
+        self.assertEqual(res, BallData(Vec3(0.2, 0.2, 0), Vec3(0, 0, 0)))
         # test speed
         records[0.5] = [BallDataRaw(0.5, 2, Vec3(1.1, 1.1, 1), 1)]
         records[1] = [BallDataRaw(1, 2, Vec3(1.9, 1.4, 0), 1)]
@@ -27,7 +33,7 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(math.isclose(speed[2], -2))
 
     def test_robot_filter(self):
-        filter = SimpleFilter()
+        filter = SimpleEstimator()
         records = OrderedDict()
         # test empty
         self.assertIsNone(filter.robot_filter(records))

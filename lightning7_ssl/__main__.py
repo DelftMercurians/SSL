@@ -1,25 +1,15 @@
-from time import time
 import argparse
-
-from lightning7_ssl.roles.fixed_role import FixedRole
+from time import time
 
 from .control_client import SSLClient
+from . import cfg
 from .player import PlayerManager
-from lightning7_ssl.world.world import World
-from .vis.generate_log import LogGenerator
-from .vis.world_plotter import WorldPlotter
+from .roles.fixed_role import FixedRole
+from .vecMath.vec_math import Vec2
 from .vis.data_store import DataStore
-from .control_client import SSLClient
-from .player import PlayerManager, pathfinder
-from .world.world import World
 from .vis.generate_log import LogGenerator
-from .vis.world_plotter import WorldPlotter
-from .vis.data_store import DataStore
-from .vecMath.vec_math import Vec2, Vec3
 from .web.server import ServerWrapper
-import matplotlib
-
-matplotlib.use("TkAgg")
+from .world.world import World
 
 TICK_INTERVAL_SEC = 0.1
 OWN_TEAM = "blue"
@@ -30,18 +20,13 @@ DIV = "A"
 LENGTH = 12
 WIDTH = 9
 RADIUS_ROBOT = 0.0793
-world = World(NUM_PLAYERS, OWN_TEAM == "blue")
-logger = LogGenerator("test.pickle")
+logger = LogGenerator("logs.pickle")
 
 
 def main(force_dev=False):
-    is_geom_set = False
-    data_filtered = None
-    print("Starting test server")
     web_server = ServerWrapper(force_dev_mode=force_dev)
-    DS = DataStore()
-    DS.subscribe(logger.step)
-    DS.subscribe(web_server.step)
+    cfg.data_store.subscribe(logger.step)
+    cfg.data_store.subscribe(web_server.step)
     with SSLClient() as client:
         player_manager = PlayerManager(NUM_PLAYERS, client)
 
@@ -52,50 +37,22 @@ def main(force_dev=False):
 
         while True:
             vision_data = client.receive()
-            data_filtered = (
-                world.update_from_protobuf(vision_data)
-                if vision_data is not None
-                else None
-            )
-            current_time = time()
+            cfg.world.update_from_protobuf(vision_data)
 
-            if (
-                current_time - last_tick >= TICK_INTERVAL_SEC
-                and data_filtered is not None
-            ):
-                try:
-                    data_filtered = world.update_from_protobuf(vision_data)
-                    if data_filtered is not None and not is_geom_set:
-                        # Set the geometry only once
-                        world.set_geom(vision_data)
-                        if world.field_geometry.field_length != 0:
-                            print("Received field geometry")
-                            is_geom_set = True
-                            DS.update_geom(
-                                world.field_geometry,
-                                world.field_line_segments,
-                                world.field_circular_arcs,
-                            )
+            if time() - last_tick >= TICK_INTERVAL_SEC:
+                ball_state = cfg.world.get_ball_state()
+                if ball_state is not None:
+                    ball_pos = ball_state.position
+                    print(f"Ball location: {ball_pos}")
+                    player_manager.spawn_role(
+                        FixedRole(Vec2(ball_pos.x, ball_pos.y)),
+                    )
 
-                            ball_pos = data_filtered.ball_status.position
-                            print(f"Ball location: {ball_pos}")
-                            player_manager.spawn_role(
-                                FixedRole(Vec2(ball_pos.x, ball_pos.y)),
-                                data_filtered,
-                            )
-
-                    DS.update_player_and_ball_states(data_filtered)
-                    # pathfinder.find_path(
-                    #     world, 0, Vec2(0, 0)
-                    # )  # Needs to be called after DS is updated
-                    player_manager.tick(world)
-                    last_tick = current_time
-                except:
-                    pass
+                player_manager.tick()
+                last_tick = time()
 
 
 if __name__ == "__main__":
-    # Parse command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--dev",
@@ -104,4 +61,5 @@ if __name__ == "__main__":
         help="Run the server in development mode",
     )
     args = parser.parse_args()
+    cfg.setup_globals(num_robots=NUM_PLAYERS, own_team=OWN_TEAM)
     main(force_dev=args.dev)

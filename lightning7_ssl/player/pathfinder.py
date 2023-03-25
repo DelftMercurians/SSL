@@ -1,4 +1,5 @@
 from typing import List, Tuple
+from .. import cfg
 from ..vecMath.vec_math import Vec2
 from ..world.world import World
 
@@ -24,7 +25,6 @@ def get_relative_speed(pos1: Vec2, pos2: Vec2, vel1: Vec2, vel2: Vec2) -> float:
 
 
 def find_path(
-    world: World,
     start_id: int,
     goal: Vec2,
     alpha=0.00001,
@@ -50,10 +50,10 @@ def find_path(
     """
 
     obstacles: List[Tuple[Vec2, float]] = []
-    team_position = world.get_team_position()
-    opp_position = world.get_opp_position()
-    team_vel = world.get_team_vel()
-    opp_vel = world.get_opp_vel()
+    team_position = cfg.world.get_team_position()
+    opp_position = cfg.world.get_opp_position()
+    team_vel = cfg.world.get_team_vel()
+    opp_vel = cfg.world.get_opp_vel()
 
     start_pos = team_position[start_id]
     for i, pos in enumerate(team_position):

@@ -1,10 +1,13 @@
 import unittest
-from lightning7_ssl.world.world import World, FilteredDataWrapper
+from lightning7_ssl.world.world import UninitializedError, World
 from lightning7_ssl.control_client.protobuf.ssl_detection_pb2 import SSL_DetectionFrame
-from lightning7_ssl.world.common import *
+from lightning7_ssl.vecMath.vec_math import Vec3, Vec2
+from lightning7_ssl.world import BallData, RobotData
 
 
 class FrameGenerator:
+    """Generates synthetic SSL detection frames."""
+
     def __init__(self):
         self.frame = SSL_DetectionFrame()
         self.frame.camera_id = 0
@@ -45,14 +48,15 @@ class FrameGenerator:
 
 
 class EstimationGenerator:
+    """Generates synthetic estimations."""
+
     def __init__(self):
-        own_team = [None, None, None, None, None, None]
-        opp_team = [None, None, None, None, None, None]
-        ball_status = None
-        self.estimation = FilteredDataWrapper(ball_status, own_team, opp_team)
+        self.own_team = [None, None, None, None, None, None]
+        self.opp_team = [None, None, None, None, None, None]
+        self.ball_status = None
 
     def update_ball(self, pos: Vec3, speed: Vec3):
-        self.estimation.ball_status = BallDataEstimated(pos, speed)
+        self.ball_status = BallData(pos, speed)
 
     def update_robot(
         self,
@@ -63,24 +67,32 @@ class EstimationGenerator:
         angular_speed,
         is_yellow,
     ):
-        robot = (
-            self.estimation.opp_robots_status
-            if is_yellow
-            else self.estimation.own_robots_status
-        )
-        robot[robot_id] = RobotDataEstimated(pos, orientation, speed, angular_speed)
-
-    def get_estimation(self):
-        return self.estimation
+        robot = self.opp_team if is_yellow else self.own_team
+        robot[robot_id] = RobotData(pos, orientation, speed, angular_speed)
 
 
-class TestMaintainer(unittest.TestCase):
-    def test_empty(self):
+class WorldTestSuite(unittest.TestCase):
+    def test_unitialized_states(self):
+        # get_*_state() should return None if the state is not initialized.
         world = World()
-        t = str(world.get_status())
-        self.assertEqual(t, str(EstimationGenerator().get_estimation()))
+        self.assertIsNone(world.get_ball_state())
+        self.assertIsNone(world.get_team_state())
+        self.assertIsNone(world.get_opp_state())
+
+    def test_uninitialized_accessors(self):
+        # get_*_<property>() should raise an UninitializedError if the state is not initialized.
+        world = World()
+        with self.assertRaises(UninitializedError):
+            world.get_team_position()
+        with self.assertRaises(UninitializedError):
+            world.get_opp_position()
+        with self.assertRaises(UninitializedError):
+            world.get_robot_pos(0)
+        with self.assertRaises(UninitializedError):
+            world.get_robot_vel(0)
 
     def test_getter(self):
+        # get_*_<property>() should return the correct value.
         world = World()
         frame = FrameGenerator()
         expected_own = []
@@ -105,6 +117,7 @@ class TestMaintainer(unittest.TestCase):
         self.assertEqual(world.get_opp_vel(), expected_opp)
 
     def test_complex(self):
+        # test a complex scenario
         world = World()
         expected = EstimationGenerator()
         # data preperation
@@ -118,22 +131,28 @@ class TestMaintainer(unittest.TestCase):
             frame.add_robot(i, 1.0, i, 0, False)  # own team
             expected.update_robot(i, Vec2(1.0, float(i)), 0.0, Vec2(f, f), 0.0, False)
             expected.update_robot(i, Vec2(-1.0, float(i)), 0.0, Vec2(f, f), 0.0, True)
-        res = world.update_vision_data(frame.get_frame())
-        self.assertTrue(res == expected.get_estimation())
+        world.update_vision_data(frame.get_frame())
+
+        # initial check
+        self.assertEqual(world.get_ball_state(), expected.ball_status)
+        self.assertEqual(world.get_team_state(), expected.own_team)
+        self.assertEqual(world.get_opp_state(), expected.opp_team)
+
         # move ball
         frame = FrameGenerator()
         frame.add_ball(2.0, 2.0, 2.0, 1.0)
         frame.set_time(2.0)
         expected.update_ball(Vec3(2.0, 2.0, 2.0), Vec3(1, 1, 1))
-        res = world.update_vision_data(frame.get_frame())
-        self.assertTrue(res == expected.get_estimation())
+        world.update_vision_data(frame.get_frame())
+        self.assertEqual(world.get_ball_state(), expected.ball_status)
+
         # move one robot
         frame = FrameGenerator()
         frame.add_robot(0, 2.0, 2.0, 1, False)
         frame.set_time(4.0)
         expected.update_robot(0, Vec2(2.0, 2.0), 1.0, Vec2(0.25, 0.5), 0.25, False)
-        res = world.update_vision_data(frame.get_frame())
-        self.assertTrue(res == expected.get_estimation())
+        world.update_vision_data(frame.get_frame())
+        self.assertEqual(world.get_team_state(), expected.own_team)
 
 
 if __name__ == "__main__":

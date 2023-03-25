@@ -4,8 +4,7 @@ import unittest
 
 from lightning7_ssl.vecMath.vec_math import Vec2
 
-from ..world.common import RobotDataEstimated
-from ..world.world import World
+from .. import cfg
 from .pathfinder import find_path
 from ..control_client import SSLClient
 
@@ -60,9 +59,9 @@ class Player:
         else:
             self.status = Status.Moving(target.move_to)
 
-    def tick(self, state: RobotDataEstimated, world: World):
+    def tick(self):
         """Called on fixed intervals, should move to execute current target."""
-        pos = state.position
+        pos = cfg.world.get_robot_pos(self.id)
         if isinstance(self.status, Status.Moving):
             dist = (self.status.target - pos).norm
             if dist <= TARGET_TRESHOLD:
@@ -70,7 +69,7 @@ class Player:
                 self.status = Status.Idle()
             else:
                 # Move towards target
-                dir_x, dir_y = find_path(world, self.id, self.status.target)
+                dir_x, dir_y = find_path(self.id, self.status.target)
                 self._move(dir_x, dir_y)
         if isinstance(self.status, Status.Idle):
             # Stop moving

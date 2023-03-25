@@ -1,9 +1,14 @@
 import unittest
-from lightning7_ssl.world.common import *
-from lightning7_ssl.world.estimators.simple_filter import SimpleFilter
+from lightning7_ssl.world.processing import (
+    RobotDataRaw,
+    BallDataRaw,
+    RobotTracker,
+    BallTracker,
+)
+from lightning7_ssl.world.processing.simple_estimator import SimpleEstimator
 
 
-class MyTestCase(unittest.TestCase):
+class TrackersTestSuite(unittest.TestCase):
     camera_id = 0
     time1 = 526.4772159998272
     pos1 = (-3943.85302734375, 1551.4298095703125)
@@ -13,7 +18,7 @@ class MyTestCase(unittest.TestCase):
     orientation2 = 0.15
 
     def test_robo_traker(self):
-        filter = SimpleFilter()
+        filter = SimpleEstimator()
         p1 = RobotDataRaw(self.time1, self.camera_id, self.pos1, self.orientation1)
         p1s = RobotDataRaw(self.time1, self.camera_id, self.pos2, self.orientation1)
         p2 = RobotDataRaw(self.time2, self.camera_id, self.pos2, self.orientation2)
@@ -38,7 +43,7 @@ class MyTestCase(unittest.TestCase):
     pos_ball_2 = (1, 1, 1)
 
     def test_ball_tracker(self):
-        filter = SimpleFilter()
+        filter = SimpleEstimator()
         p1 = BallDataRaw(self.time1, self.camera_id, self.pos_ball_1, 1)
         p2 = BallDataRaw(self.time2, self.camera_id, self.pos_ball_2, 1)
         # test creation

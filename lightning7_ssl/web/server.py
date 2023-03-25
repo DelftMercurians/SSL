@@ -11,7 +11,6 @@ from typing import TYPE_CHECKING, Optional
 import webbrowser
 
 if TYPE_CHECKING:
-    from ..world.world import FilteredDataWrapper
     from ..vis.data_store import DataStore
 
 SERVER_PORT = 5000
@@ -118,7 +117,7 @@ class ServerWrapper:
             raise RuntimeError("Server is not running")
         self._pipe.send(data)
 
-    def step(self, _: "FilteredDataWrapper", ds: "DataStore") -> None:
+    def step(self, _, ds: "DataStore") -> None:
         self.send(ds.to_json())
 
     def __del__(self):

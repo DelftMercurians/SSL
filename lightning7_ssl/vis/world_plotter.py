@@ -3,12 +3,9 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import pickle
 import numpy as np
-from ..world.world import FilteredDataWrapper
 
 
 class WorldPlotter:
-    data: List[FilteredDataWrapper]
-
     def __init__(self, log_path: str) -> None:
         """
         Class to plot positions of robots and ball, and create animation of the play.

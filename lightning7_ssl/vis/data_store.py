@@ -1,15 +1,10 @@
 import json
 from dataclasses import dataclass, field, asdict
-from typing import Any, Dict, Callable, List, Optional
+from typing import Any, Dict, Callable, List
 
-from ..world.common import (
-    FieldCircularArc,
-    FieldGeometry,
-    FieldLinesSegment,
-)
+from lightning7_ssl import cfg
+
 from ..vecMath.vec_math import Vec2, Vec3
-from ..world.world import World
-from ..world.world import FilteredDataWrapper
 
 
 @dataclass
@@ -23,40 +18,34 @@ class DataStore:
     )
     _subs: List[Callable[[Dict, "DataStore"], Any]] = field(default_factory=list)
 
-    # def update_world_state(self, world: World):
-    #     update = asdict(world.get_status())
-    #     self.state["world"] = update
-    #     self._publish(self.state)
-
-    def update_geom(
-        self,
-        field_geometry: FieldGeometry,
-        lines: List[FieldLinesSegment],
-        arcs: List[FieldCircularArc],
-    ):
+    def update_geom(self):
+        """Updates the field geometry and lines for this frame."""
+        if cfg.world.field_geometry is None or cfg.world.field_line_segments is None:
+            return
         self.state["geom"] = {
-            "field_geometry": asdict(field_geometry),
-            "lines": [asdict(line) for line in lines],
-            "arcs": [asdict(arc) for arc in arcs],
+            "field_geometry": asdict(cfg.world.field_geometry),
+            "lines": [asdict(line) for line in cfg.world.field_line_segments],
+            "arcs": [asdict(arc) for arc in cfg.world.field_circular_arcs],
         }
         self._publish(self.state)
 
-    def update_player_and_ball_states(self, data: FilteredDataWrapper):
-        """
-        Updates the states of own robots and ball for this frame.
+    def update_player_and_ball_states(self):
+        """Updates the states of own robots and ball for this frame."""
+        ball_state = cfg.world.get_ball_state()
+        own_players_state = cfg.world.get_team_state()
+        opp_players_state = cfg.world.get_opp_state()
+        if ball_state is None or own_players_state is None or opp_players_state is None:
+            return
 
-        friends: own robots
-        opps: opponent robots
-        """
-        update = asdict(data)
         self.state["world"] = {
-            "ball": update["ball_status"],
-            "own_players": update["own_robots_status"],
-            "opp_players": update["opp_robots_status"],
+            "ball": asdict(ball_state),
+            "own_players": [asdict(p) for p in own_players_state],
+            "opp_players": [asdict(p) for p in opp_players_state],
         }
         self._publish(self.state)
 
     def subscribe(self, callback: Callable[[Dict], Any]):
+        """Subscribes to the state updates."""
         self._subs.append(callback)
 
     def to_json(self) -> str:

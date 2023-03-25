@@ -1,24 +1,24 @@
 from collections import OrderedDict
-from typing import List
+from typing import List, Optional
 
 from ...vecMath.vec_math import Vec2, Vec3
 from .estimators import (
-    BallDataEstimated,
+    BallData,
     BallDataRaw,
-    RobotDataEstimated,
+    RobotData,
     RobotDataRaw,
     StatusEstimator,
 )
 
 
-class SimpleFilter(StatusEstimator):
+class SimpleEstimator(StatusEstimator):
     """
     State estimation filter that uses the last two positions and estimates velocity.
     """
 
     def ball_filter(
         self, raw_data: OrderedDict[float, List[BallDataRaw]]
-    ) -> BallDataEstimated:
+    ) -> Optional[BallData]:
         """
         it chooses the ball with the highest confidence and estimate the velocity based on the last two positions.
 
@@ -39,7 +39,7 @@ class SimpleFilter(StatusEstimator):
 
         # If there is only one position reading, we cannot estimate velocity
         if len(records) == 1:
-            return BallDataEstimated(cur_pos, Vec3(0, 0, 0))
+            return BallData(cur_pos, Vec3(0, 0, 0))
 
         previous_frame = records[-2]
         # Select reading with highest confidence
@@ -49,11 +49,11 @@ class SimpleFilter(StatusEstimator):
 
         timediff = current_frame[0].time_stamp - previous_frame[0].time_stamp
         velocity = (cur_pos - prev_pos) / timediff
-        return BallDataEstimated(cur_pos, velocity)
+        return BallData(cur_pos, velocity)
 
     def robot_filter(
         self, raw_data: OrderedDict[float, List[RobotDataRaw]]
-    ) -> RobotDataEstimated:
+    ) -> Optional[RobotData]:
         """
         it uses the last two positions and estimate the velocity. and
         uses the last position/orientation as the final position/orientation.
@@ -91,4 +91,4 @@ class SimpleFilter(StatusEstimator):
             v = (pos - prev_pos) / timediff
             spinv = (ori - prev_ori) / timediff
 
-        return RobotDataEstimated(pos, ori, v, spinv)
+        return RobotData(pos, ori, v, spinv)

@@ -1,6 +1,5 @@
 from ..vecMath.vec_math import Vec2
 from ..player.player import Target
-from ..world.world import FilteredDataWrapper
 from . import Role
 
 
@@ -10,8 +9,8 @@ class FixedRole(Role):
     def __init__(self, target_pos: Vec2):
         self.target = Target(move_to=target_pos)
 
-    def get_fitness_for_player(self, _: int, __: FilteredDataWrapper) -> float:
+    def get_fitness_for_player(self, _: int) -> float:
         return 1
 
-    def get_next_target(self, _: FilteredDataWrapper) -> Target:
+    def get_next_target(self) -> Target:
         return self.target

@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 from collections import OrderedDict
 from ...vecMath.vec_math import Vec2, Vec3
 import abc
@@ -24,7 +24,7 @@ class RobotDataRaw:
 
 
 @dataclass
-class RobotDataEstimated:
+class RobotData:
     """
     a dataclass to store estimated data from ssl vision, this contact can be modified based on real needs.
     """
@@ -56,7 +56,7 @@ class BallDataRaw:
 
 
 @dataclass
-class BallDataEstimated:
+class BallData:
     """
     A dataclass to store estimated data from ssl vision, this contact can be modified based on real needs.
 
@@ -77,7 +77,7 @@ class StatusEstimator(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def ball_filter(
         self, raw_data: OrderedDict[float, List[BallDataRaw]]
-    ) -> BallDataEstimated:
+    ) -> Optional[BallData]:
         """
         filter the ball data
 
@@ -91,7 +91,7 @@ class StatusEstimator(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def robot_filter(
         self, raw_data: OrderedDict[float, List[RobotDataRaw]]
-    ) -> RobotDataEstimated:
+    ) -> Optional[RobotData]:
         """
         filter the robot data
 

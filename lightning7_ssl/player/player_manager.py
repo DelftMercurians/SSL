@@ -1,6 +1,6 @@
 from typing import List, Dict, Type
+from .. import cfg
 from ..control_client import SSLClient
-from ..world.world import FilteredDataWrapper, World
 from ..roles import Role
 from .player import Player, Target
 
@@ -20,6 +20,14 @@ class PlayerManager:
     client: SSLClient
 
     def __init__(self, player_ids: int | List[int], client: SSLClient) -> None:
+        """Create a new player manager.
+
+        Args:
+            player_ids: A list of player ids, or the number of players.
+            client: The client to send commands to.
+        """
+        if cfg.world is None:
+            raise RuntimeError("World not initialized")
         self.client = client
         self.assigned_roles = {}
         self.players = {
@@ -29,23 +37,20 @@ class PlayerManager:
             )
         }
 
-    def tick(self, world: World):
+    def tick(self):
         """Called on fixed intervals, should move all players."""
-        data = world.get_status()
-        for id, player in self.players.items():
+        for player in self.players.values():
             role = self.assigned_roles.get(player.id)
             if role:
-                target = role.get_next_target(data)
+                target = role.get_next_target()
                 player.set_target(target)
             else:
                 # No role assigned, idle
                 player.set_target(Target(move_to=None))
-            state = data.own_robots_status[id]
-            if state is not None:
-                player.tick(state, world)
+            player.tick()
             # TODO: Reevaluate role fitness
 
-    def spawn_role(self, new_role: Role, data: FilteredDataWrapper):
+    def spawn_role(self, new_role: Role):
         """Spawn a new role and assign it to a player.
 
         Args:
@@ -59,13 +64,13 @@ class PlayerManager:
             # No unassigned players, find the least fit player
             least_fit_player = min(
                 self.players,
-                key=lambda id: self.assigned_roles[id].get_fitness_for_player(id, data),
+                key=lambda id: self.assigned_roles[id].get_fitness_for_player(id),
             )
             self.assigned_roles[least_fit_player] = new_role
         else:
             # Assign to the most fit available player
             most_fit_player = max(
                 unassigned_players,
-                key=lambda id: new_role.get_fitness_for_player(id, data),
+                key=lambda id: new_role.get_fitness_for_player(id),
             )
             self.assigned_roles[most_fit_player] = new_role
