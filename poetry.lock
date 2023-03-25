@@ -1093,7 +1093,7 @@ six = "*"
 
 [package.source]
 type = "git"
-url = "ssh://git@github.com/wearefair/protobuf-to-dict"
+url = "https://github.com/wearefair/protobuf-to-dict.git"
 reference = "HEAD"
 resolved_reference = "233f6d2c6b76d4ada47a14dc4b1190fc5776f396"
 
@@ -1553,4 +1553,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "6701eff3f6ebe08bd0872a7e983a3e520b844973f0774d2414ab0cfcfc0b5bfa"
+content-hash = "4c22173c0e7b689cd21749e5bee9f4e579bd34428611bec855b6e42406f3b2a3"

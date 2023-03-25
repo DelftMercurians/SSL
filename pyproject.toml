@@ -11,7 +11,7 @@ packages = [{include = "lightning7_ssl"}]
 python = "^3.9"
 numpy = "^1.23.5"
 protobuf = "^4.21.11"
-protobuf-to-dict = {git = "ssh://git@github.com/wearefair/protobuf-to-dict"}
+protobuf-to-dict = {git = "https://github.com/wearefair/protobuf-to-dict.git"}
 matplotlib = "^3.7.0"
 starlette = "^0.25.0"
 uvicorn = "^0.20.0"
