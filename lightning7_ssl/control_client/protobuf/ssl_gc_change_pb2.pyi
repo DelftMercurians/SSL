@@ -262,25 +262,28 @@ class Change(google.protobuf.message.Message):
     ) -> None: ...
     def WhichOneof(
         self, oneof_group: typing_extensions.Literal["change", b"change"]
-    ) -> typing_extensions.Literal[
-        "new_command",
-        "change_stage",
-        "set_ball_placement_pos",
-        "add_yellow_card",
-        "add_red_card",
-        "yellow_card_over",
-        "add_game_event",
-        "add_passive_game_event",
-        "add_proposal",
-        "start_ball_placement",
-        "continue",
-        "update_config",
-        "update_team_state",
-        "switch_colors",
-        "revert",
-        "new_game_state",
-        "accept_proposal_group",
-    ] | None: ...
+    ) -> (
+        typing_extensions.Literal[
+            "new_command",
+            "change_stage",
+            "set_ball_placement_pos",
+            "add_yellow_card",
+            "add_red_card",
+            "yellow_card_over",
+            "add_game_event",
+            "add_passive_game_event",
+            "add_proposal",
+            "start_ball_placement",
+            "continue",
+            "update_config",
+            "update_team_state",
+            "switch_colors",
+            "revert",
+            "new_game_state",
+            "accept_proposal_group",
+        ]
+        | None
+    ): ...
 
 global___Change = Change
 

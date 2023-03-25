@@ -19,7 +19,6 @@ DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, "ssl_gc_engine_config_pb2", globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
-
     DESCRIPTOR._options = None
     _CONFIG_GAMEEVENTBEHAVIORENTRY._options = None
     _CONFIG_GAMEEVENTBEHAVIORENTRY._serialized_options = b"8\001"

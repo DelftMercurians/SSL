@@ -481,16 +481,19 @@ class Obstacle(google.protobuf.message.Message):
     ) -> None: ...
     def WhichOneof(
         self, oneof_group: typing_extensions.Literal["obstacle", b"obstacle"]
-    ) -> typing_extensions.Literal[
-        "circle",
-        "rectangle",
-        "triangle",
-        "line",
-        "moving_circle",
-        "moving_line",
-        "friendly_robot",
-        "opponent_robot",
-    ] | None: ...
+    ) -> (
+        typing_extensions.Literal[
+            "circle",
+            "rectangle",
+            "triangle",
+            "line",
+            "moving_circle",
+            "moving_line",
+            "friendly_robot",
+            "opponent_robot",
+        ]
+        | None
+    ): ...
 
 global___Obstacle = Obstacle
 

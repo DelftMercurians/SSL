@@ -21,7 +21,6 @@ DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, "ssl_vision_wrapper_tracked_pb2", globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
-
     DESCRIPTOR._options = None
     _TRACKERWRAPPERPACKET._serialized_start = 88
     _TRACKERWRAPPERPACKET._serialized_end = 198
