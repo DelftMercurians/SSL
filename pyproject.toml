@@ -45,8 +45,18 @@ profile = "black"
 line-length = 110
 
 [tool.poe.tasks]
-mypy   = "mypy -p lightning7_ssl --config-file pyproject.toml --follow-imports=silent --ignore-missing-imports"
-black = "black lightning7_ssl"
-isort = "isort lightning7_ssl"
-format  = ["black", "isort"]
-lint = "flake8 lightning7_ssl"
+_mypy = "mypy -p lightning7_ssl --config-file pyproject.toml --follow-imports=silent --ignore-missing-imports"
+lint = [
+    { ref = "_mypy" },
+    { cmd = "flake8 lightning7_ssl" },
+]
+format  = [
+    { cmd = "isort lightning7_ssl" },
+    { cmd = "black lightning7_ssl" },
+]
+ci-check = [
+    { cmd = "isort --check lightning7_ssl" },
+    { cmd = "black --check lightning7_ssl" },
+    { ref = "_mypy" },
+    { cmd = "flake8 lightning7_ssl" },
+]
