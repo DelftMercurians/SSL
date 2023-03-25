@@ -1,6 +1,6 @@
 import argparse
 from time import time
-from typing import Literal
+from typing import Optional
 
 from . import cfg
 from .control_client import SSLClient
@@ -10,24 +10,15 @@ from .vecMath.vec_math import Vec2
 from .vis.generate_log import LogGenerator
 from .web.server import ServerWrapper
 
-TICK_INTERVAL_SEC = 0.1
-OWN_TEAM: Literal["blue", "yellow"] = "blue"
-NUM_PLAYERS = 11
 
-# Field info
-DIV = "A"
-LENGTH = 12
-WIDTH = 9
-RADIUS_ROBOT = 0.0793
-logger = LogGenerator("logs.pickle")
-
-
-def main(force_dev=False):
-    web_server = ServerWrapper(force_dev_mode=force_dev)
-    cfg.data_store.subscribe(logger.step)
+def main(ui: bool = False, log_file: Optional[str] = None) -> None:
+    web_server = ServerWrapper(open_browser=ui, ui_dev_server=ui)
     cfg.data_store.subscribe(web_server.step)
+    if log_file is not None:
+        logger = LogGenerator("logs.pickle")
+        cfg.data_store.subscribe(logger.step)
     with SSLClient() as client:
-        player_manager = PlayerManager(NUM_PLAYERS, client)
+        player_manager = PlayerManager(client)
 
         # Ping the server to start the game
         client.send(0, 0, 0)
@@ -38,7 +29,7 @@ def main(force_dev=False):
             vision_data = client.receive()
             cfg.world.update_from_protobuf(vision_data)
 
-            if time() - last_tick >= TICK_INTERVAL_SEC:
+            if time() - last_tick >= cfg.tick_interval_sec:
                 ball_state = cfg.world.get_ball_state()
                 if ball_state is not None:
                     ball_pos = ball_state.position
@@ -53,12 +44,43 @@ def main(force_dev=False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.prog = "lightning7_ssl"
     parser.add_argument(
-        "--dev",
+        "--ui",
         action="store_true",
         default=False,
-        help="Run the server in development mode",
+        help="Run the browser UI",
+    )
+    parser.add_argument(
+        "--num-players",
+        type=int,
+        default=11,
+        help="The number of players on the field",
+    )
+    parser.add_argument(
+        "--own-team",
+        type=str,
+        default="blue",
+        choices=["blue", "yellow"],
+        help="The team color",
+    )
+    parser.add_argument(
+        "--tick-interval",
+        type=float,
+        default=0.1,
+        help="The interval between ticks in seconds",
+    )
+    parser.add_argument(
+        "--log-file",
+        type=str,
+        default="logs.pickle",
+        help="The file to log to",
     )
     args = parser.parse_args()
-    cfg.setup_globals(num_robots=NUM_PLAYERS, own_team=OWN_TEAM)
-    main(force_dev=args.dev)
+
+    cfg.setup_globals(
+        num_players_on_field=args.num_players,
+        own_team_color=args.own_team,
+        tick_interval=args.tick_interval,
+    )
+    main(ui=args.ui, log_file=args.log_file)

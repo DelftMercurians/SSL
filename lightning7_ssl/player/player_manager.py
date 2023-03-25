@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict
 
 from .. import cfg
 from ..control_client import SSLClient
@@ -20,21 +20,17 @@ class PlayerManager:
     assigned_roles: Dict[int, Role]
     client: SSLClient
 
-    def __init__(self, player_ids: int | List[int], client: SSLClient) -> None:
+    def __init__(self, client: SSLClient) -> None:
         """Create a new player manager.
 
         Args:
-            player_ids: A list of player ids, or the number of players.
             client: The client to send commands to.
         """
         if cfg.world is None:
             raise RuntimeError("World not initialized")
         self.client = client
         self.assigned_roles = {}
-        self.players = {
-            id: Player(id, client)
-            for id in (player_ids if isinstance(player_ids, list) else range(player_ids))
-        }
+        self.players = {id: Player(id, client) for id in range(cfg.num_players)}
 
     def tick(self):
         """Called on fixed intervals, should move all players."""

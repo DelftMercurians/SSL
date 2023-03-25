@@ -7,7 +7,7 @@ import time
 from multiprocessing import Pipe, Process
 from multiprocessing.connection import Connection
 from pathlib import Path
-from typing import TYPE_CHECKING, Dict, Optional
+from typing import TYPE_CHECKING, Dict, List, Optional
 
 if TYPE_CHECKING:
     from ..vis.data_store import DataStore
@@ -16,12 +16,12 @@ SERVER_PORT = 5000
 dist_folder = Path(__file__).parent / "frontend" / "dist"
 
 
-def run_server(pipe: Connection, dev_mode=False):
+def run_server(pipe: Connection, ui_dev_server=False):
     """Run a web server to serve the visualization."""
     import uvicorn
     from starlette.applications import Starlette
     from starlette.responses import JSONResponse
-    from starlette.routing import Mount, Route
+    from starlette.routing import BaseRoute, Mount, Route
     from starlette.staticfiles import StaticFiles
 
     state: Dict = {}
@@ -41,11 +41,11 @@ def run_server(pipe: Connection, dev_mode=False):
             elif isinstance(data, dict):
                 state.update(data)
 
-    async def run_server():
-        routes = [
+    async def run_server() -> None:
+        routes: List[BaseRoute] = [
             Route("/api/state", get_state),
         ]
-        if not dev_mode:
+        if not ui_dev_server:
             routes.append(
                 Mount(
                     "/",
@@ -76,20 +76,20 @@ class ServerWrapper:
     _process: Optional[Process] = None
     _dev_process: Optional[subprocess.Popen] = None
 
-    def __init__(self, force_dev_mode=False):
-        dev_mode = force_dev_mode or bool(os.environ.get("DEV_MODE", False))
-        if dev_mode:
+    def __init__(self, open_browser=False, ui_dev_server=False) -> None:
+        if ui_dev_server:
+            env = dict(os.environ, PROXY_PORT=str(SERVER_PORT))
+            if open_browser:
+                env["OPEN_BROWSER"] = "1"
             self._dev_process = subprocess.Popen(
-                ["npm", "run", "dev"],
+                ["npm", "run", "dev", "--", "-l", "error"],
                 cwd=dist_folder.parent,
-                env=dict(os.environ, PROXY_PORT=str(SERVER_PORT)),
+                env=env,
                 stdin=subprocess.DEVNULL,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
             )
             time.sleep(1)
         self._pipe, child_pipe = Pipe()
-        self._process = Process(target=run_server, args=(child_pipe, dev_mode), daemon=True)
+        self._process = Process(target=run_server, args=(child_pipe, ui_dev_server), daemon=True)
         self._process.start()
         atexit.register(self.stop)
 
