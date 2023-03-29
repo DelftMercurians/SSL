@@ -14,4 +14,4 @@ Delft Mercurians SSL pacakge
    lightning7_ssl.player
    lightning7_ssl.roles
    lightning7_ssl.vecMath
-   lightning7_ssl.SimpleVis
+   lightning7_ssl.vis

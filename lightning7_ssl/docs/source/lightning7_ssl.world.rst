@@ -1,26 +1,29 @@
 world package
 =============================
 
-world.common module
------------------------------------
+Subpackages
+-----------
 
-.. automodule:: lightning7_ssl.world.common
+.. toctree::
+   :maxdepth: 4
+
+   lightning7_ssl.world.processing
+
+Submodules
+----------
+
+world.geometry module
+-------------------------------------
+
+.. automodule:: lightning7_ssl.world.geometry
    :members:
    :undoc-members:
    :show-inheritance:
 
-world.maintainer module
----------------------------------------
+world.world module
+----------------------------------
 
-.. automodule:: lightning7_ssl.world.maintainer
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-world.simple\_filter module
--------------------------------------------
-
-.. automodule:: lightning7_ssl.world.simple_filter
+.. automodule:: lightning7_ssl.world.world
    :members:
    :undoc-members:
    :show-inheritance:
