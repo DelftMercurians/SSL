@@ -33,8 +33,8 @@
     const height = canvasHeight - PADDING * 2;
 
     const { own_players, opp_players, ball } = state.world;
-    const fieldH = state.geom.field_geometry.field_width * 1000;
-    const fieldW = state.geom.field_geometry.field_length * 1000;
+    const fieldH = state.geom.field_geometry.field_width;
+    const fieldW = state.geom.field_geometry.field_length;
 
     /**
      * Convert from server length to canvas length.
@@ -92,6 +92,13 @@
     };
     own_players.forEach(({ position: pos }) => drawPlayer(pos, "blue"));
     opp_players.forEach(({ position: pos }) => drawPlayer(pos, "yellow"));
+
+    // Render vector field on top
+    if (state.vector_field) {
+      const img = new Image();
+      img.src = state.vector_field;
+      ctx.drawImage(img, PADDING, PADDING, width, height);
+    }
   };
 </script>
 

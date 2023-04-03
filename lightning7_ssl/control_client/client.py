@@ -119,8 +119,8 @@ class SSLClient:
     def send(
         self,
         id: int,
-        vel_x: float,
-        vel_y: float,
+        vel_forw: float,
+        vel_left: float,
         angular_speed: float = 0,
         dribbler_speed: float = 0,
         kick_speed: float = 0,
@@ -141,13 +141,13 @@ class SSLClient:
         control_msg = RobotControl()
         command = control_msg.robot_commands.add()
         command.id = id
-        command.move_command.local_velocity.forward = vel_y
-        command.move_command.local_velocity.left = vel_x
-        command.move_command.local_velocity.angular = angular_speed
         command.dribbler_speed = dribbler_speed
         command.kick_speed = kick_speed
         command.kick_angle = kick_angle
-        command.move_command.local_velocity.forward = vel_y
-        command.move_command.local_velocity.left = vel_x
+        # command.move_command.global_velocity.x = vel_x
+        # command.move_command.global_velocity.y = vel_y
+        # command.move_command.global_velocity.angular = angular_speed
+        command.move_command.local_velocity.forward = vel_forw
+        command.move_command.local_velocity.left = vel_left
         command.move_command.local_velocity.angular = angular_speed
         return self.cmd_sock.sendto(control_msg.SerializeToString(), (self.cmd_ip, self.command_port))

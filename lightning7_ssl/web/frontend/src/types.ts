@@ -58,4 +58,7 @@ export interface ServerState {
   world?: World;
   player_states?: PlayerState[];
   geom?: Geometry;
+
+  /** A data url with an image rendering of a vector field. */
+  vector_field?: string;
 }

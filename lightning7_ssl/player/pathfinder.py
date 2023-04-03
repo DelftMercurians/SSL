@@ -29,6 +29,7 @@ def find_path(
     alpha=0.00001,
     beta=0.01,
     influence_factor: Tuple[int, int] = (5, 1),
+    start_pos: Vec2 | None = None,
 ) -> Vec2:
     """
     Computes the immediate direction the robot should head towards.
@@ -45,6 +46,8 @@ def find_path(
             base_factor: in what range the obstacle can have an influence.
             speed_factor: the relative speed contribution to the enlarged radius(compared to no speed)
 
+        start_pos: the position of the robot which is going to move
+
     Returns: a unit vector, the global direction.
     """
 
@@ -54,7 +57,7 @@ def find_path(
     team_vel = cfg.world.get_team_vel()
     opp_vel = cfg.world.get_opp_vel()
 
-    start_pos = team_position[start_id]
+    start_pos = team_position[start_id] if start_pos is None else start_pos
     for i, pos in enumerate(team_position):
         # Convert everything to Vec2
         if i == start_id:

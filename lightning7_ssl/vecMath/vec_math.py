@@ -69,6 +69,18 @@ class Vec2:
         """
         return Vec2(self.x % scalar, self.y % scalar)
 
+    def __neg__(self) -> "Vec2":
+        """
+        Returns the negative of this Vec2 object.
+        """
+        return Vec2(-self.x, -self.y)
+
+    def __pos__(self) -> "Vec2":
+        """
+        Returns the positive of this Vec2 object.
+        """
+        return Vec2(self.x, self.y)
+
     def __len__(self):
         """
         Returns the length of this Vec2 object.
@@ -89,11 +101,37 @@ class Vec2:
             return False
         return self.x == other.x and self.y == other.y
 
+    def __iter__(self):
+        """
+        Returns an iterator for this Vec2 object.
+        """
+        return iter(self.vec)
+
+    def __hash__(self):
+        """
+        Returns the hash of this Vec2 object.
+        """
+        return hash(self.vec)
+
     def dot(self, other: "Vec2"):
         """
         Returns the dot product of two Vec2 objects.
         """
         return self.x * other.x + self.y * other.y
+
+    def rotate_axis(self, angle: float):
+        """
+        Transforms the vector to a new coordinate system with the axis rotated by
+        the given angle.
+
+        Args:
+            angle: Angle in radians.
+        """
+        # See https://en.wikipedia.org/wiki/Rotation_of_axes
+        # TODO: add support for coordinate systems in Vec2?
+        new_x = self.y * math.sin(angle) + self.x * math.cos(angle)
+        new_y = self.y * math.cos(angle) - self.x * math.sin(angle)
+        return Vec2(new_x, new_y)
 
     def as_unit(self):
         """
@@ -196,6 +234,18 @@ class Vec3:
         """
         return self.vec[index]
 
+    def __iter__(self):
+        """
+        Returns an iterator for this Vec3 object.
+        """
+        return iter(self.vec)
+
+    def __hash__(self):
+        """
+        Returns the hash of this Vec3 object.
+        """
+        return hash(self.vec)
+
     def __eq__(self, other: object):
         """
         Returns True if the two vectors are equal.
@@ -227,6 +277,12 @@ class Vec3:
             return Vec3(0, 0, 0)
         else:
             return Vec3(self.x / self.norm, self.y / self.norm, self.z / self.norm)
+
+    def to_vec2(self):
+        """
+        Returns the Vec2 representation of this Vec3 object.
+        """
+        return Vec2(self.x, self.y)
 
     def to_json(self):
         """
