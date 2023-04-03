@@ -112,6 +112,15 @@ class World:
         except AttributeError:
             raise UninitializedError("Robot not initialized")
 
+    def get_robot_heading(self, id: int) -> float:
+        """Returns the current heading of the robot with the given id.
+
+        This will raise an exception if the robot is not initialized."""
+        try:
+            return self.own_robots_status[id].get().orientation
+        except AttributeError:
+            raise UninitializedError("Robot not initialized")
+
     def get_team_position(self) -> List[Vec2]:
         """Returns the current position of the own robots.
 

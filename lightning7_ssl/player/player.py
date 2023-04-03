@@ -8,7 +8,7 @@ from ..control_client import SSLClient
 from .pathfinder import find_path
 
 # Margin of error when arriving at a target location
-TARGET_TRESHOLD = 10
+TARGET_TRESHOLD = 50
 
 
 @dataclass
@@ -61,6 +61,7 @@ class Player:
     def tick(self):
         """Called on fixed intervals, should move to execute current target."""
         pos = cfg.world.get_robot_pos(self.id)
+        heading = cfg.world.get_robot_heading(self.id)  # -90 deg = East
         if isinstance(self.status, Status.Moving):
             dist = (self.status.target - pos).norm
             if dist <= TARGET_TRESHOLD:
@@ -68,14 +69,18 @@ class Player:
                 self.status = Status.Idle()
             else:
                 # Move towards target
-                dir_x, dir_y = find_path(self.id, self.status.target)
-                self._move(dir_x, dir_y)
+                speed = dist / 1000
+                dir = find_path(self.id, self.status.target) * speed
+                # Convert to robot coordinates
+                # TODO: Should this be elsewhere?
+                local_vel = dir.rotate_axis(heading)
+                self._move(local_vel)
         if isinstance(self.status, Status.Idle):
             # Stop moving
-            self._move(0, 0)
+            self._move()
 
     # Internal methods
     # -----------------------------------
 
-    def _move(self, velX: float = 0, velY: float = 0, yaw: float = 0):
-        self.client.send(self.id, velX, velY, yaw)
+    def _move(self, local_vel: Vec2 = Vec2(), yaw: float = 0):
+        self.client.send(self.id, local_vel.x, local_vel.y, yaw)

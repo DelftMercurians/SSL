@@ -5,11 +5,9 @@ from typing import Optional
 from . import cfg
 from .control_client import SSLClient
 from .player import PlayerManager
-from .player.pathfinder import find_path
 from .roles.fixed_role import FixedRole
 from .vecMath.vec_math import Vec2
 from .vis.generate_log import LogGenerator
-from .vis.vector_field import draw_vector_field
 from .web.server import ServerWrapper
 
 
@@ -40,16 +38,16 @@ def main(ui: bool = False, log_file: Optional[str] = None) -> None:
                             FixedRole(Vec2(ball_pos.x, ball_pos.y)),
                         )
 
-                    if cfg.world.field_geometry:
-                        # Draw a vector field for the ball
-                        vec_field = draw_vector_field(
-                            (
-                                cfg.world.field_geometry.field_width,
-                                cfg.world.field_geometry.field_length,
-                            ),
-                            lambda pos: find_path(0, ball_pos.to_vec2(), start_pos=pos),
-                        )
-                        cfg.data_store.update_vector_field(vec_field)
+                    # if cfg.world.field_geometry:
+                    #     # Draw a vector field for the ball
+                    #     vec_field = draw_vector_field(
+                    #         (
+                    #             cfg.world.field_geometry.field_width,
+                    #             cfg.world.field_geometry.field_length,
+                    #         ),
+                    #         lambda pos: find_path(0, ball_pos.to_vec2(), start_pos=pos),
+                    #     )
+                    #     cfg.data_store.update_vector_field(vec_field)
 
                 player_manager.tick()
 
