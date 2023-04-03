@@ -14,6 +14,8 @@ class Vec2:
         """
         Vec2 contains (x, y) coordinates and its own norm.
         """
+        if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):
+            raise TypeError("Vec2 coordinates must be numbers.")
         self.x = x
         self.y = y
         self.vec = (x, y)
@@ -29,18 +31,22 @@ class Vec2:
     def __repr__(self) -> str:
         return f"Vec2({self.x}, {self.y})"
 
-    def __add__(self, other):
+    def __add__(self, other: "Vec2") -> "Vec2":
         """
         Returns the sum of two Vec2 objects.
         """
+        if not isinstance(other, Vec2):
+            return NotImplemented
         x = self.x + other.x
         y = self.y + other.y
         return Vec2(x, y)
 
-    def __sub__(self, other):
+    def __sub__(self, other: "Vec2") -> "Vec2":
         """
         Returns the difference of two Vec2 objects.
         """
+        if not isinstance(other, Vec2):
+            return NotImplemented
         x = self.x - other.x
         y = self.y - other.y
         return Vec2(x, y)
@@ -89,10 +95,12 @@ class Vec2:
             return False
         return self.x == other.x and self.y == other.y
 
-    def dot(self, other: "Vec2"):
+    def dot(self, other: "Vec2") -> float:
         """
         Returns the dot product of two Vec2 objects.
         """
+        if not isinstance(other, Vec2):
+            raise TypeError("Vec2 dot product requires two Vec2 objects.")
         return self.x * other.x + self.y * other.y
 
     def as_unit(self):
@@ -109,6 +117,20 @@ class Vec2:
         Returns a json representation of this Vec2 object.
         """
         return {"x": self.x, "y": self.y}
+
+    def to_tuple(self):
+        """
+        Returns a tuple representation of this Vec2 object.
+        """
+        return (self.x, self.y)
+
+    def to_numpy(self):
+        """
+        Returns a numpy representation of this Vec2 object.
+        """
+        import numpy as np
+
+        return np.array([self.x, self.y])
 
 
 class Vec3:
@@ -142,19 +164,23 @@ class Vec3:
     def __repr__(self) -> str:
         return f"Vec3({self.x}, {self.y}, {self.z})"
 
-    def __add__(self, other):
+    def __add__(self, other: "Vec3") -> "Vec3":
         """
         Returns the sum of two Vec3 objects.
         """
+        if not isinstance(other, Vec3):
+            return NotImplemented
         x = self.x + other.x
         y = self.y + other.y
         z = self.z + other.z
         return Vec3(x, y, z)
 
-    def __sub__(self, other):
+    def __sub__(self, other: "Vec3") -> "Vec3":
         """
         Returns the difference of two Vec3 objects.
         """
+        if not isinstance(other, Vec3):
+            return NotImplemented
         x = self.x - other.x
         y = self.y - other.y
         z = self.z - other.z
@@ -204,19 +230,23 @@ class Vec3:
             return False
         return self.x == other.x and self.y == other.y and self.z == other.z
 
-    def cross(self, other: "Vec3"):
+    def cross(self, other: "Vec3") -> "Vec3":
         """
         Returns the cross product of two Vec3 objects.
         """
+        if not isinstance(other, Vec3):
+            raise TypeError("Vec3 cross product requires two Vec3 objects.")
         x = self.y * other.z - self.z * other.y
         y = self.z * other.x - self.x * other.z
         z = self.x * other.y - self.y * other.x
         return Vec3(x, y, z)
 
-    def dot(self, other: "Vec3"):
+    def dot(self, other: "Vec3") -> float:
         """
         Returns the dot product of two Vec3 objects.
         """
+        if not isinstance(other, Vec3):
+            raise TypeError("Vec3 dot product requires two Vec3 objects.")
         return self.x * other.x + self.y * other.y + self.z * other.z
 
     def as_unit(self):
@@ -233,3 +263,17 @@ class Vec3:
         Returns a json representation of this Vec3 object.
         """
         return {"x": self.x, "y": self.y, "z": self.z}
+
+    def to_tuple(self):
+        """
+        Returns a tuple representation of this Vec3 object.
+        """
+        return (self.x, self.y, self.z)
+
+    def to_numpy(self):
+        """
+        Returns a numpy representation of this Vec3 object.
+        """
+        import numpy as np
+
+        return np.array([self.x, self.y, self.z])

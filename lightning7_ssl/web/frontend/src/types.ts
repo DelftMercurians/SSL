@@ -15,9 +15,10 @@ export interface World {
   opp_players: PosVel[];
 }
 
+export type PlayerStatus = { type: "idle" } | { type: "moving"; target: XY };
+
 export interface PlayerState {
-  role: string;
-  target: XY;
+  status: PlayerStatus;
 }
 
 export interface Geometry {

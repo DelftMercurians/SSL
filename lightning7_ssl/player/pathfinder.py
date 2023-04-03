@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from .. import cfg
 from ..vecMath.vec_math import Vec2
@@ -29,6 +29,7 @@ def find_path(
     alpha=0.00001,
     beta=0.01,
     influence_factor: Tuple[int, int] = (5, 1),
+    start_pos: Optional[Vec2] = None,
 ) -> Vec2:
     """
     Computes the immediate direction the robot should head towards.
@@ -37,6 +38,7 @@ def find_path(
     Args:
         world: the world object which contains the current state
         start_id: the id of the robot which is going to move
+
         goal:  the position of the ball
         alpha: larger alpha will lead to a stronger attractive rate(related to the repulsive rate)
         beta: the relative speed contribution to the repulsive force(compared to no speed)
@@ -44,6 +46,8 @@ def find_path(
 
             base_factor: in what range the obstacle can have an influence.
             speed_factor: the relative speed contribution to the enlarged radius(compared to no speed)
+        start_pos: the starting position for the algorithm, can be used to override the robot's position,
+                    useful for drawing the vector field
 
     Returns: a unit vector, the global direction.
     """
@@ -54,7 +58,7 @@ def find_path(
     team_vel = cfg.world.get_team_vel()
     opp_vel = cfg.world.get_opp_vel()
 
-    start_pos = team_position[start_id]
+    start_pos = team_position[start_id] if start_pos is None else start_pos
     for i, pos in enumerate(team_position):
         # Convert everything to Vec2
         if i == start_id:

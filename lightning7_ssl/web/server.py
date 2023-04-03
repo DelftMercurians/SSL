@@ -109,6 +109,14 @@ class ServerWrapper:
                 self._dev_process.kill()
             self._dev_process = None
 
+    def recv(self):
+        """Non-blocking receive from the server."""
+        if self._process is None or not self._process.is_alive():
+            raise RuntimeError("Server is not running")
+        if self._pipe.poll():
+            return self._pipe.recv()
+        return None
+
     def send(self, data):
         if self._process is None or not self._process.is_alive():
             raise RuntimeError("Server is not running")

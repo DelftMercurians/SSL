@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Dict, Optional
 
 from lightning7_ssl.vecMath.vec_math import Vec2
 
@@ -32,6 +32,16 @@ class Status:
     class Moving:
         target: Vec2
 
+    @staticmethod
+    def to_json(status: "PlayerStatus") -> Dict:
+        """Convert a player status to a JSON string."""
+        if isinstance(status, Status.Idle):
+            return {"type": "idle"}
+        elif isinstance(status, Status.Moving):
+            return {"type": "moving", "target": status.target}
+        else:
+            raise ValueError("Unknown player status type.")
+
 
 # Player status type for typechecker
 PlayerStatus = Status.Idle | Status.Moving
@@ -57,6 +67,7 @@ class Player:
             self.status = Status.Idle()
         else:
             self.status = Status.Moving(target.move_to)
+        cfg.data_store.update_player_state(self)
 
     def tick(self):
         """Called on fixed intervals, should move to execute current target."""
@@ -66,6 +77,7 @@ class Player:
             if dist <= TARGET_TRESHOLD:
                 # Reached target
                 self.status = Status.Idle()
+                cfg.data_store.update_player_state(self)
             else:
                 # Move towards target
                 dir_x, dir_y = find_path(self.id, self.status.target)

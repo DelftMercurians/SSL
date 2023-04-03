@@ -1,0 +1,4 @@
+- [ ] Create a decorator that can automatically track changes to main objects and report them as json to data store
+- [ ] Add extra logging facilities to data store
+- [ ] Add support for on-demand fields in data store
+  - [ ] Vector fields
