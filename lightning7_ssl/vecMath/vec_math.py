@@ -89,6 +89,18 @@ class Vec2:
             return False
         return self.x == other.x and self.y == other.y
 
+    def __iter__(self):
+        """
+        Returns an iterator for this Vec2 object.
+        """
+        return iter(self.vec)
+
+    def __hash__(self):
+        """
+        Returns the hash of this Vec2 object.
+        """
+        return hash(self.vec)
+
     def dot(self, other: "Vec2"):
         """
         Returns the dot product of two Vec2 objects.
@@ -196,6 +208,18 @@ class Vec3:
         """
         return self.vec[index]
 
+    def __iter__(self):
+        """
+        Returns an iterator for this Vec3 object.
+        """
+        return iter(self.vec)
+
+    def __hash__(self):
+        """
+        Returns the hash of this Vec3 object.
+        """
+        return hash(self.vec)
+
     def __eq__(self, other: object):
         """
         Returns True if the two vectors are equal.
@@ -227,6 +251,12 @@ class Vec3:
             return Vec3(0, 0, 0)
         else:
             return Vec3(self.x / self.norm, self.y / self.norm, self.z / self.norm)
+
+    def to_vec2(self):
+        """
+        Returns the Vec2 representation of this Vec3 object.
+        """
+        return Vec2(self.x, self.y)
 
     def to_json(self):
         """

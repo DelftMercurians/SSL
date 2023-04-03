@@ -208,13 +208,13 @@ class World:
         fg = geometry.field
 
         self.field_geometry = FieldGeometry(
-            fg.field_length / 1000,
-            fg.field_width / 1000,
-            fg.goal_width / 1000,
-            fg.goal_depth / 1000,
-            fg.boundary_width / 1000,
-            fg.penalty_area_depth / 1000,
-            fg.penalty_area_width / 1000,
+            fg.field_length,
+            fg.field_width,
+            fg.goal_width,
+            fg.goal_depth,
+            fg.boundary_width,
+            fg.penalty_area_depth,
+            fg.penalty_area_width,
         )
 
         # Append each line segment into the field_ling_segments list
@@ -222,8 +222,8 @@ class World:
             line = FieldLinesSegment(
                 i,
                 segment.name,
-                Vec2(segment.p1.x / 1000, segment.p1.y / 1000),
-                Vec2(segment.p2.x / 1000, segment.p2.y / 1000),
+                Vec2(segment.p1.x, segment.p1.y),
+                Vec2(segment.p2.x, segment.p2.y),
                 segment.thickness,
             )
             self.field_line_segments.append(line)

@@ -14,6 +14,7 @@ class DataStore:
             "world": {},
             "player_states": [],
             "geom": {},
+            "vector_field": None,
         }
     )
     _subs: List[Callable[[Dict, "DataStore"], Any]] = field(default_factory=list)
@@ -42,6 +43,11 @@ class DataStore:
             "own_players": [asdict(p) for p in own_players_state],
             "opp_players": [asdict(p) for p in opp_players_state],
         }
+        self._publish(self.state)
+
+    def update_vector_field(self, vector_field: str):
+        """Updates the vector field for this frame."""
+        self.state["vector_field"] = vector_field
         self._publish(self.state)
 
     def subscribe(self, callback: Callable[[Dict, "DataStore"], Any]):
