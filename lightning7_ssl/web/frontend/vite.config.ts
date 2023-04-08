@@ -31,6 +31,9 @@ const openBrowserPlugin = (enabled: boolean = true) => ({
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
+    host: process.env.HOST || undefined,
+    port: parseInt(process.env.PORT) || undefined,
+    strictPort: !!parseInt(process.env.PORT),
     proxy:
       process.env.PROXY_PORT !== undefined
         ? {

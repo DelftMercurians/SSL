@@ -1,0 +1,35 @@
+services:
+  server:
+    container_name: ssl-server-1
+    build: .
+    environment:
+      - VISION_HOST=224.5.23.2
+      - VISION_PORT=10020
+      - COMMAND_LOCAL_HOST=ssl-server-1
+      - COMMAND_REMOTE_HOST=ssl-simulator-1
+      - COMMAND_REMOTE_PORT=10301
+      - UI=1
+      - UI_HOST=0.0.0.0
+      - UI_PORT=5173
+      - OPEN_BROWSER=0
+    networks:
+      simulator_net:
+        ipv4_address: 172.18.0.2
+    ports:
+      - "5173:5173"
+    depends_on:
+      - simulator
+
+  simulator:
+    container_name: ssl-simulator-1
+    build: ./simulator
+    networks:
+      simulator_net:
+        ipv4_address: 172.18.0.3
+
+networks:
+  simulator_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16

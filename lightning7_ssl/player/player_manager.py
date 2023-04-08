@@ -30,7 +30,7 @@ class PlayerManager:
             raise RuntimeError("World not initialized")
         self.client = client
         self.assigned_roles = {}
-        self.players = {id: Player(id, client) for id in range(cfg.num_players)}
+        self.players = {id: Player(id, client) for id in range(cfg.config.num_players)}
 
     def tick(self):
         """Called on fixed intervals, should move all players."""

@@ -2,6 +2,8 @@ import socket
 from dataclasses import dataclass, field
 from typing import List, Optional, Set
 
+from lightning7_ssl import cfg
+
 from .protobuf.ssl_simulation_robot_control_pb2 import RobotControl
 from .protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
 
@@ -70,24 +72,19 @@ class SSLClient:
 
     known_robot_ids: Set[int]
 
-    def __init__(
-        self,
-        command_ip: str = "127.0.0.1",
-        command_port: int = 10301,
-        vision_ip: str = "224.5.23.2",
-        vision_port: int = 10020,
-    ):
-        self.cmd_ip = command_ip
-        self.command_port = command_port
-        self.vision_ip = vision_ip
-        self.vision_port = vision_port
+    def __init__(self):
+        self.local_cmd_ip = cfg.config.command_local_host
+        self.remote_cmd_ip = cfg.config.command_remote_host
+        self.remote_cmd_port = cfg.config.command_remote_port
+        self.vision_ip = cfg.config.vision_host
+        self.vision_port = cfg.config.vision_port
         self.known_robot_ids = set()
 
     def __enter__(self):
         """Binds the client with ip and port and configure to UDP multicast."""
         self.cmd_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         self.cmd_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.cmd_sock.bind((self.cmd_ip, 0))
+        self.cmd_sock.bind((socket.gethostbyname(self.local_cmd_ip), 0))
 
         self.vision_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         self.vision_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -125,7 +122,7 @@ class SSLClient:
         dribbler_speed: float = 0,
         kick_speed: float = 0,
         kick_angle: float = 0,
-    ):
+    ) -> None:
         """Send a command to a robot.
 
         Args:
@@ -144,10 +141,10 @@ class SSLClient:
         command.dribbler_speed = dribbler_speed
         command.kick_speed = kick_speed
         command.kick_angle = kick_angle
-        # command.move_command.global_velocity.x = vel_x
-        # command.move_command.global_velocity.y = vel_y
-        # command.move_command.global_velocity.angular = angular_speed
         command.move_command.local_velocity.forward = vel_forw
         command.move_command.local_velocity.left = vel_left
         command.move_command.local_velocity.angular = angular_speed
-        return self.cmd_sock.sendto(control_msg.SerializeToString(), (self.cmd_ip, self.command_port))
+        self.cmd_sock.sendto(
+            control_msg.SerializeToString(),
+            (socket.gethostbyname(self.remote_cmd_ip), self.remote_cmd_port),
+        )

@@ -76,11 +76,21 @@ class ServerWrapper:
     _process: Optional[Process] = None
     _dev_process: Optional[subprocess.Popen] = None
 
-    def __init__(self, open_browser=False, ui_dev_server=False) -> None:
+    def __init__(
+        self,
+        open_browser=False,
+        ui_dev_server=False,
+        ui_host: str | None = None,
+        ui_port: int | None = None,
+    ) -> None:
         if ui_dev_server:
             env = dict(os.environ, PROXY_PORT=str(SERVER_PORT))
             if open_browser:
                 env["OPEN_BROWSER"] = "1"
+            if ui_host is not None:
+                env["HOST"] = ui_host
+            if ui_port is not None:
+                env["PORT"] = str(ui_port)
             self._dev_process = subprocess.Popen(
                 ["npm", "run", "dev", "--", "-l", "error"],
                 cwd=dist_folder.parent,

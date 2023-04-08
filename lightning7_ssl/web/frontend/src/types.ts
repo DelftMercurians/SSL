@@ -18,6 +18,7 @@ export interface World {
 export interface PlayerState {
   role: string;
   target: XY;
+  global_velocity: XY;
 }
 
 export interface Geometry {
@@ -56,7 +57,7 @@ export interface Geometry {
 
 export interface ServerState {
   world?: World;
-  player_states?: PlayerState[];
+  player_states?: Record<number, PlayerState>;
   geom?: Geometry;
 
   /** A data url with an image rendering of a vector field. */

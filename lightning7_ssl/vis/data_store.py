@@ -45,6 +45,11 @@ class DataStore:
         }
         self._publish(self.state)
 
+    def update_player_state(self, id: int, state: Dict):
+        """Updates the state of a player for this frame."""
+        self.state["player_states"][id] = state
+        self._publish(self.state)
+
     def update_vector_field(self, vector_field: str):
         """Updates the vector field for this frame."""
         self.state["vector_field"] = vector_field

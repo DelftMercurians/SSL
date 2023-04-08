@@ -1,6 +1,4 @@
-import argparse
 from time import time
-from typing import Optional
 
 from . import cfg
 from .control_client import SSLClient
@@ -10,11 +8,20 @@ from .vecMath.vec_math import Vec2
 from .vis.generate_log import LogGenerator
 from .web.server import ServerWrapper
 
+# from .vis.vector_field import draw_vector_field
+# from .player.pathfinder import find_path
 
-def main(ui: bool = False, log_file: Optional[str] = None) -> None:
-    web_server = ServerWrapper(open_browser=ui, ui_dev_server=ui)
-    cfg.data_store.subscribe(web_server.step)
-    if log_file is not None:
+
+def main() -> None:
+    if cfg.config.ui:
+        web_server = ServerWrapper(
+            ui_dev_server=True,
+            open_browser=cfg.config.open_browser,
+            ui_host=cfg.config.ui_host,
+            ui_port=cfg.config.ui_port,
+        )
+        cfg.data_store.subscribe(web_server.step)
+    if cfg.config.log_file is not None:
         logger = LogGenerator("logs.pickle")
         cfg.data_store.subscribe(logger.step)
     with SSLClient() as client:
@@ -29,7 +36,7 @@ def main(ui: bool = False, log_file: Optional[str] = None) -> None:
             vision_data = client.receive()
             cfg.world.update_from_protobuf(vision_data)
 
-            if time() - last_tick >= cfg.tick_interval_sec:
+            if time() - last_tick >= cfg.config.tick_interval_sec:
                 ball_state = cfg.world.get_ball_state()
                 if ball_state is not None:
                     ball_pos = ball_state.position
@@ -55,44 +62,5 @@ def main(ui: bool = False, log_file: Optional[str] = None) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.prog = "lightning7_ssl"
-    parser.add_argument(
-        "--ui",
-        action="store_true",
-        default=False,
-        help="Run the browser UI",
-    )
-    parser.add_argument(
-        "--num-players",
-        type=int,
-        default=11,
-        help="The number of players on the field",
-    )
-    parser.add_argument(
-        "--own-team",
-        type=str,
-        default="blue",
-        choices=["blue", "yellow"],
-        help="The team color",
-    )
-    parser.add_argument(
-        "--tick-interval",
-        type=float,
-        default=0.1,
-        help="The interval between ticks in seconds",
-    )
-    parser.add_argument(
-        "--log-file",
-        type=str,
-        default="logs.pickle",
-        help="The file to log to",
-    )
-    args = parser.parse_args()
-
-    cfg.setup_globals(
-        num_players_on_field=args.num_players,
-        own_team_color=args.own_team,
-        tick_interval=args.tick_interval,
-    )
-    main(ui=args.ui, log_file=args.log_file)
+    cfg.setup_globals(parser_prog="python -m lightning7_ssl")
+    main()
