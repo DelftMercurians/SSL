@@ -38,6 +38,7 @@ def main() -> None:
         while True:
             vision_data = client.receive()
             cfg.world.update_from_protobuf(vision_data)
+            print(cfg.world.get_team_position)
             if time() - last_tick >= cfg.config.tick_interval_sec:
                 ball_state = cfg.world.get_ball_state()
                 if ball_state is not None:
