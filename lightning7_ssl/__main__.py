@@ -7,9 +7,12 @@ from .roles.fixed_role import FixedRole
 from .vecMath.vec_math import Vec2
 from .vis.generate_log import LogGenerator
 from .web.server import ServerWrapper
+from .vis.world_plotter import WorldPlotter
 
 # from .vis.vector_field import draw_vector_field
 # from .player.pathfinder import find_path
+
+logger = LogGenerator("test.pickle")
 
 
 def main() -> None:
@@ -35,7 +38,6 @@ def main() -> None:
         while True:
             vision_data = client.receive()
             cfg.world.update_from_protobuf(vision_data)
-
             if time() - last_tick >= cfg.config.tick_interval_sec:
                 ball_state = cfg.world.get_ball_state()
                 if ball_state is not None:
@@ -63,4 +65,13 @@ def main() -> None:
 
 if __name__ == "__main__":
     cfg.setup_globals(parser_prog="python -m lightning7_ssl")
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        # Generate log file then plot it
+        logger.generate()
+        plotter = WorldPlotter("test.pickle")
+        # print(plotter.data)
+
+        plotter.plot()
+        # plotter.play()
