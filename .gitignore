@@ -5,3 +5,7 @@ node_modules
 lightning7_ssl/docs/build/
 .mypy_cache
 .idea/
+*.log
+*.gz
+*.json
+*.ipynb
