@@ -120,6 +120,7 @@ def add_obstacle(X, Y , delx, dely, goal):
       elif d_obstacle<r+s :
         delx[i][j] += -150 *(s+r-d_obstacle)* np.cos(theta_obstacle)
         dely[i][j] += -150 * (s+r-d_obstacle)*  np.sin(theta_obstacle) 
+        
       if d_goal <r+s:
         if delx[i][j] != 0:
           delx[i][j]  += (50 * (d_goal-r) *np.cos(theta_goal))
