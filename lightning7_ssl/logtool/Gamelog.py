@@ -97,20 +97,20 @@ def get_frames(data: bytes):
         if index + message_size > len(data):
             break
         if message_type == MESSAGE_SSL_REFBOX_2013:
-            frame: SSL_Referee = SSL_Referee()
-            frame.ParseFromString(data[index : index + message_size])
+            ref_frame: SSL_Referee = SSL_Referee()
+            ref_frame.ParseFromString(data[index : index + message_size])
             index += message_size
-            frames.append(frame)
+            frames.append(ref_frame)
         elif message_type == MESSAGE_SSL_VISION_2014 or message_type == MESSAGE_SSL_VISION_2010:
-            frame: SSL_WrapperPacket = SSL_WrapperPacket()
-            frame.ParseFromString(data[index : index + message_size])
+            vis_frame: SSL_WrapperPacket = SSL_WrapperPacket()
+            vis_frame.ParseFromString(data[index : index + message_size])
             index += message_size
-            frames.append(frame)
+            frames.append(vis_frame)
         elif message_type == MESSAGE_SSL_VISION_TRACKER_2020:
-            frame: TrackerWrapperPacket = TrackerWrapperPacket()
-            frame.ParseFromString(data[index : index + message_size])
+            track_frame: TrackerWrapperPacket = TrackerWrapperPacket()
+            track_frame.ParseFromString(data[index : index + message_size])
             index += message_size
-            frames.append(frame)
+            frames.append(track_frame)
         elif message_type == MESSAGE_SSL_INDEX_2021:
             end = index + message_size
             # type: ignore
