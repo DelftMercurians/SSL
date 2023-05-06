@@ -4,7 +4,7 @@ import struct
 import zlib
 from dataclasses import dataclass
 from typing import List
-
+from typing import Union
 from google.protobuf.json_format import MessageToDict
 
 from lightning7_ssl.control_client.protobuf.ssl_referee_pb2 import SSL_Referee
@@ -97,17 +97,17 @@ def get_frames(data: bytes):
         if index + message_size > len(data):
             break
         if message_type == MESSAGE_SSL_REFBOX_2013:
-            frame = SSL_Referee()
+            frame: SSL_Referee = SSL_Referee()
             frame.ParseFromString(data[index : index + message_size])
             index += message_size
             frames.append(frame)
         elif message_type == MESSAGE_SSL_VISION_2014 or message_type == MESSAGE_SSL_VISION_2010:
-            frame = SSL_WrapperPacket()
+            frame: SSL_WrapperPacket = SSL_WrapperPacket()
             frame.ParseFromString(data[index : index + message_size])
             index += message_size
             frames.append(frame)
         elif message_type == MESSAGE_SSL_VISION_TRACKER_2020:
-            frame = TrackerWrapperPacket()
+            frame: TrackerWrapperPacket = TrackerWrapperPacket()
             frame.ParseFromString(data[index : index + message_size])
             index += message_size
             frames.append(frame)
