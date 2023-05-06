@@ -4,7 +4,7 @@ import struct
 import zlib
 from dataclasses import dataclass
 from typing import List
-from typing import Union
+
 from google.protobuf.json_format import MessageToDict
 
 from lightning7_ssl.control_client.protobuf.ssl_referee_pb2 import SSL_Referee
