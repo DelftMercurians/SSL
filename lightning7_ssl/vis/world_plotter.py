@@ -2,6 +2,7 @@ import pickle
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
+from lightning7_ssl.playground.potential_pathfinder import descent_step
 
 
 class WorldPlotter:
@@ -88,12 +89,21 @@ class PotentialWorldPlotter:
         self.field_width = field_width
         self.pmap = pmap
 
-    def darw_heatmap(self) -> None:
+    def darw_heatmap(self, starting_point, goal) -> None:
         """
         Draw heatmap of the potential field.
         """
-        _, ax_heat = plt.subplots()
-        ax_heat.pcolor(self.pmap, vmax=100.0, cmap=plt.cm.Blues)  # type: ignore
+        _, self.ax_heat = plt.subplots()
+        self.ax_heat.pcolor(self.pmap, vmax=100.0, cmap=plt.cm.Blues)  # type: ignore
+        self.ax_heat.scatter(starting_point[0], starting_point[1], s=100, c="red")  # type: ignore
+        self.ax_heat.scatter(goal[0], goal[1], s=10, c="green")  # type: ignore
+
+    def plot_path(self, path: list[descent_step]) -> None:
+        """
+        Plot the path taken by the robot.
+        """
+        for segment in path:
+            self.ax_heat.scatter(segment.x_index, segment.y_index, s=10, c="red")
 
     def draw_3d(self) -> None:
         """
@@ -102,8 +112,8 @@ class PotentialWorldPlotter:
         X, Y = np.meshgrid(range(self.field_len), range(self.field_width))
 
         plt.figure()
-        ax_3d = plt.axes(projection="3d")
-        ax_3d.plot_wireframe(Y, X, np.clip(self.pmap, min(self.pmap), 100), color="blue")  # type: ignore
+        self.ax_3d = plt.axes(projection="3d")
+        self.ax_3d.plot_wireframe(Y, X, np.clip(self.pmap, min(self.pmap), 100), color="blue")  # type: ignore
 
 
 # self.axrpg = self.fig_heat.add_axes([0.25, 0.01, 0.65, 0.03])

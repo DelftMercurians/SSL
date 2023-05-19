@@ -1,6 +1,5 @@
 import numpy as np
 
-
 """
     Computes the potential field given the goal and obstacles.
 """
@@ -27,7 +26,7 @@ def calc_repulsive_potential(x, y, ox, oy, rr, s):
     # calc repulsive potential
     dq = np.hypot(x - ox[minid], y - oy[minid])
 
-    if dq <= rr+s:
+    if dq <= rr + s:
         dq = 0.5
 
         return 0.5 * RPG * (1.0 / dq) ** 2
