@@ -15,13 +15,13 @@ RPG = 100.0  # repulsive potential gain
 
 
 def main():
-    goal = [random.uniform(0, FIELD_WIDTH), random.uniform(0, FIELD_LEN)]
+    goal = [random.sample(range(FIELD_WIDTH), 1)[0], random.sample(range(FIELD_LEN), 1)[0]]
     start = [random.uniform(0, FIELD_WIDTH), random.uniform(0, FIELD_LEN)]
 
     obstacles = [[random.uniform(0, FIELD_LEN), random.uniform(0, FIELD_WIDTH)] for _ in range(10)]
-    oy = [x[0] for x in obstacles]
-    ox = [y[1] for y in obstacles]
-    goal = [random.sample(range(FIELD_LEN), 1)[0], random.sample(range(FIELD_WIDTH), 1)[0]]
+    ox = [x[0] for x in obstacles]
+    oy = [y[1] for y in obstacles]
+
     robot_radius = 0.5
     s = 1
 
@@ -35,6 +35,9 @@ def main():
 
     PotWorld.darw_heatmap(starting_point=start, goal=goal)
     PotWorld.plot_path(path)  # type: ignore
+
+    PotWorld.draw_3d()
+    PotWorld.plot_path_3d(path)  # type: ignore
     plt.show()
 
 

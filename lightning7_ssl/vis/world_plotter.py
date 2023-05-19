@@ -113,7 +113,20 @@ class PotentialWorldPlotter:
 
         plt.figure()
         self.ax_3d = plt.axes(projection="3d")
-        self.ax_3d.plot_wireframe(Y, X, np.clip(self.pmap, min(self.pmap), 100), color="blue")  # type: ignore
+        # self.ax_3d.plot_wireframe(X, Y, np.clip(self.pmap, min(self.pmap), 100), color="blue")  # type: ignore
+        self.ax_3d.plot_surface(
+            X,
+            Y,
+            np.clip(self.pmap, min(self.pmap), 100),
+            rstride=10,
+            cstride=1,
+            cmap="viridis",
+            edgecolor="none",
+        )  # type: ignore
+
+    def plot_path_3d(self, path: list[descent_step]) -> None:
+        for seg in path:
+            self.ax_3d.scatter(seg.y_index, seg.x_index, self.pmap[seg.x_index][seg.y_index], s=10, c="red")  # type: ignore
 
 
 # self.axrpg = self.fig_heat.add_axes([0.25, 0.01, 0.65, 0.03])
