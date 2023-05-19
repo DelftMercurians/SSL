@@ -95,7 +95,7 @@ class PotentialWorldPlotter:
         """
         _, self.ax_heat = plt.subplots()
         self.ax_heat.pcolor(self.pmap, vmax=100.0, cmap=plt.cm.Blues)  # type: ignore
-        self.ax_heat.scatter(starting_point[0], starting_point[1], s=100, c="red")  # type: ignore
+        self.ax_heat.scatter(starting_point[1], starting_point[0], s=100, c="red")  # type: ignore
         self.ax_heat.scatter(goal[0], goal[1], s=10, c="green")  # type: ignore
 
     def plot_path(self, path: list[descent_step]) -> None:
@@ -103,7 +103,7 @@ class PotentialWorldPlotter:
         Plot the path taken by the robot.
         """
         for segment in path:
-            self.ax_heat.scatter(segment.x_index, segment.y_index, s=10, c="red")
+            self.ax_heat.scatter(segment.y_index, segment.x_index, s=10, c="red")
 
     def draw_3d(self) -> None:
         """

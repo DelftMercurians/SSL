@@ -1,5 +1,4 @@
 import numpy as np
-from numpy.lib.stride_tricks import as_strided
 from dataclasses import dataclass
 
 
@@ -12,75 +11,57 @@ class descent_step:
     y_index: float
 
 
-def sliding_window(pmap, window_size):
-    """Construct a sliding window view of the pmap"""
-    pmap = np.asarray(pmap)
-    window_size = int(window_size)
-    if pmap.ndim != 2:
-        raise ValueError("need 2-D input")
-    if not (window_size > 0):
-        raise ValueError("need a positive window size")
-    shape = (pmap.shape[0] - window_size + 1, pmap.shape[1] - window_size + 1, window_size, window_size)
-    if shape[0] <= 0:
-        shape = (1, shape[1], pmap.shape[0], shape[3])
-    if shape[1] <= 0:
-        shape = (shape[0], 1, shape[2], pmap.shape[1])
-    strides = (pmap.shape[1] * pmap.itemsize, pmap.itemsize, pmap.shape[1] * pmap.itemsize, pmap.itemsize)
+def get_kernel(origin: np.ndarray, step_size: int, length: int, width: int) -> np.ndarray:
+    """
+    Returns a kernel for the sliding window.
+    """
 
-    return as_strided(pmap, shape=shape, strides=strides)
+    kernel = np.zeros((3, 3, 2))
+    for i in range(3):
+        for j in range(3):
+            kernel[i, j] = [
+                np.clip(origin[0] - step_size + j * step_size, 0, width - 1),
+                np.clip(origin[1] - step_size + i * step_size, 0, length - 1),
+            ]
+    return np.array(kernel).astype(int)
 
 
-def cell_neighbours(pmap, i, j, d):
-    """Return d-th neighbors of cell (i, j)"""
-    w = sliding_window(pmap, 2 * d + 1)
-    # print(w)
+def get_path(pmap: list[list[float]], starting_pos: list[float], goal: list[int]) -> np.ndarray:
+    """
+    Computes a path from starting position to goal position.
+    """
+    path = np.asarray([])
+    map = np.asarray(pmap)
+    curr_point = np.asarray([int(starting_pos[0]), int(starting_pos[1])])
+    kernel = np.zeros((3, 3, 2))
+    min_pot_point = np.zeros(2)
+    check_point = np.zeros(2)
+    k = 0
 
-    ix = np.clip(i - d, 0, w.shape[0] - 1)
-    jx = np.clip(j - d, 0, w.shape[1] - 1)
+    while not np.allclose(check_point, goal):
+        # get the neighboring points
+        kernel = get_kernel(curr_point, 1, 90, 60)
+        # print(kernel)
+        neighbors = np.zeros((3, 3))
 
-    i0 = max(0, i - d - ix)
-    j0 = max(0, j - d - jx)
-    i1 = w.shape[2] - max(0, d - i + ix)
-    j1 = w.shape[3] - max(0, d - j + jx)
-    print(i0, i1, j0, j1)
-    return w[ix, jx][i0:i1, j0:j1].ravel()
+        for i in range(3):
+            for j in range(3):
+                neighbors[i, j] = map[kernel[i, j, 0], kernel[i, j, 1]]
 
+        neighbors[1, 1] = np.infty
 
-def gradient_descent_3d(pmap, x_start, y_start, steps=50, step_size=1):
-    # Initial point to start gradient descent at
-    step = descent_step(pmap[y_start][x_start], x_start, y_start)
-    next_step = 0
+        min_pot = np.min(neighbors)
+        min_pot_point = np.where(neighbors == min_pot)  # type: ignore
 
-    # Store each step taken in gradient descent in a list
-    step_history = []
-    step_history.append(step)
+        curr_point = kernel[min_pot_point[0], min_pot_point[1]][0]
 
-    current_x = x_start
-    current_y = y_start
+        step = descent_step(np.min(neighbors).astype(float), curr_point[0], curr_point[1])
 
-    # Loop through specified number of steps of gradient descent to take
-    for i in range(steps):
-        # print(current_x, current_y)
-        prev_x = current_x
-        prev_y = current_y
+        path = np.append(path, step)  # type: ignore
 
-        # Extract array of neighbouring cells around current step location with size nominated
-        neighbours = cell_neighbours(pmap, current_y, current_x, step_size)
+        check_point[0] = curr_point[1]
+        check_point[1] = curr_point[0]
 
-        # Locate minimum in array (steepest slope from current point)
-        next_step = neighbours.min()
-        # print(next_step)
-        indices = np.where(pmap == next_step)
-        # print(indices)
-        # Update current point to now be the next point after stepping
-        current_x, current_y = (indices[1][0], indices[0][0])
-        step = descent_step(pmap[current_y][current_x], current_x, current_y)
+        k += 1
 
-        step_history.append(step)
-
-        # If step is to the same location as previously, this infers convergence and end loop
-        if prev_y == current_y and prev_x == current_x:
-            print(f"Converged in {i} steps")
-            break
-
-    return next_step, step_history
+    return path
