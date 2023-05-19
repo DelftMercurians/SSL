@@ -1,8 +1,12 @@
 {
   "editor.formatOnSave": true,
   "python.analysis.typeCheckingMode": "basic",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
   "python.linting.mypyEnabled": true,
   "python.linting.flake8Enabled": true,
-  "python.formatting.provider": "black",
-  "isort.check": true
+  "python.formatting.provider": "none",
+  "isort.check": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  }
 }
