@@ -41,6 +41,8 @@ export default defineConfig({
           }
         : undefined,
   },
+  logLevel: "error",
+  clearScreen: false,
   optimizeDeps: {
     esbuildOptions: {
       target: "esnext",
