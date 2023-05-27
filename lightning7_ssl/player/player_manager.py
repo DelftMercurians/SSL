@@ -1,6 +1,8 @@
 from typing import Dict
 
-from .. import cfg
+from lightning7_ssl.world import WorldCtx
+
+from ..cfg import GlobalConfig
 from ..control_client import SSLClient
 from ..roles import Role
 from .player import Player, Target
@@ -19,21 +21,22 @@ class PlayerManager:
     players: Dict[int, Player]
     assigned_roles: Dict[int, Role]
     client: SSLClient
+    ctx: WorldCtx
 
-    def __init__(self, client: SSLClient) -> None:
+    def __init__(self, client: SSLClient, ctx: WorldCtx, config: GlobalConfig) -> None:
         """Create a new player manager.
 
         Args:
             client: The client to send commands to.
         """
-        if cfg.world is None:
-            raise RuntimeError("World not initialized")
         self.client = client
+        self.ctx = ctx
         self.assigned_roles = {}
-        self.players = {id: Player(id, client) for id in range(cfg.config.num_players)}
+        self.players = {id: Player(id, client) for id in range(config.num_players)}
 
     def tick(self):
         """Called on fixed intervals, should move all players."""
+        frame = self.ctx.last_frame
         for player in self.players.values():
             role = self.assigned_roles.get(player.id)
             if role:
@@ -42,7 +45,7 @@ class PlayerManager:
             else:
                 # No role assigned, idle
                 player.set_target(Target(move_to=None))
-            player.tick()
+            player.tick(frame)
             # TODO: Reevaluate role fitness
 
     def spawn_role(self, new_role: Role):

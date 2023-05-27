@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import List, Optional
 
 from ...vecMath.vec_math import Vec2, Vec3
+from ..frame import BallData, RobotData
 
 
 @dataclass
@@ -25,22 +26,6 @@ class RobotDataRaw:
 
 
 @dataclass
-class RobotData:
-    """
-    a dataclass to store estimated data from ssl vision, this contact can be modified based on real needs.
-    """
-
-    #: position of the robot
-    position: Vec2
-    #: orientation of the robot [-pi,pi]
-    orientation: float
-    #: velocity of the robot
-    velocity: Vec2
-    #: angular speed of the robot
-    angular_speed: float
-
-
-@dataclass
 class BallDataRaw:
     """
     a dataclass to store raw data from ssl vision, this contact can be modified based on real needs.
@@ -54,20 +39,6 @@ class BallDataRaw:
     position: Vec3
     #: confidence of the ball [0,1]
     confidence: float
-
-
-@dataclass
-class BallData:
-    """
-    A dataclass to store estimated data from ssl vision, this contact can be modified based on real needs.
-
-    Confidence is not included because it is not needed for now.
-    """
-
-    #: position of the ball
-    position: Vec3
-    #: velocity of the ball
-    velocity: Vec3
 
 
 class StatusEstimator(metaclass=abc.ABCMeta):

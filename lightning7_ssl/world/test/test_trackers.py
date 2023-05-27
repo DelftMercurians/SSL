@@ -1,5 +1,6 @@
 import unittest
 
+from lightning7_ssl.vecMath.vec_math import Vec2, Vec3
 from lightning7_ssl.world.processing import (
     BallDataRaw,
     BallTracker,
@@ -20,18 +21,18 @@ class TrackersTestSuite(unittest.TestCase):
 
     def test_robo_traker(self):
         filter = SimpleEstimator()
-        p1 = RobotDataRaw(self.time1, self.camera_id, self.pos1, self.orientation1)
-        p1s = RobotDataRaw(self.time1, self.camera_id, self.pos2, self.orientation1)
-        p2 = RobotDataRaw(self.time2, self.camera_id, self.pos2, self.orientation2)
+        p1 = RobotDataRaw(self.time1, self.camera_id, Vec2(*self.pos1), self.orientation1)
+        p1s = RobotDataRaw(self.time1, self.camera_id, Vec2(*self.pos2), self.orientation1)
+        p2 = RobotDataRaw(self.time2, self.camera_id, Vec2(*self.pos2), self.orientation2)
         # test creation
         robot_tracker = RobotTracker(filter, 2)
         # test add
         robot_tracker.add(p1)
         robot_tracker.add(p1s)
-        self.assertEqual(robot_tracker.record.get(self.time1)[0], p1)
-        self.assertEqual(robot_tracker.record.get(self.time1)[1], p1s)
+        self.assertEqual(robot_tracker.record.get(self.time1)[0], p1)  # type: ignore
+        self.assertEqual(robot_tracker.record.get(self.time1)[1], p1s)  # type: ignore
         # test overflow
-        lastest = RobotDataRaw(self.time2 + self.time1, self.camera_id, self.pos2, self.orientation2)
+        lastest = RobotDataRaw(self.time2 + self.time1, self.camera_id, Vec2(*self.pos2), self.orientation2)
         robot_tracker.add(p2)
         robot_tracker.add(lastest)
         self.assertFalse(robot_tracker.record.__contains__(self.time1))
@@ -43,8 +44,8 @@ class TrackersTestSuite(unittest.TestCase):
 
     def test_ball_tracker(self):
         filter = SimpleEstimator()
-        p1 = BallDataRaw(self.time1, self.camera_id, self.pos_ball_1, 1)
-        p2 = BallDataRaw(self.time2, self.camera_id, self.pos_ball_2, 1)
+        p1 = BallDataRaw(self.time1, self.camera_id, Vec3(*self.pos_ball_1), 1)
+        p2 = BallDataRaw(self.time2, self.camera_id, Vec3(*self.pos_ball_2), 1)
         # test creation
         ball_tracker = BallTracker(filter, 2)
         # test add

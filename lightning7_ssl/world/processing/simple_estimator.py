@@ -2,7 +2,8 @@ from collections import OrderedDict
 from typing import List, Optional
 
 from ...vecMath.vec_math import Vec2, Vec3
-from .estimators import BallData, BallDataRaw, RobotData, RobotDataRaw, StatusEstimator
+from ..frame import BallData, RobotData
+from .estimators import BallDataRaw, RobotDataRaw, StatusEstimator
 
 
 class SimpleEstimator(StatusEstimator):

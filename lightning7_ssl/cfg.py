@@ -1,8 +1,6 @@
 from typing import Literal
 
 from .utils import ConfigLoader
-from .vis.data_store import DataStore
-from .world import World
 
 # Use this file to store global variables. This is a good place to keep
 # the world object, or a config object for example.
@@ -40,32 +38,6 @@ class GlobalConfig(ConfigLoader):
 
     ui: bool = False
     ui_host: str = "localhost"
-    ui_port: int = 0
+    ui_port: int = 5173
     open_browser: bool = False
     log_file: str = "logs.pickle"
-
-
-# Global objects
-config: GlobalConfig = None  # type: ignore
-world: World = None  # type: ignore
-data_store: DataStore = None  # type: ignore
-
-
-def setup_globals(**kwargs) -> None:
-    """Setup the global variables. This should be called before any other
-    function in the codebase.
-
-    Args:
-        **kwargs: The keyword arguments to pass to the GlobalConfig constructor. Can be
-        used to override any config values.
-    """
-    global config  # pylint: disable=global-statement
-    global world  # pylint: disable=global-statement
-    global data_store  # pylint: disable=global-statement
-    config = GlobalConfig(**kwargs)
-    data_store = DataStore()
-    world = World(
-        num_robots=config.num_players,
-        is_blue=config.team_color == "blue",
-        update_geom_only_once=True,
-    )

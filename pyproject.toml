@@ -5,12 +5,11 @@ description = ""
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "lightning7_ssl"}]
+packages = [{ include = "lightning7_ssl" }]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 protobuf = "^4.21.11"
-protobuf-to-dict = {git = "https://github.com/wearefair/protobuf-to-dict.git", branch ="master" }
 matplotlib = "^3.7.0"
 starlette = "^0.25.0"
 uvicorn = "^0.20.0"
@@ -35,9 +34,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
-exclude = [
-    "lightning7_ssl/docs/*",
-]
+exclude = ["lightning7_ssl/docs/*"]
 
 [tool.isort]
 profile = "black"
@@ -47,14 +44,8 @@ line-length = 110
 
 [tool.poe.tasks]
 _mypy = "mypy -p lightning7_ssl --config-file pyproject.toml --follow-imports=silent --ignore-missing-imports"
-lint = [
-    { ref = "_mypy" },
-    { cmd = "flake8 lightning7_ssl" },
-]
-format  = [
-    { cmd = "isort lightning7_ssl" },
-    { cmd = "black lightning7_ssl" },
-]
+lint = [{ ref = "_mypy" }, { cmd = "flake8 lightning7_ssl" }]
+format = [{ cmd = "isort lightning7_ssl" }, { cmd = "black lightning7_ssl" }]
 ci-check = [
     { cmd = "isort --check lightning7_ssl" },
     { cmd = "black --check lightning7_ssl" },

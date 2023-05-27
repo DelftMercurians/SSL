@@ -1,8 +1,7 @@
 import argparse
 import os
+import tomllib
 from typing import Literal, get_args, get_origin, get_type_hints
-
-import toml  # type: ignore
 
 
 def try_load_from_env_var(value: str, type_):
@@ -125,7 +124,7 @@ class ConfigLoader:
 
         # Load configuration variables from TOML file
         if os.path.exists(config_file):
-            for k, v in toml.load(config_file).items():
+            for k, v in tomllib.load(open(config_file, "b")).items():
                 if k in _annotations:
                     setattr(self, k, v)
                 else:

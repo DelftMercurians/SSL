@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from typing import Optional
 
 from lightning7_ssl.vecMath.vec_math import Vec2
+from lightning7_ssl.world import Frame
 
-from .. import cfg
 from ..control_client import SSLClient
 from .pathfinder import find_path
 
@@ -58,10 +58,11 @@ class Player:
         else:
             self.status = Status.Moving(target.move_to)
 
-    def tick(self):
+    def tick(self, frame: Frame):
         """Called on fixed intervals, should move to execute current target."""
-        pos = cfg.world.get_robot_pos(self.id)
-        heading = cfg.world.get_robot_heading(self.id)  # -90 deg = East
+        player = frame.own_players[self.id]
+        pos = player.position
+        heading = player.orientation  # -90 deg = East
         if isinstance(self.status, Status.Moving):
             dist = (self.status.target - pos).norm
             if dist <= TARGET_TRESHOLD:
@@ -70,7 +71,7 @@ class Player:
             else:
                 # Move towards target
                 speed = dist / 1000
-                dir = find_path(self.id, self.status.target) * speed
+                dir = find_path(self.id, self.status.target, frame) * speed
                 # Convert to robot coordinates
                 # TODO: Should this be elsewhere?
                 local_vel = dir.rotate_axis(heading)

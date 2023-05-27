@@ -1,9 +1,9 @@
 import math
 import tkinter as tk
 from typing import List
-from unittest.mock import MagicMock
 
 from lightning7_ssl.player.pathfinder import find_path
+from lightning7_ssl.utils.test_utils import mock_frame
 from lightning7_ssl.vecMath.vec_math import Vec2
 
 root = tk.Tk()
@@ -139,13 +139,12 @@ def test_pathfinder(
     opp_speed: List[Vec2],
     goal: Vec2,
 ):
-    # start_pos -> team_position[0], end_pos -> goal
-    mock_world = MagicMock()
-    mock_world.get_team_position.return_value = [pos * 10 for pos in team_position]
-    mock_world.get_opp_position.return_value = [pos * 10 for pos in opp_position]
-    mock_world.get_team_vel.return_value = [pos * 10 for pos in team_vel]
-    mock_world.get_opp_vel.return_value = [pos * 10 for pos in opp_speed]
-    return find_path(0, goal * 10)
+    frame = mock_frame(
+        own=[(pos * 10, pos * 10) for pos, vel in zip(team_position, team_vel)],
+        opp=[(pos * 10, pos * 10) for pos, vel in zip(opp_position, opp_speed)],
+        ball=(goal * 10, Vec2()),
+    )
+    return find_path(0, goal * 10, frame)
 
 
 button = tk.Button(root, text="Update", command=update)

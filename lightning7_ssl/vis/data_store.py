@@ -2,7 +2,12 @@ import json
 from dataclasses import asdict, dataclass, field
 from typing import Any, Callable, Dict, List
 
-from lightning7_ssl import cfg
+from lightning7_ssl.world import Frame
+from lightning7_ssl.world.geometry import (
+    FieldCircularArc,
+    FieldGeometry,
+    FieldLinesSegment,
+)
 
 from ..vecMath.vec_math import Vec2, Vec3
 
@@ -19,22 +24,25 @@ class DataStore:
     )
     _subs: List[Callable[[Dict, "DataStore"], Any]] = field(default_factory=list)
 
-    def update_geom(self):
+    def update_geom(
+        self,
+        field_geometry: FieldGeometry,
+        field_line_segments: List[FieldLinesSegment],
+        field_circular_arcs: List[FieldCircularArc],
+    ):
         """Updates the field geometry and lines for this frame."""
-        if cfg.world.field_geometry is None or cfg.world.field_line_segments is None:
-            return
         self.state["geom"] = {
-            "field_geometry": asdict(cfg.world.field_geometry),
-            "lines": [asdict(line) for line in cfg.world.field_line_segments],
-            "arcs": [asdict(arc) for arc in cfg.world.field_circular_arcs],
+            "field_geometry": asdict(field_geometry),
+            "lines": [asdict(line) for line in field_line_segments],
+            "arcs": [asdict(arc) for arc in field_circular_arcs],
         }
         self._publish(self.state)
 
-    def update_player_and_ball_states(self):
+    def update_player_and_ball_states(self, frame: Frame):
         """Updates the states of own robots and ball for this frame."""
-        ball_state = cfg.world.get_ball_state()
-        own_players_state = cfg.world.get_team_state()
-        opp_players_state = cfg.world.get_opp_state()
+        ball_state = frame.ball
+        own_players_state = frame.own_players
+        opp_players_state = frame.opp_players
         if ball_state is None or own_players_state is None or opp_players_state is None:
             return
 

@@ -2,12 +2,8 @@ import math
 import unittest
 from collections import OrderedDict
 
-from lightning7_ssl.world.processing import (
-    BallData,
-    BallDataRaw,
-    RobotDataRaw,
-    SimpleEstimator,
-)
+from lightning7_ssl.world import BallData
+from lightning7_ssl.world.processing import BallDataRaw, RobotDataRaw, SimpleEstimator
 
 from ...vecMath.vec_math import Vec2, Vec3
 

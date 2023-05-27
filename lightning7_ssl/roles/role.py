@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
+from lightning7_ssl.world import WorldCtx
+
 # Avoid circular import
 if TYPE_CHECKING:
     from ..player import Target
@@ -8,6 +10,8 @@ if TYPE_CHECKING:
 
 class Role(ABC):
     """Abstract class for roles."""
+
+    ctx: WorldCtx
 
     @abstractmethod
     def get_fitness_for_player(self, id: int) -> float:

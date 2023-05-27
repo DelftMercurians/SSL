@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
-from .. import cfg
 from ..vecMath.vec_math import Vec2
+from ..world import Frame
 
 RADIUS_ROBOT = 0.0793
 
@@ -26,6 +26,7 @@ def get_relative_speed(pos1: Vec2, pos2: Vec2, vel1: Vec2, vel2: Vec2) -> float:
 def find_path(
     start_id: int,
     goal: Vec2,
+    frame: Frame,
     alpha=0.00001,
     beta=0.01,
     influence_factor: Tuple[int, int] = (5, 1),
@@ -52,10 +53,10 @@ def find_path(
     """
 
     obstacles: List[Tuple[Vec2, float]] = []
-    team_position = cfg.world.get_team_position()
-    opp_position = cfg.world.get_opp_position()
-    team_vel = cfg.world.get_team_vel()
-    opp_vel = cfg.world.get_opp_vel()
+    team_position = [p.position for p in frame.own_players]
+    opp_position = [p.position for p in frame.opp_players]
+    team_vel = [p.velocity for p in frame.own_players]
+    opp_vel = [p.velocity for p in frame.opp_players]
 
     start_pos = team_position[start_id] if start_pos is None else start_pos
     for i, pos in enumerate(team_position):

@@ -2,7 +2,7 @@ import socket
 from dataclasses import dataclass, field
 from typing import List, Optional, Set
 
-from lightning7_ssl import cfg
+from lightning7_ssl.cfg import GlobalConfig
 
 from .protobuf.ssl_simulation_robot_control_pb2 import RobotControl
 from .protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
@@ -72,12 +72,12 @@ class SSLClient:
 
     known_robot_ids: Set[int]
 
-    def __init__(self):
-        self.local_cmd_ip = cfg.config.command_local_host
-        self.remote_cmd_ip = cfg.config.command_remote_host
-        self.remote_cmd_port = cfg.config.command_remote_port
-        self.vision_ip = cfg.config.vision_host
-        self.vision_port = cfg.config.vision_port
+    def __init__(self, config: GlobalConfig):
+        self.local_cmd_ip = config.command_local_host
+        self.remote_cmd_ip = config.command_remote_host
+        self.remote_cmd_port = config.command_remote_port
+        self.vision_ip = config.vision_host
+        self.vision_port = config.vision_port
         self.known_robot_ids = set()
 
     def __enter__(self):
