@@ -28,7 +28,7 @@ class GlobalConfig(ConfigLoader):
 
     tick_interval_sec: float = 0.1
     team_color: Literal["blue", "yellow"] = "blue"
-    num_players: int = 11
+    num_players: int = 6
 
     vision_host: str = "224.5.23.2"
     vision_port: int = 10020

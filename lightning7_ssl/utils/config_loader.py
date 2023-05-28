@@ -111,6 +111,7 @@ class ConfigLoader:
     def __init__(
         self,
         *,
+        parse_cli_args: bool = False,
         parser_prog: str | None = None,
         config_file: str = "config.toml",
         **kwargs,
@@ -141,29 +142,30 @@ class ConfigLoader:
         fields_help = try_parse_docstring(docstring, list(_annotations.keys()))
 
         # Load configuration variables from command line arguments
-        parser = argparse.ArgumentParser()
-        if parser_prog is not None:
-            parser.prog = parser_prog
-        for k, v in _annotations.items():
-            opt_name = f"--{k.lower().replace('_', '-')}"
-            field_help = fields_help.get(k, None)
-            if v in (int, float, str):
-                parser.add_argument(opt_name, type=v, help=field_help)
-            elif v is bool:
-                parser.add_argument(opt_name, action="store_true", help=field_help)
-            elif get_origin(v) is Literal:
-                parser.add_argument(opt_name, type=type(get_args(v)[0]), help=field_help)
-            else:
-                raise TypeError(f"Unsupported type: {v}")
-        args = parser.parse_args()
-        for k, v in vars(args).items():
-            if v is None:
-                continue
-            _type = _annotations[k]
-            if get_origin(_type) is Literal:
-                if v not in get_args(_type):
-                    raise ValueError(f"Invalid value: {v}")
-            setattr(self, k, v)
+        if parse_cli_args:
+            parser = argparse.ArgumentParser()
+            if parser_prog is not None:
+                parser.prog = parser_prog
+            for k, v in _annotations.items():
+                opt_name = f"--{k.lower().replace('_', '-')}"
+                field_help = fields_help.get(k, None)
+                if v in (int, float, str):
+                    parser.add_argument(opt_name, type=v, help=field_help)
+                elif v is bool:
+                    parser.add_argument(opt_name, action="store_true", help=field_help)
+                elif get_origin(v) is Literal:
+                    parser.add_argument(opt_name, type=type(get_args(v)[0]), help=field_help)
+                else:
+                    raise TypeError(f"Unsupported type: {v}")
+            args = parser.parse_args()
+            for k, v in vars(args).items():
+                if v is None:
+                    continue
+                _type = _annotations[k]
+                if get_origin(_type) is Literal:
+                    if v not in get_args(_type):
+                        raise ValueError(f"Invalid value: {v}")
+                setattr(self, k, v)
 
         # Load configuration variables from override dictionary
         for k, v in kwargs.items():

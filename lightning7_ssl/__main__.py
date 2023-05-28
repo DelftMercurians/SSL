@@ -69,5 +69,5 @@ def main(config: GlobalConfig) -> None:
 
 
 if __name__ == "__main__":
-    config = GlobalConfig(parser_prog="python -m lightning7_ssl")
+    config = GlobalConfig(parse_cli_args=True, parser_prog="python -m lightning7_ssl")
     main(config)
