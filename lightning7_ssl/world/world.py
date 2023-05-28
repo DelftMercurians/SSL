@@ -101,7 +101,8 @@ class World:
         try:
             return self.own_robots_status[id].get().position
         except AttributeError:
-            raise UninitializedError("Robot not initialized")
+            # raise UninitializedError("Robot not initialized")
+            pass
 
     def get_robot_vel(self, id: int) -> Vec2:
         """Returns the current velocity of the robot with the given id.
@@ -110,7 +111,8 @@ class World:
         try:
             return self.own_robots_status[id].get().velocity
         except AttributeError:
-            raise UninitializedError("Robot not initialized")
+            # raise UninitializedError("Robot not initialized")
+            pass
 
     def get_robot_heading(self, id: int) -> float:
         """Returns the current heading of the robot with the given id.
@@ -119,7 +121,8 @@ class World:
         try:
             return self.own_robots_status[id].get().orientation
         except AttributeError:
-            raise UninitializedError("Robot not initialized")
+            # raise UninitializedError("Robot not initialized")
+            pass
 
     def get_team_position(self) -> List[Vec2]:
         """Returns the current position of the own robots.
@@ -128,7 +131,8 @@ class World:
         try:
             return [tracker.get().position for tracker in self.own_robots_status]
         except AttributeError:
-            raise UninitializedError("Robot not initialized")
+            # raise UninitializedError("Robot not initialized")
+            pass
 
     def get_team_vel(self) -> List[Vec2]:
         """Returns the current speed of the own robots.
@@ -137,7 +141,8 @@ class World:
         try:
             return [tracker.get().velocity for tracker in self.own_robots_status]
         except AttributeError:
-            raise UninitializedError("Robot not initialized")
+            # raise UninitializedError("Robot not initialized")
+            pass
 
     def get_opp_position(self) -> List[Vec2]:
         """Returns the current position of the opponent robots.
@@ -146,7 +151,8 @@ class World:
         try:
             return [tracker.get().position for tracker in self.opp_robots_status]
         except AttributeError:
-            raise UninitializedError("Robot not initialized")
+            # raise UninitializedError("Robot not initialized")
+            pass
 
     def get_opp_vel(self) -> List[Vec2]:
         """Returns the current speed of the opponent robots.
@@ -155,7 +161,8 @@ class World:
         try:
             return [tracker.get().velocity for tracker in self.opp_robots_status]
         except AttributeError:
-            raise UninitializedError("Robot not initialized")
+            # raise UninitializedError("Robot not initialized")
+            pass
 
     #################
     # Update methods

@@ -41,7 +41,7 @@ class GlobalConfig(ConfigLoader):
     ui: bool = False
     ui_host: str = "localhost"
     ui_port: int = 0
-    open_browser: bool = False
+    open_browser: bool = True
     log_file: str = "logs.pickle"
 
 
