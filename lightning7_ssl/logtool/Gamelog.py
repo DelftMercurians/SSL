@@ -4,7 +4,8 @@ import struct
 import zlib
 from dataclasses import dataclass
 from typing import List
-
+import math
+import numpy as np
 from google.protobuf.json_format import MessageToDict
 
 from lightning7_ssl.control_client.protobuf.ssl_referee_pb2 import SSL_Referee
@@ -167,6 +168,7 @@ class Gamelog:
         return Gamelog(data, headers)
 
     def to_binary(self, path: str, segment=(-1, -1)):
+        print(segment)
         if self.headers is None:
             print("cannot write binary file without headers")
             return
@@ -209,6 +211,62 @@ class Gamelog:
                 if i < len(data) - 1:
                     f.write(",\n")
             f.write("]")
+
+    def track_one(self, robot_id: int = 0, is_blue: bool = True):
+        res = []
+        for i in range(len(self.data)):
+            packet = self.data[i]
+            if isinstance(packet, SSL_WrapperPacket) and packet.HasField("detection"):
+                t = packet.detection.t_capture
+                if is_blue:
+                    collection = packet.detection.robots_blue
+                else:
+                    collection = packet.detection.robots_yellow
+                for robot in collection:
+                    if robot.robot_id == robot_id:
+                        res.append((t, robot.x, robot.y, i))
+
+        return res
+
+
+    def save_moving_period(self, path, track):
+        # slice res into useful pieces when the robot is continously moving in larger than 1s
+        period = []
+        status = []
+        for i in range(1, len(track)):
+            j = i - 1
+            while j >= 0 and track[i][0] == track[j][0]:
+                j -= 1
+            # ms/s
+            speed = math.sqrt((track[i][1] - track[j][1]) ** 2 + (track[i][2] - track[j][2]) ** 2) \
+                    / ((track[i][0] - track[j][0]))
+            if speed > 100:
+                status.append("MOVE")
+            else:
+                status.append("STOP")
+        # select continuous move status larger than 1s
+        i = 1
+        while i < len(status):
+            if status[i] == "STOP":
+                i += 1
+                continue
+            j = i
+            while j < len(status) and status[j] == "MOVE":
+                j += 1
+            if track[j][0] - track[i][0] > 5:
+                period.append((i, j))
+            i = j + 1
+
+        for start_idx, end_idx in period:
+            t = []
+            x = []
+            y = []
+            for i in range(start_idx, end_idx):
+                t.append(track[i][0])
+                x.append(track[i][1])
+                y.append(track[i][2])
+            np.savez(path, t=t, x=x, y=y)
+        return period
 
     def getTimeStamps(self):
         if len(self.timeStamps) > 0:

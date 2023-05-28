@@ -6,7 +6,7 @@ from lightning7_ssl.logtool.Gamelog import Gamelog
 
 class MyTestCase(unittest.TestCase):
     def setUp(self) -> None:
-        self.g: Gamelog = Gamelog.from_binary("../logs/testt_goal_1.log")
+        self.g: Gamelog = Gamelog.from_binary("../logs/sample.log.gz")
 
     def test_getFrame(self):
         packet = self.g.data[0]
@@ -54,6 +54,12 @@ class MyTestCase(unittest.TestCase):
         print(self.g.data[0])
         print(self.g.data[300])
         pass
+
+    def test_track_one(self):
+
+        self.g.track_one()
+
+
 
 
 if __name__ == "__main__":
