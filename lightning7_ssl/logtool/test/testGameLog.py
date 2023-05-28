@@ -2,6 +2,7 @@ import unittest
 
 from lightning7_ssl.control_client.protobuf.ssl_wrapper_pb2 import SSL_WrapperPacket
 from lightning7_ssl.logtool.Gamelog import Gamelog
+import numpy as np
 
 
 class MyTestCase(unittest.TestCase):
@@ -59,8 +60,21 @@ class MyTestCase(unittest.TestCase):
 
         self.g.track_one()
 
+    def test_get_game_scene(self):
+        """
+        ps = self.g.get_game_scenes()
+        for p in ps:
+            self.g.to_binary("../logs/game_scene/" + str(p) + ".log", p)
+        """
+        self.g.save_game_track("../logs/data_game/")
 
-
+    def test_game_data(self):
+        data = np.load("../logs/data_game/(349818, 364692).npz")
+        np.set_printoptions(threshold=np.inf)
+        for key in data:
+            print(f"{key}:")
+            print(data[key])
+            print()
 
 if __name__ == "__main__":
     unittest.main()

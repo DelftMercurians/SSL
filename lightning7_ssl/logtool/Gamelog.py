@@ -39,8 +39,13 @@ FOUL_REASONS = [
     "bot_too_fast_in_stop",
     "bot_interfered_placement",
 ]
-
-
+STOP_COMMANDS = [SSL_Referee.Command.STOP, SSL_Referee.Command.HALT]
+START_COMMANDS = [SSL_Referee.Command.FORCE_START,
+                  SSL_Referee.PREPARE_KICKOFF_BLUE, SSL_Referee.PREPARE_KICKOFF_YELLOW,
+                  SSL_Referee.Command.DIRECT_FREE_BLUE,
+                  SSL_Referee.Command.DIRECT_FREE_YELLOW, SSL_Referee.Command.INDIRECT_FREE_BLUE,
+                  SSL_Referee.Command.INDIRECT_FREE_YELLOW]
+MAX_ROBOT = 11 # DIVISION_A
 @dataclass
 class Index:
     """An index message from the log file."""
@@ -139,16 +144,17 @@ class Gamelog:
 
     data: List
     headers: List
-    timeStamps: List
-    GoalScenes: List
-    FoulScenes: List
-
+    time_stamps: List
+    goal_scenes: List
+    foul_scenes: List
+    game_scenes: List
     def __init__(self, data: List, headers: List = []):
         self.data = data
         self.headers = headers
-        self.GoalScenes = []
-        self.FoulScenes = []
-        self.timeStamps = []
+        self.goal_scenes = []
+        self.foul_scenes = []
+        self.time_stamps = []
+        self.game_scenes = []
 
     @staticmethod
     def from_binary(path: str):
@@ -269,8 +275,8 @@ class Gamelog:
         return period
 
     def getTimeStamps(self):
-        if len(self.timeStamps) > 0:
-            return self.timeStamps
+        if len(self.time_stamps) > 0:
+            return self.time_stamps
         if len(self.data) == 0:
             return None
         referee_time_base = 0
@@ -282,30 +288,30 @@ class Gamelog:
                 this_t = packet.packet_timestamp / 1000000.0
                 if referee_time_base == 0:
                     referee_time_base = this_t
-                self.timeStamps.append(this_t - referee_time_base)
+                self.time_stamps.append(this_t - referee_time_base)
             elif isinstance(packet, SSL_WrapperPacket):
                 if packet.HasField("detection"):
                     this_t = packet.detection.t_capture
                     if vision_time_base == 0:
                         vision_time_base = this_t
-                    self.timeStamps.append(this_t - vision_time_base)
+                    self.time_stamps.append(this_t - vision_time_base)
                 else:
-                    self.timeStamps.append(self.timeStamps[-1])
+                    self.time_stamps.append(self.time_stamps[-1])
             elif isinstance(packet, TrackerWrapperPacket):
                 source = packet.uuid
                 this_t = packet.tracked_frame.timestamp
                 if not tracked_time_base.__contains__(source):
                     tracked_time_base[source] = this_t
-                self.timeStamps.append(this_t - tracked_time_base[source])
+                self.time_stamps.append(this_t - tracked_time_base[source])
             else:
-                self.timeStamps.append(-1)
-        return self.timeStamps
+                self.time_stamps.append(-1)
+        return self.time_stamps
 
     def getGoalScenes(self):
         BEFORE_LENGTH = 5
         AFTER_LENGTH = 0
-        if len(self.GoalScenes) > 0:
-            return self.GoalScenes
+        if len(self.goal_scenes) > 0:
+            return self.goal_scenes
         ts = self.getTimeStamps()
         scoreb = 0
         scorey = 0
@@ -313,8 +319,8 @@ class Gamelog:
             packet = self.data[i]
             if isinstance(packet, SSL_Referee):
                 if packet.yellow.score < scorey or packet.blue.score < scoreb:
-                    if len(self.GoalScenes) > 0:
-                        self.GoalScenes.remove(self.GoalScenes[-1])
+                    if len(self.goal_scenes) > 0:
+                        self.goal_scenes.remove(self.goal_scenes[-1])
                 if packet.yellow.score > scorey or packet.blue.score > scoreb:
                     # search for the first none halt command frame before this frame
                     # print("Found valid goal at frame {}".format(i))
@@ -337,16 +343,16 @@ class Gamelog:
                     end = ts[j] + AFTER_LENGTH
                     start_index = bisect.bisect_left(ts, start)
                     end_index = bisect.bisect_right(ts, end)
-                    self.GoalScenes.append((start_index, end_index))
+                    self.goal_scenes.append((start_index, end_index))
                 scoreb = packet.blue.score
                 scorey = packet.yellow.score
-        return self.GoalScenes
+        return self.goal_scenes
 
     def getFoulScenes(self):
         BEFORE_LENGTH = 5
         AFTER_LENGTH = 1
-        if len(self.FoulScenes) > 0:
-            return self.FoulScenes
+        if len(self.foul_scenes) > 0:
+            return self.foul_scenes
         ts = self.getTimeStamps()
         foul_count_yellow = 0
         foul_count_blue = 0
@@ -366,7 +372,70 @@ class Gamelog:
                     end = ts[i] + AFTER_LENGTH
                     start_index = bisect.bisect_left(ts, start)
                     end_index = bisect.bisect_right(ts, end)
-                    self.FoulScenes.append((reasons, (start_index, end_index)))
+                    self.foul_scenes.append((reasons, (start_index, end_index)))
                 foul_count_yellow = foul_yellow_now
                 foul_count_blue = foul_blue_now
-        return self.FoulScenes
+        return self.foul_scenes
+
+    def get_game_scenes(self):
+        ts = self.getTimeStamps()
+        if len(self.game_scenes) > 0:
+            return self.game_scenes
+        BEFORE_LENGTH = 2
+        AFTER_LENGTH = 2
+        sequence = []
+        prev = -1
+        for i in range(len(self.data)):
+            packet = self.data[i]
+            if isinstance(packet, SSL_Referee):
+                t = packet.packet_timestamp / 1000000.0
+                if packet.command in STOP_COMMANDS:
+                    if prev not in STOP_COMMANDS:
+                        sequence.append((t, "STOP", i))
+                        prev = packet.command
+                elif packet.command in START_COMMANDS:
+                    if prev != packet.command:
+                        sequence.append((t, "START", i))
+                        prev = packet.command
+
+        for i in range(len(sequence)):
+            if sequence[i][1] == "STOP" and i>0:
+                t_start = ts[sequence[i-1][2]] - BEFORE_LENGTH
+                t_end = ts[sequence[i][2]] + AFTER_LENGTH
+
+
+                start_index = bisect.bisect_left(ts, t_start)
+                end_index = bisect.bisect_right(ts, t_end)
+                self.game_scenes.append((start_index, end_index))
+        # print(self.game_scenes)
+        return self.game_scenes
+
+    def save_game_track(self, folder):
+        self.get_game_scenes()
+        robot_postions = {}
+        for p in self.game_scenes:
+            print(p)
+            for i in range(p[0], p[1]):
+                packet = self.data[i]
+                if isinstance(packet, SSL_WrapperPacket):
+                    if packet.HasField("detection"):
+                        t = packet.detection.t_capture
+                        if t not in robot_postions:
+                            robot_postions[t] = {}
+                        for r in packet.detection.robots_blue:
+                            pos = r.x, r.y
+                            robot_postions[t][r.robot_id] = pos
+                        for r in packet.detection.robots_yellow:
+                            pos = r.x, r.y
+                            robot_postions[t][r.robot_id + MAX_ROBOT] = pos
+            time_stamps = []
+            robot_positions = []
+            for key, value in robot_postions.items():
+                time_stamps.append(key)
+                positions = [(-10000, -10000) for i in range(MAX_ROBOT * 2)]
+                for i in range(MAX_ROBOT * 2):
+                    if i in value:
+                        positions[i] = value[i]
+                robot_positions.append(positions)
+            np.savez_compressed(folder + "/" + str(p) + ".npz", time_stamps=time_stamps, robot_positions=robot_positions)
+
