@@ -39,7 +39,7 @@ def main() -> None:
         geo.ParseFromString(vision_data)
         match_maker = MatchMaker(
             client,
-            [9.0, -5.0],
+            [5.0, -2.0],
             {0: [1.0, 5.0], 1: [5.3, 5.1], 2: [5.3, 0.0], 3: [5.3, -5.1], 4: [1.0, -5.0], 5: [1.0, 0.0]},
             geo.geometry,
         )
@@ -54,7 +54,7 @@ def main() -> None:
                 ball_state = cfg.world.get_ball_state()
                 if ball_state is not None:
                     ball_pos = ball_state.position
-                    print(ball_pos)
+                    # print(cfg.world.get_team_position())
                     # if len(player_manager.assigned_roles) == 0:
                     #     player_manager.spawn_role(
                     #         FixedRole(Vec2(ball_pos.x, ball_pos.y)),

@@ -1,7 +1,12 @@
 from ..control_client import SSLClient
-from ..control_client.protobuf.ssl_game_controller_common_pb2 import BotId
+from ..control_client.protobuf.ssl_game_controller_common_pb2 import BotId, BLUE, YELLOW
 from ..control_client.protobuf.ssl_geometry_pb2 import SSL_GeometryData
-from ..control_client.protobuf.ssl_simulation_control_pb2 import SimulatorCommand
+from ..control_client.protobuf.ssl_simulation_control_pb2 import (
+    SimulatorCommand,
+    SimulatorControl,
+    SimulatorResponse,
+    TeleportRobot,
+)
 import socket
 from typing import List, Dict
 
@@ -39,32 +44,40 @@ class MatchMaker:
         self.packet.control.teleport_ball.y = ball[1]
         self.packet.control.teleport_ball.z = 0.0
 
-        self.packet.config.geometry.CopyFrom(geometry)
+        # self.packet.config.geometry.CopyFrom(geometry)
 
         # Define teleport messages for the robots
         for player_id in players:
             botid = BotId()
             botid.id = player_id
+            botid.team = BLUE
 
             # Define x and y coordinates for each robot, orientation ignored for now
+            # self.packet.control.teleport_robot.add(
+            #     id=botid, x=players[player_id][0], y=players[player_id][1], present=False
+            # )
             player_msg = self.packet.control.teleport_robot.add()
-            player_msg.id.id = player_id
+            player_msg.id.id = botid.id
+            player_msg.id.team = botid.team
             player_msg.x = players[player_id][0]
             player_msg.y = players[player_id][1]
+            player_msg.orientation = 0  # Must set this otherwise it won't work
+            player_msg.present = True
 
     def reset(self) -> None:
         """
         Reset the scenario
         """
-        print(self.packet)
-
-        out = self.teleport_sock.sendto(
+        # print(self.packet)
+        print(self.packet.IsInitialized())
+        print(self.packet.control)
+        self.teleport_sock.sendto(
             self.packet.SerializeToString(),
             (socket.gethostbyname(self.remote_teleport_ip), self.remote_teleport_port),
         )
-        print(out, len(self.packet.SerializeToString()))
+
         # data = self.teleport_sock.recv(2048)
         # response = SimulatorCommand()
         # response.ParseFromString(data)
-        # print(response.control.teleport_ball)
+        # print(f"Received data: {response.control.teleport_ball}\n")
         # self.teleport_sock.close()
