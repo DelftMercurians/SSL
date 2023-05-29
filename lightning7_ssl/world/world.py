@@ -143,8 +143,8 @@ class World:
 
         # Check if any of the get() calls return None, if not create a new frame
         try:
-            ball = self.ball_status.get()
-            assert ball is not None
+            ball_state = self.ball_status.get()
+            assert ball_state is not None
             own_players = []
             for player in self.own_robots_status:
                 player_state = player.get()
@@ -155,7 +155,7 @@ class World:
                 player_state = player.get()
                 assert player_state is not None
                 opp_players.append(player_state)
-            self._last_frame = Frame(ball=ball, own_players=own_players, opp_players=opp_players)
+            self._last_frame = Frame(ball=ball_state, own_players=own_players, opp_players=opp_players)
             self.ctx.frames.append(self._last_frame)
             # Try to update data store
             self.data_store.update_player_and_ball_states(self._last_frame)
