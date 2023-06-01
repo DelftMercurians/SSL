@@ -1,51 +1,50 @@
 import asyncio
-import atexit
-import json
-import os
-import subprocess
-import time
-from multiprocessing import Pipe, Process
-from multiprocessing.connection import Connection
 from pathlib import Path
-from typing import TYPE_CHECKING, Dict, List, Optional
 
-if TYPE_CHECKING:
-    from ..vis.data_store import DataStore
+import uvicorn
+from starlette.applications import Starlette
+from starlette.responses import JSONResponse
+from starlette.routing import BaseRoute, Mount, Route
+from starlette.staticfiles import StaticFiles
+
+from lightning7_ssl.utils.rpc import AsyncService, expose
 
 SERVER_PORT = 5000
 dist_folder = Path(__file__).parent / "frontend" / "dist"
 
 
-def run_server(pipe: Connection, ui_dev_server=False):
-    """Run a web server to serve the visualization."""
-    import uvicorn
-    from starlette.applications import Starlette
-    from starlette.responses import JSONResponse
-    from starlette.routing import BaseRoute, Mount, Route
-    from starlette.staticfiles import StaticFiles
+class WebService(AsyncService):
+    state: dict | None = None
 
-    state: Dict = {}
+    def __init__(
+        self,
+        open_browser=False,
+        ui_dev_server=False,
+        ui_host: str | None = None,
+        ui_port: int | None = None,
+    ) -> None:
+        self.open_browser = open_browser
+        self.ui_dev_server = ui_dev_server
+        self.ui_host = ui_host
+        self.ui_port = ui_port
+        self.server_task = asyncio.create_task(self.run_server())
 
-    async def get_state(request):
-        return JSONResponse(state)
+    @expose
+    def set_state(self, state: dict):
+        self.state = state
 
-    async def pipe_reader():
-        loop = asyncio.get_event_loop()
-        while True:
-            try:
-                data = await loop.run_in_executor(None, pipe.recv)
-            except KeyboardInterrupt:
-                return
-            if isinstance(data, str):
-                state.update(json.loads(data))
-            elif isinstance(data, dict):
-                state.update(data)
+    async def get_state(
+        self,
+    ):
+        if self.state is None:
+            return JSONResponse(None, status_code=404)
+        return JSONResponse(self.state)
 
-    async def run_server() -> None:
-        routes: List[BaseRoute] = [
-            Route("/api/state", get_state),
+    async def run_server(self) -> None:
+        routes: list[BaseRoute] = [
+            Route("/api/state", self.get_state),
         ]
-        if not ui_dev_server:
+        if not self.ui_dev_server:
             routes.append(
                 Mount(
                     "/",
@@ -62,70 +61,6 @@ def run_server(pipe: Connection, ui_dev_server=False):
         print("Serving from " + str(dist_folder))
         try:
             await server.serve()
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, asyncio.CancelledError):
             print("Shutting down server")
             await server.shutdown()
-
-    async def main():
-        await asyncio.gather(run_server(), pipe_reader())
-
-    asyncio.run(main())
-
-
-class ServerWrapper:
-    _process: Optional[Process] = None
-    _dev_process: Optional[subprocess.Popen] = None
-
-    def __init__(
-        self,
-        open_browser=False,
-        ui_dev_server=False,
-        ui_host: str | None = None,
-        ui_port: int | None = None,
-    ) -> None:
-        if ui_dev_server:
-            env = dict(os.environ, PROXY_PORT=str(SERVER_PORT))
-            if open_browser:
-                env["OPEN_BROWSER"] = "1"
-            if ui_host is not None:
-                env["HOST"] = ui_host
-            if ui_port is not None:
-                env["PORT"] = str(ui_port)
-            self._dev_process = subprocess.Popen(
-                ["npm", "run", "dev", "--", "-l", "error"],
-                cwd=dist_folder.parent,
-                env=env,
-                stdin=subprocess.DEVNULL,
-            )
-            time.sleep(1)
-        self._pipe, child_pipe = Pipe()
-        self._process = Process(target=run_server, args=(child_pipe, ui_dev_server), daemon=True)
-        self._process.start()
-        atexit.register(self.stop)
-
-    def stop(self):
-        if self._process is not None and self._process.is_alive():
-            self._process.terminate()
-            print("Stopping web server... (this may take a few seconds)")
-            self._process.join(1)
-            if self._process.is_alive():
-                self._process.kill()
-            self._process = None
-        if self._dev_process is not None and self._dev_process.poll() is None:
-            self._dev_process.terminate()
-            print("Stopping dev server... (this may take a few seconds)")
-            self._dev_process.wait(1)
-            if self._dev_process.poll() is None:
-                self._dev_process.kill()
-            self._dev_process = None
-
-    def send(self, data):
-        if self._process is None or not self._process.is_alive():
-            raise RuntimeError("Server is not running")
-        self._pipe.send(data)
-
-    def step(self, _, ds: "DataStore") -> None:
-        self.send(ds.to_json())
-
-    def __del__(self):
-        self.stop()

@@ -132,7 +132,7 @@ class TestAsyncServiceAsyncProxy(unittest.IsolatedAsyncioTestCase):
 
                 os._exit(1)
 
-        self.srv = await MyAsyncService.aspawn()
+        self.srv = MyAsyncService.aspawn()
 
     async def asyncTearDown(self):
         await self.srv.close()
@@ -187,7 +187,7 @@ class TestSyncServiceAsyncProxy(unittest.IsolatedAsyncioTestCase):
 
                 os._exit(1)
 
-        self.srv = await MyService.aspawn()
+        self.srv = MyService.aspawn()
 
     async def asyncTearDown(self):
         await self.srv.close()

@@ -20,6 +20,15 @@ def _is_exposed(obj):
     return callable(obj) and getattr(obj, "__rpc_exposed__", False)
 
 
+def local_only(func: Callable):
+    func.__rpc_local_only__ = True  # type: ignore
+    return func
+
+
+def _is_local_only(obj):
+    return callable(obj) and getattr(obj, "__rpc_local_only__", False)
+
+
 def _close_process(proc: Process):
     proc.join(1)
     if not proc.is_alive():
@@ -71,6 +80,8 @@ class ServiceProxy:
         _close_process(self._process)
 
     def __getattr__(self, name):
+        if _is_local_only(getattr(self, name, None)):
+            return getattr(self, name)
         if not self._process.is_alive() or self._context.closed:
             raise ConnectionError("Service is not running")
         if name not in self._exposed_methods:
@@ -157,6 +168,8 @@ class AsyncServiceProxy:
         await self.close()
 
     def __getattr__(self, name):
+        if _is_local_only(getattr(self, name, None)):
+            return getattr(self, name)
         if not self._process.is_alive() or self._context.closed:
             raise ConnectionError("Service is not running")
         if name not in self._exposed_methods:
@@ -190,41 +203,53 @@ def _get_exposed_methods(cls: type) -> list[str]:
     return [name for name, attr in cls.__dict__.items() if _is_exposed(attr)]
 
 
-def _spawn(cls: type) -> tuple[Process, str]:
+def _spawn(cls: type, args: tuple, kwargs: dict) -> tuple[Process, str]:
     """Spawn a process and return the process and the url to connect to"""
+
+    def run(url_tx: Connection, args: tuple, kwargs: dict):
+        srv = cls(*args, **kwargs)
+        srv._context = srv.create_context()
+        srv._socket = srv._context.socket(zmq.REP)
+        srv._socket.bind("tcp://*:*")
+        url = srv._socket.getsockopt(zmq.LAST_ENDPOINT)
+        url_tx.send(url)
+        srv.main_loop()
+        srv.close()
+
     url_tx, url_rx = Pipe()
-    proc = Process(target=cls, args=(url_tx,))
+    proc = Process(target=run, args=(url_tx, args, kwargs))
     proc.start()
     return proc, url_rx.recv()
 
 
 class BaseService(metaclass=ABCMeta):
-    def __init__(self, url_tx: Connection):
-        self._context = self.create_context()
-        self._socket = self._context.socket(zmq.REP)
-        self._socket.bind("tcp://*:*")
-        url = self._socket.getsockopt(zmq.LAST_ENDPOINT)
-        url_tx.send(url)
-        self.main_loop()
+    _context: zmq.Context
+    _socket: zmq.Socket
+
+    def close(self):
+        """Close the service"""
+        self._socket.close()
+        self._context.destroy()
 
     @staticmethod
     @abstractmethod
     def create_context() -> zmq.Context:
         """Create the zmq context"""
-        raise NotImplementedError
+        raise NotImplementedError()
 
     @abstractmethod
     def main_loop(self):
-        raise NotImplementedError
+        """The main loop of the service"""
+        raise NotImplementedError()
 
     @classmethod
-    def spawn(cls):
-        proc, url = _spawn(cls)
+    def spawn(cls, *args, **kwargs):
+        proc, url = _spawn(cls, args, kwargs)
         return ServiceProxy(proc, url, _get_exposed_methods(cls))
 
     @classmethod
-    async def aspawn(cls):
-        proc, url = _spawn(cls)
+    def aspawn(cls, *args, **kwargs):
+        proc, url = _spawn(cls, args, kwargs)
         return AsyncServiceProxy(proc, url, _get_exposed_methods(cls))
 
 
@@ -294,10 +319,15 @@ class AsyncService(BaseService):
     def create_context() -> zmq.Context:
         return zmq.asyncio.Context()
 
+    async def async_setup(self):
+        """Called before the main loop is started, can be used to setup async resources"""
+        pass
+
     def main_loop(self):
         asyncio.run(self._async_main_loop())
 
     async def _async_main_loop(self):
+        await self.async_setup()
         while True:
             msg = await self._socket.recv_pyobj()
             if msg == _CLOSE_TOKEN:
@@ -314,4 +344,3 @@ class AsyncService(BaseService):
             else:
                 result = AttributeError(f"Method {method_name} not exposed in the service")
             await self._socket.send_pyobj(result)  # type: ignore
-        self._context.destroy()
