@@ -5,18 +5,17 @@ This repository contains Lightning7's (TU Delft RSA) software for the RoboCup Sm
 ## Development Kickstart
 
 1. Make sure you have all dependencies:
-   1. Python 3.9+ (you can use [pyenv](https://github.com/pyenv/pyenv) to change the version of Python you're using)
+   1. Python 3.11+ (you can use [pyenv](https://github.com/pyenv/pyenv) to change the version of Python you're using)
    2. Node.js 18+ (you can use [fnm](https://github.com/Schniz/fnm))
-   3. [Poetry](https://python-poetry.org/docs/#installation)
-   4. [PNPM](https://pnpm.io/installation)
-2. Run `poetry install` to download all the dependencies into a virtual environment
-3. Install the pre-commit hooks with `poetry run pre-commit install`
-4. Run `cd lightning7_ssl/web/frontend && pnpm install` to download all the frontend dependencies
-5. (*Optional*) Enter the newly created virtual env with `poetry shell`
+   3. [Rye](https://rye-up.com/guide/installation)
+   4. (If you want to work on the web frontend) [PNPM](https://pnpm.io/installation)
+2. Run `rye sync` to install all Python dependencies into a virtual environment
+3. Run `cd lightning7_ssl/web/frontend && pnpm install` to download all the frontend dependencies
+4. (*Optional*) Enter the newly created virtual env with `rye shell`
 
 To run the main program:
 ```bash
-poetry run python -m lightning7_ssl
+rye run python -m lightning7_ssl
 ```
 
 Available command-line arguments:
@@ -28,13 +27,16 @@ Available command-line arguments:
 
 Run the Python tests:
 ```bash
-poetry run python -m unittest
+rye run python -m unittest
 ```
 
 Add a Python dependency:
 ```bash
-poetry add ...
+rye add ...
+rye sync
 ```
+
+Remember to always run `sync` after adding a dependency!
 
 Add a frontend dependency (in `lightning7_ssl/web/frontend`):
 ```bash

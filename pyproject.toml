@@ -1,39 +1,48 @@
-[tool.poetry]
-name = "lightning7-ssl"
+[project]
+name = "lightning7_ssl"
 version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
-license = "MIT"
+description = "SSL software for Delft Mercurians"
 readme = "README.md"
-packages = [{ include = "lightning7_ssl" }]
-
-[tool.poetry.dependencies]
-python = "^3.11"
-protobuf = "^4.21.11"
-matplotlib = "^3.7.0"
-starlette = "^0.25.0"
-uvicorn = "^0.20.0"
-numpy = "^1.24.2"
-psutil = "^5.9.5"
-pyzmq = "^25.1.0"
-
-
-[tool.poetry.group.dev.dependencies]
-black = "^22.10.0"
-sphinx = "^6.1.3"
-flake8 = "^6.0.0"
-mypy = "^1.1.1"
-types-protobuf = "^4.22.0.0"
-mypy-protobuf = "^3.4.0"
-poethepoet = "^0.19.0"
-flake8-pyproject = "^1.2.3"
-isort = "^5.12.0"
-pre-commit = "^3.2.0"
-types-toml = "^0.10.8.6"
+requires-python = ">= 3.11"
+dependencies = [
+    "protobuf~=4.23.1",
+    "matplotlib~=3.7.1",
+    "starlette~=0.27.0",
+    "uvicorn~=0.22.0",
+    "numpy~=1.24.3",
+    "psutil~=5.9.5",
+    "pyzmq~=25.1.0",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "black~=23.3.0",
+    "sphinx~=7.0.1",
+    "flake8~=6.0.0",
+    "mypy~=1.3.0",
+    "types-protobuf~=4.23.0.1",
+    "mypy-protobuf~=3.4.0",
+    "flake8-pyproject~=1.2.3",
+    "isort~=5.12.0",
+    "pre-commit~=3.3.2",
+]
+
+[tool.rye.scripts]
+_mypy = "mypy -p lightning7_ssl --config-file pyproject.toml --follow-imports=silent --ignore-missing-imports"
+_flake8 = "flake8 lightning7_ssl"
+lint = { chain = ["_mypy", "_flake8"] }
+_isort = "isort lightning7_ssl"
+_black = "black lightning7_ssl"
+format = { chain = ["_isort", "_black"] }
+
+_isort_check = "isort --check lightning7_ssl"
+_black_check = "black --check lightning7_ssl"
+ci-check = ["_isort_check", "_black_check", "_mypy", "_flake8"]
 
 [tool.mypy]
 exclude = ["lightning7_ssl/docs/*"]
@@ -43,14 +52,3 @@ profile = "black"
 
 [tool.black]
 line-length = 110
-
-[tool.poe.tasks]
-_mypy = "mypy -p lightning7_ssl --config-file pyproject.toml --follow-imports=silent --ignore-missing-imports"
-lint = [{ ref = "_mypy" }, { cmd = "flake8 lightning7_ssl" }]
-format = [{ cmd = "isort lightning7_ssl" }, { cmd = "black lightning7_ssl" }]
-ci-check = [
-    { cmd = "isort --check lightning7_ssl" },
-    { cmd = "black --check lightning7_ssl" },
-    { ref = "_mypy" },
-    { cmd = "flake8 lightning7_ssl" },
-]
