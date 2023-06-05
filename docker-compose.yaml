@@ -12,24 +12,89 @@ services:
       - UI_HOST=0.0.0.0
       - UI_PORT=5173
       - OPEN_BROWSER=0
-    networks:
-      simulator_net:
-        ipv4_address: 172.18.0.2
+    # networks:
+      # simulator_net:
+      #   ipv4_address: 172.18.0.2
     ports:
       - "5173:5173"
     depends_on:
       - simulator
 
-  simulator:
-    container_name: ssl-simulator-1
-    build: ./simulator
-    networks:
-      simulator_net:
-        ipv4_address: 172.18.0.3
+  ssl-game-controller:
+    build:
+      context: github.com/RoboCup-SSL/ssl-game-controller.git
+      dockerfile: ./cmd/ssl-game-controller/Dockerfile
+    command:
+      - "-visionAddress"
+      - "224.5.23.2:10020"
+      - "-trackerAddress"
+      - "224.5.23.2:10010"
+      - "-publishAddress"
+      - "224.5.23.1:11003"
+      - "-address"
+      - ":8081"
+    volumes:
+      - "./config:/config:rw"
+    ports:
+      - "8081:8081/tcp"
 
-networks:
-  simulator_net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.18.0.0/16
+  ssl-vision-client:
+    image: "robocupssl/ssl-vision-client:1.6.0"
+    command:
+      - "-address"
+      - ":8082"
+      - "-visionAddress"
+      - "224.5.23.2:10020"
+    ports:
+      - "8082:8082/tcp"
+
+  autoref-tigers:
+    image: "tigersmannheim/auto-referee:1.0.0"
+    command:
+      - "-a" # active mode (connect to GC)
+      - "-hl" # headless
+      - "--visionAddress"
+      - "224.5.23.2:10020"
+      - "--refereeAddress"
+      - "224.5.23.1:11003"
+    depends_on:
+      - simulator
+
+  autoref-erforce:
+    image: "roboticserlangen/autoref:commit-8561e9c4f912"
+    command:
+      - "--vision-port"
+      - "10020"
+      - "--gc-port"
+      - "11003"
+    depends_on:
+      - simulator
+
+  simulator:
+    image: "roboticserlangen/simulatorcli:commit-6a4e1c06533b"
+    environment:
+      GEOMETRY: "2020"
+      REALISM: "RC2021"
+    ports:
+      - "10300/udp"
+      - "10301/udp"
+      - "10302/udp"
+
+  ssl-simulation-controller:
+    image: "robocupssl/ssl-simulation-controller:0.12.0"
+    command:
+      - "-refereeAddress"
+      - "224.5.23.1:11003"
+      - "-visionAddress"
+      - "224.5.23.2:10020"
+      - "-trackerAddress"
+      - "224.5.23.2:10010"
+      - "-simControlPort"
+      - "10300"
+
+# networks:
+#   simulator_net:
+#     driver: bridge
+#     ipam:
+#       config:
+#         - subnet: 172.18.0.0/16

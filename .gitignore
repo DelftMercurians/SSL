@@ -5,3 +5,5 @@ node_modules
 lightning7_ssl/docs/build/
 .mypy_cache
 .idea/
+config/*
+!config/.gitkeep
