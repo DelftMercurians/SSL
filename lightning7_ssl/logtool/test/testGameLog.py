@@ -66,7 +66,7 @@ class MyTestCase(unittest.TestCase):
         for p in ps:
             self.g.to_binary("../logs/game_scene/" + str(p) + ".log", p)
         """
-        self.g.save_game_track("../logs/data_game/")
+        self.g.save_game_track("../logs/data_game_2/")
 
     def test_game_data(self):
         data = np.load("../logs/data_game/(349818, 364692).npz")

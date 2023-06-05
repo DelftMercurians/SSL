@@ -138,6 +138,16 @@ def get_frames(data: bytes):
 
     return frames, headers
 
+def get_score(data: List):
+    """Returns the score of the game."""
+
+    score = {"blue": 0, "yellow": 0}
+    for frame in data:
+        if isinstance(frame, SSL_Referee):
+            if frame.command in STOP_COMMANDS:
+                score["blue"] = frame.blue.score
+                score["yellow"] = frame.yellow.score
+    return score
 
 class Gamelog:
     """Reads and writes gamelog files."""
@@ -148,6 +158,7 @@ class Gamelog:
     goal_scenes: List
     foul_scenes: List
     game_scenes: List
+    game_score: dict
     def __init__(self, data: List, headers: List = []):
         self.data = data
         self.headers = headers
@@ -155,6 +166,7 @@ class Gamelog:
         self.foul_scenes = []
         self.time_stamps = []
         self.game_scenes = []
+        self.game_statistics = get_score(self.data)
 
     @staticmethod
     def from_binary(path: str):
@@ -411,10 +423,10 @@ class Gamelog:
         return self.game_scenes
 
     def save_game_track(self, folder):
+
         self.get_game_scenes()
         robot_postions = {}
         for p in self.game_scenes:
-            print(p)
             for i in range(p[0], p[1]):
                 packet = self.data[i]
                 if isinstance(packet, SSL_WrapperPacket):
@@ -428,14 +440,20 @@ class Gamelog:
                         for r in packet.detection.robots_yellow:
                             pos = r.x, r.y
                             robot_postions[t][r.robot_id + MAX_ROBOT] = pos
+                        for ball_postion in packet.detection.balls:
+                            pos = ball_postion.x, ball_postion.y, ball_postion.z
+                            robot_postions[t]["ball"] = pos
             time_stamps = []
             robot_positions = []
             for key, value in robot_postions.items():
                 time_stamps.append(key)
-                positions = [(-10000, -10000) for i in range(MAX_ROBOT * 2)]
+                positions = [[-10000, -10000] for i in range(MAX_ROBOT * 2)]
                 for i in range(MAX_ROBOT * 2):
                     if i in value:
                         positions[i] = value[i]
-                robot_positions.append(positions)
+                robot_positions.append(np.array(positions, dtype=np.int16))
+            time_stamps = np.array(time_stamps, dtype=np.float64)
+            time_stamps = np.array(time_stamps - time_stamps[0], dtype=np.float32)
+            robot_positions = np.array(robot_positions, dtype=np.int16)
             np.savez_compressed(folder + "/" + str(p) + ".npz", time_stamps=time_stamps, robot_positions=robot_positions)
 
