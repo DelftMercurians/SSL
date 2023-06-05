@@ -6,6 +6,7 @@ lightning7_ssl/docs/build/
 .mypy_cache
 .idea/
 *.log
+lightning7_ssl/logtool/logs/
 *.gz
 *.json
 *.ipynb
