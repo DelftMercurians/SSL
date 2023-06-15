@@ -20,15 +20,6 @@ def _is_exposed(obj):
     return callable(obj) and getattr(obj, "__rpc_exposed__", False)
 
 
-def local_only(func: Callable):
-    func.__rpc_local_only__ = True  # type: ignore
-    return func
-
-
-def _is_local_only(obj):
-    return callable(obj) and getattr(obj, "__rpc_local_only__", False)
-
-
 def _close_process(proc: Process):
     proc.join(1)
     if not proc.is_alive():
@@ -80,8 +71,6 @@ class ServiceProxy:
         _close_process(self._process)
 
     def __getattr__(self, name):
-        if _is_local_only(getattr(self, name, None)):
-            return getattr(self, name)
         if not self._process.is_alive() or self._context.closed:
             raise ConnectionError("Service is not running")
         if name not in self._exposed_methods:
@@ -168,8 +157,6 @@ class AsyncServiceProxy:
         await self.close()
 
     def __getattr__(self, name):
-        if _is_local_only(getattr(self, name, None)):
-            return getattr(self, name)
         if not self._process.is_alive() or self._context.closed:
             raise ConnectionError("Service is not running")
         if name not in self._exposed_methods:
