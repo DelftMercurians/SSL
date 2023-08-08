@@ -85,21 +85,29 @@ class SSLClient:
         self.cmd_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         self.cmd_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.cmd_sock.bind((socket.gethostbyname(self.local_cmd_ip), 0))
-
+        """
         self.vision_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         self.vision_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.vision_sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 128)
         self.vision_sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_LOOP, 1)
         self.vision_sock.bind((self.vision_ip, self.vision_port))
-
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        """
+        self.vision_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.vision_sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP,
+                             socket.inet_aton('224.5.23.2') + socket.inet_aton('0.0.0.0'))
+        server_address = ('0.0.0.0', self.vision_port)
+        self.vision_sock.bind(server_address)
+        """
         host = socket.gethostbyname(socket.gethostname())
+
         self.vision_sock.setsockopt(socket.SOL_IP, socket.IP_MULTICAST_IF, socket.inet_aton(host))
         self.vision_sock.setsockopt(
             socket.SOL_IP,
             socket.IP_ADD_MEMBERSHIP,
             socket.inet_aton(self.vision_ip) + socket.inet_aton(host),
         )
-
+        """
         return self
 
     def __exit__(self, exc_type, exc_value, exc_tb):
